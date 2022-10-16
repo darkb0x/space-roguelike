@@ -899,6 +899,10 @@ MonoBehaviour:
     amount: 0
     UI_icon: {fileID: 0}
     UI_amount: {fileID: 0}
+  - item: {fileID: 11400000, guid: 5edefc861c3bd0c468eb62f55faf4ca7, type: 2}
+    amount: 0
+    UI_icon: {fileID: 0}
+    UI_amount: {fileID: 0}
   uiElements_tranform: {fileID: 439114116}
   itemInUI_prefab: {fileID: 2780875277850686497, guid: 5666c237387a3a34abdee26b1bde0cf3, type: 3}
 --- !u!4 &2095297674
