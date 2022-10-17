@@ -11,8 +11,7 @@ public class DA_mine : DroneAction
     Vector3 moveTarget;
     float mineTime;
     bool doMove = false;
-
-    [Space]
+ 
     [SerializeField] private float maxDistance = 7f; // Between drone and player
     [SerializeField] private float minDistance = 1.2f; // Between drone and player if target ore is null;
     [SerializeField] private float moveSpeed = 0.2f;
@@ -25,6 +24,7 @@ public class DA_mine : DroneAction
         myTransform = drone.transform;
         playerInventory = FindObjectOfType<PlayerInventory>();
 
+        drone.playerDrCo.AttachMinerDrone(drone);
         mineTime = mineSpeed;
     }
 

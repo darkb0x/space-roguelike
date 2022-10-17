@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class DroneAI : MonoBehaviour
 {
     [Header("States")]
-    [SerializeField, NaughtyAttributes.Expandable] private DroneAction action;
+    [SerializeField, Expandable] private DroneAction action;
+
+    [Header("Render")]
+    public Transform spriteTransform;
+
+    [Header("Other")]
+    [ReadOnly] public PlayerDronesController playerDrCo;
+    [ReadOnly] public Ore targetOre;
+    [ReadOnly] public EnemyAI targetEnemy;
 
     DroneAction currentAction;
     PlayerController player;
     Transform playerTransform;
     [HideInInspector] public Rigidbody2D rb;
     new Transform transform;
-    [HideInInspector] public Ore targetOre;
 
     private void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        playerDrCo = FindObjectOfType<PlayerDronesController>();
         transform = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         playerTransform = player.transform;
@@ -48,6 +57,11 @@ public class DroneAI : MonoBehaviour
             targetOre = o;
         }
 
+        if (collision.TryGetComponent<EnemyAI>(out EnemyAI e))
+        {
+            targetEnemy = e;
+        }
+
         action.TriggerEnter(collision);
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -57,5 +71,10 @@ public class DroneAI : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         action.TriggerExit(collision);
+    }
+
+    private void OnDestroy()
+    {
+        playerDrCo.DetachDrone(this);
     }
 }

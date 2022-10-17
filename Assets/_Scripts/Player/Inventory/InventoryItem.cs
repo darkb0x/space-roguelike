@@ -6,7 +6,7 @@ using UnityEngine;
 public class InventoryItem : ScriptableObject
 {
     [SerializeField, NaughtyAttributes.ShowAssetPreview] private Sprite icon;
-    [SerializeField, Min(1)] private int cost;
+    [SerializeField, Min(1)] private int cost = 1;
 
     public Sprite _icon => icon;
     public int _cost => cost;

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   drone: {fileID: 0}
-  maxDistance: 7
+  maxDistance: 5
   minDistance: 1.2
   moveSpeed: 3
   mineSpeed: 1.3
