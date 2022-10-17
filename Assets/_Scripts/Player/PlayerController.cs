@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     Vector2 move_input;
 
-    Rigidbody2D rigidbody;
+    new Rigidbody2D rigidbody;
     PlayerInventory inventory;
 
     private void Start()

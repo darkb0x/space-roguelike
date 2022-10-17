@@ -3,32 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class Item
-{
-    [NaughtyAttributes.Expandable] public InventoryItem item;
-    public int amount;
-
-    [HideInInspector] public Image UI_icon;
-    [HideInInspector] public Text UI_amount;
-
-    public void Add(int value)
-    {
-        this.amount += value;
-    }
-    public void Take(int value)
-    {
-        this.amount -= value;
-    }
-    public void SetUI(Image img, Text text)
-    {
-        UI_icon = img;
-        UI_amount = text;
-    }
-}
-
 public class PlayerInventory : MonoBehaviour
 {
+    [System.Serializable]
+    public class Item
+    {
+        [NaughtyAttributes.Expandable] public InventoryItem item;
+        public int amount;
+
+        [HideInInspector] public Image UI_icon;
+        [HideInInspector] public Text UI_amount;
+
+        public void Add(int value)
+        {
+            this.amount += value;
+        }
+        public void Take(int value)
+        {
+            this.amount -= value;
+        }
+        public void SetUI(Image img, Text text)
+        {
+            UI_icon = img;
+            UI_amount = text;
+        }
+    }
+
     [Header("Inventory")]
     public List<Item> items = new List<Item>();
 
