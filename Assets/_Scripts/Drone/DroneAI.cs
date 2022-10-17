@@ -15,12 +15,14 @@ public class DroneAI : MonoBehaviour
     [ReadOnly] public PlayerDronesController playerDrCo;
     [ReadOnly] public Ore targetOre;
     [ReadOnly] public EnemyAI targetEnemy;
+    public bool isPicked = false;
 
     DroneAction currentAction;
     PlayerController player;
     Transform playerTransform;
     [HideInInspector] public Rigidbody2D rb;
     new Transform transform;
+    
 
     private void Start()
     {
@@ -29,17 +31,33 @@ public class DroneAI : MonoBehaviour
         transform = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         playerTransform = player.transform;
+    }
 
+    public void Init()
+    {
+        isPicked = true;
         SetAction(action);
     }
 
     public void Update()
     {
-        currentAction.Run();
+        if(isPicked) currentAction.Run();
     }
     public void FixedUpdate()
     {
-        currentAction.FixedRun();
+        if(isPicked) currentAction.FixedRun();
+    }
+
+    public void RotationUpdate(Transform point, float direction, float rangeFromPoint)
+    {
+        transform.position = (Vector2)point.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * rangeFromPoint;
+    }
+
+    public Vector2 GetReturnPos()
+    {
+        float direction = playerDrCo.GetDegressValue();
+        Vector2 pos = (Vector2)playerDrCo.transform.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * playerDrCo.distance;
+        return pos;
     }
 
     public void SetAction(DroneAction d)

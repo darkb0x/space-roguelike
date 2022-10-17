@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "drone action protect", menuName = "Drone/new action protect")]
-public class DA_protect : DroneAction
+[CreateAssetMenu(fileName = "drone action attack", menuName = "Drone/new action attack")]
+public class DA_attack : DroneAction
 {
     float radiusValue = 0;
     Transform playerTransform;
     Transform myTransform;
+    Vector3 moveTarget;
+    bool doRotate = true;
     float attackTime;
 
     [SerializeField] private float rotateSpeed;
@@ -23,26 +25,38 @@ public class DA_protect : DroneAction
     {
         playerTransform = player.transform;
         myTransform = drone.transform;
-        attackTime = timeBtwAttack;
 
-        drone.playerDrCo.AttachProtectorDrone(drone);
-        drone.playerDrCo.AttachRotateDrones(drone);
+        drone.playerDrCo.AttachAttackerDrone(drone);
     }
 
     public override void Run()
     {
-        //attack
-        if (drone.targetEnemy != null)
+        // rotate
+        Rotate();
+
+        // attack
+        if(drone.targetEnemy != null)
         {
             if (Vector2.Distance(playerTransform.position, drone.targetEnemy.transform.position) > maxDistanceBtwPlayerAndEnemy)
             {
                 drone.targetEnemy = null;
+                moveTarget = playerTransform.position;
             }
             else
             {
+                moveTarget = drone.targetEnemy.transform.position;
                 Attack();
             }
         }
+        else
+        {
+            moveTarget = playerTransform.position;
+        }
+    }
+
+    public override void FixedRun()
+    {
+        myTransform.position = Vector2.MoveTowards(myTransform.position, moveTarget, moveSpeed * Time.fixedDeltaTime);
     }
 
     void Attack()
@@ -57,5 +71,14 @@ public class DA_protect : DroneAction
         {
             attackTime -= Time.deltaTime;
         }
+    }
+
+    void Rotate()
+    {
+        radiusValue += Time.deltaTime * drone.playerDrCo.droneRotationSpeed;
+
+        float x = Mathf.Cos(radiusValue) * radius;
+        float y = Mathf.Sin(radiusValue) * radius;
+        drone.spriteTransform.localPosition = new Vector3(x, y, 0);
     }
 }

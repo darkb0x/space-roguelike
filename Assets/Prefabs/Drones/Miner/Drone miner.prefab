@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084228708040009997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.44, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1084228707168421553}
@@ -129,9 +129,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   action: {fileID: 11400000, guid: 66816131ecbad8d46a4ca3d7d04e0f0f, type: 2}
+  spriteTransform: {fileID: 1084228707168421553}
   playerDrCo: {fileID: 0}
-  rb: {fileID: 0}
   targetOre: {fileID: 0}
+  targetEnemy: {fileID: 0}
+  isPicked: 0
+  rb: {fileID: 0}
 --- !u!58 &1084228708040009996
 CircleCollider2D:
   m_ObjectHideFlags: 0

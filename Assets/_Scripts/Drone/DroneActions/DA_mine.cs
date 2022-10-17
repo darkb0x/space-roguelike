@@ -13,7 +13,6 @@ public class DA_mine : DroneAction
     bool doMove = false;
  
     [SerializeField] private float maxDistance = 7f; // Between drone and player
-    [SerializeField] private float minDistance = 1.2f; // Between drone and player if target ore is null;
     [SerializeField] private float moveSpeed = 0.2f;
     [SerializeField] private float mineSpeed = 1.3f;
     [SerializeField] private int itemPerTime = 1;
@@ -25,13 +24,17 @@ public class DA_mine : DroneAction
         playerInventory = FindObjectOfType<PlayerInventory>();
 
         drone.playerDrCo.AttachMinerDrone(drone);
+        drone.playerDrCo.AttachRotateDrones(drone);
         mineTime = mineSpeed;
     }
 
     public override void Run()
     {
+        Vector3 returnPos = drone.GetReturnPos();
+        Debug.Log(returnPos);
         if (drone.targetOre != null && Vector2.Distance(myTransform.position, playerTransform.position) < maxDistance)
         {
+            drone.playerDrCo.DetachRotateDrones(drone);
             if (CheckMove(drone.targetOre.transform.position)) 
             {
                 Mine();
@@ -44,15 +47,29 @@ public class DA_mine : DroneAction
                 doMove = true;
             }
         }
-        else if (drone.targetOre == null && Vector2.Distance(myTransform.position, playerTransform.position) > minDistance)
+        else if(drone.targetOre == null && Vector2.Distance(myTransform.position, returnPos) > drone.playerDrCo.distance)
         {
-            moveTarget = playerTransform.position;
+            moveTarget = returnPos;
             doMove = true;
+        }
+        else if(drone.targetOre == null && Vector2.Distance(myTransform.position, returnPos) <= drone.playerDrCo.distance)
+        {
+            doMove = false;
+            if (Vector2.Distance(myTransform.position, returnPos) >= 0.3f)
+            {
+                myTransform.position = Vector2.LerpUnclamped(myTransform.position, returnPos, moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                drone.playerDrCo.AttachRotateDrones(drone);
+            }
         }
 
         if (Vector2.Distance(myTransform.position, playerTransform.position) > maxDistance)
         {
             drone.targetOre = null;
+            moveTarget = returnPos;
+            doMove = true;
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -9,10 +10,14 @@ public class EnemyAI : MonoBehaviour
     [Space]
     [SerializeField] private int protection;
     [SerializeField] private int hp_protection;
+    [Space]
+    [SerializeField] private GameObject hpBar_object;
+    [SerializeField] private Image hpBar_image;
 
     private void Start()
     {
         hp = maxHp;
+        hpBar_object.SetActive(false);
     }
 
     public void TakeDamage(int value)
@@ -31,6 +36,12 @@ public class EnemyAI : MonoBehaviour
         else
         {
             hp -= dmg;
+        }
+
+        if(hp < maxHp)
+        {
+            hpBar_object.SetActive(true);
+            hpBar_image.fillAmount = (float)hp / (float)maxHp;
         }
 
         if (hp <= 0)
