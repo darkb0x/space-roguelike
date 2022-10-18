@@ -55,7 +55,7 @@ public class DroneAI : MonoBehaviour
 
     public Vector2 GetReturnPos()
     {
-        float direction = playerDrCo.GetDegressValue();
+        float direction = playerDrCo.GetDirValue();
         Vector2 pos = (Vector2)playerDrCo.transform.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * playerDrCo.distance;
         return pos;
     }

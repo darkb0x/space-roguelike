@@ -21,7 +21,6 @@ public class PlayerDronesController : MonoBehaviour
     [Space]
     public float droneRotationSpeed;
     public float distance = 2.3f;
-    public bool doRotate = true;
 
     Camera cam;
 
@@ -39,14 +38,16 @@ public class PlayerDronesController : MonoBehaviour
     float dir = 0;
     int i = 0;
 
-    public float GetDegressValue()
+    public float GetDirValue()
     {
-        return (i / (float)(rotateDrones.Count + 1) * 360 + dir);
+        float value = (i / (float)(rotateDrones.Count + 1)) * 360 + dir;
+        Debug.Log(value);
+        return value;
     }
 
     private void Update()
     {
-        if(doRotate) dir += Time.deltaTime * droneRotationSpeed;
+        dir += Time.deltaTime * droneRotationSpeed;
 
         foreach (var rotator in rotateDrones)
         {

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private int maxHp;
-    [SerializeField] private int hp;
+    public int hp;
     [Space]
     [SerializeField] private int protection;
     [SerializeField] private int hp_protection;

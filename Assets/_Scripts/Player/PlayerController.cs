@@ -7,15 +7,21 @@ public class PlayerController : MonoBehaviour
     [Header("movement")]
     [SerializeField] private float speed;
 
+    [Header("picked turret")]
+    [SerializeField, NaughtyAttributes.ReadOnly] TurretAI selectedTurret;
+    [SerializeField] private Transform pickedTurretPosition;
+
     Vector2 move_input;
 
     new Rigidbody2D rigidbody;
+    new Transform transform;
     PlayerInventory inventory;
 
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         inventory = FindObjectOfType<PlayerInventory>();
+        transform = GetComponent<Transform>();
     }
 
     private void Update()
@@ -43,9 +49,14 @@ public class PlayerController : MonoBehaviour
         {
             if(!drone.isPicked) selectedDrone = drone;
         }
+        if (collision.TryGetComponent<TurretAI>(out TurretAI turret))
+        {
+            if (!selectedTurret) selectedTurret = turret;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         selectedDrone = null;
+        selectedTurret = null;
     }
 }

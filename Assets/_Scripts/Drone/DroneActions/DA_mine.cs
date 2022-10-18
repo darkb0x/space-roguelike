@@ -31,7 +31,6 @@ public class DA_mine : DroneAction
     public override void Run()
     {
         Vector3 returnPos = drone.GetReturnPos();
-        Debug.Log(returnPos);
         if (drone.targetOre != null && Vector2.Distance(myTransform.position, playerTransform.position) < maxDistance)
         {
             drone.playerDrCo.DetachRotateDrones(drone);
@@ -40,29 +39,22 @@ public class DA_mine : DroneAction
                 Mine();
                 doMove = false;
             }
-                
             else
             {
                 moveTarget = drone.targetOre.transform.position;
                 doMove = true;
             }
         }
-        else if(drone.targetOre == null && Vector2.Distance(myTransform.position, returnPos) > drone.playerDrCo.distance)
+        else if(drone.targetOre == null)
         {
             moveTarget = returnPos;
             doMove = true;
         }
-        else if(drone.targetOre == null && Vector2.Distance(myTransform.position, returnPos) <= drone.playerDrCo.distance)
+
+        if(moveTarget == returnPos && CheckMove(returnPos))
         {
+            drone.playerDrCo.AttachRotateDrones(drone);
             doMove = false;
-            if (Vector2.Distance(myTransform.position, returnPos) >= 0.3f)
-            {
-                myTransform.position = Vector2.LerpUnclamped(myTransform.position, returnPos, moveSpeed * Time.deltaTime);
-            }
-            else
-            {
-                drone.playerDrCo.AttachRotateDrones(drone);
-            }
         }
 
         if (Vector2.Distance(myTransform.position, playerTransform.position) > maxDistance)
@@ -83,7 +75,7 @@ public class DA_mine : DroneAction
 
     bool CheckMove(Vector3 target)
     {
-        if (Vector2.Distance(myTransform.position, target) <= 0.3f)
+        if (Vector2.Distance(myTransform.position, target) <= 0.2f)
             return true;
         else
         {
