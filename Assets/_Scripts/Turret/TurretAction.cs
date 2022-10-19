@@ -3,15 +3,6 @@ using UnityEngine;
 
 public abstract class TurretAction : ScriptableObject
 {
-    [System.Serializable]
-    public struct Item
-    {
-        public InventoryItem item;
-        public int amount;
-    }
-
-    public List<Item> DroppedItems;
-
     [HideInInspector] public PlayerController player;
     [HideInInspector] public TurretAI turret;
 

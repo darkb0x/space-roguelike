@@ -2,20 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Laser : Bullet
 {
-    [Header("скорость, дистанция, время")]
-    public float speed;
-    public float lifeTime;
-    public float distance;
-
-    [Header("урон")]
-    [NaughtyAttributes.ReadOnly] public int damage;
-    public LayerMask whatIsSolid;
-
     new Transform transform;
 
-    public virtual void Init(int dmg)
+    public override void Init(int dmg)
     {
         transform = GetComponent<Transform>();
 
@@ -23,16 +14,19 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-    public virtual void Update()
+    public override void Update()
     {
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, distance, whatIsSolid);
         if (hitInfo.collider != null)
         {
-            if(hitInfo.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
+            if (hitInfo.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
             {
                 enemy.TakeDamage(damage);
             }
-            Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }

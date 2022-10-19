@@ -40,8 +40,7 @@ public class PlayerDronesController : MonoBehaviour
 
     public float GetDirValue()
     {
-        float value = (i / (float)(rotateDrones.Count+1)) * 360f + dir;
-        Debug.Log(value);
+        float value = (i / (float)(rotateDrones.Count)) * 360f + dir;
         return value;
     }
 
