@@ -5,7 +5,7 @@ using UnityEngine;
 public class Exploison : MonoBehaviour
 {
     [SerializeField] private float radius;
-    int damage;
+    float damage;
     LayerMask layers;
 
     private void OnDrawGizmosSelected()
@@ -14,7 +14,7 @@ public class Exploison : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    public void Init(int dmg, LayerMask mask, float r)
+    public void Init(float dmg, LayerMask mask, float r)
     {
         damage = dmg;
         layers = mask;

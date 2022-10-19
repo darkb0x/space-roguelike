@@ -19,7 +19,7 @@ public class BulletGrenade : Bullet
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    public override void Init(int dmg)
+    public override void Init(float dmg)
     {
         rb = GetComponent<Rigidbody2D>();
         myTransform = GetComponent<Transform>();

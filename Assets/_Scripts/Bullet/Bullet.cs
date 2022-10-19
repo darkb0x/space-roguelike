@@ -10,12 +10,12 @@ public class Bullet : MonoBehaviour
     public float distance;
 
     [Header("урон")]
-    [NaughtyAttributes.ReadOnly] public int damage;
+    [NaughtyAttributes.ReadOnly] public float damage;
     public LayerMask whatIsSolid;
 
     new Transform transform;
 
-    public virtual void Init(int dmg)
+    public virtual void Init(float dmg)
     {
         transform = GetComponent<Transform>();
 

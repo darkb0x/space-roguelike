@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "turret action laser", menuName = "Turret/AI/new laser")]
-public class TA_laser : TurretAction
+[CreateAssetMenu(fileName = "turret action firegun", menuName = "Turret/AI/new firegun")]
+public class TA_firegun : TurretAction
 {
     [SerializeField] private float laserDistance;
     [SerializeField] private LayerMask layers;
+    [Space]
+    [SerializeField] private float emissionValue = 70;
+    [SerializeField] private float fireEnabledSpeed = 2;
+
     float attackTime;
 
     public override void Init()
@@ -17,6 +21,7 @@ public class TA_laser : TurretAction
     public override void Run()
     {
         Debug.DrawLine(turret.shotPos.position, turret.shotPos.position + turret.turret_canon.right * laserDistance);
+        turret.fireParticles.emissionRate = Mathf.Lerp(turret.fireParticles.emissionRate, turret.enemyInZone ? emissionValue : 0, fireEnabledSpeed * Time.deltaTime);
         if (turret.enemyInZone)
         {
             Attack();
@@ -28,7 +33,6 @@ public class TA_laser : TurretAction
         if (attackTime <= 0)
         {
             RaycastHit2D[] hits = Physics2D.RaycastAll(turret.shotPos.position, turret.turret_canon.right, laserDistance, layers);
-            Vector3 hitPos = Vector3.zero;
             foreach (var hit in hits)
             {
                 if (hit.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
@@ -37,13 +41,9 @@ public class TA_laser : TurretAction
                 }
                 else
                 {
-                    hitPos = hit.point;
                     break;
                 }
             }
-            BulletTrail b = Instantiate(turret.bulletPrefab, turret.shotPos.position, Quaternion.identity).GetComponent<BulletTrail>();
-            b.Init(hitPos);
-
             attackTime = turret.timeBtwAttack;
         }
         else

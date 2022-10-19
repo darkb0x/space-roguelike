@@ -13,7 +13,7 @@ public class TurretStats : ScriptableObject
     }
 
     public GameObject bulletPrefab;
-    public int damage;
+    public float damage;
     public float timeBtwAttack = 0.3f;
 
     [Space]

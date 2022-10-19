@@ -12,7 +12,7 @@ public class TurretAI : MonoBehaviour
     [Expandable] public TurretStats stats;
 
     [HideInInspector] public GameObject bulletPrefab;
-    [HideInInspector] public int damage;
+    [HideInInspector] public float damage;
     [HideInInspector] public float timeBtwAttack = 0.3f;
 
     [Header("actions")]
@@ -24,6 +24,7 @@ public class TurretAI : MonoBehaviour
     [Header("other")]
     public bool isPicked;
     [SerializeField] private Collider2D coll;
+    [Tooltip("Only on frie turret")] public ParticleSystem fireParticles;
 
     TurretAction currentAction;
     PlayerController player;
