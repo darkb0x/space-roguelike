@@ -28,7 +28,7 @@ public class TA_laser : TurretAction
         if (attackTime <= 0)
         {
             RaycastHit2D[] hits = Physics2D.RaycastAll(turret.shotPos.position, turret.turret_canon.right, laserDistance, layers);
-            Vector3 hitPos = Vector3.zero;
+            Vector3 hitPos = hits[0].point;
             foreach (var hit in hits)
             {
                 hitPos = hit.point;
@@ -42,7 +42,7 @@ public class TA_laser : TurretAction
                     break;
                 }
             }
-            BulletTrail b = Instantiate(turret.bulletPrefab, turret.shotPos.position, Quaternion.identity).GetComponent<BulletTrail>();
+            BulletLine b = Instantiate(turret.bulletPrefab, turret.shotPos.position, Quaternion.identity).GetComponent<BulletLine>();
             b.Init(hitPos);
 
             attackTime = turret.timeBtwAttack;

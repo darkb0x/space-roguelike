@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e30fd6d92b92747b521175bb468f65, type: 3}
   m_Name: laser - 1
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7431778343599882032, guid: 2e3f6fcce0aac0d4c8ae6d7d6544f8fd, type: 3}
+  bulletPrefab: {fileID: 4042063460428676577, guid: 9c80ed06451c41e46adc5863f66ae8dc, type: 3}
   damage: 15
-  timeBtwAttack: 1.3
+  timeBtwAttack: 3
+  recoil: 0
   DroppedItems:
   - item: {fileID: 11400000, guid: db620b8eef33cbd4aa1518c2a713a4d6, type: 2}
     amount: 2
