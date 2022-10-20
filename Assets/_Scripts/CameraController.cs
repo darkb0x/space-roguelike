@@ -30,7 +30,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        currentZoom = Mathf.Clamp(currentZoom + Input.mouseScrollDelta.y * scrollSpeed, minCamViewScale, maxCamViewScale);
+        currentZoom = Mathf.Clamp(currentZoom + -Input.mouseScrollDelta.y * scrollSpeed, minCamViewScale, maxCamViewScale);
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
     }
 

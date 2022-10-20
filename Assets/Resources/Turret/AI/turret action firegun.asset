@@ -19,5 +19,5 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 513
-  emissionValue: 70
+  emissionValue: 30
   fireEnabledSpeed: 4

@@ -54,7 +54,7 @@ public class BulletGrenade : Bullet
 
     void SpawnExploinson()
     {
-        Exploison obj = Instantiate(exploisonGameObj, myTransform.position, Quaternion.identity).GetComponent<Exploison>();
+        Exploison obj = Instantiate(exploisonGameObj, myTransform.position, Quaternion.Euler(0,0,Random.Range(0,360))).GetComponent<Exploison>();
         obj.Init(damage, whatIsSolid, radius);
 
         Destroy(gameObject);
