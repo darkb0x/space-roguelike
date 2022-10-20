@@ -15,6 +15,7 @@ public class TurretStats : ScriptableObject
     public GameObject bulletPrefab;
     public float damage;
     public float timeBtwAttack = 0.3f;
+    public float recoil = 0f;
 
     [Space]
 

@@ -16,7 +16,7 @@ public class TA_laser : TurretAction
 
     public override void Run()
     {
-        Debug.DrawLine(turret.shotPos.position, turret.shotPos.position + turret.turret_canon.right * laserDistance);
+        Debug.DrawRay(turret.shotPos.position, turret.turret_canon.right * laserDistance);
         if (turret.enemyInZone)
         {
             Attack();
@@ -31,13 +31,14 @@ public class TA_laser : TurretAction
             Vector3 hitPos = Vector3.zero;
             foreach (var hit in hits)
             {
+                hitPos = hit.point;
+
                 if (hit.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
                 {
                     enemy.TakeDamage(turret.damage);
                 }
                 else
                 {
-                    hitPos = hit.point;
                     break;
                 }
             }

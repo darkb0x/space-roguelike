@@ -24,7 +24,9 @@ public class TA_standart : TurretAction
     {
         if (attackTime <= 0)
         {
+            float z = Random.Range(-turret.recoil, turret.recoil);
             Bullet b = Instantiate(turret.bulletPrefab, turret.shotPos.position, turret.shotPos.rotation).GetComponent<Bullet>();
+            b.gameObject.transform.Rotate(0, 0, z);
             b.Init(turret.damage);
             attackTime = turret.timeBtwAttack;
         }

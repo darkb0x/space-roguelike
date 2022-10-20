@@ -137,12 +137,14 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8391570029910690502, guid: 6813694968dd8b84d81c9ed897fb2ecd, type: 3}
   damage: 2
   timeBtwAttack: 0.3
+  recoil: 0
   action: {fileID: 11400000, guid: 1e3ee18d3bc99fd45aa04fe031986514, type: 2}
   currentEnemy: {fileID: 0}
   enemyInZone: 0
   enemyTag: Enemy
   isPicked: 0
   coll: {fileID: 2583191332210741103}
+  fireParticles: {fileID: 0}
 --- !u!61 &2583191332210741103
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -319,7 +321,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 7
 --- !u!1 &2583191333663546963
 GameObject:
   m_ObjectHideFlags: 0

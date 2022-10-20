@@ -14,6 +14,7 @@ public class TurretAI : MonoBehaviour
     [HideInInspector] public GameObject bulletPrefab;
     [HideInInspector] public float damage;
     [HideInInspector] public float timeBtwAttack = 0.3f;
+    [HideInInspector] public float recoil = 0f;
 
     [Header("actions")]
     [SerializeField, Expandable] private TurretAction action;
@@ -29,19 +30,27 @@ public class TurretAI : MonoBehaviour
     TurretAction currentAction;
     PlayerController player;
     PlayerInventory inventory;
-    new Transform transform;
+
+    private void OnDrawGizmosSelected()
+    {
+        if(currentEnemy != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, currentEnemy.transform.position);
+        }
+    }
 
     private void Start()
     {
         player = FindObjectOfType<PlayerController>();
         inventory = FindObjectOfType<PlayerInventory>();
-        transform = GetComponent<Transform>();
 
         SetAction(action);
 
         bulletPrefab = stats.bulletPrefab;
         damage = stats.damage;
         timeBtwAttack = stats.timeBtwAttack;
+        recoil = stats.recoil;
 
         //coll.enabled = false;
     }

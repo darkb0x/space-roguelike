@@ -15,6 +15,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8391570029910690502, guid: 58e9ba1f092aedc43a93f65e1db1ad4a, type: 3}
   damage: 1
   timeBtwAttack: 0.15
+  recoil: 8
   DroppedItems:
   - item: {fileID: 11400000, guid: 5e621bffa0925644db8ed8574f3942e0, type: 2}
     amount: 2

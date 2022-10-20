@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     [Header("урон")]
     [NaughtyAttributes.ReadOnly] public float damage;
     public LayerMask whatIsSolid;
+    public GameObject destroyEffect;
 
     new Transform transform;
 
@@ -32,8 +33,16 @@ public class Bullet : MonoBehaviour
             {
                 enemy.TakeDamage(damage);
             }
-            Destroy(gameObject);
+            DestroyBullet();
         }
         transform.Translate(Vector2.right * speed * Time.deltaTime);
+    }
+
+    public void DestroyBullet()
+    {
+        if(destroyEffect != null)
+            Instantiate(destroyEffect, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);
     }
 }
