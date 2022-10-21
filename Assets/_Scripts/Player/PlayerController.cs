@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,25 +9,33 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
 
     [Header("picked turret")]
-    [SerializeField, NaughtyAttributes.ReadOnly] TurretAI selectedTurret;
+    [SerializeField, ReadOnly] TurretAI selectedTurret;
     [SerializeField] private Transform pickedTurretPosition;
 
-    Vector2 move_input;
+    [Header("animator")]
+    [SerializeField] private Animator anim;
+    [Space]
+    [AnimatorParam("anim"), SerializeField] string anim_runHorizontal;
+    [AnimatorParam("anim"), SerializeField] string anim_runVertical;
+    [AnimatorParam("anim"), SerializeField] string anim_isRunning;
 
-    new Rigidbody2D rigidbody;
+    Vector2 moveInput;
+
+    Rigidbody2D rb;
     new Transform transform;
     PlayerInventory inventory;
+    
 
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         inventory = FindObjectOfType<PlayerInventory>();
         transform = GetComponent<Transform>();
     }
 
     private void Update()
     {
-        move_input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         if(Input.GetKeyDown(KeyCode.E))
         {
@@ -35,11 +44,16 @@ public class PlayerController : MonoBehaviour
                 if (!selectedDrone.isPicked) selectedDrone.Init();
             }
         }
+
+        //animation
+        anim.SetFloat(anim_runHorizontal, moveInput.x);
+        anim.SetFloat(anim_runVertical, moveInput.y);
+        anim.SetBool(anim_isRunning, moveInput.magnitude > 0);
     }
 
     private void FixedUpdate()
     {
-        rigidbody.MovePosition(rigidbody.position + (move_input * speed) * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
     }
 
     DroneAI selectedDrone;

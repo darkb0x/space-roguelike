@@ -1601,6 +1601,7 @@ GameObject:
   - component: {fileID: 2021778799}
   - component: {fileID: 2021778795}
   - component: {fileID: 2021778796}
+  - component: {fileID: 2021778800}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1687,6 +1688,10 @@ MonoBehaviour:
   speed: 3
   selectedTurret: {fileID: 0}
   pickedTurretPosition: {fileID: 394158599}
+  anim: {fileID: 2021778800}
+  anim_runHorizontal: Horizontal
+  anim_runVertical: Vertical
+  anim_isRunning: isRunning
 --- !u!114 &2021778799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1708,6 +1713,25 @@ MonoBehaviour:
     m_Bits: 640
   droneRotationSpeed: 50
   distance: 2
+--- !u!95 &2021778800
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021778794}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6a8f92359b404ee42aaddc8227f3530b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2072818464
 PrefabInstance:
   m_ObjectHideFlags: 0
