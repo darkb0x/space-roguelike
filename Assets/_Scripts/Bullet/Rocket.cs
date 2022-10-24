@@ -16,11 +16,13 @@ public class Rocket : MonoBehaviour
     [SerializeField] private float radius;
     [NaughtyAttributes.ReadOnly] public float damage;
     [Space]
+    [SerializeField] private float fuel = 6f;
     [SerializeField] private float lifeTime = 3f;
     [SerializeField] private float rotationTime = 1.2f;
 
     bool selfMove = false;
 
+    Transform moveTarget;
     new Transform myTansform;
 
     private void OnDrawGizmosSelected()
@@ -35,6 +37,11 @@ public class Rocket : MonoBehaviour
 
     private void Update()
     {
+        if (fuel > 0 && moveTarget != null)
+            ControlMoveToTarget(moveTarget.position);
+        else
+            StopControl();
+
         if(selfMove)
         {
             myTansform.Translate(Vector2.right * speed * Time.deltaTime);
@@ -50,8 +57,9 @@ public class Rocket : MonoBehaviour
         }
     }
 
-    public void Init(float dmg)
+    public void Init(float dmg, Transform target)
     {
+        moveTarget = target;
         myTansform = transform;
 
         damage = dmg;
@@ -60,6 +68,8 @@ public class Rocket : MonoBehaviour
     public void ControlMoveToTarget(Vector3 target)
     {
         myTansform.Translate(Vector2.right * speed * Time.deltaTime);
+
+        fuel -= Time.deltaTime;
 
         Vector3 difference = target - myTansform.position;
         float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;

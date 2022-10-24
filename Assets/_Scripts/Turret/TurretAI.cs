@@ -193,20 +193,16 @@ public class TurretAI : MonoBehaviour
 
     private GameObject GetNearestEnemy()
     {
-        try
-        {
-            GameObject enemy = targets[0];
-            float curDistance = Vector2.Distance(transform.position, enemy.transform.position);
-            for (int i = 1; i < targets.Count; i++)
-            {
-                if (Vector2.Distance(transform.position, targets[i].transform.position) < curDistance)
-                    enemy = targets[i];
-            }
-            return enemy;
-        }
-        catch (System.Exception)
-        {
+        if (targets == null | targets.Count <= 0)
             return null;
+
+        GameObject enemy = targets[0];
+        float curDistance = Vector2.Distance(transform.position, enemy.transform.position);
+        for (int i = 1; i < targets.Count; i++)
+        {
+            if (Vector2.Distance(transform.position, targets[i].transform.position) < curDistance)
+                enemy = targets[i];
         }
+        return enemy;
     }
 }

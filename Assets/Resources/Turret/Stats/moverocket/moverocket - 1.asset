@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e30fd6d92b92747b521175bb468f65, type: 3}
   m_Name: moverocket - 1
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5405782796785347250, guid: c71b9ef1dffaa2b40a3c97ee448087c6, type: 3}
+  bulletPrefab: {fileID: 1517687151197537117, guid: c71b9ef1dffaa2b40a3c97ee448087c6, type: 3}
   damage: 10
-  timeBtwAttack: 0.3
+  timeBtwAttack: 0.15
   recoil: 0
   DroppedItems:
   - item: {fileID: 11400000, guid: db620b8eef33cbd4aa1518c2a713a4d6, type: 2}

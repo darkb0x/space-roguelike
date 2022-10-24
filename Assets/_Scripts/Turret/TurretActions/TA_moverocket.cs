@@ -11,7 +11,6 @@ public class TA_moverocket : TurretAction
     float reloadTime;
     float attackTime;
     int rockets;
-    Rocket currentRocket;
 
     public override void Init()
     {
@@ -22,20 +21,12 @@ public class TA_moverocket : TurretAction
 
     public override void Run()
     {
-        if (turret.currentEnemy != null)
+        if(turret.currentEnemy != null)
         {
             Attack();
         }
-        else
-        {
-            if (currentRocket != null)
-            {
-                currentRocket.StopControl();
-                currentRocket = null;
-            }
-        }
 
-        if (rockets <= 0)
+        if(rockets <= 0)
         {
             Reload();
         }
@@ -43,35 +34,22 @@ public class TA_moverocket : TurretAction
 
     void Attack()
     {
-        if(currentRocket != null)
+        if (rockets > 0)
         {
-            currentRocket.ControlMoveToTarget(turret.currentEnemy.transform.position);
-        }
-        else
-        {
-            if(rockets > 0)
+            if (attackTime <= 0)
             {
-                if (attackTime <= 0)
-                {
-                    SpawnRocket();
-                    attackTime = turret.timeBtwAttack;
-                }
-                else
-                {
-                    attackTime -= Time.deltaTime;
-                }
+                Rocket r = Instantiate(turret.stats.bulletPrefab, turret.shotPos.position, turret.shotPos.rotation).GetComponent<Rocket>();
+                r.Init(turret.stats.damage, turret.currentEnemy.transform);
+
+                rockets--;
+
+                attackTime = turret.timeBtwAttack;
+            }
+            else
+            {
+                attackTime -= Time.deltaTime;
             }
         }
-    }
-
-    void SpawnRocket()
-    {
-        Rocket r = Instantiate(turret.stats.bulletPrefab, turret.shotPos.position, turret.shotPos.rotation).GetComponent<Rocket>();
-        r.Init(turret.stats.damage);
-
-        currentRocket = r;
-
-        rockets--;
     }
 
     void Reload()
