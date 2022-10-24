@@ -144,7 +144,8 @@ MonoBehaviour:
   enemyTag: Enemy
   isPicked: 0
   coll: {fileID: 2583191332210741103}
-  fireParticles: {fileID: 0}
+  targets: []
+  additionalObjects: []
 --- !u!61 &2583191332210741103
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -285,7 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2583191333388957633}
   - component: {fileID: 2583191333388957638}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: coll
   m_TagString: Untagged
   m_Icon: {fileID: 0}

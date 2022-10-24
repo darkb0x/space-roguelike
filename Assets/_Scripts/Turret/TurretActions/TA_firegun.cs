@@ -12,10 +12,15 @@ public class TA_firegun : TurretAction
     [SerializeField] private float emissionValue = 70;
     [SerializeField] private float fireEnabledSpeed = 2;
 
+    ParticleSystem fireParticles;
     float attackTime;
+
+    string particlesObjName = "Particles";
 
     public override void Init()
     {
+        fireParticles = turret._GetObject(particlesObjName).GetComponent<ParticleSystem>();
+
         attackTime = turret.timeBtwAttack;
     }
 
@@ -25,7 +30,7 @@ public class TA_firegun : TurretAction
         Debug.DrawRay(turret.shotPos.position, (turret.turret_canon.right + turret.turret_canon.up * range) * distance, Color.blue);
         Debug.DrawRay(turret.shotPos.position, (turret.turret_canon.right + turret.turret_canon.up * -range) * distance, Color.blue);
 
-        turret.fireParticles.emissionRate = Mathf.Lerp(turret.fireParticles.emissionRate, turret.enemyInZone ? emissionValue : 0, fireEnabledSpeed * Time.deltaTime);
+        fireParticles.emissionRate = Mathf.Lerp(fireParticles.emissionRate, turret.enemyInZone ? emissionValue : 0, fireEnabledSpeed * Time.deltaTime);
 
         if (turret.enemyInZone)
         {

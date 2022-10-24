@@ -5,6 +5,13 @@ using NaughtyAttributes;
 
 public class TurretAI : MonoBehaviour
 {
+    [System.Serializable]
+    public struct obj
+    {
+        public string name;
+        public GameObject gameObj;
+    }
+
     [Header("parameters")]
     public Transform shotPos;
     public Transform turret_canon;
@@ -25,11 +32,15 @@ public class TurretAI : MonoBehaviour
     [Header("other")]
     public bool isPicked;
     [SerializeField] private Collider2D coll;
-    [Tooltip("Only on frie turret")] public ParticleSystem fireParticles;
+    [SerializeField, ReadOnly] List<GameObject> targets = new List<GameObject>();
+
+    [Space(10)]
+    [SerializeField] private List<obj> additionalObjects = new List<obj>();
 
     TurretAction currentAction;
     PlayerController player;
     PlayerInventory inventory;
+    new Transform transform;
 
     private void OnDrawGizmosSelected()
     {
@@ -40,10 +51,46 @@ public class TurretAI : MonoBehaviour
         }
     }
 
+    #region additional object | functions
+    public GameObject _GetObject(string objName)
+    {
+        foreach (var item in additionalObjects)
+        {
+            if(item.name == objName)
+            {
+                return item.gameObj;
+            }
+        }
+        Debug.LogError($"Turret AI | GetObject() | {objName} in list additionalObjects, not valid!");
+        return null;
+    }
+    public void _AddObject(GameObject gameObj, string objName)
+    {
+        obj o = new obj();
+        o.name = objName;
+        o.gameObj = gameObj;
+        additionalObjects.Add(o);
+    }
+    public void _RemoveObject(string objName)
+    {
+        int index = 0;
+        for (int i = 0; i < additionalObjects.Count; i++)
+        {
+            if(additionalObjects[i].name == objName)
+            {
+                index = i;
+                break;
+            }
+        }
+        additionalObjects.RemoveAt(index);
+    }
+    #endregion
+
     private void Start()
     {
         player = FindObjectOfType<PlayerController>();
         inventory = FindObjectOfType<PlayerInventory>();
+        transform = GetComponent<Transform>();
 
         SetAction(action);
 
@@ -77,6 +124,12 @@ public class TurretAI : MonoBehaviour
     }
     private void Update()
     {
+        if (currentEnemy != null)
+        {
+            RotateToTarget(currentEnemy);
+        }
+        enemyInZone = (targets.Count > 0);
+
         if (!isPicked) currentAction.Run();
     }
 
@@ -106,7 +159,8 @@ public class TurretAI : MonoBehaviour
     {
         if (collision.tag == enemyTag)
         {
-            currentEnemy = collision.gameObject;
+            if (!targets.Contains(collision.gameObject))
+                targets.Add(collision.gameObject);
         }
 
         action.TriggerEnter(collision, this);
@@ -115,18 +169,9 @@ public class TurretAI : MonoBehaviour
     {
         if (collision.tag == enemyTag)
         {
-            enemyInZone = true;
-            if (currentEnemy.GetComponent<EnemyAI>().hp <= 0)
+            if (currentEnemy == null)
             {
-                currentEnemy = collision.gameObject;
-            }
-            if (currentEnemy != null)
-            {
-                RotateToTarget(currentEnemy);
-            }
-            else
-            {
-                currentEnemy = collision.gameObject;
+                currentEnemy = GetNearestEnemy();
             }
         }
 
@@ -136,9 +181,32 @@ public class TurretAI : MonoBehaviour
     {
         if (collision.tag == enemyTag)
         {
-            enemyInZone = false;
+            targets.Remove(collision.gameObject);
+            if (currentEnemy == collision.gameObject)
+            {
+                currentEnemy = GetNearestEnemy();
+            }
         }
 
         action.TriggerExit(collision, this);
+    }
+
+    private GameObject GetNearestEnemy()
+    {
+        try
+        {
+            GameObject enemy = targets[0];
+            float curDistance = Vector2.Distance(transform.position, enemy.transform.position);
+            for (int i = 1; i < targets.Count; i++)
+            {
+                if (Vector2.Distance(transform.position, targets[i].transform.position) < curDistance)
+                    enemy = targets[i];
+            }
+            return enemy;
+        }
+        catch (System.Exception)
+        {
+            return null;
+        }
     }
 }
