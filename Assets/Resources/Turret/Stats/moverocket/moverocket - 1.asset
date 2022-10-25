@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1517687151197537117, guid: c71b9ef1dffaa2b40a3c97ee448087c6, type: 3}
   damage: 10
-  timeBtwAttack: 0.15
+  timeBtwAttack: 0.25
   recoil: 0
   DroppedItems:
   - item: {fileID: 11400000, guid: db620b8eef33cbd4aa1518c2a713a4d6, type: 2}

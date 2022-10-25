@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
+    // singletone
+    public static PlayerInventory playerInventory;
+    private void Awake() => playerInventory = this; 
+
     [System.Serializable]
     public class Item
     {
