@@ -2,23 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ore : MonoBehaviour
+namespace Game.World
 {
-    public InventoryItem item;
-    public int maxAmount;
-    int amount;
-    public bool canGiveOre = true;
+    using Player.Inventory;
 
-    private void Start()
+    public class Ore : MonoBehaviour
     {
-        amount = maxAmount;
-    }
+        public InventoryItem item;
+        public int maxAmount;
+        int amount;
+        public bool canGiveOre = true;
+        [Space]
+        [SerializeField] private SpriteRenderer rockRender;
+        [SerializeField] private SpriteRenderer oreRender;
+        [Space]
+        [SerializeField] private Sprite[] rockSprites;
 
-    public void Give(int value)
-    {
-        amount = Mathf.Clamp(amount -= value, 0, maxAmount);
+        private void Start()
+        {
+            name = $"Ore ({item.name})";
 
-        if (amount <= 0)
-            canGiveOre = false;
+            amount = maxAmount;
+
+            GenerateRandomSprites();
+        }
+
+        public void Give(int value)
+        {
+            amount = Mathf.Clamp(amount -= value, 0, maxAmount);
+
+            if (amount <= 0)
+            {
+                canGiveOre = false;
+                oreRender.color = new Color(1, 1, 1, 0);
+            }
+        }
+
+        [NaughtyAttributes.Button]
+        public void GenerateRandomSprites()
+        {
+            rockRender.sprite = rockSprites[Random.Range(0, rockSprites.Length)];
+            oreRender.sprite = item.oreSprites[Random.Range(0, item.oreSprites.Count)];
+        }
     }
 }

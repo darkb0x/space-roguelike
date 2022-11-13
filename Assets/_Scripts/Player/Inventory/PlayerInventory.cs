@@ -3,93 +3,96 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerInventory : MonoBehaviour
+namespace Game.Player.Inventory
 {
-    // singletone
-    public static PlayerInventory playerInventory;
-    private void Awake() => playerInventory = this; 
-
-    [System.Serializable]
-    public class Item
+    public class PlayerInventory : MonoBehaviour
     {
-        [NaughtyAttributes.Expandable] public InventoryItem item;
-        public int amount;
+        // singletone
+        public static PlayerInventory playerInventory;
+        private void Awake() => playerInventory = this;
 
-        [HideInInspector] public Image UI_icon;
-        [HideInInspector] public Text UI_amount;
-
-        public void Add(int value)
+        [System.Serializable]
+        public class Item
         {
-            this.amount += value;
-        }
-        public void Take(int value)
-        {
-            this.amount -= value;
-        }
-        public void SetUI(Image img, Text text)
-        {
-            UI_icon = img;
-            UI_amount = text;
-        }
-    }
+            [NaughtyAttributes.Expandable] public InventoryItem item;
+            public int amount;
 
-    [Header("Inventory")]
-    public List<Item> items = new List<Item>();
+            [HideInInspector] public Image UI_icon;
+            [HideInInspector] public Text UI_amount;
 
-    [Header("UI")]
-    [SerializeField] private Transform uiElements_tranform;
-    [SerializeField] private GameObject itemInUI_prefab;
-
-    private void Start()
-    {
-        for (int i = 0; i < items.Count; i++)
-        {
-            Transform obj = Instantiate(itemInUI_prefab, uiElements_tranform).transform;
-            items[i].SetUI(obj.GetChild(0).GetComponent<Image>(), obj.GetChild(1).GetComponent<Text>());
-        }
-        UpdateUI();
-    }
-
-    public Item GetItem(InventoryItem item)
-    {
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (items[i].item == item)
+            public void Add(int value)
             {
-                return items[i];
+                this.amount += value;
+            }
+            public void Take(int value)
+            {
+                this.amount -= value;
+            }
+            public void SetUI(Image img, Text text)
+            {
+                UI_icon = img;
+                UI_amount = text;
             }
         }
-        return null;
-    }
 
-    public void AddItem(InventoryItem item, int amount)
-    {
-        GetItem(item).Add(amount);
+        [Header("Inventory")]
+        public List<Item> items = new List<Item>();
 
-        UpdateUI();
-    }
+        [Header("UI")]
+        [SerializeField] private Transform uiElements_tranform;
+        [SerializeField] private GameObject itemInUI_prefab;
 
-    public bool TakeItem(InventoryItem item, int amount)
-    {
-        Item it = GetItem(item);
-        if (it.amount >= amount)
+        private void Start()
         {
-            it.Take(amount);
+            for (int i = 0; i < items.Count; i++)
+            {
+                Transform obj = Instantiate(itemInUI_prefab, uiElements_tranform).transform;
+                items[i].SetUI(obj.GetChild(0).GetComponent<Image>(), obj.GetChild(1).GetComponent<Text>());
+            }
             UpdateUI();
-            return true;
         }
-        else
+
+        public Item GetItem(InventoryItem item)
         {
-            return false;
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].item == item)
+                {
+                    return items[i];
+                }
+            }
+            return null;
         }
-    }
-    
-    private void UpdateUI()
-    {
-        foreach (var item in items)
+
+        public void AddItem(InventoryItem item, int amount)
         {
-            item.UI_icon.sprite = item.item._icon;
-            item.UI_amount.text = item.amount.ToString();
+            GetItem(item).Add(amount);
+
+            UpdateUI();
+        }
+
+        public bool TakeItem(InventoryItem item, int amount)
+        {
+            Item it = GetItem(item);
+            if (it.amount >= amount)
+            {
+                it.Take(amount);
+                UpdateUI();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void UpdateUI()
+        {
+            foreach (var item in items)
+            {
+                item.UI_icon.sprite = item.item._icon;
+                item.UI_amount.text = item.amount.ToString();
+            }
         }
     }
 }

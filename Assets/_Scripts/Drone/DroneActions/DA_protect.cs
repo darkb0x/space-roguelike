@@ -2,60 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "drone action protect", menuName = "Drone/new action protect")]
-public class DA_protect : DroneAction
+namespace Game.Drone
 {
-    float radiusValue = 0;
-    Transform playerTransform;
-    Transform myTransform;
-    float attackTime;
+    using Bullets;
 
-    [SerializeField] private float rotateSpeed;
-    [SerializeField] private float moveSpeed = 0.5f;
-    [SerializeField] private float radius;
-    [SerializeField] private int damage = 1;
-    [SerializeField] private float timeBtwAttack;
-    [SerializeField] private float maxDistanceBtwPlayerAndEnemy = 4.3f;
-    [Space]
-    [SerializeField] private BulletTrail bullet;
-
-    public override void Init()
+    [CreateAssetMenu(fileName = "drone action protect", menuName = "Drone/new action protect")]
+    public class DA_protect : DroneAction
     {
-        playerTransform = player.transform;
-        myTransform = drone.transform;
-        attackTime = timeBtwAttack;
+        float radiusValue = 0;
+        Transform playerTransform;
+        Transform myTransform;
+        float attackTime;
 
-        drone.playerDrCo.AttachProtectorDrone(drone);
-        drone.playerDrCo.AttachRotateDrones(drone);
-    }
+        [SerializeField] private float rotateSpeed;
+        [SerializeField] private float moveSpeed = 0.5f;
+        [SerializeField] private float radius;
+        [SerializeField] private int damage = 1;
+        [SerializeField] private float timeBtwAttack;
+        [SerializeField] private float maxDistanceBtwPlayerAndEnemy = 4.3f;
+        [Space]
+        [SerializeField] private BulletTrail bullet;
 
-    public override void Run()
-    {
-        //attack
-        if (drone.targetEnemy != null)
+        public override void Init()
         {
-            if (Vector2.Distance(playerTransform.position, drone.targetEnemy.transform.position) > maxDistanceBtwPlayerAndEnemy)
+            playerTransform = player.transform;
+            myTransform = drone.transform;
+            attackTime = timeBtwAttack;
+
+            drone.playerDrCo.AttachProtectorDrone(drone);
+            drone.playerDrCo.AttachRotateDrones(drone);
+        }
+
+        public override void Run()
+        {
+            //attack
+            if (drone.targetEnemy != null)
             {
-                drone.targetEnemy = null;
+                if (Vector2.Distance(playerTransform.position, drone.targetEnemy.transform.position) > maxDistanceBtwPlayerAndEnemy)
+                {
+                    drone.targetEnemy = null;
+                }
+                else
+                {
+                    Attack();
+                }
+            }
+        }
+
+        void Attack()
+        {
+            if (attackTime <= 0)
+            {
+                Instantiate(bullet.gameObject, drone.spriteTransform.position, Quaternion.identity).GetComponent<BulletTrail>().Init(drone.targetEnemy.transform.position);
+                drone.targetEnemy.TakeDamage(damage);
+                attackTime = timeBtwAttack;
             }
             else
             {
-                Attack();
+                attackTime -= Time.deltaTime;
             }
-        }
-    }
-
-    void Attack()
-    {
-        if (attackTime <= 0)
-        {
-            Instantiate(bullet.gameObject, drone.spriteTransform.position, Quaternion.identity).GetComponent<BulletTrail>().Init(drone.targetEnemy.transform.position);
-            drone.targetEnemy.TakeDamage(damage);
-            attackTime = timeBtwAttack;
-        }
-        else
-        {
-            attackTime -= Time.deltaTime;
         }
     }
 }

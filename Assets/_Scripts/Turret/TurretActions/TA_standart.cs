@@ -2,37 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "turret action standart", menuName = "Turret/AI/new standart")]
-public class TA_standart : TurretAction
+namespace Game.Turret
 {
-    float attackTime;
+    using Bullets;
 
-    public override void Init()
+    [CreateAssetMenu(fileName = "turret action standart", menuName = "Turret/AI/new standart")]
+    public class TA_standart : TurretAction
     {
-        attackTime = turret.timeBtwAttack;
-    }
+        float attackTime;
 
-    public override void Run()
-    {
-        if(turret.enemyInZone)
+        public override void Init()
         {
-            Attack(); 
-        }
-    }
-
-    void Attack()
-    {
-        if (attackTime <= 0)
-        {
-            float z = Random.Range(-turret.recoil, turret.recoil);
-            Bullet b = Instantiate(turret.bulletPrefab, turret.shotPos.position, turret.shotPos.rotation).GetComponent<Bullet>();
-            b.gameObject.transform.Rotate(0, 0, z);
-            b.Init(turret.damage);
             attackTime = turret.timeBtwAttack;
         }
-        else
+
+        public override void Run()
         {
-            attackTime -= Time.deltaTime;
+            if (turret.enemyInZone)
+            {
+                Attack();
+            }
+        }
+
+        void Attack()
+        {
+            if (attackTime <= 0)
+            {
+                float z = Random.Range(-turret.recoil, turret.recoil);
+                Bullet b = Instantiate(turret.bulletPrefab, turret.shotPos.position, turret.shotPos.rotation).GetComponent<Bullet>();
+                b.gameObject.transform.Rotate(0, 0, z);
+                b.Init(turret.damage);
+                attackTime = turret.timeBtwAttack;
+            }
+            else
+            {
+                attackTime -= Time.deltaTime;
+            }
         }
     }
 }

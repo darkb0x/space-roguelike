@@ -2,47 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Game.Bullets
 {
-    [Header("скорость, дистанция, время")]
-    public float speed;
-    public float lifeTime;
-    public float distance;
+    using Enemy;
 
-    [Header("урон")]
-    [NaughtyAttributes.ReadOnly] public float damage;
-    public LayerMask whatIsSolid;
-    public GameObject destroyEffect;
-
-    new Transform transform;
-
-    public virtual void Init(float dmg)
+    public class Bullet : MonoBehaviour
     {
-        transform = GetComponent<Transform>();
+        [Header("скорость, дистанция, время")]
+        public float speed;
+        public float lifeTime;
+        public float distance;
 
-        damage = dmg;
-        Destroy(gameObject, lifeTime);
-    }
+        [Header("урон")]
+        [NaughtyAttributes.ReadOnly] public float damage;
+        public LayerMask whatIsSolid;
+        public GameObject destroyEffect;
 
-    public virtual void Update()
-    {
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, distance, whatIsSolid);
-        if (hitInfo.collider != null)
+        new Transform transform;
+
+        public virtual void Init(float dmg)
         {
-            if(hitInfo.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
-            {
-                enemy.TakeDamage(damage);
-            }
-            DestroyBullet();
+            transform = GetComponent<Transform>();
+
+            damage = dmg;
+            Destroy(gameObject, lifeTime);
         }
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
-    }
 
-    public void DestroyBullet()
-    {
-        if(destroyEffect != null)
-            Instantiate(destroyEffect, transform.position, Quaternion.identity);
+        public virtual void Update()
+        {
+            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, distance, whatIsSolid);
+            if (hitInfo.collider != null)
+            {
+                if (hitInfo.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
+                {
+                    enemy.TakeDamage(damage);
+                }
+                DestroyBullet();
+            }
+            transform.Translate(Vector2.right * speed * Time.deltaTime);
+        }
 
-        Destroy(gameObject);
+        public void DestroyBullet()
+        {
+            if (destroyEffect != null)
+                Instantiate(destroyEffect, transform.position, Quaternion.identity);
+
+            Destroy(gameObject);
+        }
     }
 }

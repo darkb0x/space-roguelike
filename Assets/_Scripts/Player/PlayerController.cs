@@ -3,74 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class PlayerController : MonoBehaviour
+namespace Game.Player
 {
-    [Header("movement")]
-    [SerializeField] private float speed;
+    using Drone;
+    using Inventory;
+    using Turret;
 
-    [Header("picked turret")]
-    [SerializeField, ReadOnly] TurretAI selectedTurret;
-    [SerializeField] private Transform pickedTurretPosition;
-
-    [Header("animator")]
-    [SerializeField] private Animator anim;
-    [Space]
-    [AnimatorParam("anim"), SerializeField] string anim_runHorizontal;
-    [AnimatorParam("anim"), SerializeField] string anim_runVertical;
-    [AnimatorParam("anim"), SerializeField] string anim_isRunning;
-
-    Vector2 moveInput;
-
-    Rigidbody2D rb;
-    new Transform transform;
-    PlayerInventory inventory;
-    
-
-    private void Start()
+    public class PlayerController : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-        inventory = FindObjectOfType<PlayerInventory>();
-        transform = GetComponent<Transform>();
-    }
+        [Header("movement")]
+        [SerializeField] private float speed;
 
-    private void Update()
-    {
-        moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        [Header("picked turret")]
+        [SerializeField, ReadOnly] TurretAI selectedTurret;
+        [SerializeField] private Transform pickedTurretPosition;
 
-        if(Input.GetKeyDown(KeyCode.E))
+        [Header("animator")]
+        [SerializeField] private Animator anim;
+        [Space]
+        [AnimatorParam("anim"), SerializeField] string anim_runHorizontal;
+        [AnimatorParam("anim"), SerializeField] string anim_runVertical;
+        [AnimatorParam("anim"), SerializeField] string anim_isRunning;
+
+        Vector2 moveInput;
+
+        Rigidbody2D rb;
+        new Transform transform;
+        PlayerInventory inventory;
+
+
+        private void Start()
         {
-            if (selectedDrone)
+            rb = GetComponent<Rigidbody2D>();
+            inventory = FindObjectOfType<PlayerInventory>();
+            transform = GetComponent<Transform>();
+        }
+
+        private void Update()
+        {
+            moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                if (!selectedDrone.isPicked) selectedDrone.Init();
+                if (selectedDrone)
+                {
+                    if (!selectedDrone.isPicked) selectedDrone.Init();
+                }
+            }
+
+            //animation
+            anim.SetFloat(anim_runHorizontal, moveInput.x);
+            anim.SetFloat(anim_runVertical, moveInput.y);
+            anim.SetBool(anim_isRunning, moveInput.magnitude > 0);
+        }
+
+        private void FixedUpdate()
+        {
+            rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
+        }
+
+        DroneAI selectedDrone;
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<DroneAI>(out DroneAI drone))
+            {
+                if (!drone.isPicked) selectedDrone = drone;
+            }
+            if (collision.TryGetComponent<TurretAI>(out TurretAI turret))
+            {
+                if (!selectedTurret) selectedTurret = turret;
             }
         }
-
-        //animation
-        anim.SetFloat(anim_runHorizontal, moveInput.x);
-        anim.SetFloat(anim_runVertical, moveInput.y);
-        anim.SetBool(anim_isRunning, moveInput.magnitude > 0);
-    }
-
-    private void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
-    }
-
-    DroneAI selectedDrone;
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.TryGetComponent<DroneAI>(out DroneAI drone))
+        private void OnTriggerExit2D(Collider2D collision)
         {
-            if(!drone.isPicked) selectedDrone = drone;
-        }
-        if (collision.TryGetComponent<TurretAI>(out TurretAI turret))
-        {
-            if (!selectedTurret) selectedTurret = turret;
+            selectedDrone = null;
+            selectedTurret = null;
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        selectedDrone = null;
-        selectedTurret = null;
-    }
+
 }

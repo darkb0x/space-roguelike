@@ -2,27 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletLine : MonoBehaviour
+namespace Game.Bullets
 {
-    [SerializeField] private Material[] animSprites;
-    [SerializeField] private float time;
-
-    public void Init(Vector3 target)
+    public class BulletLine : MonoBehaviour
     {
-        StartCoroutine(SpawnLine(GetComponent<LineRenderer>(), target));
-    }
+        [SerializeField] private Material[] animSprites;
+        [SerializeField] private float time;
 
-    IEnumerator SpawnLine(LineRenderer line, Vector3 point)
-    {
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, point);
-
-        for (int i = 0; i < animSprites.Length; i++)
+        public void Init(Vector3 target)
         {
-            line.material = animSprites[i];
-            yield return new WaitForSeconds(time);
+            StartCoroutine(SpawnLine(GetComponent<LineRenderer>(), target));
         }
 
-        Destroy(gameObject);
+        IEnumerator SpawnLine(LineRenderer line, Vector3 point)
+        {
+            line.SetPosition(0, transform.position);
+            line.SetPosition(1, point);
+
+            for (int i = 0; i < animSprites.Length; i++)
+            {
+                line.material = animSprites[i];
+                yield return new WaitForSeconds(time);
+            }
+
+            Destroy(gameObject);
+        }
     }
 }

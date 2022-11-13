@@ -2,87 +2,92 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "turret action firegun", menuName = "Turret/AI/new firegun")]
-public class TA_firegun : TurretAction
+namespace Game.Turret
 {
-    [SerializeField] private float distance;
-    [SerializeField] private float range = 1f;
-    [SerializeField] private LayerMask layers;
-    [Space]
-    [SerializeField] private float emissionValue = 70;
-    [SerializeField] private float fireEnabledSpeed = 2;
+    using Enemy;
 
-    ParticleSystem fireParticles;
-    float attackTime;
-
-    string particlesObjName = "Particles";
-
-    public override void Init()
+    [CreateAssetMenu(fileName = "turret action firegun", menuName = "Turret/AI/new firegun")]
+    public class TA_firegun : TurretAction
     {
-        fireParticles = turret._GetObject(particlesObjName).GetComponent<ParticleSystem>();
+        [SerializeField] private float distance;
+        [SerializeField] private float range = 1f;
+        [SerializeField] private LayerMask layers;
+        [Space]
+        [SerializeField] private float emissionValue = 70;
+        [SerializeField] private float fireEnabledSpeed = 2;
 
-        attackTime = turret.timeBtwAttack;
-    }
+        ParticleSystem fireParticles;
+        float attackTime;
 
-    public override void Run()
-    {
-        Debug.DrawRay(turret.shotPos.position, turret.turret_canon.right * distance, Color.blue);
-        Debug.DrawRay(turret.shotPos.position, (turret.turret_canon.right + turret.turret_canon.up * range) * distance, Color.blue);
-        Debug.DrawRay(turret.shotPos.position, (turret.turret_canon.right + turret.turret_canon.up * -range) * distance, Color.blue);
+        string particlesObjName = "Particles";
 
-        fireParticles.emissionRate = Mathf.Lerp(fireParticles.emissionRate, turret.enemyInZone ? emissionValue : 0, fireEnabledSpeed * Time.deltaTime);
-
-        if (turret.enemyInZone)
+        public override void Init()
         {
-            Attack();
-        }
-    }
+            fireParticles = turret._GetObject(particlesObjName).GetComponent<ParticleSystem>();
 
-    void Attack()
-    {
-        if (attackTime <= 0)
-        {
-            RaycastHit2D[] hits_left = Physics2D.RaycastAll(turret.shotPos.position, turret.turret_canon.right, distance, layers);
-            RaycastHit2D[] hits_middle = Physics2D.RaycastAll(turret.shotPos.position, turret.turret_canon.right + turret.turret_canon.up * range, distance, layers);
-            RaycastHit2D[] hits_right = Physics2D.RaycastAll(turret.shotPos.position, turret.turret_canon.right + turret.turret_canon.up * -range, distance, layers);
-            foreach (var hit in hits_left)
-            {
-                if (hit.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
-                {
-                    enemy.TakeDamage(turret.damage);
-                }
-                else
-                {
-                    break;
-                }
-            }
-            foreach (var hit in hits_middle)
-            {
-                if (hit.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
-                {
-                    enemy.TakeDamage(turret.damage);
-                }
-                else
-                {
-                    break;
-                }
-            }
-            foreach (var hit in hits_right)
-            {
-                if (hit.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
-                {
-                    enemy.TakeDamage(turret.damage);
-                }
-                else
-                {
-                    break;
-                }
-            }
             attackTime = turret.timeBtwAttack;
         }
-        else
+
+        public override void Run()
         {
-            attackTime -= Time.deltaTime;
+            Debug.DrawRay(turret.shotPos.position, turret.turret_canon.right * distance, Color.blue);
+            Debug.DrawRay(turret.shotPos.position, (turret.turret_canon.right + turret.turret_canon.up * range) * distance, Color.blue);
+            Debug.DrawRay(turret.shotPos.position, (turret.turret_canon.right + turret.turret_canon.up * -range) * distance, Color.blue);
+
+            fireParticles.emissionRate = Mathf.Lerp(fireParticles.emissionRate, turret.enemyInZone ? emissionValue : 0, fireEnabledSpeed * Time.deltaTime);
+
+            if (turret.enemyInZone)
+            {
+                Attack();
+            }
+        }
+
+        void Attack()
+        {
+            if (attackTime <= 0)
+            {
+                RaycastHit2D[] hits_left = Physics2D.RaycastAll(turret.shotPos.position, turret.turret_canon.right, distance, layers);
+                RaycastHit2D[] hits_middle = Physics2D.RaycastAll(turret.shotPos.position, turret.turret_canon.right + turret.turret_canon.up * range, distance, layers);
+                RaycastHit2D[] hits_right = Physics2D.RaycastAll(turret.shotPos.position, turret.turret_canon.right + turret.turret_canon.up * -range, distance, layers);
+                foreach (var hit in hits_left)
+                {
+                    if (hit.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
+                    {
+                        enemy.TakeDamage(turret.damage);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                foreach (var hit in hits_middle)
+                {
+                    if (hit.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
+                    {
+                        enemy.TakeDamage(turret.damage);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                foreach (var hit in hits_right)
+                {
+                    if (hit.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
+                    {
+                        enemy.TakeDamage(turret.damage);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                attackTime = turret.timeBtwAttack;
+            }
+            else
+            {
+                attackTime -= Time.deltaTime;
+            }
         }
     }
 }

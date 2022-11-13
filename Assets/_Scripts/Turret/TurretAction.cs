@@ -1,20 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TurretAction : ScriptableObject
+namespace Game.Turret
 {
-    [HideInInspector] public PlayerController player;
-    [HideInInspector] public TurretAI turret;
+    using Player;
 
-    #region drone action base
-    public virtual void Init() { }
-    public abstract void Run();
-    public virtual void FixedRun() { }
-    #endregion
+    public abstract class TurretAction : ScriptableObject
+    {
+        [HideInInspector] public PlayerController player;
+        [HideInInspector] public TurretAI turret;
 
-    #region collision triggers
-    public virtual void TriggerEnter(Collider2D col, TurretAI _turret) { }
-    public virtual void TriggerStay(Collider2D col, TurretAI _turret) { }
-    public virtual void TriggerExit(Collider2D col, TurretAI _turret) { }
-    #endregion
+        #region drone action base
+        public virtual void Init() { }
+        public abstract void Run();
+        public virtual void FixedRun() { }
+        #endregion
+
+        #region collision triggers
+        public virtual void TriggerEnter(Collider2D col, TurretAI _turret) { }
+        public virtual void TriggerStay(Collider2D col, TurretAI _turret) { }
+        public virtual void TriggerExit(Collider2D col, TurretAI _turret) { }
+        #endregion
+    }
 }

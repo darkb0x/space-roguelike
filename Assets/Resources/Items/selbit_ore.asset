@@ -10,7 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
-  m_Name: gold
+  m_Name: selbit_ore
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  cost: 5
+  cost: 1
+  oreSprites:
+  - {fileID: -5229081797267076691, guid: 115e77396d70e124184c3e8480a3dffb, type: 3}
+  - {fileID: -8290962245752021467, guid: 115e77396d70e124184c3e8480a3dffb, type: 3}
+  - {fileID: -1773722804566620773, guid: 115e77396d70e124184c3e8480a3dffb, type: 3}

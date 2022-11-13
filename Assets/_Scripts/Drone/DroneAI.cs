@@ -3,96 +3,103 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class DroneAI : MonoBehaviour
+namespace Game.Drone
 {
-    [Header("States")]
-    [SerializeField, Expandable] private DroneAction action;
+    using Enemy;
+    using Player;
+    using World;
 
-    [Header("Render")]
-    public Transform spriteTransform;
-
-    [Header("Other")]
-    [ReadOnly] public PlayerDronesController playerDrCo;
-    [ReadOnly] public Ore targetOre;
-    [ReadOnly] public EnemyAI targetEnemy;
-    public bool isPicked = false;
-
-    DroneAction currentAction;
-    PlayerController player;
-    Transform playerTransform;
-    [HideInInspector] public Rigidbody2D rb;
-    new Transform transform;
-    
-
-    private void Start()
+    public class DroneAI : MonoBehaviour
     {
-        player = FindObjectOfType<PlayerController>();
-        playerDrCo = FindObjectOfType<PlayerDronesController>();
-        transform = GetComponent<Transform>();
-        rb = GetComponent<Rigidbody2D>();
-        playerTransform = player.transform;
-    }
+        [Header("States")]
+        [SerializeField, Expandable] private DroneAction action;
 
-    public void Init()
-    {
-        isPicked = true;
-        SetAction(action);
-    }
+        [Header("Render")]
+        public Transform spriteTransform;
 
-    public void Update()
-    {
-        if(isPicked) currentAction.Run();
-    }
-    public void FixedUpdate()
-    {
-        if(isPicked) currentAction.FixedRun();
-    }
+        [Header("Other")]
+        [ReadOnly] public PlayerDronesController playerDrCo;
+        [ReadOnly] public Ore targetOre;
+        [ReadOnly] public EnemyAI targetEnemy;
+        public bool isPicked = false;
 
-    public void RotationUpdate(Transform point, float direction, float rangeFromPoint)
-    {
-        transform.position = (Vector2)point.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * rangeFromPoint;
-    }
+        DroneAction currentAction;
+        PlayerController player;
+        Transform playerTransform;
+        [HideInInspector] public Rigidbody2D rb;
+        new Transform transform;
 
-    public Vector2 GetReturnPos()
-    {
-        float direction = playerDrCo.GetDirValue();
-        Vector2 pos = (Vector2)playerDrCo.transform.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * playerDrCo.distance;
-        return pos;
-    }
 
-    public void SetAction(DroneAction d)
-    {
-        currentAction = Instantiate(d);
-        currentAction.player = player;
-        currentAction.drone = this;
-        currentAction.Init();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<Ore>(out Ore o))
+        private void Start()
         {
-            targetOre = o;
+            player = FindObjectOfType<PlayerController>();
+            playerDrCo = FindObjectOfType<PlayerDronesController>();
+            transform = GetComponent<Transform>();
+            rb = GetComponent<Rigidbody2D>();
+            playerTransform = player.transform;
         }
 
-        if (collision.TryGetComponent<EnemyAI>(out EnemyAI e))
+        public void Init()
         {
-            targetEnemy = e;
+            isPicked = true;
+            SetAction(action);
         }
 
-        action.TriggerEnter(collision);
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        action.TriggerStay(collision);
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        action.TriggerExit(collision);
-    }
+        public void Update()
+        {
+            if (isPicked) currentAction.Run();
+        }
+        public void FixedUpdate()
+        {
+            if (isPicked) currentAction.FixedRun();
+        }
 
-    private void OnDestroy()
-    {
-        playerDrCo.DetachDrone(this);
+        public void RotationUpdate(Transform point, float direction, float rangeFromPoint)
+        {
+            transform.position = (Vector2)point.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * rangeFromPoint;
+        }
+
+        public Vector2 GetReturnPos()
+        {
+            float direction = playerDrCo.GetDirValue();
+            Vector2 pos = (Vector2)playerDrCo.transform.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * playerDrCo.distance;
+            return pos;
+        }
+
+        public void SetAction(DroneAction d)
+        {
+            currentAction = Instantiate(d);
+            currentAction.player = player;
+            currentAction.drone = this;
+            currentAction.Init();
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<Ore>(out Ore o))
+            {
+                targetOre = o;
+            }
+
+            if (collision.TryGetComponent<EnemyAI>(out EnemyAI e))
+            {
+                targetEnemy = e;
+            }
+
+            action.TriggerEnter(collision);
+        }
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            action.TriggerStay(collision);
+        }
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            action.TriggerExit(collision);
+        }
+
+        private void OnDestroy()
+        {
+            playerDrCo.DetachDrone(this);
+        }
     }
 }
