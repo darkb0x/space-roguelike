@@ -1,43 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.Player;
 
-public class CameraController : MonoBehaviour
+namespace Game
 {
-    [Header("Скорость с какой камера будет приследость игрока(target)")]
-    [SerializeField, Range(1, 10)] private float followSpeed = 3;
-    [Header("обзор камеры")]
-    [SerializeField] private float maxCamViewScale = 15;
-    [SerializeField] private float minCamViewScale = 5;
-    [Space]
-    [SerializeField] private float scrollSpeed = 1.2f;
-    [SerializeField] private float scaleSpeed = 2.2f;
+    using Player;
 
-    Transform target;
-    Vector3 _targetInVector3;
-    new Transform transform;
-    Camera cam;
-    float currentZoom;
-
-    private void Start()
+    public class CameraController : MonoBehaviour
     {
-        transform = GetComponent<Transform>();
-        cam = GetComponent<Camera>();
+        [Header("Скорость с какой камера будет приследость игрока(target)")]
+        [SerializeField, Range(1, 10)] private float followSpeed = 3;
+        [Header("обзор камеры")]
+        [SerializeField] private float maxCamViewScale = 15;
+        [SerializeField] private float minCamViewScale = 5;
+        [Space]
+        [SerializeField] private float scrollSpeed = 1.2f;
+        [SerializeField] private float scaleSpeed = 2.2f;
 
-        target = FindObjectOfType<PlayerController>().transform;
-        currentZoom = cam.orthographicSize;
-    }
+        Transform target;
+        Vector3 _targetInVector3;
+        new Transform transform;
+        Camera cam;
+        float currentZoom;
 
-    private void Update()
-    {
-        currentZoom = Mathf.Clamp(currentZoom + -Input.mouseScrollDelta.y * scrollSpeed, minCamViewScale, maxCamViewScale);
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
-    }
+        private void Start()
+        {
+            transform = GetComponent<Transform>();
+            cam = GetComponent<Camera>();
 
-    private void FixedUpdate()
-    {
-        //_targetInVector3 = new Vector3(target.position.x, target.position.y, transform.position.z);
-        //transform.position = Vector3.Lerp(transform.position, _targetInVector3, followSpeed * Time.fixedDeltaTime);
+            target = FindObjectOfType<PlayerController>().transform;
+            currentZoom = cam.orthographicSize;
+        }
+
+        private void Update()
+        {
+            currentZoom = Mathf.Clamp(currentZoom + -Input.mouseScrollDelta.y * scrollSpeed, minCamViewScale, maxCamViewScale);
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
+        }
+
+        private void FixedUpdate()
+        {
+            //_targetInVector3 = new Vector3(target.position.x, target.position.y, transform.position.z);
+            //transform.position = Vector3.Lerp(transform.position, _targetInVector3, followSpeed * Time.fixedDeltaTime);
+        }
     }
 }
