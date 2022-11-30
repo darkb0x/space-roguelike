@@ -41,8 +41,8 @@ namespace Game.World
         [NaughtyAttributes.Button]
         public void GenerateRandomSprites()
         {
-            rockRender.sprite = rockSprites[Random.Range(0, rockSprites.Length)];
-            oreRender.sprite = item.oreSprites[Random.Range(0, item.oreSprites.Count)];
+            rockRender.sprite = rockSprites[Random.Range(0, rockSprites.Length-1)];
+            oreRender.sprite = item.oreSprites[Random.Range(0, item.oreSprites.Count-1)];
         }
     }
 }

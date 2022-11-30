@@ -38,8 +38,7 @@ namespace Game.CraftSystem.Editor.Elements
             Cost = 0;
             Craft = new List<ItemCraft>();
 
-            CSChoiceSaveData choiceData = new CSChoiceSaveData();
-            Choices.Add(choiceData);
+            Choices.Add(new CSChoiceSaveData());
             Craft.Add(new ItemCraft());
 
             graphView = dsGraphView;
@@ -103,24 +102,39 @@ namespace Game.CraftSystem.Editor.Elements
 
             titleContainer.Insert(0, craftNameTextField);
 
-            // Input container
-
+            #region Input Container
             Port inputPort = this.CreatePort("", Orientation.Horizontal, Direction.Input, Port.Capacity.Multi);
 
             inputContainer.Add(inputPort);
+            #endregion
 
-            // Output container
+            #region Outup Container
+            Button addChoiceButton = CSElementUtility.CreateButton("Add Choice", () =>
+            {
+                CSChoiceSaveData choiceData = new CSChoiceSaveData();
+
+                Choices.Add(choiceData);
+
+                Port choicePort = CreateChoicePort(choiceData);
+
+                outputContainer.Add(choicePort);
+            });
+
+            addChoiceButton.AddToClassList("ds-node_button");
+
+            titleContainer.Add(addChoiceButton);
 
             foreach (CSChoiceSaveData choice in Choices)
             {
-                Port choicePort = this.CreatePort("Next Craft", capacity: Port.Capacity.Multi);
+                Port choicePort = this.CreatePort("Next Craft", capacity: Port.Capacity.Single);
 
                 choicePort.userData = choice;
 
                 outputContainer.Add(choicePort);
             }
+            #endregion
 
-            // Data Container
+            #region Data Container
             VisualElement customDataContainer = new VisualElement();
             customDataContainer.AddToClassList("ds-node__custom-data-container");
 
@@ -157,7 +171,7 @@ namespace Game.CraftSystem.Editor.Elements
             VisualElement customDataContainer_Craft = new VisualElement();
             customDataContainer_Craft.AddToClassList("ds-node__custom-data-container");
 
-            Foldout craftFoldout = CSElementUtility.CreateFoldout("Craft");
+            Foldout craftFoldout = CSElementUtility.CreateFoldout("Craft", true);
 
             for (int i = 0; i < Craft.Count; i++)
             {
@@ -174,6 +188,7 @@ namespace Game.CraftSystem.Editor.Elements
             customDataContainer_Craft.Add(craftFoldout);
 
             extensionContainer.Add(customDataContainer_Craft);
+            #endregion
             #endregion
 
             RefreshExpandedState();
@@ -229,11 +244,50 @@ namespace Game.CraftSystem.Editor.Elements
             evt.menu.AppendAction("Disconect Input Ports", actionEvent => DisconectInputPorts());
             evt.menu.AppendAction("Disconect Output Ports", actionEvent => DisconectOutputPorts());
 
+            evt.menu.AppendAction("Reset Position", actionEvent => ResetPositionToZero());
+
             base.BuildContextualMenu(evt);
         }
         #endregion
 
         #region Utility Methods
+        private Port CreateChoicePort(object userData)
+        {
+            Port choicePort = this.CreatePort("Next Craft", capacity: Port.Capacity.Single);
+
+            choicePort.userData = userData;
+
+            CSChoiceSaveData choiceData = (CSChoiceSaveData)userData;
+
+            Button deleteChoiceButton = CSElementUtility.CreateButton("X", () =>
+            {
+                if (Choices.Count == 1)
+                {
+                    return;
+                }
+
+                if (choicePort.connected)
+                {
+                    graphView.DeleteElements(choicePort.connections);
+                }
+
+                Choices.Remove(choiceData);
+
+                graphView.RemoveElement(choicePort);
+            });
+
+            deleteChoiceButton.AddToClassList("ds-node_button");
+
+            choicePort.Add(deleteChoiceButton);
+
+            return choicePort;
+        }
+
+        private void ResetPositionToZero()
+        {
+            SetPosition(new Rect(Vector2.zero, Vector2.zero));
+        }
+
         public void DisconectInputPorts()
         {
             DisconectPorts(inputContainer);

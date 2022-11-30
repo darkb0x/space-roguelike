@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7935fdfcad53a9d41a6f6993242cb00c, type: 3}
+  m_Name: StandartTurret
+  m_EditorClassIdentifier: 
+  <CraftName>k__BackingField: StandartTurret
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: 
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 61af1e94dc739f94ca9044b891aff100, type: 2}
+  - <Text>k__BackingField: 
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: ab0479ef61c71a04890941fd55a85be6, type: 2}
+  <GameObjectPrefab>k__BackingField: {fileID: 4680920010817665827, guid: c7dda9a2ba57ace429f94a8e4071a29c, type: 3}
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: 497b7d3c3289bb14580cf9c10d73b3d9, type: 3}
+  <CraftCost>k__BackingField: 0
+  <ObjectCraft>k__BackingField:
+  - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+    amount: 10
+  <IsStartingNode>k__BackingField: 1
+  <Position>k__BackingField: {x: 0, y: 0}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Game.Player.Inventory
 {
@@ -18,7 +19,7 @@ namespace Game.Player.Inventory
             public int amount;
 
             [HideInInspector] public Image UI_icon;
-            [HideInInspector] public Text UI_amount;
+            [HideInInspector] public TextMeshProUGUI UI_amount;
 
             public void Add(int value)
             {
@@ -28,7 +29,7 @@ namespace Game.Player.Inventory
             {
                 this.amount -= value;
             }
-            public void SetUI(Image img, Text text)
+            public void SetUI(Image img, TextMeshProUGUI text)
             {
                 UI_icon = img;
                 UI_amount = text;
@@ -47,7 +48,7 @@ namespace Game.Player.Inventory
             for (int i = 0; i < items.Count; i++)
             {
                 Transform obj = Instantiate(itemInUI_prefab, uiElements_tranform).transform;
-                items[i].SetUI(obj.GetChild(0).GetComponent<Image>(), obj.GetChild(1).GetComponent<Text>());
+                items[i].SetUI(obj.GetChild(0).GetComponent<Image>(), obj.GetChild(1).GetComponent<TextMeshProUGUI>());
             }
             UpdateUI();
         }

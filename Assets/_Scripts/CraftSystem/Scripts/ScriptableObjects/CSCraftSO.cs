@@ -15,8 +15,9 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
         [field: SerializeField] public int CraftCost { get; set; }
         [field: SerializeField] public List<ItemCraft> ObjectCraft { get; set; }
         [field: SerializeField] public bool IsStartingNode { get; set; }
+        [field: SerializeField] public Vector2 Position { get; set; }
 
-        public void Initialize(string craftName, List<CSCraftChoiceData> choices, GameObject gameObjectPrefab, Sprite iconSprite, int craftCost, List<ItemCraft> objectCraft, bool isStartingDialogue)
+        public void Initialize(string craftName, List<CSCraftChoiceData> choices, GameObject gameObjectPrefab, Sprite iconSprite, int craftCost, List<ItemCraft> objectCraft, bool isStartingDialogue, Vector2 pos)
         {
             CraftName = craftName;
             Choices = choices;
@@ -25,6 +26,7 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
             CraftCost = craftCost;
             ObjectCraft = objectCraft;
             IsStartingNode = isStartingDialogue;
+            Position = pos;
         }
     }
 }

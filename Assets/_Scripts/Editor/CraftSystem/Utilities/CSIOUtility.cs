@@ -196,11 +196,12 @@ namespace Game.CraftSystem.Editor.Utilities
             craft.Initialize(
                 node.CraftName,
                 ConvertNodeChoicesToDialogueChoices(node.Choices),
-                craft.GameObjectPrefab,
-                craft.IconSprite,
-                craft.CraftCost,
-                craft.ObjectCraft,
-                node.IsStartingNode()
+                node.Prefab,
+                node.Icon,
+                node.Cost,
+                node.Craft,
+                node.IsStartingNode(),
+                node.GetPosition().position
             );
 
             createdDialogues.Add(node.ID, craft);

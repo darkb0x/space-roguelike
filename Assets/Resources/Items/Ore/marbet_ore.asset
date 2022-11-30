@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
+  m_Name: marbet_ore
+  m_EditorClassIdentifier: 
+  icon: {fileID: -31291522549906435, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
+  cost: 1
+  oreSprites:
+  - {fileID: -7004052347979011198, guid: 62f3ee79b00b38848858c4bd21c12d75, type: 3}
+  - {fileID: 2554855833407954886, guid: 62f3ee79b00b38848858c4bd21c12d75, type: 3}
+  - {fileID: 8464718687979451555, guid: 62f3ee79b00b38848858c4bd21c12d75, type: 3}
