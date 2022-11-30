@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CraftName>k__BackingField: GrenadeTurret
   <Choices>k__BackingField:
-  - <Text>k__BackingField: 
-    <NextDialogue>k__BackingField: {fileID: 11400000, guid: d85ee720602629b48b3e66cf7766d3cb, type: 2}
+  - <NextCraft>k__BackingField: {fileID: 11400000, guid: c9ea664cefa581a4783f7112fb5b5789, type: 2}
+  - <NextCraft>k__BackingField: {fileID: 11400000, guid: d85ee720602629b48b3e66cf7766d3cb, type: 2}
   <GameObjectPrefab>k__BackingField: {fileID: 341918906321644071, guid: ef9ff108d33a7344baa130137617c5cb, type: 3}
   <IconSprite>k__BackingField: {fileID: 21300000, guid: 5f38867d6a9d43048a79898df7f7399d, type: 3}
   <CraftCost>k__BackingField: 150
   <ObjectCraft>k__BackingField:
   - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-    amount: 10
+    amount: 15
   - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
-    amount: 10
+    amount: 5
   <IsStartingNode>k__BackingField: 0
-  <Position>k__BackingField: {x: 499, y: -359}
+  <Position>k__BackingField: {x: 900, y: 0}

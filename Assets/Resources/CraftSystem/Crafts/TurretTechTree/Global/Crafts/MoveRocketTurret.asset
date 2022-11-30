@@ -10,23 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7935fdfcad53a9d41a6f6993242cb00c, type: 3}
-  m_Name: MoveRocketTurret
+  m_Name: MoverocketTurret
   m_EditorClassIdentifier: 
-  <CraftName>k__BackingField: MoveRocketTurret
+  <CraftName>k__BackingField: MoverocketTurret
   <Choices>k__BackingField:
-  - <Text>k__BackingField: 
-    <NextDialogue>k__BackingField: {fileID: 11400000, guid: e0d66310aac35444ca7272387693155f, type: 2}
-  - <Text>k__BackingField: 
-    <NextDialogue>k__BackingField: {fileID: 11400000, guid: c9ea664cefa581a4783f7112fb5b5789, type: 2}
+  - <NextCraft>k__BackingField: {fileID: 0}
   <GameObjectPrefab>k__BackingField: {fileID: 1945938000768075160, guid: 12e9612d6648a874c9129f80907b1e55, type: 3}
   <IconSprite>k__BackingField: {fileID: 21300000, guid: 254edcd59f53a0c49b993d650e178785, type: 3}
-  <CraftCost>k__BackingField: 200
+  <CraftCost>k__BackingField: 250
   <ObjectCraft>k__BackingField:
-  - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-    amount: 10
-  - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
-    amount: 5
   - item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
-    amount: 5
+    amount: 15
+  - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
+    amount: 15
   <IsStartingNode>k__BackingField: 0
-  <Position>k__BackingField: {x: 955, y: -359}
+  <Position>k__BackingField: {x: 1338, y: 0}

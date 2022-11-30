@@ -14,17 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CraftName>k__BackingField: LaserTurret
   <Choices>k__BackingField:
-  - <Text>k__BackingField: 
-    <NextDialogue>k__BackingField: {fileID: 0}
+  - <NextCraft>k__BackingField: {fileID: 11400000, guid: e0d66310aac35444ca7272387693155f, type: 2}
   <GameObjectPrefab>k__BackingField: {fileID: 6737583941257189528, guid: 008db8e9bff45684090d50be34fe6ef5, type: 3}
   <IconSprite>k__BackingField: {fileID: 21300000, guid: 005a88d4fcb18c7409b290b7066765bb, type: 3}
-  <CraftCost>k__BackingField: 300
+  <CraftCost>k__BackingField: 200
   <ObjectCraft>k__BackingField:
   - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-    amount: 20
-  - item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
-    amount: 5
+    amount: 10
   - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
     amount: 5
+  - item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+    amount: 5
   <IsStartingNode>k__BackingField: 0
-  <Position>k__BackingField: {x: 1833, y: 30}
+  <Position>k__BackingField: {x: 900, y: 310}

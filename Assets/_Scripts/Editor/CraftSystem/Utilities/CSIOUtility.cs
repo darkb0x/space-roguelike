@@ -149,6 +149,18 @@ namespace Game.CraftSystem.Editor.Utilities
 
                 ungroupedNodeNames.Add(node.CraftName);
             }
+            foreach (CSNode node in nodes)
+            {
+                CSCraftSO craft = createdDialogues[node.ID];
+
+                foreach (var ChoiceSaveData in node.Choices)
+                {
+                    foreach (var SOchoiceData in craft.Choices)
+                    {
+                        if(!string.IsNullOrEmpty(ChoiceSaveData.NodeID)) SOchoiceData.NextCraft = createdDialogues[ChoiceSaveData.NodeID];
+                    }
+                }
+            }
 
             UpdateDialoguesChoicesConnections();
 
@@ -195,7 +207,7 @@ namespace Game.CraftSystem.Editor.Utilities
 
             craft.Initialize(
                 node.CraftName,
-                ConvertNodeChoicesToDialogueChoices(node.Choices),
+                ConvertNodeChoicesToCraftChoices(node.Choices),
                 node.Prefab,
                 node.Icon,
                 node.Cost,
@@ -209,18 +221,18 @@ namespace Game.CraftSystem.Editor.Utilities
             SaveAsset(craft);
         }
 
-        private static List<CSCraftChoiceData> ConvertNodeChoicesToDialogueChoices(List<CSChoiceSaveData> nodeChoices)
+        private static List<CSCraftChoiceData> ConvertNodeChoicesToCraftChoices(List<CSChoiceSaveData> nodeChoices)
         {
-            List<CSCraftChoiceData> dialogueChoice = new List<CSCraftChoiceData>();
-
+            List<CSCraftChoiceData> craftChoice = new List<CSCraftChoiceData>(nodeChoices.Count);
+            
             foreach (CSChoiceSaveData nodeChoice in nodeChoices)
             {
                 CSCraftChoiceData choiceData = new CSCraftChoiceData();
 
-                dialogueChoice.Add(choiceData);
+                craftChoice.Add(choiceData);
             }
 
-            return dialogueChoice;
+            return craftChoice;
         }
 
         private static void UpdateDialoguesChoicesConnections()
@@ -238,7 +250,7 @@ namespace Game.CraftSystem.Editor.Utilities
                         continue;
                     }
 
-                    dialogue.Choices[choiceIndex].NextDialogue = createdDialogues[nodeChoice.NodeID];
+                    dialogue.Choices[choiceIndex].NextCraft = createdDialogues[nodeChoice.NodeID];
 
                     SaveAsset(dialogue);
                 }
