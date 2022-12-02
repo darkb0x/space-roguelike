@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7427883680121958081}
   - component: {fileID: 7427883680121958086}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: coll
   m_TagString: Untagged
   m_Icon: {fileID: 0}

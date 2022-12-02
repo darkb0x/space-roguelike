@@ -69,22 +69,44 @@ namespace Game.CraftSystem
             foreach (CSCraftSO craftData in tree.techTree.UngroupedDialogues)
             {
                 CSCraftUIObject obj = Instantiate(craftPrefab.gameObject, tree.techTreeRenderTransform).GetComponent<CSCraftUIObject>();
-                obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y), this);
+                obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y));
                 tree.loadedCraftPrefabs.Add(obj);
             }
         }
-
         
         public CSCraftUIObject GetCraftObj(CSCraftSO so)
         {
             foreach (CSCraftUIObject uiObj in GetLoadedNodesByNodeSO(so))
             {
-                if(uiObj.node == so)
+                if(uiObj.craft == so)
                 {
                     return uiObj;
                 }
             }
             return null;
+        }
+        public List<CSCraftUIObject> GetCraftObjInChoices(CSCraftSO so)
+        {
+            List<CSCraftUIObject> objectList = new List<CSCraftUIObject>();
+
+            foreach (CSCraftUIObject uiObj in GetLoadedNodesByNodeSO(so))
+            {
+                if(uiObj.craft.Choices.Count > 0 && uiObj.craft.Choices != null)
+                {
+                    foreach (var choice in uiObj.craft.Choices)
+                    {
+                        if(choice.NextCraft == so)
+                        {
+                            objectList.Add(uiObj);
+                        }
+                    }
+                }
+            }
+
+            if (objectList != null && objectList.Count > 0)
+                return objectList;
+            else
+                return null;
         }
 
         public List<CSCraftUIObject> GetLoadedNodesByNodeSO(CSCraftSO nodeSO)
@@ -93,7 +115,7 @@ namespace Game.CraftSystem
             {
                 foreach (CSCraftUIObject item in tree.loadedCraftPrefabs)
                 {
-                    if(item.node == nodeSO)
+                    if(item.craft == nodeSO)
                     {
                         return tree.loadedCraftPrefabs;
                     }

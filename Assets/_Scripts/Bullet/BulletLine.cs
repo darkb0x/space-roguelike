@@ -17,7 +17,7 @@ namespace Game.Bullets
         IEnumerator SpawnLine(LineRenderer line, Vector3 point)
         {
             line.SetPosition(0, transform.position);
-            line.SetPosition(1, point);
+            line.SetPosition(1, new Vector3(point.x, point.y, 0));
 
             for (int i = 0; i < animSprites.Length; i++)
             {

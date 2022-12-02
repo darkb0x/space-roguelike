@@ -21,7 +21,6 @@ namespace Game.Turret
 
         public override void Run()
         {
-            Debug.DrawRay(turret.shotPos.position, turret.turret_canon.right * laserDistance);
             if (turret.enemyInZone)
             {
                 Attack();
@@ -40,6 +39,7 @@ namespace Game.Turret
 
                     if (hit.collider.TryGetComponent<EnemyAI>(out EnemyAI enemy))
                     {
+                        Debug.Log("Hit enemy");
                         enemy.TakeDamage(turret.damage);
                     }
                     else

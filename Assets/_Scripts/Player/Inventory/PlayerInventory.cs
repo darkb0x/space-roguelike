@@ -38,6 +38,18 @@ namespace Game.Player.Inventory
 
         [Header("Inventory")]
         public List<Item> items = new List<Item>();
+        public int money
+        {
+            get
+            {
+                return m_money;
+            }
+            set
+            {
+                m_money = value;
+            }
+        }
+        [SerializeField] private int m_money;
 
         [Header("UI")]
         [SerializeField] private Transform uiElements_tranform;
