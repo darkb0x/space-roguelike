@@ -13,7 +13,7 @@ namespace Game.CraftSystem
 
     public class CSCraftUIObject : MonoBehaviour
     {
-        RectTransform rectTransform;
+        [HideInInspector] public RectTransform rectTransform;
         CSManager craftSystem;
         private float currentProgress = 0f;
         private bool isMouseEnterToCraftButton = false;
@@ -34,16 +34,17 @@ namespace Game.CraftSystem
         [SerializeField] private Image craft_icon;
         [Space]
         [SerializeField] private TextMeshProUGUI craft_cost;
-        [Space]
-        [SerializeField] private CanvasGroup canvasGroup;
-        [Space]
+        [SerializeField] private Button buyButton;
         [SerializeField] private GameObject lockSprite;
         [SerializeField] private GameObject priceGameObject;
+        [Space]
+        [SerializeField] private CanvasGroup canvasGroup;
         [Space]
         [SerializeField] private Image craftButtonImage;
         [SerializeField] private Button craftButton;
         [Space]
-        [SerializeField] private Button buyButton;
+        [SerializeField] private Transform itemListTransform;
+        [SerializeField] private GameObject itemListComponent;
 
         public void Initialize(CSCraftSO data, Vector2 position)
         {
@@ -56,6 +57,13 @@ namespace Game.CraftSystem
             craft_name.text = craft.CraftName;
             craft_icon.sprite = craft.IconSprite;
             craft_cost.text = craft.CraftCost+"$";
+
+            foreach (ItemCraft item in craft.ObjectCraft)
+            {
+                GameObject obj = Instantiate(itemListComponent, itemListTransform);
+                obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item._icon; // item icon
+                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.amount.ToString(); // items amount
+            }
 
             //Variables
             isUnlocked = craft.IsStartingNode;

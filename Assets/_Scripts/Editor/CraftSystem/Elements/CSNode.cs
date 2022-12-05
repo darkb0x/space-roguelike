@@ -38,7 +38,6 @@ namespace Game.CraftSystem.Editor.Elements
             Cost = 0;
             Craft = new List<ItemCraft>();
 
-            Choices.Add(new CSChoiceSaveData());
             Craft.Add(new ItemCraft());
 
             graphView = dsGraphView;
@@ -126,7 +125,7 @@ namespace Game.CraftSystem.Editor.Elements
 
             foreach (CSChoiceSaveData choice in Choices)
             {
-                Port choicePort = this.CreatePort("Next Craft", capacity: Port.Capacity.Single);
+                Port choicePort = CreateChoicePort(choice);
 
                 choicePort.userData = choice;
 
@@ -261,11 +260,6 @@ namespace Game.CraftSystem.Editor.Elements
 
             Button deleteChoiceButton = CSElementUtility.CreateButton("X", () =>
             {
-                if (Choices.Count == 1)
-                {
-                    return;
-                }
-
                 if (choicePort.connected)
                 {
                     graphView.DeleteElements(choicePort.connections);

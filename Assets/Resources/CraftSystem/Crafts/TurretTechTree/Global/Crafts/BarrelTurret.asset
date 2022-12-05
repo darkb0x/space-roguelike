@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: BarrelTurret
   m_EditorClassIdentifier: 
   <CraftName>k__BackingField: BarrelTurret
-  <Choices>k__BackingField:
-  - <NextCraft>k__BackingField: {fileID: 0}
+  <Choices>k__BackingField: []
   <GameObjectPrefab>k__BackingField: {fileID: 7427883680755422830, guid: f0a3ec50cd321dc4f95abedb973bee5e, type: 3}
   <IconSprite>k__BackingField: {fileID: 21300000, guid: 0c9bdfd7c1955ed4cbf1d6e3735dcae8, type: 3}
   <CraftCost>k__BackingField: 250
@@ -24,4 +23,4 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
     amount: 7
   <IsStartingNode>k__BackingField: 0
-  <Position>k__BackingField: {x: 1338, y: 310}
+  <Position>k__BackingField: {x: 1394, y: 310}

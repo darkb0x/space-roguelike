@@ -22,6 +22,7 @@ namespace Game.CraftSystem
         public List<CSCraftUIObject> loadedCraftPrefabs;
 
         public Transform techTreeRenderTransform;
+        public Transform techTreeArrowRenderTransform;
     }
 
     public class CSManager : MonoBehaviour
@@ -31,6 +32,10 @@ namespace Game.CraftSystem
 
         [Header("UI/Prefabs")]
         [SerializeField] private CSCraftUIObject craftPrefab;
+        [SerializeField] private CSCraftUIArrow arrowPrefab;
+
+        [Header("Other")]
+        [SerializeField] private Canvas canvas;
 
         public void Start()
         {
@@ -45,6 +50,7 @@ namespace Game.CraftSystem
                 tree.loadedCraftPrefabs = new List<CSCraftUIObject>();
 
                 SpawnNodes(tree);
+                SpawnConnections(tree);
             }
         }
 
@@ -59,7 +65,7 @@ namespace Game.CraftSystem
             if(tree.techTreeRenderTransform.childCount > 0)
             {
                 int childCount = tree.techTreeRenderTransform.childCount;
-                for (int i = childCount - 1; i >= 0; i--)
+                for (int i = childCount - 1; i > 0; i--)
                 {
                     DestroyImmediate(tree.techTreeRenderTransform.GetChild(i).gameObject);
                 }
@@ -71,6 +77,29 @@ namespace Game.CraftSystem
                 CSCraftUIObject obj = Instantiate(craftPrefab.gameObject, tree.techTreeRenderTransform).GetComponent<CSCraftUIObject>();
                 obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y));
                 tree.loadedCraftPrefabs.Add(obj);
+            }
+        }
+        public void SpawnConnections(TechTree tree)
+        {
+            if (tree.techTreeArrowRenderTransform.childCount > 0)
+            {
+                int childCount = tree.techTreeArrowRenderTransform.childCount;
+                for (int i = childCount - 1; i >= 0; i--)
+                {
+                    DestroyImmediate(tree.techTreeArrowRenderTransform.GetChild(i).gameObject);
+                }
+            }
+
+            foreach (CSCraftUIObject craftUIObject in tree.loadedCraftPrefabs)
+            {
+                foreach (var choice in craftUIObject.craft.Choices)
+                {
+                    if (choice.NextCraft == null)
+                        continue;
+
+                    CSCraftUIArrow objArrow = Instantiate(arrowPrefab.gameObject, tree.techTreeArrowRenderTransform).GetComponent<CSCraftUIArrow>();
+                    objArrow.SetPosition(craftUIObject.rectTransform.position, GetCraftObj(choice.NextCraft).rectTransform.position, canvas.scaleFactor);
+                }
             }
         }
         
