@@ -11,12 +11,10 @@ namespace Game.CraftSystem
     using CraftSystem.Editor.Data;
     using CraftSystem.Editor.ScriptableObjects;
 
-    public class CSCraftUIObject : MonoBehaviour
+    public class CSCraftUILearn : MonoBehaviour
     {
         [HideInInspector] public RectTransform rectTransform;
-        CSManager craftSystem;
-        private float currentProgress = 0f;
-        private bool isMouseEnterToCraftButton = false;
+        private CSManager craftSystem;
 
         [Header("Node Variable")]
         [ReadOnly, Expandable] public CSCraftSO craft;
@@ -26,8 +24,7 @@ namespace Game.CraftSystem
         public bool isPursached = false;
         [Space]
         [SerializeField] private Animator anim;
-        [Space]
-        [SerializeField] private float maxProgress = 3f;
+        [SerializeField, AnimatorParam("anim")] private string animValue_enabled;
 
         [Header("UI")]
         [SerializeField] private TextMeshProUGUI craft_name;
@@ -40,13 +37,10 @@ namespace Game.CraftSystem
         [Space]
         [SerializeField] private CanvasGroup canvasGroup;
         [Space]
-        [SerializeField] private Image craftButtonImage;
-        [SerializeField] private Button craftButton;
-        [Space]
         [SerializeField] private Transform itemListTransform;
         [SerializeField] private GameObject itemListComponent;
 
-        public void Initialize(CSCraftSO data, Vector2 position)
+        public virtual void Initialize(CSCraftSO data, Vector2 position)
         {
             rectTransform = GetComponent<RectTransform>();
 
@@ -69,7 +63,6 @@ namespace Game.CraftSystem
             isUnlocked = craft.IsStartingNode;
             isPursached = craft.IsStartingNode;
 
-            craftButtonImage.fillAmount = currentProgress / maxProgress;
         }
 
         private void Start()
@@ -83,10 +76,10 @@ namespace Game.CraftSystem
 
             if(!craft.IsStartingNode)
             {
-                List<CSCraftUIObject> lastCrafts = craftSystem.GetCraftObjInChoices(craft);
+                List<CSCraftUILearn> lastCrafts = craftSystem.GetCraftObjInChoices(craft);
                 if (lastCrafts != null)
                 {
-                    foreach (CSCraftUIObject item in lastCrafts)
+                    foreach (CSCraftUILearn item in lastCrafts)
                     {
                         if (item == null)
                             continue;
@@ -98,64 +91,15 @@ namespace Game.CraftSystem
                     }
                 }
             }
-        }
 
-        private void Update()
-        {
-            if(isMouseEnterToCraftButton)
-            {
-                if(Input.GetMouseButton(0))
-                {
-                    Debug.Log(currentProgress);
-                    currentProgress += Time.deltaTime;
-                    craftButtonImage.fillAmount = currentProgress / maxProgress;
 
-                    if (currentProgress >= maxProgress)
-                    {
-                        craftSystem.Craft(craft);
-                        currentProgress = 0;
-                    }
-                }
-                else
-                {
-                    currentProgress = Mathf.Lerp(currentProgress, 0, 0.15f);
-                    craftButtonImage.fillAmount = currentProgress / maxProgress;
-                }
-            }
-            else
+            if (isPursached)
             {
-                currentProgress = Mathf.Lerp(currentProgress, 0, 0.15f);
-                craftButtonImage.fillAmount = currentProgress / maxProgress;
+                craftSystem.AddCraft(craft, craftSystem.GetTechTreeByNode(craft));
             }
         }
 
-        private void fullUnlock()
-        {
-            lockSprite.SetActive(false);
-            priceGameObject.SetActive(false);
-
-            craftButton.gameObject.SetActive(true);
-            buyButton.gameObject.SetActive(false);
-
-            canvasGroup.alpha = 1f;
-        }
-        private void fullLock()
-        {
-            lockSprite.SetActive(true);
-            priceGameObject.SetActive(true);
-
-            craftButton.gameObject.SetActive(false);
-            buyButton.gameObject.SetActive(true);
-
-            canvasGroup.alpha = 0.5f;
-        }
-        private void unlockForBuy()
-        {
-            lockSprite.SetActive(false);
-            isUnlocked = true;
-        }
-
-        public void Buy()
+        public virtual void Buy()
         {
             if (PlayerInventory.playerInventory.money < craft.CraftCost)
             {
@@ -165,11 +109,11 @@ namespace Game.CraftSystem
             {
                 return;
             }
-            List<CSCraftUIObject> lastCrafts = craftSystem.GetCraftObjInChoices(craft);
+            List<CSCraftUILearn> lastCrafts = craftSystem.GetCraftObjInChoices(craft);
             bool canBuy = false;
             if (lastCrafts != null)
             {
-                foreach (CSCraftUIObject item in lastCrafts)
+                foreach (CSCraftUILearn item in lastCrafts)
                 {
                     if (item == null)
                         continue;
@@ -189,7 +133,7 @@ namespace Game.CraftSystem
                     if (item.NextCraft == null)
                         continue;
 
-                    CSCraftUIObject obj = craftSystem.GetCraftObj(item.NextCraft);
+                    CSCraftUILearn obj = craftSystem.GetCraftObj(item.NextCraft);
                     if (obj != null)
                     {
                         obj.unlockForBuy();
@@ -198,33 +142,51 @@ namespace Game.CraftSystem
 
                 PlayerInventory.playerInventory.money -= craft.CraftCost;
                 fullUnlock();
+                OnEnterPointer();
+                craftSystem.LearnCraft(craft);
             }
         }
 
+        #region Lock Systems
+        private void fullUnlock()
+        {
+            lockSprite.SetActive(false);
+            priceGameObject.SetActive(false);
+
+            buyButton.gameObject.SetActive(false);
+
+            canvasGroup.alpha = 1f;
+        }
+        private void fullLock()
+        {
+            lockSprite.SetActive(true);
+            priceGameObject.SetActive(true);
+
+            buyButton.gameObject.SetActive(true);
+
+            canvasGroup.alpha = 0.5f;
+        }
+        private void unlockForBuy()
+        {
+            lockSprite.SetActive(false);
+            isUnlocked = true;
+        }
+        #endregion
+
         #region UI Actions
-        public void OnEnterPointer()
+        public virtual void OnEnterPointer()
         {
             if (isPursached)
             {
                 anim.SetBool("enabled", true);
             }
         }
-        public void OnExitPointer()
+        public virtual void OnExitPointer()
         {
             if (isPursached)
             {
                 anim.SetBool("enabled", false);
             }
-        }
-
-
-        public void OnEnterPointer_Craft()
-        {
-            isMouseEnterToCraftButton = true;
-        }
-        public void OnExitPointer_Craft()
-        {
-            isMouseEnterToCraftButton = false;
         }
         #endregion
     }

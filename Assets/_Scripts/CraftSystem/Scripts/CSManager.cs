@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using NaughtyAttributes;
 
 namespace Game.CraftSystem
 {
@@ -19,10 +20,19 @@ namespace Game.CraftSystem
     public class TechTree
     {
         public CSCraftContainerSO techTree;
-        public List<CSCraftUIObject> loadedCraftPrefabs;
 
+        [Space]
+
+        //Tech Tree components
+        public List<CSCraftUILearn> loadedLearnCraftPrefabs;
         public Transform techTreeRenderTransform;
         public Transform techTreeArrowRenderTransform;
+
+        [Space]
+
+        //Craft Tree Components
+        public List<CSCraftUICraft> loadedCraftPrefabs;
+        public Transform craftTreeRenderTransform;
     }
 
     public class CSManager : MonoBehaviour
@@ -30,37 +40,80 @@ namespace Game.CraftSystem
         [Header("Tech Tree")]
         [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
 
+        [Header("Scale")]
+        [SerializeField] private float currentScale = 1;
+        [Space]
+        [SerializeField] private float minTreeScale = 0.3f;
+        [SerializeField] private float maxTreeScale = 1;
+        [Space]
+        [SerializeField] private float sensitivity = 2;
+
+        [Header("UI/Craft")]
+        [SerializeField] private Image currentWorkbanchImage;
+        [SerializeField] private Image currentItemImage;
+
         [Header("UI/Prefabs")]
-        [SerializeField] private CSCraftUIObject craftPrefab;
+        [SerializeField] private CSCraftUILearn learnCraftPrefab;
         [SerializeField] private CSCraftUIArrow arrowPrefab;
+        [Space]
+        [SerializeField] private CSCraftUICraft craftObjectPrefab;
 
         [Header("Other")]
         [SerializeField] private Canvas canvas;
+        public bool isOpened = true;
+        public TechTree openedTechTree;
 
-        public void Start()
+        private void Start()
         {
-            SpawnNodes();
+            InitializeCraftSystem();
+
+            openedTechTree = techTrees[0];
+        }
+        private void Update()
+        {
+            if(isOpened)
+            {
+                currentScale = Mathf.Clamp(currentScale + Input.mouseScrollDelta.y * sensitivity, minTreeScale, maxTreeScale);
+                float scale = Mathf.Lerp(openedTechTree.techTreeRenderTransform.localScale.x, currentScale, sensitivity);
+                openedTechTree.techTreeRenderTransform.localScale = new Vector3(scale, scale, 1);
+            }
         }
 
-        [NaughtyAttributes.Button]
-        public void SpawnNodes()
+
+        public void Craft(CSCraftSO craft)
+        {
+
+        }
+        public void LearnCraft(CSCraftSO craft)
+        {
+            AddCraft(craft, GetTechTreeByNode(craft));
+        }
+
+        public void SelectACraft(CSCraftSO craft)
+        {
+            currentItemImage.color = new Color(1, 1, 1, 1);
+            currentItemImage.sprite = craft.IconSprite;
+        }
+        public void DisSelectCraft()
+        {
+            currentItemImage.color = new Color(1, 1, 1, 0);
+        }
+
+        #region Utilities
+        [Button]
+        private void InitializeCraftSystem()
         {
             foreach (TechTree tree in techTrees)
             {
-                tree.loadedCraftPrefabs = new List<CSCraftUIObject>();
+                tree.loadedLearnCraftPrefabs = new List<CSCraftUILearn>();
+                tree.loadedCraftPrefabs = new List<CSCraftUICraft>();
 
                 SpawnNodes(tree);
                 SpawnConnections(tree);
             }
         }
 
-        public void Craft(CSCraftSO craft)
-        {
-
-        }
-
-        #region Utilities
-        public void SpawnNodes(TechTree tree)
+        private void SpawnNodes(TechTree tree)
         {
             if(tree.techTreeRenderTransform.childCount > 0)
             {
@@ -69,17 +122,17 @@ namespace Game.CraftSystem
                 {
                     DestroyImmediate(tree.techTreeRenderTransform.GetChild(i).gameObject);
                 }
-                tree.loadedCraftPrefabs.Clear();
+                tree.loadedLearnCraftPrefabs.Clear();
             }
 
             foreach (CSCraftSO craftData in tree.techTree.UngroupedDialogues)
             {
-                CSCraftUIObject obj = Instantiate(craftPrefab.gameObject, tree.techTreeRenderTransform).GetComponent<CSCraftUIObject>();
+                CSCraftUILearn obj = Instantiate(learnCraftPrefab.gameObject, tree.techTreeRenderTransform).GetComponent<CSCraftUILearn>();
                 obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y));
-                tree.loadedCraftPrefabs.Add(obj);
+                tree.loadedLearnCraftPrefabs.Add(obj);
             }
         }
-        public void SpawnConnections(TechTree tree)
+        private void SpawnConnections(TechTree tree)
         {
             if (tree.techTreeArrowRenderTransform.childCount > 0)
             {
@@ -90,7 +143,7 @@ namespace Game.CraftSystem
                 }
             }
 
-            foreach (CSCraftUIObject craftUIObject in tree.loadedCraftPrefabs)
+            foreach (CSCraftUILearn craftUIObject in tree.loadedLearnCraftPrefabs)
             {
                 foreach (var choice in craftUIObject.craft.Choices)
                 {
@@ -102,10 +155,16 @@ namespace Game.CraftSystem
                 }
             }
         }
-        
-        public CSCraftUIObject GetCraftObj(CSCraftSO so)
+        public void AddCraft(CSCraftSO item, TechTree tree)
         {
-            foreach (CSCraftUIObject uiObj in GetLoadedNodesByNodeSO(so))
+            CSCraftUICraft obj = Instantiate(craftObjectPrefab.gameObject, tree.craftTreeRenderTransform).GetComponent<CSCraftUICraft>();
+            obj.Initialize(item);
+            tree.loadedCraftPrefabs.Add(obj);
+        }
+        
+        public CSCraftUILearn GetCraftObj(CSCraftSO so)
+        {
+            foreach (CSCraftUILearn uiObj in GetTechTreeByNode(so).loadedLearnCraftPrefabs)
             {
                 if(uiObj.craft == so)
                 {
@@ -114,11 +173,11 @@ namespace Game.CraftSystem
             }
             return null;
         }
-        public List<CSCraftUIObject> GetCraftObjInChoices(CSCraftSO so)
+        public List<CSCraftUILearn> GetCraftObjInChoices(CSCraftSO so)
         {
-            List<CSCraftUIObject> objectList = new List<CSCraftUIObject>();
+            List<CSCraftUILearn> objectList = new List<CSCraftUILearn>();
 
-            foreach (CSCraftUIObject uiObj in GetLoadedNodesByNodeSO(so))
+            foreach (CSCraftUILearn uiObj in GetTechTreeByNode(so).loadedLearnCraftPrefabs)
             {
                 if(uiObj.craft.Choices.Count > 0 && uiObj.craft.Choices != null)
                 {
@@ -137,16 +196,16 @@ namespace Game.CraftSystem
             else
                 return null;
         }
-
-        public List<CSCraftUIObject> GetLoadedNodesByNodeSO(CSCraftSO nodeSO)
+        public TechTree GetTechTreeByNode(CSCraftSO nodeSO)
         {
             foreach (TechTree tree in techTrees)
             {
-                foreach (CSCraftUIObject item in tree.loadedCraftPrefabs)
+                foreach (CSCraftUILearn item in tree.loadedLearnCraftPrefabs)
                 {
                     if(item.craft == nodeSO)
                     {
-                        return tree.loadedCraftPrefabs;
+                        Debug.Log(tree.techTree.name);
+                        return tree;
                     }
                 }
             }
