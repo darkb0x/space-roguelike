@@ -7,159 +7,106 @@ namespace Game.Turret
 {
     using Player;
     using Player.Inventory;
+    using Bullets;
 
-    public class TurretAI : MonoBehaviour
+    public abstract class TurretAI : MonoBehaviour
     {
         [System.Serializable]
-        public struct obj
+        public struct Item
         {
-            public string name;
-            public GameObject gameObj;
+            public InventoryItem item;
+            public int amount;
         }
 
-        [Header("parameters")]
+        [Header("Turret firpower parameters")]
         public Transform shotPos;
+        [Space]
+        public GameObject bulletPrefab;
+        public float damage = 1;
+        public float timeBtwAttack = 0.3f;
+        public float recoil = 0f;
+
+        [Header("Turret rotation")]
+        public float turret_rotateTime = 0.2f;
+        public float turret_back_RotateTime = 0.05f;
         public Transform turret_canon;
-        [SerializeField] private float time_smooth = 1.2f;
-        [Expandable] public TurretStats stats;
 
-        [HideInInspector] public GameObject bulletPrefab;
-        [HideInInspector] public float damage;
-        [HideInInspector] public float timeBtwAttack = 0.3f;
-        [HideInInspector] public float recoil = 0f;
-
-        [Header("actions")]
-        [SerializeField, Expandable] private TurretAction action;
-        [ReadOnly] public GameObject currentEnemy;
-        [ReadOnly] public bool enemyInZone;
+        [Header("Enemy detecion")]
         [Tag] public string enemyTag;
+        [Space]
+        [ReadOnly] public bool enemyInZone;
+        [ReadOnly] public GameObject currentEnemy;
+        [ReadOnly] public List<GameObject> targets = new List<GameObject>();
 
         [Header("other")]
         public bool isPicked;
-        [SerializeField] private Collider2D coll;
-        [SerializeField, ReadOnly] List<GameObject> targets = new List<GameObject>();
+        public Collider2D coll;
+        public List<Item> droppedItems = new List<Item>();
 
-        [Space(10)]
-        [SerializeField] private List<obj> additionalObjects = new List<obj>();
-
-        TurretAction currentAction;
         PlayerController player;
         PlayerInventory inventory;
         new Transform transform;
+        [HideInInspector] public float currentTimeBtwAttacks;
 
         private void OnDrawGizmosSelected()
         {
             if (currentEnemy != null)
             {
-                Gizmos.color = Color.red;
+                Gizmos.color = Color.green;
                 Gizmos.DrawLine(transform.position, currentEnemy.transform.position);
             }
         }
 
-        #region additional object | functions
-        public GameObject _GetObject(string objName)
-        {
-            foreach (var item in additionalObjects)
-            {
-                if (item.name == objName)
-                {
-                    return item.gameObj;
-                }
-            }
-            Debug.LogError($"Turret AI | GetObject() | {objName} in list additionalObjects, not valid!");
-            return null;
-        }
-        public void _AddObject(GameObject gameObj, string objName)
-        {
-            obj o = new obj();
-            o.name = objName;
-            o.gameObj = gameObj;
-            additionalObjects.Add(o);
-        }
-        public void _RemoveObject(string objName)
-        {
-            int index = 0;
-            for (int i = 0; i < additionalObjects.Count; i++)
-            {
-                if (additionalObjects[i].name == objName)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            additionalObjects.RemoveAt(index);
-        }
-        #endregion
-
-        private void Start()
+        public virtual void Start()
         {
             player = FindObjectOfType<PlayerController>();
             inventory = FindObjectOfType<PlayerInventory>();
             transform = GetComponent<Transform>();
 
-            SetAction(action);
-
-            bulletPrefab = stats.bulletPrefab;
-            damage = stats.damage;
-            timeBtwAttack = stats.timeBtwAttack;
-            recoil = stats.recoil;
+            currentTimeBtwAttacks = timeBtwAttack;
 
             //coll.enabled = false;
         }
 
-        public void Put()
-        {
-            isPicked = false;
-            coll.enabled = true;
-        }
-        void RotateToTarget(GameObject target)
-        {
-            if (currentEnemy != null)
-            {
-                Vector3 dir = target.transform.position - turret_canon.position;
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                Quaternion a = turret_canon.rotation;
-                Quaternion b = Quaternion.Euler(0, 0, angle);
-                turret_canon.rotation = Quaternion.Lerp(a, b, time_smooth); //сдела сглаживание поворота ибо так красивее
-            }
-            else
-            {
-                return;
-            }
-        }
+        #region Updates
         private void Update()
         {
             if (currentEnemy != null)
             {
                 RotateToTarget(currentEnemy);
             }
+            else
+            {
+                GetRotateBack();
+            }
             enemyInZone = (targets.Count > 0);
 
-            if (!isPicked) currentAction.Run();
+            if (!isPicked) Run();
         }
-
         private void FixedUpdate()
         {
-            if (!isPicked) currentAction.FixedRun();
+            if (!isPicked) FixedRun();
         }
 
-        private void SetAction(TurretAction action)
+        public virtual void Run() 
         {
-            currentAction = Instantiate(action);
-            currentAction.turret = this;
-            currentAction.player = player;
-            currentAction.Init();
-        }
+            if (!enemyInZone)
+                return;
 
-        public void DestroyTurret()
-        {
-            foreach (var item in stats.DroppedItems)
+            if(currentTimeBtwAttacks <= 0)
             {
-                inventory.AddItem(item.item, item.amount);
+                Attack();
+                currentTimeBtwAttacks = timeBtwAttack;
             }
-            Destroy(gameObject);
+            else
+            {
+                currentTimeBtwAttacks -= Time.deltaTime;
+            }
         }
+        public virtual void FixedRun() { }
+        #endregion
 
+        #region Collision triggers
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.tag == enemyTag)
@@ -167,8 +114,6 @@ namespace Game.Turret
                 if (!targets.Contains(collision.gameObject))
                     targets.Add(collision.gameObject);
             }
-
-            action.TriggerEnter(collision, this);
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
@@ -179,8 +124,6 @@ namespace Game.Turret
                     currentEnemy = GetNearestEnemy();
                 }
             }
-
-            action.TriggerStay(collision, this);
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
@@ -192,11 +135,32 @@ namespace Game.Turret
                     currentEnemy = GetNearestEnemy();
                 }
             }
-
-            action.TriggerExit(collision, this);
         }
+        #endregion
 
-        private GameObject GetNearestEnemy()
+        #region Utilties
+        private void RotateToTarget(GameObject target)
+        {
+            if (currentEnemy != null)
+            {
+                Vector3 dir = target.transform.position - turret_canon.position;
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                Quaternion a = turret_canon.rotation;
+                Quaternion b = Quaternion.Euler(0, 0, angle);
+                turret_canon.rotation = Quaternion.Lerp(a, b, turret_rotateTime);
+            }
+            else
+            {
+                return;
+            }
+        }
+        private void GetRotateBack()
+        {
+            Quaternion a = turret_canon.rotation;
+            Quaternion b = Quaternion.Euler(0, 0, 0);
+            turret_canon.rotation = Quaternion.Lerp(a, b, turret_back_RotateTime);
+        }
+        public GameObject GetNearestEnemy()
         {
             if (targets == null | targets.Count <= 0)
                 return null;
@@ -209,6 +173,30 @@ namespace Game.Turret
                     enemy = targets[i];
             }
             return enemy;
+        }
+        #endregion
+
+        public virtual void Attack()
+        {
+            float recoil_rotation = Random.Range(-recoil, recoil);
+            Bullet bullet = Instantiate(bulletPrefab, shotPos.position, shotPos.rotation).GetComponent<Bullet>();
+            bullet.gameObject.transform.Rotate(0, 0, recoil_rotation);
+            bullet.Init(damage);
+        }
+
+        private void Put()
+        {
+            isPicked = false;
+            coll.enabled = true;
+        }
+
+        public virtual void DestroyTurret()
+        {
+            foreach (var item in droppedItems)
+            {
+                inventory.AddItem(item.item, item.amount);
+            }
+            Destroy(gameObject);
         }
     }
 }
