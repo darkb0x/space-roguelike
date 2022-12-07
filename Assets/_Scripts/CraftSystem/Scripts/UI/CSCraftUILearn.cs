@@ -14,7 +14,7 @@ namespace Game.CraftSystem
     public class CSCraftUILearn : MonoBehaviour
     {
         [HideInInspector] public RectTransform rectTransform;
-        private CSManager craftSystem;
+        private LearnCSManager learnCraftSystem;
 
         [Header("Node Variable")]
         [ReadOnly, Expandable] public CSCraftSO craft;
@@ -40,7 +40,7 @@ namespace Game.CraftSystem
         [SerializeField] private Transform itemListTransform;
         [SerializeField] private GameObject itemListComponent;
 
-        public virtual void Initialize(CSCraftSO data, Vector2 position)
+        public void Initialize(CSCraftSO data, Vector2 position)
         {
             rectTransform = GetComponent<RectTransform>();
 
@@ -65,9 +65,46 @@ namespace Game.CraftSystem
 
         }
 
+        public void UpdateUI()
+        {
+            if(itemListTransform.childCount > 0)
+            {
+                if (itemListTransform.childCount >= 0)
+                {
+                    int childCount = itemListTransform.childCount;
+                    for (int i = childCount - 1; i > 0; i--)
+                    {
+                        DestroyImmediate(itemListTransform.gameObject);
+                    }
+                }
+            }
+
+            foreach (ItemCraft item in craft.ObjectCraft)
+            {
+                GameObject obj = Instantiate(itemListComponent, itemListTransform);
+
+                // item icon
+                Image icon = obj.transform.GetChild(0).GetComponent<Image>();
+                icon.sprite = item.item._icon;
+
+                // items amount
+                TextMeshProUGUI amount = obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                amount.text = item.amount.ToString(); 
+
+                if(PlayerInventory.playerInventory.GetItem(item.item).amount < item.amount)
+                {
+                    amount.color = Color.red;
+                }
+                else
+                {
+                    amount.color = Color.white;
+                }
+            }
+        }
+
         private void Start()
         {
-            craftSystem = FindObjectOfType<CSManager>();
+            learnCraftSystem = FindObjectOfType<LearnCSManager>();
 
             if (craft.IsStartingNode)
                 fullUnlock();
@@ -76,7 +113,7 @@ namespace Game.CraftSystem
 
             if(!craft.IsStartingNode)
             {
-                List<CSCraftUILearn> lastCrafts = craftSystem.GetCraftObjInChoices(craft);
+                List<CSCraftUILearn> lastCrafts = learnCraftSystem.GetCraftObjInChoices(craft);
                 if (lastCrafts != null)
                 {
                     foreach (CSCraftUILearn item in lastCrafts)
@@ -95,7 +132,7 @@ namespace Game.CraftSystem
 
             if (isPursached)
             {
-                craftSystem.AddCraft(craft, craftSystem.GetTechTreeByNode(craft));
+                learnCraftSystem.AddCraft(craft, learnCraftSystem.GetTechTreeByNode(craft));
             }
         }
 
@@ -109,7 +146,7 @@ namespace Game.CraftSystem
             {
                 return;
             }
-            List<CSCraftUILearn> lastCrafts = craftSystem.GetCraftObjInChoices(craft);
+            List<CSCraftUILearn> lastCrafts = learnCraftSystem.GetCraftObjInChoices(craft);
             bool canBuy = false;
             if (lastCrafts != null)
             {
@@ -133,7 +170,7 @@ namespace Game.CraftSystem
                     if (item.NextCraft == null)
                         continue;
 
-                    CSCraftUILearn obj = craftSystem.GetCraftObj(item.NextCraft);
+                    CSCraftUILearn obj = learnCraftSystem.GetCraftObj(item.NextCraft);
                     if (obj != null)
                     {
                         obj.unlockForBuy();
@@ -143,7 +180,7 @@ namespace Game.CraftSystem
                 PlayerInventory.playerInventory.money -= craft.CraftCost;
                 fullUnlock();
                 OnEnterPointer();
-                craftSystem.LearnCraft(craft);
+                learnCraftSystem.LearnCraft(craft);
             }
         }
 

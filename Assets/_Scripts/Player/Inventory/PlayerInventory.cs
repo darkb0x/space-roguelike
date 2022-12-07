@@ -6,6 +6,8 @@ using TMPro;
 
 namespace Game.Player.Inventory
 {
+    using CraftSystem;
+
     public class PlayerInventory : MonoBehaviour
     {
         // singletone
@@ -97,6 +99,16 @@ namespace Game.Player.Inventory
             {
                 return false;
             }
+        }
+
+        public bool CanTakeItems(List<ItemCraft> items)
+        {
+            foreach (ItemCraft item in items)
+            {
+                if (GetItem(item.item).amount < item.amount)
+                    return false;
+            }
+            return true;
         }
 
         private void UpdateUI()

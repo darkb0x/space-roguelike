@@ -19,7 +19,7 @@ namespace Game.Player
         [SerializeField] private Transform pickedTurretPosition;
 
         [Header("animator")]
-        [SerializeField] private Animator anim;
+        public Animator anim;
         [Space]
         [AnimatorParam("anim"), SerializeField] string anim_runHorizontal;
         [AnimatorParam("anim"), SerializeField] string anim_runVertical;
@@ -30,7 +30,7 @@ namespace Game.Player
         Rigidbody2D rb;
         new Transform transform;
         PlayerInventory inventory;
-
+        bool canMove = true;
 
         private void Start()
         {
@@ -59,7 +59,8 @@ namespace Game.Player
 
         private void FixedUpdate()
         {
-            rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
+            if(canMove)
+                rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
         }
 
         DroneAI selectedDrone;
@@ -79,6 +80,19 @@ namespace Game.Player
             selectedDrone = null;
             selectedTurret = null;
         }
+
+        #region Animation Control
+        public void StartCrafting(Vector3 pos)
+        {
+            transform.position = pos;
+
+            canMove = false;
+        }
+        public void EndCrafting()
+        {
+            canMove = true;
+        }
+        #endregion
     }
 
 }
