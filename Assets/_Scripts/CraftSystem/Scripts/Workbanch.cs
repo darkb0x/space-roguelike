@@ -40,8 +40,11 @@ namespace Game.CraftSystem
                 if (Vector2.Distance(myTransform.position, player.transform.position) > GameDefaultVariables.interact_maxDistanceBetweenPlayerAndInteractObject)
                     return;
 
-                player.StartCrafting(transform.position);
-                craftSystem.OpenCraftMenu(this);
+                if(!player.pickObjSystem.pickedGameObject)
+                {
+                    player.StartCrafting(transform.position);
+                    craftSystem.OpenCraftMenu(this);
+                }
             }
         }
     }

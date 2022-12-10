@@ -14,7 +14,7 @@ namespace Game.Player
         [AnimatorParam("anim"), SerializeField] string anim_isPickSomethink;
 
         [Header("picked object")]
-        [SerializeField, ReadOnly] GameObject pickedGameObject;
+        [ReadOnly] public GameObject pickedGameObject;
         [SerializeField] private Transform pickedGameObject_renderPosition; // where gameobject is be visible
         Transform pickedGameObject_transform;
 
