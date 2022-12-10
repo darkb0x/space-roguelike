@@ -6,46 +6,43 @@ using NaughtyAttributes;
 namespace Game.CraftSystem
 {
     using Player;
+    using Turret;
 
-    public class Workbanch : MonoBehaviour
+    public class Workbanch : MonoBehaviour, IMouseObserver_Click
     {
-        bool playerInZone;
         CSManager craftSystem;
-        PlayerController currentPlayer;
-
-        [Header("Variables")]
-        [SerializeField] private KeyCode openKey;
-        [Space]
-        [SerializeField] private Transform playerPos;
+        PlayerController player;
+        Transform myTransform;
 
         private void Start()
         {
             craftSystem = FindObjectOfType<CSManager>();
+            player = FindObjectOfType<PlayerController>();
+            myTransform = transform;
         }
 
-        private void Update()
+        public void Craft(GameObject obj)
         {
-            if (playerInZone)
+            GameObject craftedObj = Instantiate(obj, myTransform.position, Quaternion.identity);
+
+            if(craftedObj.TryGetComponent<TurretAI>(out TurretAI turret))
             {
-                if (Input.GetKeyDown(openKey))
-                {
-                    currentPlayer.StartCrafting(playerPos.position);
-                    craftSystem.OpenCraftMenu(this);
-                }
+                turret.Initialize(player);
             }
+
+            player.EndCrafting();
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        public void MauseDown(MouseClickType mouseClickType)
         {
-            if(collision.TryGetComponent<PlayerController>(out PlayerController player))
+            if(mouseClickType == MouseClickType.Left)
             {
-                currentPlayer = player;
-                playerInZone = true;
+                if (Vector2.Distance(myTransform.position, player.transform.position) > GameDefaultVariables.interact_maxDistanceBetweenPlayerAndInteractObject)
+                    return;
+
+                player.StartCrafting(transform.position);
+                craftSystem.OpenCraftMenu(this);
             }
-        }
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            playerInZone = false;
         }
     }
 }

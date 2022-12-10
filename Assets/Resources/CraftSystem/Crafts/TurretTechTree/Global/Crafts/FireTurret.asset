@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CraftName>k__BackingField: FireTurret
   <Choices>k__BackingField: []
-  <GameObjectPrefab>k__BackingField: {fileID: 2816165156501541574, guid: f90929a341e774640874d631c7f6f41b, type: 3}
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: e2a7b9310f127054e9f671e5b1246564, type: 3}
+  <GameObjectPrefab>k__BackingField: {fileID: 5304330532916855163, guid: c72d0207ff4e22049930fc62ddd07aa7, type: 3}
+  <IconSprite>k__BackingField: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
   <CraftCost>k__BackingField: 300
   <ObjectCraft>k__BackingField:
   - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}

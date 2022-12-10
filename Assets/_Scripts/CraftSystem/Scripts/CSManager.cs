@@ -8,11 +8,12 @@ namespace Game.CraftSystem
 {
     using CraftSystem.Editor.ScriptableObjects;
     using Player.Inventory;
+    using Player;
 
     public class CSManager : MonoBehaviour
     {
         [Header("Crafts")]
-        [SerializeField] private CSCraftSO[] craftList;
+        [SerializeField] private CSCraftContainerSO techTree;
         [SerializeField] private List<CSCraftUICraft> loadedCraftObjects;
 
         [Header("UI/Panels")]
@@ -30,12 +31,27 @@ namespace Game.CraftSystem
         public bool isOpened = true;
 
         Workbanch currentWorkbanch;
+        PlayerController player;
 
         private void Start()
         {
+            player = FindObjectOfType<PlayerController>();
+
             InitializeCraftSystem();
         }
 
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                if(isOpened)
+                {
+                    CloseCraftMenu();
+                }
+            }
+        }
+
+        #region UI Interaction
         public void OpenCraftMenu(Workbanch workbanch)
         {
             currentWorkbanch = workbanch;
@@ -47,6 +63,8 @@ namespace Game.CraftSystem
         {
             craftTreePanel.SetActive(false);
             isOpened = false;
+
+            player.EndCrafting();
         }
 
         public void Craft(CSCraftSO craft)
@@ -54,7 +72,14 @@ namespace Game.CraftSystem
             if (!PlayerInventory.playerInventory.CanTakeItems(craft.ObjectCraft))
                 return;
 
-            // Craft on workbanch
+            foreach (var item in craft.ObjectCraft)
+            {
+                PlayerInventory.playerInventory.TakeItem(item.item, item.amount);
+            }
+
+            currentWorkbanch.Craft(craft.GameObjectPrefab);
+
+            CloseCraftMenu();
         }
 
         public void SelectACraft(CSCraftSO craft)
@@ -66,11 +91,12 @@ namespace Game.CraftSystem
         {
             currentItemImage.color = new Color(1, 1, 1, 0);
         }
+        #endregion
 
         #region Utilities
         private void InitializeCraftSystem()
         {
-            foreach (CSCraftSO item in craftList)
+            foreach (CSCraftSO item in techTree.UngroupedDialogues)
             {
                 CSCraftUICraft obj = Instantiate(craftObjectPrefab.gameObject, craftRenderTransform).GetComponent<CSCraftUICraft>();
                 obj.Initialize(item);

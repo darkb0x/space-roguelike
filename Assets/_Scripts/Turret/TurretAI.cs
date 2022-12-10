@@ -43,7 +43,6 @@ namespace Game.Turret
         public Collider2D coll;
         public List<Item> droppedItems = new List<Item>();
 
-        PlayerController player;
         PlayerInventory inventory;
         new Transform transform;
         [HideInInspector] public float currentTimeBtwAttacks;
@@ -59,18 +58,26 @@ namespace Game.Turret
 
         public virtual void Start()
         {
-            player = FindObjectOfType<PlayerController>();
             inventory = FindObjectOfType<PlayerInventory>();
             transform = GetComponent<Transform>();
+        }
 
+        public void Initialize(PlayerController p)
+        {
             currentTimeBtwAttacks = timeBtwAttack;
 
-            //coll.enabled = false;
+            isPicked = true;
+            coll.enabled = false;
+
+            p.pickObjSystem.SetPickedGameobj(gameObject);
         }
 
         #region Updates
         private void Update()
         {
+            if (isPicked)
+                return;
+
             if (currentEnemy != null)
             {
                 RotateToTarget(currentEnemy);
@@ -81,11 +88,14 @@ namespace Game.Turret
             }
             enemyInZone = (targets.Count > 0);
 
-            if (!isPicked) Run();
+            Run();
         }
         private void FixedUpdate()
         {
-            if (!isPicked) FixedRun();
+            if (isPicked)
+                return;
+
+            FixedRun();
         }
 
         public virtual void Run() 
@@ -184,7 +194,7 @@ namespace Game.Turret
             bullet.Init(damage);
         }
 
-        private void Put()
+        public void Put()
         {
             isPicked = false;
             coll.enabled = true;

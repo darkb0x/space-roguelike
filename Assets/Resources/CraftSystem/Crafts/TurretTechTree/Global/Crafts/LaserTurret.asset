@@ -15,8 +15,8 @@ MonoBehaviour:
   <CraftName>k__BackingField: LaserTurret
   <Choices>k__BackingField:
   - <NextCraft>k__BackingField: {fileID: 11400000, guid: e0d66310aac35444ca7272387693155f, type: 2}
-  <GameObjectPrefab>k__BackingField: {fileID: 6737583941257189528, guid: 008db8e9bff45684090d50be34fe6ef5, type: 3}
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: 005a88d4fcb18c7409b290b7066765bb, type: 3}
+  <GameObjectPrefab>k__BackingField: {fileID: 7484445719804984884, guid: 0496214919ecbd043a119758e508aa3b, type: 3}
+  <IconSprite>k__BackingField: {fileID: -1895180281693119143, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
   <CraftCost>k__BackingField: 200
   <ObjectCraft>k__BackingField:
   - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}

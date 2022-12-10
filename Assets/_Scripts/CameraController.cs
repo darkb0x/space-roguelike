@@ -36,6 +36,8 @@ namespace Game
         {
             currentZoom = Mathf.Clamp(currentZoom + -Input.mouseScrollDelta.y * scrollSpeed, minCamViewScale, maxCamViewScale);
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
+
+            transform.position = target.position - new Vector3(0, 0, Mathf.Abs(transform.position.z)); 
         }
 
         private void FixedUpdate()

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CraftName>k__BackingField: MoverocketTurret
   <Choices>k__BackingField: []
-  <GameObjectPrefab>k__BackingField: {fileID: 1945938000768075160, guid: 12e9612d6648a874c9129f80907b1e55, type: 3}
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: 254edcd59f53a0c49b993d650e178785, type: 3}
+  <GameObjectPrefab>k__BackingField: {fileID: 1615404746759015651, guid: f00ea62508f20bf409876b2e8cda1d20, type: 3}
+  <IconSprite>k__BackingField: {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
   <CraftCost>k__BackingField: 250
   <ObjectCraft>k__BackingField:
   - item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}

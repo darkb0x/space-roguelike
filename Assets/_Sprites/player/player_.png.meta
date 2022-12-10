@@ -148,148 +148,148 @@ TextureImporter:
     second: player_run_left 7
   - first:
       213: 8988397844928106407
-    second: unknown5_48
+    second: player_run_up_left_turret 0
   - first:
       213: 4743661269973188118
-    second: unknown5_49
+    second: player_run_up_turret 0
   - first:
       213: -5440245762121471740
-    second: unknown5_50
+    second: player_run_up_right_turret 0
   - first:
       213: -1272784243081811992
-    second: unknown5_51
+    second: player_run_up_left_turret 1
   - first:
       213: 6516958360022785465
-    second: unknown5_52
+    second: player_run_up_turret 1
   - first:
       213: -6698903321178349419
-    second: unknown5_53
+    second: player_run_up_right_turret 1
   - first:
       213: -5821490077231082511
-    second: unknown5_54
+    second: player_run_up_left_turret 2
   - first:
       213: 5546062535746794305
-    second: unknown5_55
+    second: player_run_up_turret 2
   - first:
       213: 2973370331872782741
-    second: unknown5_56
+    second: player_run_up_right_turret 2
   - first:
       213: 1153998441025290570
-    second: unknown5_57
+    second: player_run_up_left_turret 3
   - first:
       213: 4608862920629675569
-    second: unknown5_58
+    second: player_run_up_turret 3
   - first:
       213: -9169869445556603561
-    second: unknown5_59
+    second: player_run_up_right_turret 3
   - first:
       213: -1536623921763856078
-    second: unknown5_60
+    second: player_run_up_left_turret 4
   - first:
       213: 378907289529668050
-    second: unknown5_61
+    second: player_run_up_turret 4
   - first:
       213: -2482404045441610939
-    second: unknown5_62
+    second: player_run_up_right_turret 4
   - first:
       213: -3358968125524827961
-    second: unknown5_63
+    second: player_run_up_left_turret 5
   - first:
       213: -6781374766639173218
-    second: unknown5_64
+    second: player_run_up_turret 5
   - first:
       213: 6992867915984807353
-    second: unknown5_65
+    second: player_run_up_right_turret 5
   - first:
       213: 3663039658860659653
-    second: unknown5_66
+    second: player_run_up_left_turret 6
   - first:
       213: -9052707451173553493
-    second: unknown5_67
+    second: player_run_up_turret 6
   - first:
       213: -5525792337035496195
-    second: unknown5_68
+    second: player_run_up_right_turret 6
   - first:
       213: 3747105273165515543
-    second: unknown5_69
+    second: player_run_up_left_turret 7
   - first:
       213: 1371053443820163130
-    second: unknown5_70
+    second: player_run_up_turret 7
   - first:
       213: -8726278148598924429
-    second: unknown5_71
+    second: player_run_up_right_turret 7
   - first:
       213: 4225746609225503345
-    second: unknown5_72
+    second: player_run_left_turret 0
   - first:
       213: 1672815678844031308
-    second: unknown5_73
+    second: player_run_turret 0
   - first:
       213: 7429052466178878290
-    second: unknown5_74
+    second: player_run_right_turret 0
   - first:
       213: 7576944795479034344
-    second: unknown5_75
+    second: player_run_left_turret 1
   - first:
       213: -6959610406270909704
-    second: unknown5_76
+    second: player_run_turret 1
   - first:
       213: 3609825506336614145
-    second: unknown5_77
+    second: player_run_right_turret 1
   - first:
       213: -7338755459232687505
-    second: unknown5_78
+    second: player_run_left_turret 2
   - first:
       213: 3275185048853450494
-    second: unknown5_79
+    second: player_run_turret 2
   - first:
       213: -8219761877752413303
-    second: unknown5_80
+    second: player_run_right_turret 2
   - first:
       213: -4398228264211732877
-    second: unknown5_81
+    second: player_run_left_turret 3
   - first:
       213: 8910525041386226278
-    second: unknown5_82
+    second: player_run_turret 3
   - first:
       213: 8991804455230346227
-    second: unknown5_83
+    second: player_run_right_turret 3
   - first:
       213: 5380306928218426113
-    second: unknown5_84
+    second: player_run_left_turret 4
   - first:
       213: 9116326447593449945
-    second: unknown5_85
+    second: player_run_turret 4
   - first:
       213: 2243983184346721258
-    second: unknown5_86
+    second: player_run_right_turret 4
   - first:
       213: 6437940566574299755
-    second: unknown5_87
+    second: player_run_left_turret 5
   - first:
       213: -4620785946676853715
-    second: unknown5_88
+    second: player_run_turret 5
   - first:
       213: 6903590466339059459
-    second: unknown5_89
+    second: player_run_right_turret 5
   - first:
       213: -627080754597738376
-    second: unknown5_90
+    second: player_run_left_turret 6
   - first:
       213: 8737639938870965072
-    second: unknown5_91
+    second: player_run_turret 6
   - first:
       213: -2496163425259484955
-    second: unknown5_92
+    second: player_run_right_turret 6
   - first:
       213: 6076779200466853867
-    second: unknown5_93
+    second: player_run_left_turret 7
   - first:
       213: 7801314160743044772
-    second: unknown5_94
+    second: player_run_turret 7
   - first:
       213: -6225980334377133836
-    second: unknown5_95
+    second: player_run_right_turret 7
   - first:
       213: 2901243647157000217
     second: player_idle_up_right 0
@@ -319,31 +319,31 @@ TextureImporter:
     second: player_idle_up_left 2
   - first:
       213: -6187636872387276547
-    second: unknown5_105
+    second: player_idle_up_left_turret 0
   - first:
       213: -5204764564518319995
-    second: unknown5_106
+    second: player_idle_up_turret 0
   - first:
       213: 940660160579636625
-    second: unknown5_107
+    second: player_idle_up_right_turret 0
   - first:
       213: 6012595614917493734
-    second: unknown5_108
+    second: player_idle_up_left_turret 1
   - first:
       213: 5434223913598069592
-    second: unknown5_109
+    second: player_idle_up_turret 1
   - first:
       213: 6297058744385180841
-    second: unknown5_110
+    second: player_idle_up_right_turret 1
   - first:
       213: -757776290171549200
-    second: unknown5_111
+    second: player_idle_up_left_turret 2
   - first:
       213: 383023056684046803
-    second: unknown5_112
+    second: player_idle_up_turret 2
   - first:
       213: 6418871527186771272
-    second: unknown5_113
+    second: player_idle_up_right_turret 2
   - first:
       213: -8551560647001982968
     second: player_idle_right 0
@@ -379,7 +379,7 @@ TextureImporter:
     second: unknown5_124
   - first:
       213: 218821896491449506
-    second: unknown5_125
+    second: player_idle_right_turret 0
   - first:
       213: -1422333685748372666
     second: unknown5_126
@@ -388,7 +388,7 @@ TextureImporter:
     second: unknown5_127
   - first:
       213: 4302421574152315078
-    second: unknown5_128
+    second: player_idle_right_turret 1
   - first:
       213: -590691717583717724
     second: unknown5_129
@@ -397,7 +397,7 @@ TextureImporter:
     second: unknown5_130
   - first:
       213: -8081972020523224323
-    second: unknown5_131
+    second: player_idle_right_turret 2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1507,7 +1507,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_48
+      name: player_run_up_left_turret 0
       rect:
         serializedVersion: 2
         x: 1
@@ -1528,7 +1528,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_49
+      name: player_run_up_turret 0
       rect:
         serializedVersion: 2
         x: 17
@@ -1549,7 +1549,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_50
+      name: player_run_up_right_turret 0
       rect:
         serializedVersion: 2
         x: 31
@@ -1570,7 +1570,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_51
+      name: player_run_up_left_turret 1
       rect:
         serializedVersion: 2
         x: 47
@@ -1591,7 +1591,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_52
+      name: player_run_up_turret 1
       rect:
         serializedVersion: 2
         x: 63
@@ -1612,7 +1612,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_53
+      name: player_run_up_right_turret 1
       rect:
         serializedVersion: 2
         x: 77
@@ -1633,7 +1633,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_54
+      name: player_run_up_left_turret 2
       rect:
         serializedVersion: 2
         x: 93
@@ -1654,7 +1654,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_55
+      name: player_run_up_turret 2
       rect:
         serializedVersion: 2
         x: 109
@@ -1675,7 +1675,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_56
+      name: player_run_up_right_turret 2
       rect:
         serializedVersion: 2
         x: 123
@@ -1696,7 +1696,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_57
+      name: player_run_up_left_turret 3
       rect:
         serializedVersion: 2
         x: 139
@@ -1717,7 +1717,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_58
+      name: player_run_up_turret 3
       rect:
         serializedVersion: 2
         x: 155
@@ -1738,7 +1738,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_59
+      name: player_run_up_right_turret 3
       rect:
         serializedVersion: 2
         x: 169
@@ -1759,7 +1759,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_60
+      name: player_run_up_left_turret 4
       rect:
         serializedVersion: 2
         x: 185
@@ -1780,7 +1780,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_61
+      name: player_run_up_turret 4
       rect:
         serializedVersion: 2
         x: 201
@@ -1801,7 +1801,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_62
+      name: player_run_up_right_turret 4
       rect:
         serializedVersion: 2
         x: 215
@@ -1822,7 +1822,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_63
+      name: player_run_up_left_turret 5
       rect:
         serializedVersion: 2
         x: 231
@@ -1843,7 +1843,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_64
+      name: player_run_up_turret 5
       rect:
         serializedVersion: 2
         x: 247
@@ -1864,7 +1864,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_65
+      name: player_run_up_right_turret 5
       rect:
         serializedVersion: 2
         x: 261
@@ -1885,7 +1885,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_66
+      name: player_run_up_left_turret 6
       rect:
         serializedVersion: 2
         x: 277
@@ -1906,7 +1906,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_67
+      name: player_run_up_turret 6
       rect:
         serializedVersion: 2
         x: 293
@@ -1927,7 +1927,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_68
+      name: player_run_up_right_turret 6
       rect:
         serializedVersion: 2
         x: 307
@@ -1948,7 +1948,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_69
+      name: player_run_up_left_turret 7
       rect:
         serializedVersion: 2
         x: 323
@@ -1969,7 +1969,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_70
+      name: player_run_up_turret 7
       rect:
         serializedVersion: 2
         x: 339
@@ -1990,7 +1990,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_71
+      name: player_run_up_right_turret 7
       rect:
         serializedVersion: 2
         x: 353
@@ -2011,7 +2011,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_72
+      name: player_run_left_turret 0
       rect:
         serializedVersion: 2
         x: 1
@@ -2032,7 +2032,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_73
+      name: player_run_turret 0
       rect:
         serializedVersion: 2
         x: 17
@@ -2053,7 +2053,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_74
+      name: player_run_right_turret 0
       rect:
         serializedVersion: 2
         x: 31
@@ -2074,7 +2074,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_75
+      name: player_run_left_turret 1
       rect:
         serializedVersion: 2
         x: 47
@@ -2095,7 +2095,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_76
+      name: player_run_turret 1
       rect:
         serializedVersion: 2
         x: 63
@@ -2116,7 +2116,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_77
+      name: player_run_right_turret 1
       rect:
         serializedVersion: 2
         x: 77
@@ -2137,7 +2137,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_78
+      name: player_run_left_turret 2
       rect:
         serializedVersion: 2
         x: 93
@@ -2158,7 +2158,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_79
+      name: player_run_turret 2
       rect:
         serializedVersion: 2
         x: 109
@@ -2179,7 +2179,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_80
+      name: player_run_right_turret 2
       rect:
         serializedVersion: 2
         x: 123
@@ -2200,7 +2200,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_81
+      name: player_run_left_turret 3
       rect:
         serializedVersion: 2
         x: 139
@@ -2221,7 +2221,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_82
+      name: player_run_turret 3
       rect:
         serializedVersion: 2
         x: 155
@@ -2242,7 +2242,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_83
+      name: player_run_right_turret 3
       rect:
         serializedVersion: 2
         x: 169
@@ -2263,7 +2263,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_84
+      name: player_run_left_turret 4
       rect:
         serializedVersion: 2
         x: 185
@@ -2284,7 +2284,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_85
+      name: player_run_turret 4
       rect:
         serializedVersion: 2
         x: 201
@@ -2305,7 +2305,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_86
+      name: player_run_right_turret 4
       rect:
         serializedVersion: 2
         x: 215
@@ -2326,7 +2326,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_87
+      name: player_run_left_turret 5
       rect:
         serializedVersion: 2
         x: 231
@@ -2347,7 +2347,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_88
+      name: player_run_turret 5
       rect:
         serializedVersion: 2
         x: 247
@@ -2368,7 +2368,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_89
+      name: player_run_right_turret 5
       rect:
         serializedVersion: 2
         x: 261
@@ -2389,7 +2389,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_90
+      name: player_run_left_turret 6
       rect:
         serializedVersion: 2
         x: 277
@@ -2410,7 +2410,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_91
+      name: player_run_turret 6
       rect:
         serializedVersion: 2
         x: 293
@@ -2431,7 +2431,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_92
+      name: player_run_right_turret 6
       rect:
         serializedVersion: 2
         x: 307
@@ -2452,7 +2452,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_93
+      name: player_run_left_turret 7
       rect:
         serializedVersion: 2
         x: 323
@@ -2473,7 +2473,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_94
+      name: player_run_turret 7
       rect:
         serializedVersion: 2
         x: 339
@@ -2494,7 +2494,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_95
+      name: player_run_right_turret 7
       rect:
         serializedVersion: 2
         x: 353
@@ -2510,426 +2510,6 @@ TextureImporter:
       bones: []
       spriteID: 4f812ee5fdfd899a0800000000000000
       internalID: -6225980334377133836
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_up_right 0
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 918d6a3c9b9434820800000000000000
-      internalID: 2901243647157000217
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_up 0
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 20
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a8bc6bb5713c7fb40800000000000000
-      internalID: 5474058377182497674
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_up_left 0
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 99352095528192ef0800000000000000
-      internalID: -132548165344537703
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_up_right 1
-      rect:
-        serializedVersion: 2
-        x: 47
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: caa10d958704af1a0800000000000000
-      internalID: -6775031803778426196
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_up 1
-      rect:
-        serializedVersion: 2
-        x: 63
-        y: 20
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8be8fa8678685fc70800000000000000
-      internalID: 9004250946132217528
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_up_left 1
-      rect:
-        serializedVersion: 2
-        x: 77
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9240fe39833018780800000000000000
-      internalID: -8682655065058638807
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_up_right 2
-      rect:
-        serializedVersion: 2
-        x: 93
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 38f6986ef2a693cd0800000000000000
-      internalID: -2577912557729124477
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_up 2
-      rect:
-        serializedVersion: 2
-        x: 109
-        y: 20
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1b01b30a3f89dd630800000000000000
-      internalID: 3953484220033863857
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_up_left 2
-      rect:
-        serializedVersion: 2
-        x: 123
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1f40e139b803d250800000000000000
-      internalID: 5968123522694795035
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_105
-      rect:
-        serializedVersion: 2
-        x: 139
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df05f3e4c09112aa0800000000000000
-      internalID: -6187636872387276547
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_106
-      rect:
-        serializedVersion: 2
-        x: 155
-        y: 20
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 58848506436f4c7b0800000000000000
-      internalID: -5204764564518319995
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_107
-      rect:
-        serializedVersion: 2
-        x: 169
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 19d06b5ae65ed0d00800000000000000
-      internalID: 940660160579636625
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_108
-      rect:
-        serializedVersion: 2
-        x: 185
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e38a3d0bd7017350800000000000000
-      internalID: 6012595614917493734
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_109
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 20
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 85b22ff8bdd3a6b40800000000000000
-      internalID: 5434223913598069592
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_110
-      rect:
-        serializedVersion: 2
-        x: 215
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9a498d49095a36750800000000000000
-      internalID: 6297058744385180841
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_111
-      rect:
-        serializedVersion: 2
-        x: 231
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f98c1d9a76db75f0800000000000000
-      internalID: -757776290171549200
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_112
-      rect:
-        serializedVersion: 2
-        x: 247
-        y: 20
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3d9df62d075c05500800000000000000
-      internalID: 383023056684046803
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_113
-      rect:
-        serializedVersion: 2
-        x: 261
-        y: 20
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 84d26d435a9641950800000000000000
-      internalID: 6418871527186771272
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_right 0
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 1
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 808bc3056e0c25980800000000000000
-      internalID: -8551560647001982968
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle 0
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 1
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc773c5813151b480800000000000000
-      internalID: -8885231316685850676
       vertices: []
       indices: 
       edges: []
@@ -2956,48 +2536,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_idle_right 1
-      rect:
-        serializedVersion: 2
-        x: 47
-        y: 1
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 898da615f8b6f60d0800000000000000
-      internalID: -3427402528115205992
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_118
-      rect:
-        serializedVersion: 2
-        x: 63
-        y: 1
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41b0b742f960f1030800000000000000
-      internalID: 3467497518680181524
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: player_idle_left 1
       rect:
         serializedVersion: 2
@@ -3014,48 +2552,6 @@ TextureImporter:
       bones: []
       spriteID: 6298ed10fe944a430800000000000000
       internalID: 3793238077030172966
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player_idle_right 2
-      rect:
-        serializedVersion: 2
-        x: 93
-        y: 1
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c6171d5bee04d7930800000000000000
-      internalID: 4142538626247520620
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_121
-      rect:
-        serializedVersion: 2
-        x: 109
-        y: 1
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93f78c3f06b58d6b0800000000000000
-      internalID: -5271362891872174279
       vertices: []
       indices: 
       edges: []
@@ -3082,49 +2578,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_123
-      rect:
-        serializedVersion: 2
-        x: 139
-        y: 1
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 698ecd575212277b0800000000000000
-      internalID: -5228079772648806250
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_124
-      rect:
-        serializedVersion: 2
-        x: 155
-        y: 1
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bac98852d695e2260800000000000000
-      internalID: 7074690389961645227
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_125
+      name: player_idle_right_turret 0
       rect:
         serializedVersion: 2
         x: 169
@@ -3145,49 +2599,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_126
-      rect:
-        serializedVersion: 2
-        x: 185
-        y: 1
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 64b65e47c0bd24ce0800000000000000
-      internalID: -1422333685748372666
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_127
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 1
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 54ce5c49681df86a0800000000000000
-      internalID: -6444702165792068539
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_128
+      name: player_idle_right_turret 1
       rect:
         serializedVersion: 2
         x: 215
@@ -3208,49 +2620,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown5_129
-      rect:
-        serializedVersion: 2
-        x: 231
-        y: 1
-        width: 15
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4aa38a133017dc7f0800000000000000
-      internalID: -590691717583717724
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_130
-      rect:
-        serializedVersion: 2
-        x: 247
-        y: 1
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: deef2d8fd4757f7a0800000000000000
-      internalID: -6343505557729378579
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: unknown5_131
+      name: player_idle_right_turret 2
       rect:
         serializedVersion: 2
         x: 261
