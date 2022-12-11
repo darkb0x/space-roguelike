@@ -65,43 +65,6 @@ namespace Game.CraftSystem
 
         }
 
-        public void UpdateUI()
-        {
-            if(itemListTransform.childCount > 0)
-            {
-                if (itemListTransform.childCount >= 0)
-                {
-                    int childCount = itemListTransform.childCount;
-                    for (int i = childCount - 1; i > 0; i--)
-                    {
-                        DestroyImmediate(itemListTransform.gameObject);
-                    }
-                }
-            }
-
-            foreach (ItemCraft item in craft.ObjectCraft)
-            {
-                GameObject obj = Instantiate(itemListComponent, itemListTransform);
-
-                // item icon
-                Image icon = obj.transform.GetChild(0).GetComponent<Image>();
-                icon.sprite = item.item._icon;
-
-                // items amount
-                TextMeshProUGUI amount = obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                amount.text = item.amount.ToString(); 
-
-                if(PlayerInventory.playerInventory.GetItem(item.item).amount < item.amount)
-                {
-                    amount.color = Color.red;
-                }
-                else
-                {
-                    amount.color = Color.white;
-                }
-            }
-        }
-
         private void Start()
         {
             learnCraftSystem = FindObjectOfType<LearnCSManager>();

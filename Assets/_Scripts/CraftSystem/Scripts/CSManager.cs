@@ -38,6 +38,7 @@ namespace Game.CraftSystem
             player = FindObjectOfType<PlayerController>();
 
             InitializeCraftSystem();
+            DisSelectCraft();
         }
 
         private void Update()
