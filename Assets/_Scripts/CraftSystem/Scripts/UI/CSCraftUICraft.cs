@@ -14,7 +14,6 @@ namespace Game.CraftSystem
     {
         private CSManager craftSystem;
         private float currentProgress = 0f;
-        private bool isMouseEnterToCraftButton = false;
 
         [Header("Variables")]
         [ReadOnly, Expandable] public CSCraftSO craft;
@@ -58,32 +57,9 @@ namespace Game.CraftSystem
             craftSystem = FindObjectOfType<CSManager>();
         }
 
-        private void Update()
+        public void Craft()
         {
-            if (isMouseEnterToCraftButton)
-            {
-                if (Input.GetMouseButton(0))
-                {
-                    currentProgress += Time.deltaTime;
-                    craftButtonImage.fillAmount = currentProgress / maxProgress;
-
-                    if (currentProgress >= maxProgress)
-                    {
-                        craftSystem.Craft(craft);
-                        currentProgress = 0;
-                    }
-                }
-                else
-                {
-                    currentProgress = Mathf.Lerp(currentProgress, 0, 0.15f);
-                    craftButtonImage.fillAmount = currentProgress / maxProgress;
-                }
-            }
-            else
-            {
-                currentProgress = Mathf.Lerp(currentProgress, 0, 0.15f);
-                craftButtonImage.fillAmount = currentProgress / maxProgress;
-            }
+            craftSystem.Craft(craft);
         }
 
         public void UpdateUI()
@@ -124,15 +100,6 @@ namespace Game.CraftSystem
         }
 
         #region UI Actions
-        public void OnEnterPointer_Craft()
-        {
-            isMouseEnterToCraftButton = true;
-        }
-        public void OnExitPointer_Craft()
-        {
-            isMouseEnterToCraftButton = false;
-        }
-
         public void OnEnterPointer()
         {
             anim.SetBool("enabled", true);

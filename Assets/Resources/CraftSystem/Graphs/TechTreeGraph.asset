@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9594c05b51a55784fa8901a9a446099f, type: 3}
+  m_Name: TechTreeGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: TechTree
+  <Groups>k__BackingField: []
+  <Nodes>k__BackingField:
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: d6b81edb-44ec-4ac1-b269-aed7b1766fbe
+    <Name>k__BackingField: StandartGun
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: bec38850-0d58-4cfc-8f0a-a7c24c9bb9a5
+    <Prefab>k__BackingField: {fileID: 5909387419132771332, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+    <Icon>k__BackingField: {fileID: 6504606697198498462, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      amount: 5
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 0, y: 0}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: bec38850-0d58-4cfc-8f0a-a7c24c9bb9a5
+    <Name>k__BackingField: Minigun
+    <Choices>k__BackingField: []
+    <Prefab>k__BackingField: {fileID: 4890399241219555966, guid: 6c149d2627ae7a140a9500203d685a50, type: 3}
+    <Icon>k__BackingField: {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+    <Cost>k__BackingField: 100
+    <Craft>k__BackingField:
+    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      amount: 10
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 407, y: 0}
+  <OldGroupNames>k__BackingField: []
+  <OldUngroupedNodeNames>k__BackingField:
+  - StandartGun
+  - Minigun
+  <OldGroupedNodeNames>k__BackingField:
+    list: []

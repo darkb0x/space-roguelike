@@ -23,8 +23,6 @@ public class NewOnMauseDown : MonoBehaviour
     Camera cam;
     private List<IMouseObserver_PressedOnObj> objectsForReactPressed = new List<IMouseObserver_PressedOnObj>();
 
-    [SerializeField] private LayerMask UILayers;
-
     private void Start()
     {
         cam = Camera.main;

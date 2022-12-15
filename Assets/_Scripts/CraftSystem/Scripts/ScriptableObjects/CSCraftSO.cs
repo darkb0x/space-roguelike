@@ -16,6 +16,7 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
         [field: SerializeField] public List<ItemCraft> ObjectCraft { get; set; }
         [field: SerializeField] public bool IsStartingNode { get; set; }
         [field: SerializeField] public Vector2 Position { get; set; }
+        public string Path { get; set; }
 
         public void Initialize(string craftName, List<CSCraftChoiceData> choices, GameObject gameObjectPrefab, Sprite iconSprite, int craftCost, List<ItemCraft> objectCraft, bool isStartingDialogue, Vector2 pos)
         {

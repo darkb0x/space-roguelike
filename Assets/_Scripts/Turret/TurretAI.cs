@@ -194,7 +194,7 @@ namespace Game.Turret
             bullet.Init(damage);
         }
 
-        public void Put()
+        public virtual void Put()
         {
             isPicked = false;
             coll.enabled = true;

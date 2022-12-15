@@ -10,17 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7935fdfcad53a9d41a6f6993242cb00c, type: 3}
-  m_Name: BarrelTurret
+  m_Name: Minigun
   m_EditorClassIdentifier: 
-  <CraftName>k__BackingField: BarrelTurret
+  <CraftName>k__BackingField: Minigun
   <Choices>k__BackingField: []
-  <GameObjectPrefab>k__BackingField: {fileID: 720519471067873668, guid: 115e0a48ccae0974ea96c7a019530f3e, type: 3}
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: 0c9bdfd7c1955ed4cbf1d6e3735dcae8, type: 3}
-  <CraftCost>k__BackingField: 250
+  <GameObjectPrefab>k__BackingField: {fileID: 4890399241219555966, guid: 6c149d2627ae7a140a9500203d685a50, type: 3}
+  <IconSprite>k__BackingField: {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+  <CraftCost>k__BackingField: 100
   <ObjectCraft>k__BackingField:
   - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-    amount: 20
-  - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
-    amount: 7
+    amount: 10
   <IsStartingNode>k__BackingField: 0
-  <Position>k__BackingField: {x: 1394, y: 310}
+  <Position>k__BackingField: {x: 407, y: 0}

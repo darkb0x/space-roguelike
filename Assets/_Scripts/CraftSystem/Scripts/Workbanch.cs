@@ -42,7 +42,7 @@ namespace Game.CraftSystem
                 if(!player.pickObjSystem.pickedGameObject)
                 {
                     player.StartCrafting(transform.position);
-                    craftSystem.OpenCraftMenu(this);
+                    craftSystem.OpenMenu(this);
                 }
             }
         }

@@ -12,9 +12,18 @@ namespace Game.CraftSystem
 
     public class CSManager : MonoBehaviour
     {
+        [System.Serializable]
+        public struct TechTree
+        {
+            public CSCraftContainerSO techTree;
+            [Space]
+            public List<CSCraftUICraft> loadedCraftObjects;
+            [Space]
+            public Transform renderTransform;
+        }
+
         [Header("Crafts")]
-        [SerializeField] private CSCraftContainerSO techTree;
-        [SerializeField] private List<CSCraftUICraft> loadedCraftObjects;
+        [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
 
         [Header("UI/Panels")]
         [SerializeField] private GameObject craftTreePanel;
@@ -47,25 +56,9 @@ namespace Game.CraftSystem
             {
                 if(isOpened)
                 {
-                    CloseCraftMenu();
+                    CloseMenu();
                 }
             }
-        }
-
-        #region UI Interaction
-        public void OpenCraftMenu(Workbanch workbanch)
-        {
-            currentWorkbanch = workbanch;
-
-            craftTreePanel.SetActive(true);
-            isOpened = true;
-        }
-        public void CloseCraftMenu()
-        {
-            craftTreePanel.SetActive(false);
-            isOpened = false;
-
-            player.EndCrafting();
         }
 
         public void Craft(CSCraftSO craft)
@@ -80,7 +73,23 @@ namespace Game.CraftSystem
 
             currentWorkbanch.Craft(craft.GameObjectPrefab);
 
-            CloseCraftMenu();
+            CloseMenu();
+        }
+
+        #region UI Interaction
+        public void OpenMenu(Workbanch workbanch)
+        {
+            currentWorkbanch = workbanch;
+
+            craftTreePanel.SetActive(true);
+            isOpened = true;
+        }
+        public void CloseMenu()
+        {
+            craftTreePanel.SetActive(false);
+            isOpened = false;
+
+            player.EndCrafting();
         }
 
         public void SelectACraft(CSCraftSO craft)
@@ -97,13 +106,43 @@ namespace Game.CraftSystem
         #region Utilities
         private void InitializeCraftSystem()
         {
-            foreach (CSCraftSO item in techTree.UngroupedDialogues)
+            foreach (TechTree tree in techTrees)
             {
-                CSCraftUICraft obj = Instantiate(craftObjectPrefab.gameObject, craftRenderTransform).GetComponent<CSCraftUICraft>();
-                obj.Initialize(item);
-
-                loadedCraftObjects.Add(obj);
+                foreach (CSCraftSO item in tree.techTree.UngroupedDialogues)
+                {
+                    AddItem(item, tree);
+                }
             }
+        }
+
+        public void LearnItem(CSCraftSO item, CSCraftContainerSO tree)
+        {
+            TechTree techTree = GetTechTreeByCraftContainer(tree);
+
+            if (techTree.techTree == null)
+            {
+                Debug.LogError("techTree is null");
+            }
+
+            AddItem(item, techTree);
+        }
+
+        private void AddItem(CSCraftSO item, TechTree tree)
+        {
+            CSCraftUICraft obj = Instantiate(craftObjectPrefab.gameObject, tree.renderTransform).GetComponent<CSCraftUICraft>();
+            obj.Initialize(item);
+
+            tree.loadedCraftObjects.Add(obj);
+        }
+
+        private TechTree GetTechTreeByCraftContainer(CSCraftContainerSO tree)
+        {
+            foreach (TechTree techTree in techTrees)
+            {
+                if (techTree.techTree == tree)
+                    return techTree;
+            }
+            return default;
         }
         #endregion
     }

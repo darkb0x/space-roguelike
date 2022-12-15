@@ -27,9 +27,17 @@ namespace Game.Turret
             Debug.DrawRay(shotPos.position, (turret_canon.right + turret_canon.up * -range) * distance, Color.blue);
         }
 
+        public override void Start()
+        {
+            base.Start();
+
+            fireParticles.gameObject.SetActive(false);
+        }
+
         public override void Run()
         {
             var particleEmmision = fireParticles.emission;
+
             particleEmmision.rateOverTime = Mathf.Lerp(particleEmmision.rateOverTime.constantMax, enemyInZone ? emissionValue : 0, fireEnabledSpeed * Time.deltaTime);
 
             base.Run();
@@ -73,6 +81,13 @@ namespace Game.Turret
                     break;
                 }
             }
+        }
+
+        public override void Put()
+        {
+            base.Put();
+
+            fireParticles.gameObject.SetActive(true);
         }
     }
 }

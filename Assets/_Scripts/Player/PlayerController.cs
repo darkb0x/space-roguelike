@@ -30,7 +30,7 @@ namespace Game.Player
 
         Rigidbody2D rb;
         new Transform transform;
-        bool canMove = true;
+        [HideInInspector] public bool canMove = true;
 
         private void Start()
         {
@@ -57,6 +57,8 @@ namespace Game.Player
             anim.SetFloat(anim_runVertical, moveInput.y);
             if(canMove)
                 anim.SetBool(anim_isRunning, moveInput.magnitude > 0);
+            else
+                anim.SetBool(anim_isRunning, false);
         }
 
         private void FixedUpdate()
@@ -88,7 +90,6 @@ namespace Game.Player
         public void EndCrafting()
         {
             canMove = true;
-            anim.SetBool(anim_isRunning, false);
         }
         #endregion
     }

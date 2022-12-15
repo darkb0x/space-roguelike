@@ -8,6 +8,7 @@ namespace Game.CraftSystem
 {
     using CraftSystem.Editor.ScriptableObjects;
     using Player.Inventory;
+    using Player;
 
     [System.Serializable]
     public class ItemCraft
@@ -33,6 +34,7 @@ namespace Game.CraftSystem
     {
         [Header("Tech Tree")]
         [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
+        private List<CSCraftSO> unlockedCrafts = new List<CSCraftSO>();
 
         [Header("Scale")]
         [SerializeField] private float currentScale = 1;
@@ -54,11 +56,22 @@ namespace Game.CraftSystem
         public bool isOpened = true;
         public TechTree openedTechTree;
 
+        CSManager craftManager;
+        PlayerController player;
+
         private void Start()
         {
+            foreach (string item in LoadCraftUtility.loadCraftUtility.unlockedCrafts)
+            {
+                unlockedCrafts.Add(LoadCraftUtility.loadCraftUtility.GetCraft(item));
+            }
+
             InitializeCraftSystem();
 
             openedTechTree = techTrees[0];
+
+            craftManager = FindObjectOfType<CSManager>();
+            player = FindObjectOfType<PlayerController>();
         }
         private void Update()
         {
@@ -67,13 +80,36 @@ namespace Game.CraftSystem
                 currentScale = Mathf.Clamp(currentScale + Input.mouseScrollDelta.y * sensitivity, minTreeScale, maxTreeScale);
                 float scale = Mathf.Lerp(openedTechTree.techTreeRenderTransform.localScale.x, currentScale, sensitivity);
                 openedTechTree.techTreeRenderTransform.localScale = new Vector3(scale, scale, 1);
+
+                if(Input.GetKeyDown(KeyCode.Escape))
+                {
+                    CloseMenu();
+                }
             }
         }
 
         public void LearnCraft(CSCraftSO craft)
         {
-            AddCraft(craft, GetTechTreeByNode(craft));
+            craftManager.LearnItem(craft, GetTechTreeByNode(craft).techTree);
+
+            LoadCraftUtility.loadCraftUtility.AddUnlockedCraft(craft);
+            unlockedCrafts.Add(craft);
         }
+
+        #region UI Actions
+        public void OpenMenu()
+        {
+            techTreePanel.SetActive(true);
+            isOpened = true;
+        }
+        public void CloseMenu()
+        {
+            techTreePanel.SetActive(false);
+            isOpened = false;
+
+            player.canMove = true;
+        }
+        #endregion
 
         #region Utilities
         [Button]
@@ -105,6 +141,11 @@ namespace Game.CraftSystem
                 CSCraftUILearn obj = Instantiate(learnCraftPrefab.gameObject, tree.techTreeRenderTransform).GetComponent<CSCraftUILearn>();
                 obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y));
                 tree.loadedLearnCraftPrefabs.Add(obj);
+
+                if(unlockedCrafts.Contains(craftData))
+                {
+                    obj.fullUnlock();
+                }
             }
         }
         private void SpawnConnections(TechTree tree)
@@ -129,10 +170,6 @@ namespace Game.CraftSystem
                     objArrow.SetPosition(craftUIObject.rectTransform.position, GetCraftObj(choice.NextCraft).rectTransform.position, canvas.scaleFactor);
                 }
             }
-        }
-        public void AddCraft(CSCraftSO item, TechTree tree)
-        {
-            return;
         }
 
         public CSCraftUILearn GetCraftObj(CSCraftSO so)
