@@ -22,3 +22,4 @@ MonoBehaviour:
     amount: 10
   <IsStartingNode>k__BackingField: 0
   <Position>k__BackingField: {x: 407, y: 0}
+  <AssetPath>k__BackingField: CraftSystem/Crafts/TechTree/Global/Crafts/Minigun

@@ -83,25 +83,10 @@ namespace Game.CraftSystem
                 fullLock();
             }
 
-            /*
-            if(!craft.IsStartingNode)
+            if(isUnlocked)
             {
-                List<CSCraftUILearn> lastCrafts = learnCraftSystem.GetCraftObjInChoices(craft);
-                if (lastCrafts != null)
-                {
-                    foreach (CSCraftUILearn item in lastCrafts)
-                    {
-                        if (item == null)
-                            continue;
-
-                        if (item.isPursached && item.isUnlocked)
-                        {
-                            unlockForBuy();
-                        }
-                    }
-                }
+                unlockForBuy();
             }
-            */
         }
 
         private void Update()

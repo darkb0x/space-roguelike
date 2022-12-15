@@ -19,6 +19,7 @@ namespace Game.CraftSystem.Editor.Utilities
 
         private static string graphFileName;
         private static string containerFolderPath;
+        private static string containerFolderPath_ForLoad;
 
         private static List<CSGroup> groups;
         private static List<CSNode> nodes;
@@ -35,6 +36,7 @@ namespace Game.CraftSystem.Editor.Utilities
 
             graphFileName = graphName;
             containerFolderPath = $"Assets/Resources/CraftSystem/Crafts/{graphFileName}";
+            containerFolderPath_ForLoad = $"CraftSystem/Crafts/{graphFileName}";
 
             groups = new List<CSGroup>();
             nodes = new List<CSNode>();
@@ -213,7 +215,8 @@ namespace Game.CraftSystem.Editor.Utilities
                 node.Cost,
                 node.Craft,
                 node.IsStartingNode(),
-                node.GetPosition().position
+                node.GetPosition().position,
+                $"{containerFolderPath_ForLoad}/Global/Crafts/{node.CraftName}"
             );
 
             createdDialogues.Add(node.ID, craft);

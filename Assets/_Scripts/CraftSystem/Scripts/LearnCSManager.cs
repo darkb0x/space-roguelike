@@ -34,7 +34,7 @@ namespace Game.CraftSystem
     {
         [Header("Tech Tree")]
         [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
-        private List<CSCraftSO> unlockedCrafts = new List<CSCraftSO>();
+        private List<CSCraftSO> unlockedCrafts;
 
         [Header("Scale")]
         [SerializeField] private float currentScale = 1;
@@ -61,14 +61,12 @@ namespace Game.CraftSystem
 
         private void Start()
         {
-            foreach (string item in LoadCraftUtility.loadCraftUtility.unlockedCrafts)
+            foreach (var item in LoadCraftUtility.loadCraftUtility.allUnlockedCrafts)
             {
-                unlockedCrafts.Add(LoadCraftUtility.loadCraftUtility.GetCraft(item));
+                unlockedCrafts.Add(item);
             }
 
             InitializeCraftSystem();
-
-            openedTechTree = techTrees[0];
 
             craftManager = FindObjectOfType<CSManager>();
             player = FindObjectOfType<PlayerController>();
@@ -141,11 +139,6 @@ namespace Game.CraftSystem
                 CSCraftUILearn obj = Instantiate(learnCraftPrefab.gameObject, tree.techTreeRenderTransform).GetComponent<CSCraftUILearn>();
                 obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y));
                 tree.loadedLearnCraftPrefabs.Add(obj);
-
-                if(unlockedCrafts.Contains(craftData))
-                {
-                    obj.fullUnlock();
-                }
             }
         }
         private void SpawnConnections(TechTree tree)

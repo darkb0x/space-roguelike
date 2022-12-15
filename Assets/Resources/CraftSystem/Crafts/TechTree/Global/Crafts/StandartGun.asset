@@ -23,3 +23,4 @@ MonoBehaviour:
     amount: 5
   <IsStartingNode>k__BackingField: 1
   <Position>k__BackingField: {x: 0, y: 0}
+  <AssetPath>k__BackingField: CraftSystem/Crafts/TechTree/Global/Crafts/StandartGun

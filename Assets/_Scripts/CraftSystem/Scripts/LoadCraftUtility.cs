@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace Game.CraftSystem
 {
@@ -9,8 +10,10 @@ namespace Game.CraftSystem
     public class LoadCraftUtility : MonoBehaviour
     {
         public static LoadCraftUtility loadCraftUtility;
+        private const string unlockedCraftsKey = "unlockedCraftsList";
 
-        public List<string> unlockedCrafts = new List<string>();
+        [SerializeField] private List<string> unlockedCraftPaths = new List<string>();
+        public List<CSCraftSO> allUnlockedCrafts = new List<CSCraftSO>();
 
         public CSCraftSO GetCraft(string path)
         {
@@ -19,23 +22,75 @@ namespace Game.CraftSystem
 
         public void AddUnlockedCraft(CSCraftSO craft)
         {
-            unlockedCrafts.Add(craft.Path);
-            Debug.Log("Da");
+            if (!unlockedCraftPaths.Contains(craft.AssetPath)) unlockedCraftPaths.Add(craft.AssetPath);
+            if(!allUnlockedCrafts.Contains(craft)) allUnlockedCrafts.Add(craft);
+
+            Save();
         }
         public void RemoveUnlockedCraft(CSCraftSO craft)
         {
-            if(unlockedCrafts.Contains(craft.Path))
+            if(unlockedCraftPaths.Contains(craft.AssetPath))
             {
-                unlockedCrafts.Remove(craft.Path);
+                unlockedCraftPaths.Remove(craft.AssetPath);
+
+                Save();
+            }
+            if(allUnlockedCrafts.Contains(craft))
+            {
+                allUnlockedCrafts.Remove(craft);
+
+                Save();
             }
         }
+        [Button]
         public void ClearUnlockedCrafts()
         {
-            unlockedCrafts.Clear();
+            unlockedCraftPaths.Clear();
+            allUnlockedCrafts.Clear();
+
+            Save();
+
+            PlayerPrefs.SetString("unlockedCraftsList", "");
         }
 
-        #region MonoBehaviour
-        private void Awake() => loadCraftUtility = this;
+        #region Save/Load
+        [Button]
+        private void Save()
+        {
+            SaveData data = new SaveData()
+            {
+                craftPaths = unlockedCraftPaths,
+                crafts = allUnlockedCrafts
+            };
+            string json = JsonUtility.ToJson(data);
+            PlayerPrefs.SetString("unlockedCraftsList", json);
+        }
+        [Button]
+        private void Load()
+        {
+            if (string.IsNullOrEmpty(PlayerPrefs.GetString("unlockedCraftsList")))
+                return;
+
+            SaveData data = JsonUtility.FromJson<SaveData>(PlayerPrefs.GetString("unlockedCraftsList"));
+            unlockedCraftPaths = data.craftPaths;
+            allUnlockedCrafts = data.crafts;
+        }
         #endregion
+
+        #region MonoBehaviour
+        private void Awake()
+        {
+            loadCraftUtility = this;
+
+            Load();
+        }
+        #endregion
+    }
+
+    [System.Serializable]
+    class SaveData
+    {
+        public List<string> craftPaths;
+        public List<CSCraftSO> crafts;
     }
 }
