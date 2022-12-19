@@ -10,7 +10,7 @@ namespace Game.CraftSystem
     using Player.Inventory;
     using Player;
 
-    public class CSManager : MonoBehaviour
+    public class CSManager : MonoBehaviour, ICraftListObserver
     {
         [System.Serializable]
         public struct TechTree
@@ -18,6 +18,7 @@ namespace Game.CraftSystem
             public CSCraftContainerSO techTree;
             [Space]
             public List<CSCraftUICraft> loadedCraftObjects;
+            public List<CSCraftSO> unlockedCrafts;
             [Space]
             public Transform renderTransform;
         }
@@ -45,6 +46,7 @@ namespace Game.CraftSystem
         private void Start()
         {
             player = FindObjectOfType<PlayerController>();
+            FindObjectOfType<LoadCraftUtility>().AddObserver(this);
 
             InitializeCraftSystem();
             DisSelectCraft();
@@ -108,29 +110,17 @@ namespace Game.CraftSystem
         {
             foreach (TechTree tree in techTrees)
             {
-                foreach (CSCraftSO item in tree.techTree.UngroupedDialogues)
+                foreach (CSCraftSO item in tree.unlockedCrafts)
                 {
-                    AddItem(item, tree);
+                    SpawnItem(item, tree);
                 }
             }
         }
 
-        public void LearnItem(CSCraftSO item, CSCraftContainerSO tree)
-        {
-            TechTree techTree = GetTechTreeByCraftContainer(tree);
-
-            if (techTree.techTree == null)
-            {
-                Debug.LogError("techTree is null");
-            }
-
-            AddItem(item, techTree);
-        }
-
-        private void AddItem(CSCraftSO item, TechTree tree)
+        private void SpawnItem(CSCraftSO item, TechTree tree)
         {
             CSCraftUICraft obj = Instantiate(craftObjectPrefab.gameObject, tree.renderTransform).GetComponent<CSCraftUICraft>();
-            obj.Initialize(item);
+            obj.Initialize(item, this);
 
             tree.loadedCraftObjects.Add(obj);
         }
@@ -143,6 +133,46 @@ namespace Game.CraftSystem
                     return techTree;
             }
             return default;
+        }
+        #endregion
+
+        #region Interface
+        public void Initialize(CSCraftSO[] crafts)
+        {
+            foreach (CSCraftSO item in crafts)
+            {
+                if (item == null)
+                    continue;
+
+                TechTree techTree = default;
+                foreach (var tree in techTrees)
+                {
+                    if (tree.techTree.UngroupedDialogues.Contains(item))
+                    {
+                        techTree = GetTechTreeByCraftContainer(tree.techTree);
+                        break;
+                    }
+                }
+
+                techTree.unlockedCrafts.Clear();
+                techTree.unlockedCrafts.Add(item);
+            }
+
+            InitializeCraftSystem();
+        }
+        public void GetNewCraft(LoadCraftUtility craftUtility, CSCraftSO newCraft)
+        {
+            TechTree techTree = default;
+            foreach (var tree in techTrees)
+            {
+                if (tree.techTree.UngroupedDialogues.Contains(newCraft))
+                {
+                    techTree = GetTechTreeByCraftContainer(tree.techTree);
+                    break;
+                }
+            }
+
+            SpawnItem(newCraft, techTree);
         }
         #endregion
     }

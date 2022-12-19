@@ -7,10 +7,17 @@ namespace Game.CraftSystem
 {
     using CraftSystem.Editor.ScriptableObjects;
 
+    public interface ICraftListObserver
+    {
+        public void Initialize(CSCraftSO[] crafts);
+        public void GetNewCraft(LoadCraftUtility craftUtility, CSCraftSO newCraft);
+    }
+
     public class LoadCraftUtility : MonoBehaviour
     {
         public static LoadCraftUtility loadCraftUtility;
         private const string unlockedCraftsKey = "unlockedCraftsList";
+        private List<ICraftListObserver> observers = new List<ICraftListObserver>();
 
         [SerializeField] private List<string> unlockedCraftPaths = new List<string>();
         public List<CSCraftSO> allUnlockedCrafts = new List<CSCraftSO>();
@@ -22,25 +29,17 @@ namespace Game.CraftSystem
 
         public void AddUnlockedCraft(CSCraftSO craft)
         {
-            if (!unlockedCraftPaths.Contains(craft.AssetPath)) unlockedCraftPaths.Add(craft.AssetPath);
-            if(!allUnlockedCrafts.Contains(craft)) allUnlockedCrafts.Add(craft);
+            if (!unlockedCraftPaths.Contains(craft.AssetPath))
+            {
+                unlockedCraftPaths.Add(craft.AssetPath);
+            }
+            if (!allUnlockedCrafts.Contains(craft))
+            {
+                allUnlockedCrafts.Add(craft);
+                UpdateObservers(craft);
+            }
 
             Save();
-        }
-        public void RemoveUnlockedCraft(CSCraftSO craft)
-        {
-            if(unlockedCraftPaths.Contains(craft.AssetPath))
-            {
-                unlockedCraftPaths.Remove(craft.AssetPath);
-
-                Save();
-            }
-            if(allUnlockedCrafts.Contains(craft))
-            {
-                allUnlockedCrafts.Remove(craft);
-
-                Save();
-            }
         }
         [Button]
         public void ClearUnlockedCrafts()
@@ -49,6 +48,7 @@ namespace Game.CraftSystem
             allUnlockedCrafts.Clear();
 
             Save();
+            ResetDataInObservers();
 
             PlayerPrefs.SetString("unlockedCraftsList", "");
         }
@@ -83,6 +83,39 @@ namespace Game.CraftSystem
             loadCraftUtility = this;
 
             Load();
+        }
+        #endregion
+
+        #region Observer
+        public void AddObserver(ICraftListObserver o)
+        {
+            observers.Add(o);
+            o.Initialize(allUnlockedCrafts.ToArray());
+        }
+        public void RemoveObserver(ICraftListObserver o)
+        {
+            observers.Remove(o);
+        }
+        public void UpdateObservers(CSCraftSO craft)
+        {
+            foreach (ICraftListObserver observer in observers)
+            {
+                observer.GetNewCraft(this, craft);
+            }
+        }
+        public void ResetDataInObservers()
+        {
+            foreach (ICraftListObserver observer in observers)
+            {
+                observer.Initialize(new CSCraftSO[0]);
+            }
+        }
+        public void ReInitializeObservers()
+        {
+            foreach (ICraftListObserver observer in observers)
+            {
+                observer.Initialize(allUnlockedCrafts.ToArray());
+            }
         }
         #endregion
     }

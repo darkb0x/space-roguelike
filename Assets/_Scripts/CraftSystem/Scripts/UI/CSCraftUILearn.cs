@@ -45,7 +45,7 @@ namespace Game.CraftSystem
         [SerializeField] private Transform itemListTransform;
         [SerializeField] private GameObject itemListComponent;
 
-        public void Initialize(CSCraftSO data, Vector2 position)
+        public void Initialize(CSCraftSO data, Vector2 position, LearnCSManager manager)
         {
             rectTransform = GetComponent<RectTransform>();
 
@@ -67,25 +67,26 @@ namespace Game.CraftSystem
             //Variables
             isUnlocked = craft.IsStartingNode;
             isPursached = craft.IsStartingNode;
+
+            learnCraftSystem = manager;
         }
 
         private void Start()
         {
-            learnCraftSystem = FindObjectOfType<LearnCSManager>();
+            fullLock();
 
             if (craft.IsStartingNode)
             {
                 fullUnlock();
                 learnCraftSystem.LearnCraft(craft);
             }
-            else
-            {
-                fullLock();
-            }
-
             if(isUnlocked)
             {
                 unlockForBuy();
+            }
+            if(isPursached)
+            {
+                fullUnlock();
             }
         }
 

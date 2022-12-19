@@ -33,12 +33,14 @@ namespace Game.CraftSystem
         [SerializeField] private Transform itemListTransform;
         [SerializeField] private GameObject itemListComponent;
 
-        public void Initialize(CSCraftSO craftSO)
+        public void Initialize(CSCraftSO craftSO, CSManager manager)
         {
             // Variables
             craft = craftSO;
 
             craftButtonImage.fillAmount = currentProgress / maxProgress;
+
+            craftSystem = manager;
 
             //UI
             craft_name.text = craft.CraftName;
@@ -50,11 +52,6 @@ namespace Game.CraftSystem
                 obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item._icon; // item icon
                 obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.amount.ToString(); // items amount
             }
-        }
-
-        private void Start()
-        {
-            craftSystem = FindObjectOfType<CSManager>();
         }
 
         public void Craft()

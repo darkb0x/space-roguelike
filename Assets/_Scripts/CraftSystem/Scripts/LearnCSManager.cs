@@ -34,7 +34,7 @@ namespace Game.CraftSystem
     {
         [Header("Tech Tree")]
         [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
-        private List<CSCraftSO> unlockedCrafts;
+        private List<CSCraftSO> unlockedCrafts = new List<CSCraftSO>();
 
         [Header("Scale")]
         [SerializeField] private float currentScale = 1;
@@ -53,23 +53,21 @@ namespace Game.CraftSystem
 
         [Header("Other")]
         [SerializeField] private Canvas canvas;
-        public bool isOpened = true;
+        public bool isOpened = false;
         public TechTree openedTechTree;
 
-        CSManager craftManager;
         PlayerController player;
 
         private void Start()
         {
+            player = FindObjectOfType<PlayerController>();
+
             foreach (var item in LoadCraftUtility.loadCraftUtility.allUnlockedCrafts)
             {
                 unlockedCrafts.Add(item);
             }
 
             InitializeCraftSystem();
-
-            craftManager = FindObjectOfType<CSManager>();
-            player = FindObjectOfType<PlayerController>();
         }
         private void Update()
         {
@@ -88,10 +86,10 @@ namespace Game.CraftSystem
 
         public void LearnCraft(CSCraftSO craft)
         {
-            craftManager.LearnItem(craft, GetTechTreeByNode(craft).techTree);
-
             LoadCraftUtility.loadCraftUtility.AddUnlockedCraft(craft);
-            unlockedCrafts.Add(craft);
+
+            if(!unlockedCrafts.Contains(craft))
+                unlockedCrafts.Add(craft);
         }
 
         #region UI Actions
@@ -99,6 +97,8 @@ namespace Game.CraftSystem
         {
             techTreePanel.SetActive(true);
             isOpened = true;
+
+            player.canMove = false;
         }
         public void CloseMenu()
         {
@@ -137,8 +137,13 @@ namespace Game.CraftSystem
             foreach (CSCraftSO craftData in tree.techTree.UngroupedDialogues)
             {
                 CSCraftUILearn obj = Instantiate(learnCraftPrefab.gameObject, tree.techTreeRenderTransform).GetComponent<CSCraftUILearn>();
-                obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y));
+                obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y), this);
                 tree.loadedLearnCraftPrefabs.Add(obj);
+            }
+            foreach (CSCraftUILearn node in tree.loadedLearnCraftPrefabs)
+            {
+                if (unlockedCrafts.Contains(node.craft))
+                    node.fullUnlock();
             }
         }
         private void SpawnConnections(TechTree tree)
