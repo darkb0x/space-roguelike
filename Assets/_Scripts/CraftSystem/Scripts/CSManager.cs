@@ -42,13 +42,15 @@ namespace Game.CraftSystem
 
         Workbanch currentWorkbanch;
         PlayerController player;
+        TechTree openedTechTree;
 
         private void Start()
         {
             player = FindObjectOfType<PlayerController>();
-            FindObjectOfType<LoadCraftUtility>().AddObserver(this);
+            LoadCraftUtility.loadCraftUtility.AddObserver(this);
 
-            InitializeCraftSystem();
+            openedTechTree = techTrees[0];
+
             DisSelectCraft();
         }
 
@@ -82,6 +84,11 @@ namespace Game.CraftSystem
         public void OpenMenu(Workbanch workbanch)
         {
             currentWorkbanch = workbanch;
+
+            foreach (var uiElement in openedTechTree.loadedCraftObjects)
+            {
+                uiElement.UpdateUI();
+            }
 
             craftTreePanel.SetActive(true);
             isOpened = true;
@@ -137,25 +144,23 @@ namespace Game.CraftSystem
         #endregion
 
         #region Interface
-        public void Initialize(CSCraftSO[] crafts)
+        public void Initialize(List<CSCraftSO> crafts)
         {
             foreach (CSCraftSO item in crafts)
             {
                 if (item == null)
                     continue;
 
-                TechTree techTree = default;
+                TechTree currentTechTree = default;
                 foreach (var tree in techTrees)
                 {
                     if (tree.techTree.UngroupedDialogues.Contains(item))
                     {
-                        techTree = GetTechTreeByCraftContainer(tree.techTree);
+                        currentTechTree = GetTechTreeByCraftContainer(tree.techTree);
                         break;
                     }
                 }
-
-                techTree.unlockedCrafts.Clear();
-                techTree.unlockedCrafts.Add(item);
+                currentTechTree.unlockedCrafts.Add(item);
             }
 
             InitializeCraftSystem();

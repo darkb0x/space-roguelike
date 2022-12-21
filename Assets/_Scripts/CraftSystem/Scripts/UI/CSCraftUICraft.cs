@@ -14,6 +14,7 @@ namespace Game.CraftSystem
     {
         private CSManager craftSystem;
         private float currentProgress = 0f;
+        List<TextMeshProUGUI> amountsText = new List<TextMeshProUGUI>();
 
         [Header("Variables")]
         [ReadOnly, Expandable] public CSCraftSO craft;
@@ -50,7 +51,11 @@ namespace Game.CraftSystem
             {
                 GameObject obj = Instantiate(itemListComponent, itemListTransform);
                 obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item._icon; // item icon
-                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.amount.ToString(); // items amount
+
+                // items amount
+                TextMeshProUGUI text = obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                text.text = item.amount.ToString();
+                amountsText.Add(text);
             }
         }
 
@@ -61,38 +66,10 @@ namespace Game.CraftSystem
 
         public void UpdateUI()
         {
-            if (itemListTransform.childCount > 0)
+            for (int i = 0; i < craft.ObjectCraft.Count; i++)
             {
-                if (itemListTransform.childCount >= 0)
-                {
-                    int childCount = itemListTransform.childCount;
-                    for (int i = childCount - 1; i > 0; i--)
-                    {
-                        Destroy(itemListTransform.gameObject);
-                    }
-                }
-            }
-
-            foreach (ItemCraft item in craft.ObjectCraft)
-            {
-                GameObject obj = Instantiate(itemListComponent, itemListTransform);
-
-                // item icon
-                Image icon = obj.transform.GetChild(0).GetComponent<Image>();
-                icon.sprite = item.item._icon;
-
-                // items amount
-                TextMeshProUGUI amount = obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                amount.text = item.amount.ToString();
-
-                if (PlayerInventory.playerInventory.GetItem(item.item).amount < item.amount)
-                {
-                    amount.color = Color.red;
-                }
-                else
-                {
-                    amount.color = Color.white;
-                }
+                ItemCraft curCraft = craft.ObjectCraft[i];
+                amountsText[i].color = PlayerInventory.playerInventory.GetItem(curCraft.item).amount < curCraft.amount ? Color.red : Color.white;
             }
         }
 

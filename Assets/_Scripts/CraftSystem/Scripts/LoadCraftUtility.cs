@@ -9,7 +9,7 @@ namespace Game.CraftSystem
 
     public interface ICraftListObserver
     {
-        public void Initialize(CSCraftSO[] crafts);
+        public void Initialize(List<CSCraftSO> crafts);
         public void GetNewCraft(LoadCraftUtility craftUtility, CSCraftSO newCraft);
     }
 
@@ -90,7 +90,7 @@ namespace Game.CraftSystem
         public void AddObserver(ICraftListObserver o)
         {
             observers.Add(o);
-            o.Initialize(allUnlockedCrafts.ToArray());
+            o.Initialize(allUnlockedCrafts);
         }
         public void RemoveObserver(ICraftListObserver o)
         {
@@ -107,14 +107,7 @@ namespace Game.CraftSystem
         {
             foreach (ICraftListObserver observer in observers)
             {
-                observer.Initialize(new CSCraftSO[0]);
-            }
-        }
-        public void ReInitializeObservers()
-        {
-            foreach (ICraftListObserver observer in observers)
-            {
-                observer.Initialize(allUnlockedCrafts.ToArray());
+                observer.Initialize(new List<CSCraftSO>());
             }
         }
         #endregion
