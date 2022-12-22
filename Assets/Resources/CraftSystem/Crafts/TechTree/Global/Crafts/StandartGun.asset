@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CraftName>k__BackingField: StandartGun
   <Choices>k__BackingField:
-  - <NextCraft>k__BackingField: {fileID: 11400000, guid: 020af38a9b9dbde4199177522dab34be, type: 2}
+  - <NextCraft>k__BackingField: {fileID: 11400000, guid: 72cd21c87c1e88e49aacd7b17b2eac6c, type: 2}
   <GameObjectPrefab>k__BackingField: {fileID: 5909387419132771332, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
   <IconSprite>k__BackingField: {fileID: 6504606697198498462, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
   <CraftCost>k__BackingField: 0

@@ -13,6 +13,14 @@ namespace Game.CraftSystem
         PlayerController player;
         Transform myTransform;
 
+        [SerializeField] private float radius;
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, radius);
+        }
+
         private void Start()
         {
             craftSystem = FindObjectOfType<CSManager>();
@@ -36,7 +44,7 @@ namespace Game.CraftSystem
         {
             if(mouseClickType == MouseClickType.Left)
             {
-                if (Vector2.Distance(myTransform.position, player.transform.position) > GameDefaultVariables.interact_maxDistanceBetweenPlayerAndInteractObject)
+                if (Vector2.Distance(myTransform.position, player.transform.position) > radius)
                     return;
 
                 if(!player.pickObjSystem.pickedGameObject)

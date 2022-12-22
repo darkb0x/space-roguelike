@@ -230,6 +230,9 @@ namespace Game.CraftSystem.Editor.Utilities
             
             foreach (CSChoiceSaveData nodeChoice in nodeChoices)
             {
+                if (string.IsNullOrEmpty(nodeChoice.NodeID))
+                    continue;
+
                 CSCraftChoiceData choiceData = new CSCraftChoiceData();
 
                 craftChoice.Add(choiceData);

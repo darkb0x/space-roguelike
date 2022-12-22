@@ -38,7 +38,8 @@ namespace Game.CraftSystem.Editor.Elements
             Cost = 0;
             Craft = new List<ItemCraft>();
 
-            Craft.Add(new ItemCraft());
+            Craft.Add(new ItemCraft() { amount = 1 });
+            Choices.Add(new CSChoiceSaveData());
 
             graphView = dsGraphView;
             defaultBackgroundColor = new Color(29f / 255f, 29f / 255f, 30f / 255f);
@@ -260,6 +261,9 @@ namespace Game.CraftSystem.Editor.Elements
 
             Button deleteChoiceButton = CSElementUtility.CreateButton("X", () =>
             {
+                if (Choices.Count <= 1)
+                    return;
+
                 if (choicePort.connected)
                 {
                     graphView.DeleteElements(choicePort.connections);

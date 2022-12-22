@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9594c05b51a55784fa8901a9a446099f, type: 3}
+  m_Name: NegroGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Negro
+  <Groups>k__BackingField: []
+  <Nodes>k__BackingField:
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: 8ffcb0d8-146c-4979-b78b-4dffb0c35032
+    <Name>k__BackingField: CraftName2
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 
+    <Prefab>k__BackingField: {fileID: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - item: {fileID: 0}
+      amount: 1
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 417, y: -154}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: 22640da9-6a3e-4c85-b1c8-6dfe20a6273a
+    <Name>k__BackingField: CraftName3
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 
+    <Prefab>k__BackingField: {fileID: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - item: {fileID: 0}
+      amount: 1
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 417, y: 111}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: 9796f65a-b654-45ae-8858-d081b5160c35
+    <Name>k__BackingField: CraftName
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 8ffcb0d8-146c-4979-b78b-4dffb0c35032
+    - <NodeID>k__BackingField: 22640da9-6a3e-4c85-b1c8-6dfe20a6273a
+    <Prefab>k__BackingField: {fileID: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      amount: 2
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 0, y: 0}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: 503a6621-7705-454a-b052-3193ca4a9ca9
+    <Name>k__BackingField: CraftName34
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 8ffcb0d8-146c-4979-b78b-4dffb0c35032
+    <Prefab>k__BackingField: {fileID: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - item: {fileID: 0}
+      amount: 1
+    <GroupID>k__BackingField: 
+    <Position>k__BackingField: {x: 0, y: -353}
+  <OldGroupNames>k__BackingField: []
+  <OldUngroupedNodeNames>k__BackingField:
+  - CraftName2
+  - CraftName3
+  - CraftName
+  - CraftName34
+  <OldGroupedNodeNames>k__BackingField:
+    list: []

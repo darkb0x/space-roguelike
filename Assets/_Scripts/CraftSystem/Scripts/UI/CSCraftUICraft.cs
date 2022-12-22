@@ -49,6 +49,12 @@ namespace Game.CraftSystem
 
             foreach (ItemCraft item in craft.ObjectCraft)
             {
+                if (item == null | item.item == null)
+                {
+                    Debug.Log(craft.AssetPath + " Object craft have null item, please fix it!");
+                    continue;
+                }
+
                 GameObject obj = Instantiate(itemListComponent, itemListTransform);
                 obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item._icon; // item icon
 

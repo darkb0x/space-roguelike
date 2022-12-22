@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5304330532916855162}
   - component: {fileID: 5304330532916855159}
   m_Layer: 10
-  m_Name: TurretFiregun
+  m_Name: TurretFiregun 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +190,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1866517931141025007, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+  m_Sprite: {fileID: 4583186294838536085, guid: 6915db15ad513f3429c64350db47417e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -225,7 +225,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5304330533615734854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.622, y: 0.006, z: 0}
+  m_LocalPosition: {x: 0.659, y: 0.019, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2737814269564996257}
@@ -304,7 +304,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+  m_Sprite: {fileID: 7337600296622790751, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

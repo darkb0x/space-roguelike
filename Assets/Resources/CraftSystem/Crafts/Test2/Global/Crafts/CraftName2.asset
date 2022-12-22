@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7935fdfcad53a9d41a6f6993242cb00c, type: 3}
+  m_Name: CraftName2
+  m_EditorClassIdentifier: 
+  <CraftName>k__BackingField: CraftName2
+  <Choices>k__BackingField:
+  - <NextCraft>k__BackingField: {fileID: 11400000, guid: 5d67ca5edd15a1648a9e5d44c436106a, type: 2}
+  <GameObjectPrefab>k__BackingField: {fileID: 5304330532916855163, guid: c72d0207ff4e22049930fc62ddd07aa7, type: 3}
+  <IconSprite>k__BackingField: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+  <CraftCost>k__BackingField: 50
+  <ObjectCraft>k__BackingField:
+  - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+    amount: 1
+  <IsStartingNode>k__BackingField: 0
+  <Position>k__BackingField: {x: 474, y: -199}
+  <AssetPath>k__BackingField: CraftSystem/Crafts/Test2/Global/Crafts/CraftName2

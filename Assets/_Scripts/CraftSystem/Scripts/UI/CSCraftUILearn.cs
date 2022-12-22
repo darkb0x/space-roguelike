@@ -59,6 +59,12 @@ namespace Game.CraftSystem
 
             foreach (ItemCraft item in craft.ObjectCraft)
             {
+                if(item == null | item.item == null)
+                {
+                    Debug.Log(data.AssetPath + " ObjectCraft have null item");
+                    continue;
+                }
+
                 GameObject obj = Instantiate(itemListComponent, itemListTransform);
                 obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item._icon; // item icon
                 obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.amount.ToString(); // items amount
@@ -214,11 +220,17 @@ namespace Game.CraftSystem
 
         public void OnEnterPointer_learn()
         {
-            isMouseEnterToCraftButton = true;
+            if(isUnlocked)
+            {
+                isMouseEnterToCraftButton = true;
+            }
         }
         public void OnExitPointer_learn()
         {
-            isMouseEnterToCraftButton = false;
+            if(isUnlocked)
+            {
+                isMouseEnterToCraftButton = false;
+            }
         }
         #endregion
     }

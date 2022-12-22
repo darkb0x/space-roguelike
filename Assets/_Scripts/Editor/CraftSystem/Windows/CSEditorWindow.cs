@@ -18,7 +18,7 @@ namespace Game.CraftSystem.Editor.Windows
         private Button saveButton;
         private Button miniMapButton;
 
-        [MenuItem("Window/Craft system/Craft Graph")]
+        [MenuItem("Tools/Craft Graph")]
         public static void Open()
         {
             GetWindow<CSEditorWindow>("Craft Graph");

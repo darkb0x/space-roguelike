@@ -26,11 +26,15 @@ namespace Game.CraftSystem
 
         //Tech Tree components
         public List<CSCraftUILearn> loadedLearnCraftPrefabs;
-        public Transform techTreeRenderTransform;
-        public Transform techTreeArrowRenderTransform;
+        [HideInInspector] public Transform techTreeRenderTransform;
+        [HideInInspector] public Transform techTreeArrowRenderTransform;
+
+        [Space]
+
+        public Sprite categoryIcon;
     }
 
-    public class LearnCSManager : MonoBehaviour
+    public class LearnCSManager : MonoBehaviour, ICategoryButtonsChecker
     {
         [Header("Tech Tree")]
         [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
@@ -46,10 +50,13 @@ namespace Game.CraftSystem
 
         [Header("UI/Panels")]
         [SerializeField] private GameObject techTreePanel;
+        [SerializeField] private Transform content;
+        [SerializeField] private CSCategoryButtons categoryButtons;
 
         [Header("UI/Prefabs")]
         [SerializeField] private CSCraftUILearn learnCraftPrefab;
         [SerializeField] private CSCraftUIArrow arrowPrefab;
+        [SerializeField] private RectTransform nullObjPrefab;
 
         [Header("Other")]
         [SerializeField] private Canvas canvas;
@@ -68,6 +75,9 @@ namespace Game.CraftSystem
             }
 
             InitializeCraftSystem();
+
+            categoryButtons.observers.Add(this);
+            categoryButtons.Initialize(techTrees);
         }
         private void Update()
         {
@@ -117,11 +127,27 @@ namespace Game.CraftSystem
             {
                 tree.loadedLearnCraftPrefabs = new List<CSCraftUILearn>();
 
+                SpawnObjects(tree);
                 SpawnNodes(tree);
                 SpawnConnections(tree);
             }
         }
 
+        private void SpawnObjects(TechTree tree)
+        {
+            if(tree.techTreeRenderTransform == null)
+            {
+                GameObject nodeRender = Instantiate(nullObjPrefab.gameObject, content);
+                nodeRender.name = tree.techTree.name;
+                tree.techTreeRenderTransform = nodeRender.transform;
+            }
+            if(tree.techTreeArrowRenderTransform == null)
+            {
+                GameObject arrowRender = Instantiate(nullObjPrefab.gameObject, tree.techTreeRenderTransform);
+                arrowRender.name = "Arrows";
+                tree.techTreeArrowRenderTransform = arrowRender.transform;
+            }
+        }
         private void SpawnNodes(TechTree tree)
         {
             if (tree.techTreeRenderTransform.childCount > 0)
@@ -219,5 +245,16 @@ namespace Game.CraftSystem
             return null;
         }
         #endregion
+
+        public void OpenedPanel(RectTransform panelTransform)
+        {
+            foreach (var tree in techTrees)
+            {
+                if(tree.techTreeRenderTransform == panelTransform.transform)
+                {
+                    openedTechTree = tree;
+                }
+            }
+        }
     }
 }
