@@ -5,12 +5,15 @@ using UnityEngine;
 namespace Game.World
 {
     using Player.Inventory;
+    using Drill;
 
     public class Ore : MonoBehaviour
     {
+        [HideInInspector] public Drill currentDrill;
+
         public InventoryItem item;
         public int maxAmount;
-        int amount;
+        public int amount;
         public bool canGiveOre = true;
         [Space]
         [SerializeField] private SpriteRenderer rockRender;
@@ -27,7 +30,7 @@ namespace Game.World
             GenerateRandomSprites();
         }
 
-        public void Give(int value)
+        public int Take(int value)
         {
             amount = Mathf.Clamp(amount -= value, 0, maxAmount);
 
@@ -36,6 +39,8 @@ namespace Game.World
                 canGiveOre = false;
                 oreRender.color = new Color(1, 1, 1, 0);
             }
+
+            return amount;
         }
 
         [NaughtyAttributes.Button]

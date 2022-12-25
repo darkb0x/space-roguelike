@@ -23,7 +23,6 @@ namespace Game.CraftSystem.Editor.Elements
         public Sprite Icon { get; set; }
         public int Cost { get; set; }
         public List<ItemCraft> Craft { get; set; }
-        public CSGroup Group { get; set; }
 
         protected CSGraphView graphView;
         private Color defaultBackgroundColor;
@@ -74,24 +73,11 @@ namespace Game.CraftSystem.Editor.Elements
                     }
                 }
 
-                if(Group == null)
-                {
-                    graphView.RemoveUngroupedNode(this);
+                graphView.RemoveUngroupedNode(this);
 
-                    CraftName = target.value;
+                CraftName = target.value;
 
-                    graphView.AddUngroupedNode(this);
-
-                    return;
-                }
-
-                CSGroup currentGroup = Group;
-
-                graphView.RemoveGroupedNode(this, Group);
-
-                CraftName = callback.newValue;
-
-                graphView.AddGroupedNode(this, currentGroup);
+                graphView.AddUngroupedNode(this);
             });
 
             craftNameTextField.AddClasses(
@@ -139,7 +125,7 @@ namespace Game.CraftSystem.Editor.Elements
             customDataContainer.AddToClassList("ds-node__custom-data-container");
 
             // Cost
-            IntegerField costField = CSElementUtility.CreateIntField("Turret Cost", (callback) =>
+            IntegerField costField = CSElementUtility.CreateIntField("Cost", (callback) =>
             {
                 Cost = callback.newValue;
             });
@@ -148,7 +134,7 @@ namespace Game.CraftSystem.Editor.Elements
             customDataContainer.Add(costField);
 
             // Object
-            ObjectField turretObjectField = CSElementUtility.CreateObjectField("Turret Object", typeof(GameObject), (callback) =>
+            ObjectField turretObjectField = CSElementUtility.CreateObjectField("Object", typeof(GameObject), (callback) =>
             {
                 Prefab = (GameObject) callback.newValue;
             });
@@ -157,7 +143,7 @@ namespace Game.CraftSystem.Editor.Elements
             customDataContainer.Add(turretObjectField);
 
             // Image
-            ObjectField turretIconField = CSElementUtility.CreateObjectField("Turret Icon", typeof(Sprite), (callback) =>
+            ObjectField turretIconField = CSElementUtility.CreateObjectField("Icon", typeof(Sprite), (callback) =>
             {
                 Icon = (Sprite)callback.newValue;
             });

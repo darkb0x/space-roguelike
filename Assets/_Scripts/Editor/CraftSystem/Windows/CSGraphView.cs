@@ -21,8 +21,6 @@ namespace Game.CraftSystem.Editor.Windows
         private MiniMap miniMap;
 
         private SerializableDictionary<string, CSNodeErrorData> ungroupedNodes;
-        private SerializableDictionary<string, CSGroupErrorData> groups;
-        private SerializableDictionary<Group, SerializableDictionary<string, CSNodeErrorData>> groupedNodes;
 
         private int nameErrorsAmount;
 
@@ -53,8 +51,6 @@ namespace Game.CraftSystem.Editor.Windows
             editorWindow = dsEditorWindow;
 
             ungroupedNodes = new SerializableDictionary<string, CSNodeErrorData>();
-            groups = new SerializableDictionary<string, CSGroupErrorData>();
-            groupedNodes = new SerializableDictionary<Group, SerializableDictionary<string, CSNodeErrorData>>();
 
             AddManipulators();
             AddSearchWindow();
@@ -62,9 +58,6 @@ namespace Game.CraftSystem.Editor.Windows
             AddGridBackground();
 
             OnElementsDeleted();
-            OnGroupElementAdded();
-            OnGroupElementRemoved();
-            OnGroupRenamed();
             OnGraphViewChanged();
 
             AddStyles();
@@ -110,17 +103,6 @@ namespace Game.CraftSystem.Editor.Windows
             this.AddManipulator(new RectangleSelector());
 
             this.AddManipulator(CreateNodeContextualMenu("Add Node"));
-
-            this.AddManipulator(CreateGroupContextualMenu());
-        }
-
-        private IManipulator CreateGroupContextualMenu()
-        {
-            ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
-                menuEvent => menuEvent.menu.AppendAction("Add Group", actionEvent => CreateGroup("Dialogue Group", GetLocalMousePosition(actionEvent.eventInfo.localMousePosition)))
-            );
-
-            return contextualMenuManipulator;
         }
 
         private IManipulator CreateNodeContextualMenu(string actionTitle)
@@ -134,29 +116,6 @@ namespace Game.CraftSystem.Editor.Windows
         #endregion
 
         #region Elements creation
-        public CSGroup CreateGroup(string title, Vector2 localMousePosition)
-        {
-            CSGroup group = new CSGroup(title, localMousePosition);
-
-            AddGroup(group);
-
-            AddElement(group);
-
-            foreach (GraphElement selectedElement in selection)
-            {
-                if(!(selectedElement is CSNode))
-                {
-                    continue;
-                }
-
-                CSNode node = (CSNode) selectedElement;
-
-                group.AddElement(node);
-            }
-
-            return group;
-        }
-
         public CSNode CreateNode(Vector2 position, bool shouldDraw = true, string nodeName = "CraftName")
         {
             Type nodeType = Type.GetType($"CSNode");
@@ -179,10 +138,8 @@ namespace Game.CraftSystem.Editor.Windows
         {
             deleteSelection = (operationName, askUser) =>
             {
-                Type groupType = typeof(CSGroup);
                 Type edgeType = typeof(Edge);
 
-                List<CSGroup> groupsToDelete = new List<CSGroup>();
                 List<Edge> edgesToDelete = new List<Edge>();
                 List<CSNode> nodesToDelete = new List<CSNode>();
 
@@ -203,126 +160,18 @@ namespace Game.CraftSystem.Editor.Windows
 
                         continue;
                     }
-
-                    if(element.GetType() != groupType)
-                    {
-                        continue;
-                    }
-
-                    CSGroup group = (CSGroup)element;
-
-                    groupsToDelete.Add(group);
-                }
-
-                foreach (CSGroup group in groupsToDelete)
-                {
-                    List<CSNode> groupNodes = new List<CSNode>();
-
-                    foreach (GraphElement groupElement in group.containedElements)
-                    {
-                        if(!(groupElement is CSNode))
-                        {
-                            continue;
-                        }
-
-                        CSNode groupNode = (CSNode)groupElement;
-
-                        groupNodes.Add(groupNode);
-                    }
-
-                    group.RemoveElements(groupNodes);
-
-                    RemoveGroup(group);
-
-                    RemoveElement(group);
                 }
 
                 DeleteElements(edgesToDelete);
 
                 foreach (CSNode node in nodesToDelete)
                 {
-                    if(node.Group != null)
-                    {
-                        node.Group.RemoveElement(node);
-                    }
-
                     RemoveUngroupedNode(node);
 
                     node.DisconectAllPorts();
 
                     RemoveElement(node);
                 }
-            };
-        }
-
-        private void OnGroupElementAdded()
-        {
-            elementsAddedToGroup = (group, elements) =>
-            {
-                foreach (GraphElement element in elements)
-                {
-                    if(!(element is CSNode))
-                    {
-                        continue;
-                    }
-
-                    CSGroup nodeGroup = (CSGroup) group;
-                    CSNode node = (CSNode) element;
-
-                    RemoveUngroupedNode(node);
-
-                    AddGroupedNode(node, nodeGroup);
-                }
-            };
-        }
-
-        private void OnGroupElementRemoved()
-        {
-            elementsRemovedFromGroup = (group, elements) =>
-            {
-                foreach (GraphElement element in elements)
-                {
-                    if (!(element is CSNode))
-                    {
-                        continue;
-                    }
-
-                    CSNode node = (CSNode)element;
-
-                    RemoveGroupedNode(node, group);
-                    AddUngroupedNode(node);
-                }
-            };
-        }
-
-        private void OnGroupRenamed()
-        {
-            groupTitleChanged = (group, newTitle) =>
-            {
-                CSGroup dsGroup = (CSGroup)group;
-
-                dsGroup.title = newTitle.RemoveWhitespaces().RemoveSpecialCharacters();
-
-                if (string.IsNullOrEmpty(dsGroup.title))
-                {
-                    if (!string.IsNullOrEmpty(dsGroup.OldTitle))
-                    {
-                        NameErrorsAmount++;
-                    }
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(dsGroup.OldTitle))
-                    {
-                        NameErrorsAmount--;
-                    }
-                }
-
-                RemoveGroup(dsGroup);
-
-                dsGroup.OldTitle = dsGroup.title;
-
-                AddGroup(dsGroup);
             };
         }
 
@@ -419,127 +268,6 @@ namespace Game.CraftSystem.Editor.Windows
                 ungroupedNodes.Remove(nodeName);
             }
         }
-
-
-        public void AddGroup(CSGroup group)
-        {
-            string groupName = group.title.ToLower();
-
-            if(!groups.ContainsKey(groupName))
-            {
-                CSGroupErrorData groupErrorData = new CSGroupErrorData();
-
-                groupErrorData.Groups.Add(group);
-
-                groups.Add(groupName, groupErrorData);
-
-                return;
-            }
-
-            List<CSGroup> groupsList = groups[groupName].Groups;
-
-            groupsList.Add(group);
-
-            Color errorColor = groups[groupName].ErrorData.Color;
-
-            group.SetErrorStyle(errorColor);
-
-            if(groupsList.Count == 2)
-            {
-                NameErrorsAmount++;
-                groupsList[0].SetErrorStyle(errorColor);
-            }
-        }
-        public void RemoveGroup(CSGroup group)
-        {
-            string oldGroupName = group.OldTitle.ToLower();
-
-            List<CSGroup> groupsList = groups[oldGroupName].Groups;
-
-            groupsList.Remove(group);
-
-            group.ResetStyle();
-
-            if(groupsList.Count == 1)
-            {
-                NameErrorsAmount--;
-                groupsList[0].ResetStyle();
-
-                return;
-            }
-
-            if(groupsList.Count == 0)
-            {
-                groups.Remove(oldGroupName);
-            }
-        }
-
-        public void AddGroupedNode(CSNode node, CSGroup group)
-        {
-            string nodeName = node.CraftName.ToLower();
-
-            node.Group = group;
-
-            if(!groupedNodes.ContainsKey(group))
-            {
-                groupedNodes.Add(group, new SerializableDictionary<string, CSNodeErrorData>());
-            }
-
-            if (!groupedNodes[group].ContainsKey(nodeName))
-            {
-                CSNodeErrorData nodeErrorData = new CSNodeErrorData();
-
-                nodeErrorData.Nodes.Add(node);
-
-                groupedNodes[group].Add(nodeName, nodeErrorData);
-
-                return;
-            }
-
-            List<CSNode> groupedNodesList = groupedNodes[group][nodeName].Nodes;
-
-            groupedNodesList.Add(node);
-
-            Color errorColor = groupedNodes[group][nodeName].ErrorData.Color;
-
-            node.SetErrorStyle(errorColor);
-
-            if(groupedNodesList.Count == 2)
-            {
-                NameErrorsAmount++;
-                groupedNodesList[0].SetErrorStyle(errorColor);
-            }
-        }
-        public void RemoveGroupedNode(CSNode node, Group group)
-        {
-            string nodeName = node.CraftName.ToLower();
-
-            node.Group = null;
-
-            List<CSNode> groupedNodesList = groupedNodes[group][nodeName].Nodes;
-
-            groupedNodesList.Remove(node);
-
-            node.ResetStyle();
-
-            if(groupedNodesList.Count == 1)
-            {
-                NameErrorsAmount--;
-                groupedNodesList[0].ResetStyle();
-
-                return;
-            }
-
-            if(groupedNodesList.Count == 0)
-            {
-                groupedNodes[group].Remove(nodeName);
-
-                if (groupedNodes[group].Count == 0)
-                {
-                    groupedNodes.Remove(group);
-                }
-            }
-        }
         #endregion
 
         #region Elements addition
@@ -618,8 +346,6 @@ namespace Game.CraftSystem.Editor.Windows
         {
             DeleteElements(graphElements.ToList());
 
-            groups.Clear();
-            groupedNodes.Clear();
             ungroupedNodes.Clear();
 
             NameErrorsAmount = 0;

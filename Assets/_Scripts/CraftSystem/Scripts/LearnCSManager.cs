@@ -160,7 +160,7 @@ namespace Game.CraftSystem
                 tree.loadedLearnCraftPrefabs.Clear();
             }
 
-            foreach (CSCraftSO craftData in tree.techTree.UngroupedDialogues)
+            foreach (CSCraftSO craftData in tree.techTree.Nodes)
             {
                 CSCraftUILearn obj = Instantiate(learnCraftPrefab.gameObject, tree.techTreeRenderTransform).GetComponent<CSCraftUILearn>();
                 obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y), this);

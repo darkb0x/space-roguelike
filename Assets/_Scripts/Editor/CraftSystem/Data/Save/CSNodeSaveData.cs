@@ -16,7 +16,6 @@ namespace Game.CraftSystem.Editor.Data.Save
         [field: SerializeField] public Sprite Icon { get; set; }
         [field: SerializeField] public int Cost { get; set; }
         [field: SerializeField] public List<ItemCraft> Craft { get; set; }
-        [field: SerializeField] public string GroupID { get; set; }
         [field: SerializeField] public Vector2 Position { get; set; }
     }
 }

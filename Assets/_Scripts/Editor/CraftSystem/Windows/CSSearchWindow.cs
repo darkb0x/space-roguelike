@@ -33,13 +33,6 @@ namespace Game.CraftSystem.Editor.Windows
                     level = 2,
                     userData = new CSNode()
                 },
-
-                new SearchTreeGroupEntry(new GUIContent("Diologue Group"), 1),
-                new SearchTreeEntry(new GUIContent("Single Group", indentationIcon))
-                {
-                    level = 2,
-                    userData = new Group()
-                }
             };
 
             return searchTreeEntries;
@@ -54,11 +47,6 @@ namespace Game.CraftSystem.Editor.Windows
                     CSNode node = graphView.CreateNode(localMousePosition);
                     graphView.AddElement(node);
                     return true;
-
-                case Group _:
-                    graphView.CreateGroup("DialogueGroup", localMousePosition);
-                    return true;
-
                 default:
                     return false;
             }

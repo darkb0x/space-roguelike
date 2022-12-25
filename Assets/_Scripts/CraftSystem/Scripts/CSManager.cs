@@ -191,7 +191,7 @@ namespace Game.CraftSystem
                 CraftTechTree currentTechTree = default;
                 foreach (var tree in techTrees)
                 {
-                    if (tree.techTree.UngroupedDialogues.Contains(item))
+                    if (tree.techTree.Nodes.Contains(item))
                     {
                         currentTechTree = GetTechTreeByCraftContainer(tree.techTree);
                         break;
@@ -207,7 +207,7 @@ namespace Game.CraftSystem
             CraftTechTree techTree = default;
             foreach (var tree in techTrees)
             {
-                if (tree.techTree.UngroupedDialogues.Contains(newCraft))
+                if (tree.techTree.Nodes.Contains(newCraft))
                 {
                     techTree = GetTechTreeByCraftContainer(tree.techTree);
                     break;

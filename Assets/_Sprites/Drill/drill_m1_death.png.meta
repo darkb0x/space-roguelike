@@ -1,16 +1,7 @@
 fileFormatVersion: 2
-guid: 41c6182689739244288c6be7df8a4683
+guid: b9a5604f1221a104e923e81b48cc3087
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 1152356169552002576
-    second: computer_main
-  - first:
-      213: -8796642946680004667
-    second: computer_keyboard
-  - first:
-      213: -6682465662091931926
-    second: computer_screen_art
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -110,70 +101,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: computer_main
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 29
-        height: 23
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 01e70eca4ddfdff00800000000000000
-      internalID: 1152356169552002576
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: computer_keyboard
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 15
-        width: 12
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5cf513bb8db0ce580800000000000000
-      internalID: -8796642946680004667
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: computer_screen_art
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 3
-        width: 13
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aeec343b2ec1343a0800000000000000
-      internalID: -6682465662091931926
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []

@@ -6,6 +6,7 @@ using NaughtyAttributes;
 namespace Game.Player
 {
     using Turret;
+    using Drill;
 
     public class PlayerPickObjects : MonoBehaviour
     {
@@ -33,6 +34,9 @@ namespace Game.Player
 
         public void SetPickedGameobj(GameObject obj)
         {
+            if (pickedGameObject && pickedGameObject_transform)
+                PutCurrentGameobj();
+
             pickedGameObject = obj;
             pickedGameObject_transform = obj.transform;
 
@@ -45,9 +49,19 @@ namespace Game.Player
                 if(pickedGameObject.TryGetComponent<TurretAI>(out TurretAI turret))
                 {
                     turret.Put();
+                    pickedGameObject_transform.position = transform.position;
                 }
-
-                pickedGameObject_transform.position = transform.position;
+                if(pickedGameObject.TryGetComponent<Drill>(out Drill drill))
+                {
+                    if(drill.CanPut())
+                    {
+                        drill.Put();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
 
                 pickedGameObject = null;
                 pickedGameObject_transform = null;
