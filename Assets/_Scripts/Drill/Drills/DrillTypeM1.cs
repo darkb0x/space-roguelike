@@ -15,10 +15,10 @@ namespace Game.Drill
     public class DrillTypeM1 : Drill
     {
         [Header("DrillTypeM1")]
-        [SerializeField, Range(0, 100)] private int maxExtractedPercentFromOre = 50;
+        [SerializeField] private int maxExtractedPercentFromOre = 50;
         private int amountOreFromPercent = 0;
         [Space]
-        [SerializeField] private ParticleSystem brokeDrillParticle;
+        [SerializeField] private GameObject exploisonGameObj;
         [SerializeField] private ParticleSystem smokePatricle;
         [Space]
         [SerializeField] private SpriteRenderer backLegsSR;
@@ -26,7 +26,7 @@ namespace Game.Drill
 
         public override void Mine()
         {
-            if(currentOre.amount <= amountOreFromPercent)
+            if(amount >= amountOreFromPercent)
             {
                 MiningEnded();
                 return;
@@ -44,7 +44,7 @@ namespace Game.Drill
 
             anim.SetTrigger("Die");
 
-            brokeDrillParticle.Play();
+            exploisonGameObj.SetActive(true);
             smokePatricle.Play();
         }
 

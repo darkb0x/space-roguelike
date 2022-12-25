@@ -5815,7 +5815,7 @@ MonoBehaviour:
   anim_putTrigger: Put
   anim_miningBool: Mining
   maxExtractedPercentFromOre: 50
-  brokeDrillParticle: {fileID: 1748509120}
+  exploisonGameObj: {fileID: 0}
   smokePatricle: {fileID: 970565182}
   backLegsSR: {fileID: 1239295206}
   worldSortingLayer: World
@@ -11946,7 +11946,7 @@ MonoBehaviour:
   anim_putTrigger: Put
   anim_miningBool: Mining
   maxExtractedPercentFromOre: 50
-  brokeDrillParticle: {fileID: 409961060}
+  exploisonGameObj: {fileID: 0}
   smokePatricle: {fileID: 1857067322}
   backLegsSR: {fileID: 822901994}
   worldSortingLayer: World
@@ -22141,6 +22141,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 245243498496675683, guid: fba7d37712242b2479ac2f43999d92e2, type: 3}
+      propertyPath: timeBtwMining
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 245243498496675686, guid: fba7d37712242b2479ac2f43999d92e2, type: 3}
       propertyPath: m_Name
       value: Drill
