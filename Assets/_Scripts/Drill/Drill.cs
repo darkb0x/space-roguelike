@@ -9,7 +9,7 @@ namespace Game.Drill
     using Player;
     using Player.Inventory;
 
-    public abstract class Drill : MonoBehaviour
+    public abstract class Drill : MonoBehaviour, IMouseObserver_Click
     {
         [HideInInspector] public Transform myTransform;
         [HideInInspector] public bool isPicked = true;
@@ -22,8 +22,15 @@ namespace Game.Drill
         [HideInInspector] public float currentTimeBtwMining;
         [ReadOnly] public bool isMining = false;
         [Space]
+        [ReadOnly] public float health;
+        public float maxHealth;
+        [Space]
         public float oreFindingRadius = 1.2f;
+        [HorizontalLine(color: EColor.Green)]
         public LayerMask oreLayer;
+        [Space]
+        public float pickOreFromInventoryMaxDistance = 3.4f;
+        [HorizontalLine(color: EColor.Indigo)]
 
         [Header("Inventory")]
         public InventoryItem item;
@@ -37,11 +44,23 @@ namespace Game.Drill
         public Animator anim;
         [AnimatorParam("anim")] public string anim_putTrigger;
         [AnimatorParam("anim")] public string anim_miningBool;
+        [Space]
+        public SpriteRenderer backLegsSR;
+        [SortingLayer] public string worldSortingLayer;
 
-        private void OnDrawGizmosSelected()
+        private void OnDrawGizmos()
         {
+            // oreFindingRadius
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, oreFindingRadius);
+            if (pickOreFromInventoryMaxDistance <= 0)
+                Debug.LogWarning(gameObject.name + " oreFindingRadius is less or equals 0");
+
+            // pickOreFromInventoryMaxDistance
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(transform.position, pickOreFromInventoryMaxDistance);
+            if (pickOreFromInventoryMaxDistance <= 0)
+                Debug.LogWarning(gameObject.name + " pickOreFromInventoryMaxDistance is less or equals 0");
         }
 
         public virtual void Start()
@@ -50,6 +69,7 @@ namespace Game.Drill
             myTransform = transform;
 
             currentTimeBtwMining = timeBtwMining;
+            health = maxHealth;
 
             Initialize();
         }
@@ -89,6 +109,7 @@ namespace Game.Drill
             }
         }
 
+        #region Put
         public bool CanPut()
         {
             Collider2D[] colls = Physics2D.OverlapCircleAll(myTransform.position, oreFindingRadius, oreLayer);
@@ -115,13 +136,16 @@ namespace Game.Drill
         public virtual void Put()
         {
             myTransform.position = oreTransform.position;
+            backLegsSR.sortingLayerName = worldSortingLayer;
 
             coll.enabled = true;
             isPicked = false;
 
             anim.SetTrigger(anim_putTrigger);
         }
+        #endregion
 
+        #region Mining
         public virtual void Mine()
         {
             if(!currentOre.canGiveOre)
@@ -152,6 +176,42 @@ namespace Game.Drill
         public virtual void MiningEnded()
         {
             return;
+        }
+        #endregion
+
+        #region Health
+        [Button]
+        private void TakeDamage1()
+        {
+            TakeDamage(1);
+        }
+
+        public virtual void TakeDamage(float value)
+        {
+            health -= value;
+
+            if(health <= 0)
+            {
+                Die();
+            }
+        }
+
+        public virtual void Die()
+        {
+            MiningEnded();
+        }
+        #endregion
+
+        public void MauseDown(MouseClickType mouseClickType)
+        {
+            if(mouseClickType == MouseClickType.Left)
+            {
+                if (Vector2.Distance(myTransform.position, player.transform.position) > pickOreFromInventoryMaxDistance)
+                    return;
+
+                PlayerInventory.playerInventory.GiveItem(item, amount);
+                amount = 0;
+            }
         }
     }
 }

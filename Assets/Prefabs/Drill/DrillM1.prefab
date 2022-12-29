@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 245243498496675684}
   - component: {fileID: 245243498496675685}
   m_Layer: 0
-  m_Name: Drill
+  m_Name: DrillM1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,10 +57,13 @@ MonoBehaviour:
   timeBtwMining: 0.4
   currentTimeBtwMining: 0
   isMining: 0
+  health: 0
+  maxHealth: 0
   oreFindingRadius: 1.2
   oreLayer:
     serializedVersion: 2
     m_Bits: 128
+  pickOreFromInventoryMaxDistance: 3
   item: {fileID: 0}
   amount: 0
   currentOre: {fileID: 0}
@@ -68,11 +71,11 @@ MonoBehaviour:
   anim: {fileID: 245243498496675685}
   anim_putTrigger: Put
   anim_miningBool: Mining
+  backLegsSR: {fileID: 245243498994003856}
+  worldSortingLayer: World
   maxExtractedPercentFromOre: 50
   exploisonGameObj: {fileID: 6836575805089587353}
   smokePatricle: {fileID: 245243499006599874}
-  backLegsSR: {fileID: 245243498994003856}
-  worldSortingLayer: World
 --- !u!114 &245243498496675682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +102,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.014386654}
+  m_Offset: {x: 0, y: 0.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -110,7 +113,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.9287734}
+  m_Size: {x: 1.5, y: 1.6}
   m_EdgeRadius: 0
 --- !u!95 &245243498496675685
 Animator:

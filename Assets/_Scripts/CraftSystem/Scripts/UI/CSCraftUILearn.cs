@@ -77,7 +77,7 @@ namespace Game.CraftSystem
             learnCraftSystem = manager;
         }
 
-        private void Start()
+        public void InitializeOnStart()
         {
             fullLock();
 

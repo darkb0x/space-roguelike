@@ -20,9 +20,6 @@ namespace Game.Drill
         [Space]
         [SerializeField] private GameObject exploisonGameObj;
         [SerializeField] private ParticleSystem smokePatricle;
-        [Space]
-        [SerializeField] private SpriteRenderer backLegsSR;
-        [NaughtyAttributes.SortingLayer, SerializeField] private string worldSortingLayer; 
 
         public override void Mine()
         {
@@ -37,8 +34,6 @@ namespace Game.Drill
 
         public override void MiningEnded()
         {
-            PlayerInventory.playerInventory.AddItem(item, amount);
-
             currentOre.canGiveOre = false;
             isMining = false;
 
@@ -51,8 +46,6 @@ namespace Game.Drill
         public override void Put()
         {
             amountOreFromPercent = currentOre.maxAmount / 100 * maxExtractedPercentFromOre;
-
-            backLegsSR.sortingLayerName = worldSortingLayer;
 
             base.Put();
         }

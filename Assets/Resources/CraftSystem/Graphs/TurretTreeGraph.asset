@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9594c05b51a55784fa8901a9a446099f, type: 3}
-  m_Name: TechTreeGraph
+  m_Name: TurretTreeGraph
   m_EditorClassIdentifier: 
-  <FileName>k__BackingField: TechTree
-  <Groups>k__BackingField: []
+  <FileName>k__BackingField: TurretTree
   <Nodes>k__BackingField:
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: d3b11f91-bddc-4fe5-a804-d2e49b753404
@@ -27,7 +26,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
       amount: 15
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 793, y: 0}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: 8a576504-db48-4c50-8a6c-5a76360e9657
@@ -41,7 +39,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
       amount: 10
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 408, y: 0}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: d6b81edb-44ec-4ac1-b269-aed7b1766fbe
@@ -54,7 +51,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
       amount: 5
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 0, y: 0}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: ab30b3d1-8038-42a8-8ee4-b27d91841edd
@@ -67,7 +63,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 793, y: 301}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: 6a94ce6d-7bf2-478c-9c64-1654d6a67026
@@ -80,7 +75,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 1184, y: 301}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: 177d5f40-da61-427d-ae9a-23af92a1f128
@@ -94,7 +88,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 1573, y: 301}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: b20b0cc1-c653-47e4-aa2f-d4e4b92d7254
@@ -107,7 +100,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 1909, y: 0}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: faf74993-44ec-4777-beab-4d6424884028
@@ -120,7 +112,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 2012, y: 451}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: 961fb05e-2b33-44f0-ba9d-106911ba9cb3
@@ -133,7 +124,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 2330, y: 0}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: bc162c99-e657-4098-9c70-405ca368dacd
@@ -146,7 +136,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 2417, y: 451}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: f6aaeb8d-b8db-4c0a-99d1-277d3b209ee0
@@ -159,7 +148,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 2748, y: 0}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: 39d0d7ab-c65f-4875-910d-8605bac3f4e1
@@ -172,7 +160,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 2823, y: 451}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: 3c4fe337-4b07-4576-a8c5-ee5089615239
@@ -186,7 +173,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 3227, y: 88}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: 0fbe82e0-a7b9-409a-a353-431dedca1430
@@ -199,7 +185,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 3723, y: 199}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: 87bf5ede-77b7-492b-acab-3f7b8544d7ff
@@ -212,7 +197,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 4160, y: 199}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: e838da98-790b-4109-80a9-d66b0a74b0d4
@@ -225,7 +209,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 4125, y: -287}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: ec5d7f0d-98c6-4336-b3e7-de1888d36327
@@ -238,7 +221,6 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 3707, y: -287}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: c5e684bd-0bf8-46ac-9ec7-6f8238c33326
@@ -251,9 +233,7 @@ MonoBehaviour:
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
       amount: 1
-    <GroupID>k__BackingField: 
     <Position>k__BackingField: {x: 4561, y: -287}
-  <OldGroupNames>k__BackingField: []
   <OldUngroupedNodeNames>k__BackingField:
   - StandartGunLvl3
   - StandartGunLvl2
@@ -273,5 +253,3 @@ MonoBehaviour:
   - LaserGunLvl2
   - LaserGun
   - LaserGunLvl3
-  <OldGroupedNodeNames>k__BackingField:
-    list: []

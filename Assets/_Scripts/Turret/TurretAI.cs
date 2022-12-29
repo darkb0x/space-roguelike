@@ -204,7 +204,7 @@ namespace Game.Turret
         {
             foreach (var item in droppedItems)
             {
-                inventory.AddItem(item.item, item.amount);
+                inventory.GiveItem(item.item, item.amount);
             }
             Destroy(gameObject);
         }

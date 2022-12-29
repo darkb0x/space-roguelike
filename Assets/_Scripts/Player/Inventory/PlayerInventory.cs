@@ -49,9 +49,11 @@ namespace Game.Player.Inventory
             set
             {
                 m_money = value;
+                money_text.text = m_money + "$";
             }
         }
         [SerializeField] private int m_money;
+        [SerializeField] private TextMeshProUGUI money_text;
 
         [Header("UI")]
         [SerializeField] private Transform uiElements_tranform;
@@ -79,7 +81,7 @@ namespace Game.Player.Inventory
             return null;
         }
 
-        public void AddItem(InventoryItem item, int amount)
+        public void GiveItem(InventoryItem item, int amount)
         {
             GetItem(item).Add(amount);
 

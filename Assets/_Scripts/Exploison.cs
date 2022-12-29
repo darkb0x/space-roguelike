@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Game
 {
     using Enemy;
+    using Player;
 
     public class Exploison : MonoBehaviour
     {

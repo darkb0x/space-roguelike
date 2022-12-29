@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using UnityEngine.UI;
 
 namespace Game.Player
 {
@@ -11,6 +12,19 @@ namespace Game.Player
 
     public class PlayerController : MonoBehaviour
     {
+        [Header("Oxygen")]
+        [SerializeField, ProgressBar("Oxygen", "maxOxygen", EColor.Blue)] private float oxygen = 50;
+        [SerializeField] private float maxOxygen = 100f;
+        [SerializeField] private float oxygenUseSpeed = 1.3f;
+        [Space]
+        [SerializeField] private Image oxygenBarUI;
+
+        [Header("Health")]
+        [SerializeField, ProgressBar("Health", "maxHealth", EColor.Red)] private float health = 10;
+        [SerializeField] private float maxHealth;
+        [Space]
+        [SerializeField] private Image healthBarUI;
+
         [Header("movement")]
         [SerializeField] private float speed;
 
@@ -38,6 +52,12 @@ namespace Game.Player
             transform = GetComponent<Transform>();
 
             inventory = FindObjectOfType<PlayerInventory>();
+
+            health = maxHealth;
+            oxygen = maxOxygen;
+
+            oxygenBarUI.fillAmount = oxygen / maxOxygen;
+            healthBarUI.fillAmount = health / maxHealth;
         }
 
         private void Update()
@@ -59,6 +79,9 @@ namespace Game.Player
                 anim.SetBool(anim_isRunning, moveInput.magnitude > 0);
             else
                 anim.SetBool(anim_isRunning, false);
+
+            //oxygen
+            OxygenCycle();
         }
 
         private void FixedUpdate()
@@ -66,6 +89,42 @@ namespace Game.Player
             if(canMove)
                 rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
         }
+
+        #region Oxygen
+        private void OxygenCycle()
+        {
+            if(oxygen <= 0)
+            {
+                Die();
+            }
+
+            oxygen -= (Time.deltaTime * oxygenUseSpeed);
+            oxygenBarUI.fillAmount = oxygen / maxOxygen;
+        }
+
+        public void AddOxygen(float amount)
+        {
+            oxygen = Mathf.Clamp(oxygen + amount, 0, maxOxygen);
+        }
+        #endregion
+
+        #region Health
+        public void TakeDamage(float value)
+        {
+            health -= value;
+            healthBarUI.fillAmount = health / maxHealth;
+
+            if (health <= 0)
+            {
+                Die();
+            }
+        }
+        private void Die()
+        {
+            Debug.Log("Player is die");
+            return;
+        }
+        #endregion
 
         #region Collision triggers
         DroneAI selectedDrone;

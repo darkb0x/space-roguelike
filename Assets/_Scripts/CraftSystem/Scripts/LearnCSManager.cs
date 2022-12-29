@@ -105,14 +105,14 @@ namespace Game.CraftSystem
         #region UI Actions
         public void OpenMenu()
         {
-            techTreePanel.SetActive(true);
+            UIPanelManager.manager.OpenPanel(techTreePanel);
             isOpened = true;
 
             player.canMove = false;
         }
         public void CloseMenu()
         {
-            techTreePanel.SetActive(false);
+            UIPanelManager.manager.ClosePanel(techTreePanel);
             isOpened = false;
 
             player.canMove = true;
@@ -168,6 +168,8 @@ namespace Game.CraftSystem
             }
             foreach (CSCraftUILearn node in tree.loadedLearnCraftPrefabs)
             {
+                node.InitializeOnStart();
+
                 if (unlockedCrafts.Contains(node.craft))
                     node.fullUnlock();
             }

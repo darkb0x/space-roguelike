@@ -51,15 +51,14 @@ namespace Game.CraftSystem
 
         private void Start()
         {
+            SpawnObjects();
+
             player = FindObjectOfType<PlayerController>();
             LoadCraftUtility.loadCraftUtility.AddObserver(this);
 
             openedTechTree = techTrees[0];
 
             DisSelectCraft();
-
-            SpawnObjects();
-
             categoryButtons.Initialize(ConvertListOfTechTree(techTrees));
         }
 
@@ -99,12 +98,13 @@ namespace Game.CraftSystem
                 uiElement.UpdateUI();
             }
 
-            craftTreePanel.SetActive(true);
+            UIPanelManager.manager.OpenPanel(craftTreePanel);
+
             isOpened = true;
         }
         public void CloseMenu()
         {
-            craftTreePanel.SetActive(false);
+            UIPanelManager.manager.ClosePanel(craftTreePanel);
             isOpened = false;
 
             player.EndCrafting();
