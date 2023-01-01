@@ -12,6 +12,7 @@ namespace Game
         [SerializeField, Range(1, 10)] private float followSpeed = 3;
         [Header("מבחמנ ךאלונû")]
         [SerializeField] private float maxCamViewScale = 15;
+        [SerializeField] private float normalCamViewScale = 6;
         [SerializeField] private float minCamViewScale = 5;
         [Space]
         [SerializeField] private float scrollSpeed = 1.2f;
@@ -34,16 +35,18 @@ namespace Game
 
         private void Update()
         {
-            currentZoom = Mathf.Clamp(currentZoom + -Input.mouseScrollDelta.y * scrollSpeed, minCamViewScale, maxCamViewScale);
-            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
+            if (!UIPanelManager.manager.SomethinkIsOpened())
+            {
+                currentZoom = Mathf.Clamp(currentZoom + -Input.mouseScrollDelta.y * scrollSpeed, minCamViewScale, maxCamViewScale);
+                cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
+            }
+            else
+            {
+                currentZoom = normalCamViewScale;
+                cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, normalCamViewScale, scaleSpeed * Time.deltaTime);
+            }
 
             transform.position = target.position - new Vector3(0, 0, Mathf.Abs(transform.position.z)); 
-        }
-
-        private void FixedUpdate()
-        {
-            //_targetInVector3 = new Vector3(target.position.x, target.position.y, transform.position.z);
-            //transform.position = Vector3.Lerp(transform.position, _targetInVector3, followSpeed * Time.fixedDeltaTime);
         }
     }
 }

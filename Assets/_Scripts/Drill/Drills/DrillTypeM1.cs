@@ -23,7 +23,7 @@ namespace Game.Drill
 
         public override void Mine()
         {
-            if(amount >= amountOreFromPercent)
+            if(allExtractedOre >= amountOreFromPercent)
             {
                 MiningEnded();
                 return;
@@ -45,7 +45,7 @@ namespace Game.Drill
 
         public override void Put()
         {
-            amountOreFromPercent = currentOre.maxAmount / 100 * maxExtractedPercentFromOre;
+            Debug.Log( amountOreFromPercent = currentOre.maxAmount / 100 * maxExtractedPercentFromOre);
 
             base.Put();
         }

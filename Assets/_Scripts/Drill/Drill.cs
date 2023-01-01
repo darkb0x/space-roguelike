@@ -21,6 +21,7 @@ namespace Game.Drill
         public float timeBtwMining;
         [HideInInspector] public float currentTimeBtwMining;
         [ReadOnly] public bool isMining = false;
+        [ReadOnly] public int allExtractedOre = 0;
         [Space]
         [ReadOnly] public float health;
         public float maxHealth;
@@ -165,13 +166,14 @@ namespace Game.Drill
             {
                 oreAmount += currentOre.amount;
 
-                if(oreAmount <= 0)
+                if (oreAmount <= 0)
                 {
                     return;
                 }
             }
 
             amount += oreAmount;
+            allExtractedOre += oreAmount;
         }
         public virtual void MiningEnded()
         {

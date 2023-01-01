@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Game.Player
 {
     using Drone;
     using Inventory;
-    using Turret;
+    using CraftSystem;
 
     public class PlayerController : MonoBehaviour
     {
@@ -70,6 +71,11 @@ namespace Game.Player
                 {
                     if (!selectedDrone.isPicked) selectedDrone.Init();
                 }
+            }
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                LoadCraftUtility.loadCraftUtility.ClearUnlockedCrafts();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
 
             //animation

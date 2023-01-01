@@ -48,7 +48,7 @@ namespace Game.CraftSystem
             allUnlockedCrafts.Clear();
 
             Save();
-            ResetDataInObservers();
+            //ResetDataInObservers();
 
             PlayerPrefs.SetString("unlockedCraftsList", "");
         }

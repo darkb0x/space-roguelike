@@ -18,6 +18,7 @@ namespace Game
         GameObject currentOpenedPanel;
 
         [SerializeField] private GameObject playerUI;
+        [Space]
         [SerializeField] private Volume blurVolume;
 
         [System.Serializable]

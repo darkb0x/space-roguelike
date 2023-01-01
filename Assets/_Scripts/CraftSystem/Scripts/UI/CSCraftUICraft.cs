@@ -82,15 +82,13 @@ namespace Game.CraftSystem
         #region UI Actions
         public void OnEnterPointer()
         {
-            anim.SetBool("enabled", true);
+            UpdateUI();
 
-            craftSystem.SelectACraft(craft);
+            anim.SetBool("enabled", true);
         }
         public void OnExitPointer()
         {
             anim.SetBool("enabled", false);
-
-            craftSystem.DisSelectCraft();
         }
         #endregion
     }

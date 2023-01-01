@@ -58,6 +58,8 @@ namespace Game.Player.Inventory
         [Header("UI")]
         [SerializeField] private Transform uiElements_tranform;
         [SerializeField] private GameObject itemInUI_prefab;
+        [Space]
+        [SerializeField] private InventoryScreen[] screens;
 
         private void Start()
         {
@@ -119,6 +121,15 @@ namespace Game.Player.Inventory
             {
                 item.UI_icon.sprite = item.item._icon;
                 item.UI_amount.text = item.amount.ToString();
+            }
+            UpdateScreensData();
+        }
+
+        private void UpdateScreensData()
+        {
+            foreach (var screen in screens)
+            {
+                screen.UpdateData(items);
             }
         }
     }

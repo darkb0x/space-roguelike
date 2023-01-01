@@ -34,10 +34,6 @@ namespace Game.CraftSystem
         [Space]
         [SerializeField] private CSCategoryButtons categoryButtons;
 
-        [Header("UI/Craft")]
-        [SerializeField] private Image currentWorkbanchImage;
-        [SerializeField] private Image currentItemImage;
-
         [Header("UI/Prefabs")]
         [SerializeField] private CSCraftUICraft craftObjectPrefab;
         [SerializeField] private GameObject renderTransformPrefab;
@@ -58,7 +54,6 @@ namespace Game.CraftSystem
 
             openedTechTree = techTrees[0];
 
-            DisSelectCraft();
             categoryButtons.Initialize(ConvertListOfTechTree(techTrees));
         }
 
@@ -108,16 +103,6 @@ namespace Game.CraftSystem
             isOpened = false;
 
             player.EndCrafting();
-        }
-
-        public void SelectACraft(CSCraftSO craft)
-        {
-            currentItemImage.color = new Color(1, 1, 1, 1);
-            currentItemImage.sprite = craft.IconSprite;
-        }
-        public void DisSelectCraft()
-        {
-            currentItemImage.color = new Color(1, 1, 1, 0);
         }
         #endregion
 
