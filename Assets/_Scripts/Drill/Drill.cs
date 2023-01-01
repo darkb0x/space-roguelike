@@ -21,7 +21,6 @@ namespace Game.Drill
         public float timeBtwMining;
         [HideInInspector] public float currentTimeBtwMining;
         [ReadOnly] public bool isMining = false;
-        [ReadOnly] public int allExtractedOre = 0;
         [Space]
         [ReadOnly] public float health;
         public float maxHealth;
@@ -36,6 +35,7 @@ namespace Game.Drill
         [Header("Inventory")]
         public InventoryItem item;
         public int amount;
+        [ReadOnly] public int allExtractedOre = 0;
         [Space]
         [ReadOnly] public Ore currentOre;
 
@@ -212,6 +212,7 @@ namespace Game.Drill
                     return;
 
                 PlayerInventory.playerInventory.GiveItem(item, amount);
+                Debug.Log($"Give {amount} {item.name} ore");
                 amount = 0;
             }
         }

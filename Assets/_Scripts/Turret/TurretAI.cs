@@ -17,6 +17,7 @@ namespace Game.Turret
             public InventoryItem item;
             public int amount;
         }
+        bool isFacingRight = true;
 
         [Header("Turret firpower parameters")]
         public Transform shotPos;
@@ -35,7 +36,7 @@ namespace Game.Turret
         [Tag] public string enemyTag;
         [Space]
         [ReadOnly] public bool enemyInZone;
-        [ReadOnly] public GameObject currentEnemy;
+        [ReadOnly] public Transform currentEnemy;
         [ReadOnly] public List<GameObject> targets = new List<GameObject>();
 
         [Header("other")]
@@ -86,6 +87,42 @@ namespace Game.Turret
             {
                 GetRotateBack();
             }
+
+            
+            if(turret_canon.eulerAngles.z != 0)
+            {
+                float rotZ = turret_canon.eulerAngles.z;
+
+                if (rotZ < 180)
+                {
+                    if (rotZ > 90 && isFacingRight)
+                    {
+                        FlipCanonTurret();
+                    }
+                    if (rotZ < 90 && !isFacingRight)
+                    {
+                        FlipCanonTurret();
+                    }
+                }
+                else
+                {
+                    if (rotZ > 270 && !isFacingRight)
+                    {
+                        FlipCanonTurret();
+                    }
+                    if (rotZ < 270 && isFacingRight)
+                    {
+                        FlipCanonTurret();
+                    }
+                }
+            }
+            else
+            {
+                if (!isFacingRight)
+                    FlipCanonTurret();
+            }
+            
+
             enemyInZone = (targets.Count > 0);
 
             Run();
@@ -140,7 +177,7 @@ namespace Game.Turret
             if (collision.tag == enemyTag)
             {
                 targets.Remove(collision.gameObject);
-                if (currentEnemy == collision.gameObject)
+                if (currentEnemy == collision.transform)
                 {
                     currentEnemy = GetNearestEnemy();
                 }
@@ -149,14 +186,14 @@ namespace Game.Turret
         #endregion
 
         #region Utilties
-        private void RotateToTarget(GameObject target)
+        private void RotateToTarget(Transform target)
         {
             if (currentEnemy != null)
             {
-                Vector3 dir = target.transform.position - turret_canon.position;
+                Vector3 dir = target.position - turret_canon.position;
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
                 Quaternion a = turret_canon.rotation;
-                Quaternion b = Quaternion.Euler(0, 0, angle);
+                Quaternion b = Quaternion.Euler(0, turret_canon.rotation.y, angle);
                 turret_canon.rotation = Quaternion.Lerp(a, b, turret_rotateTime);
             }
             else
@@ -167,10 +204,17 @@ namespace Game.Turret
         private void GetRotateBack()
         {
             Quaternion a = turret_canon.rotation;
-            Quaternion b = Quaternion.Euler(0, 0, 0);
+            Quaternion b = Quaternion.Euler(0, turret_canon.rotation.y, 0);
             turret_canon.rotation = Quaternion.Lerp(a, b, turret_back_RotateTime);
         }
-        public GameObject GetNearestEnemy()
+        private void FlipCanonTurret()
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 scaler = turret_canon.localScale;
+            scaler.y *= -1;
+            turret_canon.localScale = scaler;
+        }
+        public Transform GetNearestEnemy()
         {
             if (targets == null | targets.Count <= 0)
                 return null;
@@ -182,7 +226,7 @@ namespace Game.Turret
                 if (Vector2.Distance(transform.position, targets[i].transform.position) < curDistance)
                     enemy = targets[i];
             }
-            return enemy;
+            return enemy.transform;
         }
         #endregion
 
