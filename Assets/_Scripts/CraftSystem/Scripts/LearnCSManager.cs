@@ -34,7 +34,7 @@ namespace Game.CraftSystem
         public Sprite categoryIcon;
     }
 
-    public class LearnCSManager : MonoBehaviour, ICategoryButtonsChecker
+    public class LearnCSManager : MonoBehaviour, ICategoryButtonsChecker, IUIPanelManagerObserver
     {
         [Header("Tech Tree")]
         [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
@@ -76,8 +76,9 @@ namespace Game.CraftSystem
 
             InitializeCraftSystem();
 
-            categoryButtons.observers.Add(this);
-            categoryButtons.Initialize(techTrees);
+            categoryButtons.Initialize(techTrees, this);
+
+            UIPanelManager.manager.Attach(this);
         }
         private void Update()
         {
@@ -256,6 +257,17 @@ namespace Game.CraftSystem
                 {
                     openedTechTree = tree;
                 }
+            }
+        }
+
+        public void PanelStateIsChanged(GameObject panel)
+        {
+            if(panel == techTreePanel)
+            {
+                if (!techTreePanel.activeSelf)
+                    return;
+
+                content.localPosition = Vector3.zero;
             }
         }
     }

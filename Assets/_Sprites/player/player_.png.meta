@@ -352,7 +352,7 @@ TextureImporter:
     second: player_idle 0
   - first:
       213: 7271231887627114330
-    second: player_idle_left 0
+    second: player_idle_right 0
   - first:
       213: -3427402528115205992
     second: player_idle_right 1
@@ -361,7 +361,7 @@ TextureImporter:
     second: unknown5_118
   - first:
       213: 3793238077030172966
-    second: player_idle_left 1
+    second: player_idle_right 1
   - first:
       213: 4142538626247520620
     second: player_idle_right 2
@@ -370,7 +370,7 @@ TextureImporter:
     second: unknown5_121
   - first:
       213: -3660622142663941828
-    second: player_idle_left 2
+    second: player_idle_right 2
   - first:
       213: -5228079772648806250
     second: unknown5_123
@@ -398,6 +398,96 @@ TextureImporter:
   - first:
       213: -8081972020523224323
     second: player_idle_right_turret 2
+  - first:
+      213: 693502921549769925
+    second: player_idle_up_left 0
+  - first:
+      213: -5030457906849204157
+    second: player_idle_up 0
+  - first:
+      213: 1722490702921939793
+    second: player_idle_up_right 0
+  - first:
+      213: 443169407434947654
+    second: player_idle_up_left 1
+  - first:
+      213: -111478197421041464
+    second: player_idle_up 1
+  - first:
+      213: 2167886366572049404
+    second: player_idle_up_right 1
+  - first:
+      213: -5182814140511862931
+    second: player_idle_up_left 2
+  - first:
+      213: 5765345228247521901
+    second: player_idle_up 2
+  - first:
+      213: 614880519853876522
+    second: player_idle_up_right 2
+  - first:
+      213: -593319093441351018
+    second: player_idle_up_left_turret 0
+  - first:
+      213: -4944804253004284578
+    second: player_idle_up_turret 0
+  - first:
+      213: -1088648891418644097
+    second: player_idle_up_right_turret 0
+  - first:
+      213: 229695526300269561
+    second: player_idle_up_left_turret 1
+  - first:
+      213: -1439903206856938728
+    second: player_idle_up_turret 1
+  - first:
+      213: -4192060250580113628
+    second: player_idle_up_right_turret 1
+  - first:
+      213: -6916027784786910489
+    second: player_idle_up_left_turret 2
+  - first:
+      213: -8234675695731680366
+    second: player_idle_up_turret 2
+  - first:
+      213: 1062273387130550569
+    second: player_idle_up_right_turret 2
+  - first:
+      213: 8597324082483753843
+    second: player_idle_left 0
+  - first:
+      213: 6406319544521809008
+    second: player_idle 0
+  - first:
+      213: 777778775565628123
+    second: player_idle_left 1
+  - first:
+      213: -7355552868459859022
+    second: player_idle 1
+  - first:
+      213: -2338682676911723739
+    second: player_idle_left 2
+  - first:
+      213: -1588525264416958592
+    second: player_idle 2
+  - first:
+      213: 2437089636054603291
+    second: player_idle_left_turret 0
+  - first:
+      213: 5383790974632279148
+    second: player_idle_turret 0
+  - first:
+      213: 4316749232776163865
+    second: player_idle_left_turret 1
+  - first:
+      213: 2705490553757257127
+    second: player_idle_turret 1
+  - first:
+      213: 2683668971281414418
+    second: player_idle_left_turret 2
+  - first:
+      213: 6627356409471598313
+    second: player_idle_turret 2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -2515,7 +2605,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_idle_left 0
+      name: player_idle_right 0
       rect:
         serializedVersion: 2
         x: 31
@@ -2536,7 +2626,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_idle_left 1
+      name: player_idle_right 1
       rect:
         serializedVersion: 2
         x: 77
@@ -2557,7 +2647,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_idle_left 2
+      name: player_idle_right 2
       rect:
         serializedVersion: 2
         x: 123
@@ -2636,6 +2726,636 @@ TextureImporter:
       bones: []
       spriteID: df23118744117df80800000000000000
       internalID: -8081972020523224323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_left 0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cc6ba99b31df9900800000000000000
+      internalID: 693502921549769925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up 0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 20
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 348b2bcaf29303ab0800000000000000
+      internalID: -5030457906849204157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_right 0
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15b339c0b2487e710800000000000000
+      internalID: 1722490702921939793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_left 1
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64cfa716a34762600800000000000000
+      internalID: 443169407434947654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up 1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 20
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c8948a8b23f37ef0800000000000000
+      internalID: -111478197421041464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_right 1
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf370f81a21e51e10800000000000000
+      internalID: 2167886366572049404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_left 2
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6f3be9bff1f218b0800000000000000
+      internalID: -5182814140511862931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up 2
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 20
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6adf2160fe920050800000000000000
+      internalID: 5765345228247521901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_right 2
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a25a235339e788800800000000000000
+      internalID: 614880519853876522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_left_turret 0
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 692b8f49d6b14c7f0800000000000000
+      internalID: -593319093441351018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_turret 0
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 20
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5db6d70bb6806bb0800000000000000
+      internalID: -4944804253004284578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_right_turret 0
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f717ed5e99754e0f0800000000000000
+      internalID: -1088648891418644097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_left_turret 1
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fbbf9b3dda003300800000000000000
+      internalID: 229695526300269561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_turret 1
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 20
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81ba85c89af640ce0800000000000000
+      internalID: -1439903206856938728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_right_turret 1
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 427232f996fc2d5c0800000000000000
+      internalID: -4192060250580113628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_left_turret 2
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e26b075f555500a0800000000000000
+      internalID: -6916027784786910489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_turret 2
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 20
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29bde5b751e88bd80800000000000000
+      internalID: -8234675695731680366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_up_right_turret 2
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 20
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92974467404fdbe00800000000000000
+      internalID: 1062273387130550569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_left 0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 373fa53d3b4df4770800000000000000
+      internalID: 8597324082483753843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle 0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 1
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07c5dd00fa1d7e850800000000000000
+      internalID: 6406319544521809008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_left 1
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 1
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd27d6feca93bca00800000000000000
+      internalID: 777778775565628123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle 1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 1
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b338d433a3dbe990800000000000000
+      internalID: -7355552868459859022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_left 2
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 1
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52b21580f745b8fd0800000000000000
+      internalID: -2338682676911723739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle 2
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 1
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08791b930bc64f9e0800000000000000
+      internalID: -1588525264416958592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_left_turret 0
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 1
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1612da9c1842d120800000000000000
+      internalID: 2437089636054603291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_turret 0
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 1
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6c39ebed5117ba40800000000000000
+      internalID: 5383790974632279148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_left_turret 1
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 1
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 912301c5e8c28eb30800000000000000
+      internalID: 4316749232776163865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_turret 1
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 1
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ad40e70355db8520800000000000000
+      internalID: 2705490553757257127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_left_turret 2
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 1
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21977ffe5be4e3520800000000000000
+      internalID: 2683668971281414418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_idle_turret 2
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 1
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ee767a8a8919fb50800000000000000
+      internalID: 6627356409471598313
       vertices: []
       indices: 
       edges: []

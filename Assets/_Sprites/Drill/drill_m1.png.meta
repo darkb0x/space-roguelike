@@ -1,52 +1,43 @@
 fileFormatVersion: 2
-guid: c7d8b2692e9bb5a4987eb3ecb02da2e6
+guid: 4b5a4ff3f2b7f60488b8e56def7b3fef
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7939647869647398659
-    second: drill_drill_spawn_0
+      213: -4572900513582700462
+    second: drill_m1_put_0
   - first:
-      213: -2312230992807135047
-    second: drill_drill_spawn_1
+      213: 1373484500067626130
+    second: drill_m1_put_1
   - first:
-      213: -4618557554716308573
-    second: drill_drill_spawn_2
+      213: -7505212316878828960
+    second: drill_m1_put_2
   - first:
-      213: 302535538529419150
-    second: drill_drill_spawn_3
+      213: 7115999224448219934
+    second: drill_m1_legs
   - first:
-      213: 382120802606445811
-    second: drill_drill_spawn_4
+      213: 6320074352280107583
+    second: drill_m1_mining_0
   - first:
-      213: 5861086747158044331
-    second: drill_drill_spawn_5
+      213: -8989483367280189887
+    second: drill_m1_mining_1
   - first:
-      213: 6835616498495982000
-    second: drill_drill_spawn_6
+      213: 3683628677547509075
+    second: drill_m1_mining_2
   - first:
-      213: 2014610858818750008
-    second: drill_drill_spawn_7
+      213: -5918850961275349091
+    second: drill_m1_death_0
   - first:
-      213: -8611374410750483042
-    second: drill_drill_legs
+      213: -1234691811620260070
+    second: drill_m1_death_1
   - first:
-      213: -7346272842870721140
-    second: drill_drill_idle_0
+      213: -7531823044407576182
+    second: drill_m1_death_2
   - first:
-      213: 3029507295640328548
-    second: drill_drill_idle_1
+      213: 4996670643587808036
+    second: drill_m1_death_3
   - first:
-      213: 4631081966557002379
-    second: drill_drill_idle_2
-  - first:
-      213: 2843279552734944612
-    second: drill_drill_idle_3
-  - first:
-      213: 4364191804467590443
-    second: drill_drill_idle_4
-  - first:
-      213: 2426862550328071371
-    second: drill_drill_idle_5
+      213: 7631742985940583208
+    second: drill_m1_death_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -148,13 +139,97 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: drill_drill_spawn_0
+      name: drill_m1_put_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 258a3be063bc980c0800000000000000
+      internalID: -4572900513582700462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drill_m1_put_1
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 60
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29c290330e89f0310800000000000000
+      internalID: 1373484500067626130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drill_m1_put_2
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 60
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06a0d80892128d790800000000000000
+      internalID: -7505212316878828960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drill_m1_legs
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 60
+        width: 13
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1bf03ba79b11c260800000000000000
+      internalID: 7115999224448219934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drill_m1_mining_0
       rect:
         serializedVersion: 2
         x: 0
         y: 30
-        width: 27
-        height: 30
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3072500ebab4f2e60800000000000000
-      internalID: 7939647869647398659
+      spriteID: f3a76b1632a65b750800000000000000
+      internalID: 6320074352280107583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_drill_spawn_1
+      name: drill_m1_mining_1
       rect:
         serializedVersion: 2
-        x: 30
+        x: 24
         y: 30
-        width: 27
-        height: 30
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,20 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b8f41ba92e49efd0800000000000000
-      internalID: -2312230992807135047
+      spriteID: 14e5bfa7180fe3380800000000000000
+      internalID: -8989483367280189887
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_drill_spawn_2
+      name: drill_m1_mining_2
       rect:
         serializedVersion: 2
-        x: 60
+        x: 48
         y: 30
-        width: 27
-        height: 30
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,146 +279,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ab0078cf5697efb0800000000000000
-      internalID: -4618557554716308573
+      spriteID: 35549a9f3c0ee1330800000000000000
+      internalID: 3683628677547509075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_drill_spawn_3
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 30
-        width: 27
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e8f3af92872d23400800000000000000
-      internalID: 302535538529419150
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_drill_spawn_4
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 30
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3f4f4ac68d09d4500800000000000000
-      internalID: 382120802606445811
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_drill_spawn_5
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 30
-        width: 27
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: baeda1ad753c65150800000000000000
-      internalID: 5861086747158044331
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_drill_spawn_6
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 30
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0b907ad1dfcfcde50800000000000000
-      internalID: 6835616498495982000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_drill_spawn_7
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 30
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8364988f6e555fb10800000000000000
-      internalID: 2014610858818750008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_drill_legs
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 30
-        width: 15
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e95245339904e7880800000000000000
-      internalID: -8611374410750483042
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_drill_idle_0
+      name: drill_m1_death_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 29
-        height: 30
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,20 +300,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c85779985cbcc0a90800000000000000
-      internalID: -7346272842870721140
+      spriteID: d9714bef8640cdda0800000000000000
+      internalID: -5918850961275349091
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_drill_idle_1
+      name: drill_m1_death_1
       rect:
         serializedVersion: 2
-        x: 30
+        x: 24
         y: 0
-        width: 29
-        height: 30
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -372,20 +321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 469981995d8fa0a20800000000000000
-      internalID: 3029507295640328548
+      spriteID: a177a49c65e7ddee0800000000000000
+      internalID: -1234691811620260070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_drill_idle_2
+      name: drill_m1_death_2
       rect:
         serializedVersion: 2
-        x: 60
+        x: 48
         y: 0
-        width: 29
-        height: 30
+        width: 25
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -393,20 +342,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8af8561388e44040800000000000000
-      internalID: 4631081966557002379
+      spriteID: a893cfea8d6997790800000000000000
+      internalID: -7531823044407576182
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_drill_idle_3
+      name: drill_m1_death_3
       rect:
         serializedVersion: 2
-        x: 90
+        x: 74
         y: 0
-        width: 29
-        height: 30
+        width: 25
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -414,20 +363,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46dd5e950bb557720800000000000000
-      internalID: 2843279552734944612
+      spriteID: 42b7ca21a7db75540800000000000000
+      internalID: 4996670643587808036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_drill_idle_4
+      name: drill_m1_death_4
       rect:
         serializedVersion: 2
-        x: 120
+        x: 100
         y: 0
-        width: 29
-        height: 30
+        width: 21
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -435,29 +384,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2536fcd259b09c30800000000000000
-      internalID: 4364191804467590443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_drill_idle_5
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 0
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bc4d007a1a2fda120800000000000000
-      internalID: 2426862550328071371
+      spriteID: 823411e9fc569e960800000000000000
+      internalID: 7631742985940583208
       vertices: []
       indices: 
       edges: []

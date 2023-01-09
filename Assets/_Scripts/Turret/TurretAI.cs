@@ -9,6 +9,7 @@ namespace Game.Turret
     using Player.Inventory;
     using Bullets;
 
+    [RequireComponent(typeof(PickedGameObj))]
     public abstract class TurretAI : MonoBehaviour
     {
         [System.Serializable]
@@ -18,7 +19,7 @@ namespace Game.Turret
             public int amount;
         }
         bool isFacingRight = true;
-
+        
         [Header("Turret firpower parameters")]
         public Transform shotPos;
         [Space]

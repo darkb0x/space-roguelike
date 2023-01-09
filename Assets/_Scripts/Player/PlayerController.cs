@@ -32,8 +32,8 @@ namespace Game.Player
         [Header("animator")]
         public Animator anim;
         [Space]
-        [AnimatorParam("anim"), SerializeField] string anim_runHorizontal;
-        [AnimatorParam("anim"), SerializeField] string anim_runVertical;
+        [AnimatorParam("anim"), SerializeField] string anim_horizontal;
+        [AnimatorParam("anim"), SerializeField] string anim_vertical;
         [AnimatorParam("anim"), SerializeField] string anim_isRunning;
         [AnimatorParam("anim"), SerializeField] string anim_isCrafting;
 
@@ -44,6 +44,7 @@ namespace Game.Player
         Vector2 moveInput;
 
         Rigidbody2D rb;
+        Camera cam;
         new Transform transform;
         [HideInInspector] public bool canMove = true;
 
@@ -53,6 +54,7 @@ namespace Game.Player
             transform = GetComponent<Transform>();
 
             inventory = FindObjectOfType<PlayerInventory>();
+            cam = Camera.main;
 
             health = maxHealth;
             oxygen = maxOxygen;
@@ -79,8 +81,27 @@ namespace Game.Player
             }
 
             //animation
-            anim.SetFloat(anim_runHorizontal, moveInput.x);
-            anim.SetFloat(anim_runVertical, moveInput.y);
+            if(moveInput.magnitude > 0)
+            {
+                if (!UIPanelManager.manager.SomethinkIsOpened())
+                {
+                    anim.SetFloat(anim_horizontal, moveInput.x);
+                    anim.SetFloat(anim_vertical, moveInput.y);
+                }
+            }
+            else
+            {
+                if (!UIPanelManager.manager.SomethinkIsOpened())
+                {
+
+                    Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+                    Vector2 dir = -(transform.position - mousePos).normalized;
+
+                    anim.SetFloat(anim_horizontal, dir.x);
+                    anim.SetFloat(anim_vertical, dir.y);
+                }
+            }
+
             if(canMove)
                 anim.SetBool(anim_isRunning, moveInput.magnitude > 0);
             else

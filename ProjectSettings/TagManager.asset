@@ -39,21 +39,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: World
+    uniqueID: 3480582079
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: World
-    uniqueID: 3404913153
+  - name: Ignore Sort-Point
+    uniqueID: 3383954551
     locked: 0
-  - name: Enemy
-    uniqueID: 3986406623
-    locked: 0
-  - name: Turret
-    uniqueID: 2752979845
-    locked: 0
-  - name: Builds
-    uniqueID: 28602289
-    locked: 0
-  - name: Player
-    uniqueID: 2671870683
+  - name: Blueprints
+    uniqueID: 743308419
     locked: 0

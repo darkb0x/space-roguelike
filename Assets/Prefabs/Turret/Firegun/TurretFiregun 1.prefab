@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5304330532916855160}
   - component: {fileID: 5304330532916855164}
+  - component: {fileID: -461303217155111203}
   - component: {fileID: 5304330532916855162}
   - component: {fileID: 5304330532916855159}
   m_Layer: 10
@@ -71,6 +72,20 @@ MonoBehaviour:
   fireParticles: {fileID: 2737814269564996256}
   emissionValue: 20
   fireEnabledSpeed: 2
+--- !u!114 &-461303217155111203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5304330532916855163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a8fc3d5f027f24e964fb7c6c52167a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  spriteExceptions: []
 --- !u!61 &5304330532916855162
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -187,8 +202,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1541987451
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 4583186294838536085, guid: 6915db15ad513f3429c64350db47417e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -301,8 +316,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1541987451
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7337600296622790751, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

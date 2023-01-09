@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace Game.Drill
 {
@@ -15,8 +16,10 @@ namespace Game.Drill
     public class DrillTypeM1 : Drill
     {
         [Header("DrillTypeM1")]
-        [SerializeField] private int maxExtractedPercentFromOre = 50;
-        private int amountOreFromPercent = 0;
+        [SerializeField, Range(0, 100)] private int maxExtractedPercentFromOre = 50;
+        [SerializeField, ReadOnly] private int amountOreFromPercent = 0;
+        [Space]
+        [SerializeField, AnimatorParam("anim")] private string anim_DieTrigger = "Die";
         [Space]
         [SerializeField] private GameObject exploisonGameObj;
         [SerializeField] private ParticleSystem smokePatricle;
@@ -37,7 +40,7 @@ namespace Game.Drill
             currentOre.canGiveOre = false;
             isMining = false;
 
-            anim.SetTrigger("Die");
+            anim.SetTrigger(anim_DieTrigger);
 
             exploisonGameObj.SetActive(true);
             smokePatricle.Play();
@@ -45,7 +48,7 @@ namespace Game.Drill
 
         public override void Put()
         {
-            Debug.Log( amountOreFromPercent = currentOre.maxAmount / 100 * maxExtractedPercentFromOre);
+            amountOreFromPercent = (currentOre.maxAmount / 100 * maxExtractedPercentFromOre);
 
             base.Put();
         }

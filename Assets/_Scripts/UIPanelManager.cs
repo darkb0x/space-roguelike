@@ -15,7 +15,7 @@ namespace Game
         public static UIPanelManager manager;
 
         List<IUIPanelManagerObserver> observers = new List<IUIPanelManagerObserver>();
-        GameObject currentOpenedPanel;
+        [HideInInspector] public GameObject currentOpenedPanel;
 
         [SerializeField] private GameObject playerUI;
         [Space]
@@ -38,10 +38,7 @@ namespace Game
 
             for (int i = 0; i < panels.Count; i++)
             {
-                if (panels[i].panel_obj != panel)
-                {
-                    panels[i].panel_obj.SetActive(false);
-                }
+                panels[i].panel_obj.SetActive(false);
             }
 
             foreach (var item in panels)

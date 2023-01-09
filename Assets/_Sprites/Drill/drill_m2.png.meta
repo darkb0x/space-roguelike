@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2194b0f9af76fd64faa4b97b27be8802
+guid: 56858579fd5d47340868aa94b8f97173
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -13,40 +13,25 @@ TextureImporter:
     second: drill_m2_put_2
   - first:
       213: 5730154514513169008
-    second: drill_m2_put_3
-  - first:
-      213: -4922201269666230102
-    second: drill_m2_put_4
+    second: drill_m2_legs
   - first:
       213: -2551834849358085421
-    second: drill_m2_put_5
+    second: drill_m2_mining_0
   - first:
       213: -6873297725332726429
-    second: drill_m2_put_6
+    second: drill_m2_mining_1
   - first:
       213: 6621438932651382360
-    second: drill_m2_put_7
-  - first:
-      213: 2682725628535760243
-    second: drill_m2_idle_0
-  - first:
-      213: -2114100180474987825
-    second: drill_m2_idle_1
-  - first:
-      213: -5998434998660654832
-    second: drill_m2_idle_2
-  - first:
-      213: -6069824262644331845
-    second: drill_m2_idle_3
-  - first:
-      213: -4363526172608809500
-    second: drill_m2_idle_4
-  - first:
-      213: 9190974448473572656
-    second: drill_m2_idle_5
+    second: drill_m2_mining_2
   - first:
       213: 4185793363895131806
-    second: drill_m2_icon
+    second: drill_m2_mining_3
+  - first:
+      213: -7583984471766105342
+    second: drill_m2_mining_4
+  - first:
+      213: 3158916833351831440
+    second: drill_m2_mining_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -152,9 +137,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 60
-        width: 27
-        height: 30
+        y: 30
+        width: 25
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +157,10 @@ TextureImporter:
       name: drill_m2_put_1
       rect:
         serializedVersion: 2
-        x: 30
-        y: 60
-        width: 27
-        height: 30
+        x: 26
+        y: 30
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,10 +178,10 @@ TextureImporter:
       name: drill_m2_put_2
       rect:
         serializedVersion: 2
-        x: 60
-        y: 60
-        width: 27
-        height: 30
+        x: 50
+        y: 30
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -211,13 +196,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_m2_put_3
+      name: drill_m2_legs
       rect:
         serializedVersion: 2
-        x: 90
-        y: 60
-        width: 27
-        height: 30
+        x: 75
+        y: 30
+        width: 13
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -232,34 +217,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_m2_put_4
+      name: drill_m2_mining_0
       rect:
         serializedVersion: 2
-        x: 120
-        y: 60
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa051903604d0bbb0800000000000000
-      internalID: -4922201269666230102
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_m2_put_5
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 60
-        width: 27
-        height: 30
+        x: 0
+        y: 0
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -274,13 +238,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_m2_put_6
+      name: drill_m2_mining_1
       rect:
         serializedVersion: 2
-        x: 180
-        y: 60
-        width: 29
-        height: 30
+        x: 24
+        y: 0
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -295,13 +259,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_m2_put_7
+      name: drill_m2_mining_2
       rect:
         serializedVersion: 2
-        x: 210
-        y: 60
-        width: 29
-        height: 30
+        x: 48
+        y: 0
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,139 +280,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drill_m2_idle_0
+      name: drill_m2_mining_3
       rect:
         serializedVersion: 2
-        x: 0
+        x: 72
         y: 0
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 375e5b6deb4fa3520800000000000000
-      internalID: 2682725628535760243
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_m2_idle_1
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 0
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fcaf23b361539a2e0800000000000000
-      internalID: -2114100180474987825
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_m2_idle_2
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 0
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0199f88562741cca0800000000000000
-      internalID: -5998434998660654832
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_m2_idle_3
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 0
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bba89001ef6a3cba0800000000000000
-      internalID: -6069824262644331845
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_m2_idle_4
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 0
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4e53881a014a173c0800000000000000
-      internalID: -4363526172608809500
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_m2_idle_5
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 0
-        width: 29
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 03585f4a096ec8f70800000000000000
-      internalID: 9190974448473572656
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drill_m2_icon
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 30
-        width: 29
-        height: 30
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -458,6 +296,48 @@ TextureImporter:
       bones: []
       spriteID: e9e182e13ece61a30800000000000000
       internalID: 4185793363895131806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drill_m2_mining_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2038d4afd4640c690800000000000000
+      internalID: -7583984471766105342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drill_m2_mining_5
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09f00fe8f1ab6db20800000000000000
+      internalID: 3158916833351831440
       vertices: []
       indices: 
       edges: []

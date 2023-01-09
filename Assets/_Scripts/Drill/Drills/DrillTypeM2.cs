@@ -61,7 +61,9 @@ namespace Game.Drill
             backLegsSR.sortingLayerName = buildsSortingLayer;
 
             isPicked = true;
-            coll.enabled = false;
+            mainColl.enabled = false;
+            oreDetectColl.enabled = true;
+            playerDetectColl.enabled = false;
 
             player.pickObjSystem.SetPickedGameobj(gameObject);
         }

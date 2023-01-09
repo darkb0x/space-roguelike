@@ -49,11 +49,14 @@ namespace Game.Player.Inventory
             set
             {
                 m_money = value;
-                money_text.text = m_money + "$";
+                foreach (var text in money_texts)
+                {
+                    text.text = m_money + "$";
+                }
             }
         }
         [SerializeField] private int m_money;
-        [SerializeField] private TextMeshProUGUI money_text;
+        [SerializeField] private TextMeshProUGUI[] money_texts;
 
         [Header("UI")]
         [SerializeField] private Transform uiElements_tranform;

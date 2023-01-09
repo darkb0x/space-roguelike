@@ -62,7 +62,6 @@ namespace Game.CraftSystem
             if(resetPosition)
             {
                 contentTransform.localPosition = Vector3.zero;
-                contentTransform.localScale = Vector3.one;
             }
 
             panel.panelTransform.gameObject.SetActive(true);

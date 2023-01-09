@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1541987451
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 4583186294838536085, guid: 6915db15ad513f3429c64350db47417e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4890399241219555965}
   - component: {fileID: 4890399241219555964}
+  - component: {fileID: 7149239429542967947}
   - component: {fileID: 4890399241219555967}
   - component: {fileID: 4890399241219555954}
   m_Layer: 10
@@ -146,6 +147,20 @@ MonoBehaviour:
   coll: {fileID: 4890399242389387990}
   droppedItems: []
   currentTimeBtwAttacks: 0
+--- !u!114 &7149239429542967947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4890399241219555966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a8fc3d5f027f24e964fb7c6c52167a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  spriteExceptions: []
 --- !u!61 &4890399241219555967
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -262,8 +277,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1541987451
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -3023398558421556299, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

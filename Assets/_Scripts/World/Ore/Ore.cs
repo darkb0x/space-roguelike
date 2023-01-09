@@ -19,6 +19,9 @@ namespace Game.World
         [SerializeField] private SpriteRenderer rockRender;
         [SerializeField] private SpriteRenderer oreRender;
         [Space]
+        [SerializeField] private Material standartMaterial;
+        [SerializeField] private Material selectMaterial;
+        [Space]
         [SerializeField] private Sprite[] rockSprites;
 
         private void Start()
@@ -41,6 +44,17 @@ namespace Game.World
             }
 
             return amount;
+        }
+
+        public void Select()
+        {
+            rockRender.material = selectMaterial;
+            oreRender.material = selectMaterial;
+        }
+        public void DisSelect()
+        {
+            rockRender.material = standartMaterial;
+            oreRender.material = standartMaterial;
         }
 
         [NaughtyAttributes.Button]

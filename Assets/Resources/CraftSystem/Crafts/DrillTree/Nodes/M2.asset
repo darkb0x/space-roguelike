@@ -16,7 +16,7 @@ MonoBehaviour:
   <Choices>k__BackingField:
   - <NextCraft>k__BackingField: {fileID: 11400000, guid: e295ed62682751045b5d438bdc9783b7, type: 2}
   <GameObjectPrefab>k__BackingField: {fileID: 2157149943185910446, guid: 84ae8224564c2804b88a3e5abd13b1e3, type: 3}
-  <IconSprite>k__BackingField: {fileID: 4185793363895131806, guid: 2194b0f9af76fd64faa4b97b27be8802, type: 3}
+  <IconSprite>k__BackingField: {fileID: -5388209310669713511, guid: 56858579fd5d47340868aa94b8f97173, type: 3}
   <CraftCost>k__BackingField: 0
   <ObjectCraft>k__BackingField:
   - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}

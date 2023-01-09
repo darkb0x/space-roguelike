@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -890054143
-  m_SortingLayer: 1
+  m_SortingLayerID: -814385217
+  m_SortingLayer: -1
   m_SortingOrder: 1
   m_Sprite: {fileID: -5229081797267076691, guid: 115e77396d70e124184c3e8480a3dffb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -150,8 +150,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -890054143
-  m_SortingLayer: 1
+  m_SortingLayerID: -814385217
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 2368462464843593965, guid: 198e9a6013a6a1649b30f0360a61dfa6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -173,7 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7349768826557607123}
-  - component: {fileID: 7349768826557607120}
+  - component: {fileID: 757838204615933381}
   - component: {fileID: 7349768826557607121}
   m_Layer: 7
   m_Name: Ore ()
@@ -198,7 +198,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &7349768826557607120
+--- !u!61 &757838204615933381
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,18 +211,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.09618068}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.80763865}
   m_EdgeRadius: 0
 --- !u!114 &7349768826557607121
 MonoBehaviour:
@@ -243,6 +243,8 @@ MonoBehaviour:
   canGiveOre: 1
   rockRender: {fileID: 20742296095150626}
   oreRender: {fileID: 20742295625477316}
+  standartMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  selectMaterial: {fileID: 2100000, guid: 28e8edb06dcffcc4ea548a6d8305a665, type: 2}
   rockSprites:
   - {fileID: 2368462464843593965, guid: 198e9a6013a6a1649b30f0360a61dfa6, type: 3}
   - {fileID: 9085520896017654058, guid: 198e9a6013a6a1649b30f0360a61dfa6, type: 3}
