@@ -16,13 +16,15 @@ namespace Game.World
         public int amount;
         public bool canGiveOre = true;
         [Space]
-        [SerializeField] private SpriteRenderer rockRender;
         [SerializeField] private SpriteRenderer oreRender;
         [Space]
         [SerializeField] private Material standartMaterial;
         [SerializeField] private Material selectMaterial;
         [Space]
         [SerializeField] private Sprite[] rockSprites;
+
+        Sprite currentRockSprite;
+        Sprite currentOreSprite;
 
         private void Start()
         {
@@ -40,7 +42,7 @@ namespace Game.World
             if (amount <= 0)
             {
                 canGiveOre = false;
-                oreRender.color = new Color(1, 1, 1, 0);
+                oreRender.sprite = currentRockSprite;
             }
 
             return amount;
@@ -48,20 +50,20 @@ namespace Game.World
 
         public void Select()
         {
-            rockRender.material = selectMaterial;
             oreRender.material = selectMaterial;
         }
         public void DisSelect()
         {
-            rockRender.material = standartMaterial;
             oreRender.material = standartMaterial;
         }
 
         [NaughtyAttributes.Button]
         public void GenerateRandomSprites()
         {
-            rockRender.sprite = rockSprites[Random.Range(0, rockSprites.Length-1)];
-            oreRender.sprite = item.oreSprites[Random.Range(0, item.oreSprites.Count-1)];
+            currentRockSprite = rockSprites[Random.Range(0, rockSprites.Length - 1)];
+            currentOreSprite = item.oreSprites[Random.Range(0, item.oreSprites.Count - 1)];
+
+            oreRender.sprite = CombineSprites.MergeSprites(new Sprite[2] { currentRockSprite, currentOreSprite }, new Vector2Int(18, 18), name);
         }
     }
 }

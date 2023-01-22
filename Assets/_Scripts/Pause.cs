@@ -63,6 +63,9 @@ namespace Game
         {
             if(!focus)
             {
+                if (Application.isEditor)
+                    return;
+
                 UIPanelManager.manager.CloseAllPanel();
                 pause();
             }

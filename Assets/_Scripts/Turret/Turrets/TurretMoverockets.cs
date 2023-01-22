@@ -41,7 +41,7 @@ namespace Game.Turret
             }  
 
             Rocket r = Instantiate(bulletPrefab, shotPos.position, shotPos.rotation).GetComponent<Rocket>();
-            r.Init(damage, currentEnemy.transform);
+            r.Init(damage, currentEnemy);
 
             rockets--;
         }

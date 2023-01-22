@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2157149943185910443}
   - component: {fileID: 2157149943185910442}
   - component: {fileID: 2157149943185910445}
-  - component: {fileID: 669481804932332846}
   - component: {fileID: 2157149943185910444}
   - component: {fileID: 2157149943185910447}
   - component: {fileID: 5820310462100306197}
@@ -95,22 +94,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drillController: {fileID: 2157149943185910442}
---- !u!114 &669481804932332846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2157149943185910446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a8fc3d5f027f24e964fb7c6c52167a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites: []
-  spriteExceptions:
-  - render: {fileID: 2157149943619724796}
-    sortingLayer: World
 --- !u!61 &2157149943185910444
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -202,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2157149943358356374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 9.264608}
+  m_LocalPosition: {x: 0, y: 0.2, z: 9.264608}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2157149943619724797}

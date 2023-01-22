@@ -9,7 +9,6 @@ namespace Game.Turret
     using Player.Inventory;
     using Bullets;
 
-    [RequireComponent(typeof(PickedGameObj))]
     public abstract class TurretAI : MonoBehaviour
     {
         [System.Serializable]
@@ -167,10 +166,7 @@ namespace Game.Turret
         {
             if (collision.tag == enemyTag)
             {
-                if (currentEnemy == null)
-                {
-                    currentEnemy = GetNearestEnemy();
-                }
+                currentEnemy = GetNearestEnemy();
             }
         }
         private void OnTriggerExit2D(Collider2D collision)

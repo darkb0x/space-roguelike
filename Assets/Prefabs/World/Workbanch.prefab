@@ -149,7 +149,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5229090850673107012}
   - component: {fileID: 6260234444251507125}
-  - component: {fileID: 4391866162227271665}
+  - component: {fileID: 7505630652442847889}
+  - component: {fileID: 8881952376237271144}
   m_Layer: 0
   m_Name: Workbanch
   m_TagString: Untagged
@@ -186,8 +187,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2.7
---- !u!61 &4391866162227271665
-BoxCollider2D:
+--- !u!114 &7505630652442847889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5229090850673107013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26539094db143564d8d2228b57109b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6260234444251507125}
+        m_TargetAssemblyTypeName: Game.CraftSystem.Workbanch, Assembly-CSharp
+        m_MethodName: OpenCraftMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  interactKey: 101
+  playerTag: Player
+--- !u!58 &8881952376237271144
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -200,15 +230,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 1.45}
-  m_EdgeRadius: 0
+  m_Radius: 2.7

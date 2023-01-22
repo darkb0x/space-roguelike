@@ -252,6 +252,11 @@ namespace Game.Drill
             {
                 if (nearestOre == null)
                 {
+                    if (item.currentDrill)
+                        continue;
+                    if (!item.canGiveOre)
+                        continue;
+
                     nearestOre = item;
                     continue;
                 }
@@ -268,9 +273,12 @@ namespace Game.Drill
             }
 
             DisSelectAllOres();
-            nearestOre.Select();
+            if(nearestOre)
+            {
+                nearestOre.Select();
 
-            oreTransform = nearestOre.transform;     
+                oreTransform = nearestOre.transform;
+            }   
 
             return nearestOre;
         }

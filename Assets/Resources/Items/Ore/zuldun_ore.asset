@@ -15,6 +15,6 @@ MonoBehaviour:
   icon: {fileID: 1106232271658436647, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
   cost: 1
   oreSprites:
-  - {fileID: 3642666227114140991, guid: 00ac38f229450d84c8e5b11f35b4f78d, type: 3}
-  - {fileID: 1375965071416343929, guid: 00ac38f229450d84c8e5b11f35b4f78d, type: 3}
-  - {fileID: 7176721371048038574, guid: 00ac38f229450d84c8e5b11f35b4f78d, type: 3}
+  - {fileID: 21300000, guid: c9b033303b7d26244955e355e6a8166b, type: 3}
+  - {fileID: 21300000, guid: 4274de68db83f684db70ed2e99edcaea, type: 3}
+  - {fileID: 21300000, guid: 8c4a6bb1da5532f42be8c15faf686a73, type: 3}

@@ -170,7 +170,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1615404746759015648}
   - component: {fileID: 1615404746759015649}
-  - component: {fileID: -3751738220257552014}
   - component: {fileID: 1615404746759015650}
   - component: {fileID: 1615404746759015663}
   m_Layer: 10
@@ -226,20 +225,6 @@ MonoBehaviour:
   currentTimeBtwAttacks: 0
   startReloadTime: 3
   maxRocketAmountInMagazine: 6
---- !u!114 &-3751738220257552014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1615404746759015651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a8fc3d5f027f24e964fb7c6c52167a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites: []
-  spriteExceptions: []
 --- !u!61 &1615404746759015650
 BoxCollider2D:
   m_ObjectHideFlags: 0

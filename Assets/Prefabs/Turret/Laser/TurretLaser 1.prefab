@@ -170,7 +170,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7484445719804984887}
   - component: {fileID: 7484445719804984886}
-  - component: {fileID: -5177174242981166498}
   - component: {fileID: 7484445719804984885}
   - component: {fileID: 7484445719804984888}
   m_Layer: 10
@@ -210,8 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotPos: {fileID: 7484445719424872202}
   bulletPrefab: {fileID: 4042063460428676577, guid: 9c80ed06451c41e46adc5863f66ae8dc, type: 3}
-  damage: 1
-  timeBtwAttack: 4
+  damage: 5
+  timeBtwAttack: 2
   recoil: 0
   turret_rotateTime: 0.2
   turret_back_RotateTime: 0.05
@@ -228,20 +227,6 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 512
---- !u!114 &-5177174242981166498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7484445719804984884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a8fc3d5f027f24e964fb7c6c52167a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites: []
-  spriteExceptions: []
 --- !u!61 &7484445719804984885
 BoxCollider2D:
   m_ObjectHideFlags: 0

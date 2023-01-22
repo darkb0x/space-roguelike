@@ -7,19 +7,12 @@ namespace Game.CraftSystem
     using Player;
     using Turret;
 
-    public class Workbanch : MonoBehaviour, IMouseObserver_Click
+    [RequireComponent(typeof(PlayerInteractObject))]
+    public class Workbanch : MonoBehaviour
     {
         CSManager craftSystem;
         PlayerController player;
         Transform myTransform;
-
-        [SerializeField] private float radius;
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, radius);
-        }
 
         private void Start()
         {
@@ -40,18 +33,12 @@ namespace Game.CraftSystem
             player.EndCrafting();
         }
 
-        public void MauseDown(MouseClickType mouseClickType)
+        public void OpenCraftMenu()
         {
-            if(mouseClickType == MouseClickType.Left)
+            if (!player.pickObjSystem.pickedGameObject)
             {
-                if (Vector2.Distance(myTransform.position, player.transform.position) > radius)
-                    return;
-
-                if(!player.pickObjSystem.pickedGameObject)
-                {
-                    player.StartCrafting(transform.position);
-                    craftSystem.OpenMenu(this);
-                }
+                player.StartCrafting(transform.position);
+                craftSystem.OpenMenu(this);
             }
         }
     }

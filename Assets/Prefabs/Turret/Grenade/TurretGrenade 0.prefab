@@ -170,7 +170,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4432319713743771286}
   - component: {fileID: 4432319713743771287}
-  - component: {fileID: 1702534068191351133}
   - component: {fileID: 4432319713743771284}
   - component: {fileID: 4432319713743771289}
   m_Layer: 10
@@ -224,20 +223,6 @@ MonoBehaviour:
   coll: {fileID: 4432319712565046845}
   droppedItems: []
   currentTimeBtwAttacks: 0
---- !u!114 &1702534068191351133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4432319713743771285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a8fc3d5f027f24e964fb7c6c52167a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites: []
-  spriteExceptions: []
 --- !u!61 &4432319713743771284
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -24,7 +24,6 @@ namespace Game.Player
         [SerializeField] private Transform pickedGameObject_renderPosition; // where gameobject is be visible
 
         Transform pickedGameObject_transform;
-        PickedGameObj currentPickedGameObj;
 
         private void OnDrawGizmosSelected()
         {
@@ -57,12 +56,6 @@ namespace Game.Player
             pickedGameObject_transform = obj.transform;
 
             anim.SetBool(anim_isPickSomethink, true);
-
-            if(obj.TryGetComponent<PickedGameObj>(out PickedGameObj pObj))
-            {
-                currentPickedGameObj = pObj;
-                currentPickedGameObj.SetSpritesColor(pickedObjColor, blueprintSortingLayer);
-            }
         }
         private void PutCurrentGameobj()
         {
@@ -81,12 +74,6 @@ namespace Game.Player
                 {
                     return;
                 }
-            }
-
-            if (currentPickedGameObj)
-            {
-                currentPickedGameObj.ResetSpritesToDefault();
-                currentPickedGameObj = null;
             }
 
             pickedGameObject = null;

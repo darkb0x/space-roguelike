@@ -27,6 +27,11 @@ namespace Game.Bullets
         Transform moveTarget;
         Transform myTansform;
 
+        private void Start()
+        {
+            myTansform = transform;
+        }
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
