@@ -104,7 +104,7 @@ namespace Game.Drill
             {
                 if(Input.GetKeyDown(KeyCode.E))
                 {
-                    PlayerInventory.playerInventory.GiveItem(item, amount);
+                    PlayerInventory.instance.GiveItem(item, amount);
                     amount = 0;
                 }
             }

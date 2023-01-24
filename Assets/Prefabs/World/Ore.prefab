@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 757838204615933381}
   - component: {fileID: 7349768826557607121}
   m_Layer: 7
-  m_Name: Ore ()
+  m_Name: Ore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

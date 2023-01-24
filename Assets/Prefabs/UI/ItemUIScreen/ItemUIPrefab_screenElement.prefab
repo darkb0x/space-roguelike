@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -184,11 +184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091d660af149e624c9ce60728c8835d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    item: {fileID: 0}
-    amount: 0
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
   UI_icon: {fileID: 6930666580903369610}
   UI_amount: {fileID: 5514546415864689070}
 --- !u!1 &8373005137800467668
@@ -251,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

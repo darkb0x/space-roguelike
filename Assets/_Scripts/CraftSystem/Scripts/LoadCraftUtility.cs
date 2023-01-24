@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using System;
+using System.IO;
 
 namespace Game.CraftSystem
 {
@@ -15,8 +17,10 @@ namespace Game.CraftSystem
 
     public class LoadCraftUtility : MonoBehaviour
     {
+        string saveDataPath;
+        string dataName = "unlockedCraftsList";
+
         public static LoadCraftUtility loadCraftUtility;
-        private const string unlockedCraftsKey = "unlockedCraftsList";
         private List<ICraftListObserver> observers = new List<ICraftListObserver>();
 
         [SerializeField] private List<string> unlockedCraftPaths = new List<string>();
@@ -62,16 +66,22 @@ namespace Game.CraftSystem
                 craftPaths = unlockedCraftPaths,
                 crafts = allUnlockedCrafts
             };
-            string json = JsonUtility.ToJson(data);
-            PlayerPrefs.SetString("unlockedCraftsList", json);
+
+            string json = JsonUtility.ToJson(data, true);
+
+            File.WriteAllText(saveDataPath, json);
         }
         [Button]
         private void Load()
         {
-            if (string.IsNullOrEmpty(PlayerPrefs.GetString("unlockedCraftsList")))
+            if(!File.Exists(saveDataPath))
+            {
                 return;
+            }
 
-            SaveData data = JsonUtility.FromJson<SaveData>(PlayerPrefs.GetString("unlockedCraftsList"));
+            string json = File.ReadAllText(saveDataPath);
+
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
             unlockedCraftPaths = data.craftPaths;
             allUnlockedCrafts = data.crafts;
         }
@@ -82,11 +92,16 @@ namespace Game.CraftSystem
         {
             loadCraftUtility = this;
 
+#if UNITY_EDITOR
+            saveDataPath = Path.Combine(Application.dataPath, dataName+".txt");
+#else
+            saveDataPath = Path.Combine(Application.dataPath, dataName);
+#endif
             Load();
         }
-        #endregion
+#endregion
 
-        #region Observer
+#region Observer
         public void AddObserver(ICraftListObserver o)
         {
             observers.Add(o);
@@ -110,7 +125,7 @@ namespace Game.CraftSystem
                 observer.Initialize(new List<CSCraftSO>());
             }
         }
-        #endregion
+#endregion
     }
 
     [System.Serializable]

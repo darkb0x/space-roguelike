@@ -75,7 +75,7 @@ namespace Game.CraftSystem
             for (int i = 0; i < craft.ObjectCraft.Count; i++)
             {
                 ItemCraft curCraft = craft.ObjectCraft[i];
-                amountsText[i].color = PlayerInventory.playerInventory.GetItem(curCraft.item).amount < curCraft.amount ? Color.red : Color.white;
+                amountsText[i].color = PlayerInventory.instance.GetItem(curCraft.item).amount < curCraft.amount ? Color.red : Color.white;
             }
         }
 

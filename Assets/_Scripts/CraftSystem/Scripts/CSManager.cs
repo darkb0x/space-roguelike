@@ -70,12 +70,12 @@ namespace Game.CraftSystem
 
         public void Craft(CSCraftSO craft)
         {
-            if (!PlayerInventory.playerInventory.CanTakeItems(craft.ObjectCraft))
+            if (!PlayerInventory.instance.CanTakeItems(craft.ObjectCraft))
                 return;
 
             foreach (var item in craft.ObjectCraft)
             {
-                PlayerInventory.playerInventory.TakeItem(item.item, item.amount);
+                PlayerInventory.instance.TakeItem(item.item, item.amount);
             }
 
             currentWorkbanch.Craft(craft.GameObjectPrefab);
@@ -102,7 +102,7 @@ namespace Game.CraftSystem
             UIPanelManager.manager.ClosePanel(craftTreePanel);
             isOpened = false;
 
-            player.EndCrafting();
+            player.ContinuePlayerMove();
         }
         #endregion
 

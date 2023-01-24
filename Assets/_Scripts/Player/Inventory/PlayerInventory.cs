@@ -8,11 +8,16 @@ namespace Game.Player.Inventory
 {
     using CraftSystem;
 
+    public interface IInventoryObserver
+    {
+        public void UpdateData(PlayerInventory inventory);
+    }
+
     public class PlayerInventory : MonoBehaviour
     {
         // singletone
-        public static PlayerInventory playerInventory;
-        private void Awake() => playerInventory = this;
+        public static PlayerInventory instance;
+        private void Awake() => instance = this;
 
         [System.Serializable]
         public class Item
@@ -40,6 +45,8 @@ namespace Game.Player.Inventory
 
         [Header("Inventory")]
         public List<Item> items = new List<Item>();
+        public List<IInventoryObserver> observers = new List<IInventoryObserver>();
+
         public int money
         {
             get
@@ -86,6 +93,11 @@ namespace Game.Player.Inventory
             return null;
         }
 
+        /// <summary>
+        /// Give an item to inventory
+        /// </summary>
+        /// <param name="item">item to give</param>
+        /// <param name="amount">amount</param>
         public void GiveItem(InventoryItem item, int amount)
         {
             GetItem(item).Add(amount);
@@ -93,6 +105,12 @@ namespace Game.Player.Inventory
             UpdateUI();
         }
 
+        /// <summary>
+        /// Take item from inventory
+        /// </summary>
+        /// <param name="item">item to take</param>
+        /// <param name="amount">amount</param>
+        /// <returns>return false if you cannot take item, true if you can and take it</returns>
         public bool TakeItem(InventoryItem item, int amount)
         {
             Item it = GetItem(item);
@@ -120,19 +138,23 @@ namespace Game.Player.Inventory
 
         private void UpdateUI()
         {
+            // main
             foreach (var item in items)
             {
                 item.UI_icon.sprite = item.item._icon;
                 item.UI_amount.text = item.amount.ToString();
             }
-            UpdateScreensData();
-        }
 
-        private void UpdateScreensData()
-        {
+            // screens data
             foreach (var screen in screens)
             {
                 screen.UpdateData(items);
+            }
+
+            // observers data
+            foreach (var observer in observers)
+            {
+                observer.UpdateData(this);
             }
         }
     }

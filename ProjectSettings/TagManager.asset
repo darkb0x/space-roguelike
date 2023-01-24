@@ -48,6 +48,6 @@ TagManager:
   - name: Ignore Sort-Point
     uniqueID: 3383954551
     locked: 0
-  - name: Blueprints
-    uniqueID: 743308419
+  - name: World UI
+    uniqueID: 3438109583
     locked: 0

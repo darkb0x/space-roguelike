@@ -30,14 +30,14 @@ namespace Game.CraftSystem
                 turret.Initialize(player);
             }
 
-            player.EndCrafting();
+            player.ContinuePlayerMove();
         }
 
         public void OpenCraftMenu()
         {
             if (!player.pickObjSystem.pickedGameObject)
             {
-                player.StartCrafting(transform.position);
+                player.StopPlayerMove(transform.position);
                 craftSystem.OpenMenu(this);
             }
         }

@@ -169,11 +169,11 @@ namespace Game.Player
         #endregion
 
         #region Animation Control
-        public void StartCrafting(Vector3 pos)
+        public void StopPlayerMove(Vector3 pos)
         {
             canMove = false;
         }
-        public void EndCrafting()
+        public void ContinuePlayerMove()
         {
             canMove = true;
         }
