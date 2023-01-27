@@ -12,6 +12,8 @@ namespace Game.Drill
     public abstract class Drill : MonoBehaviour
     {
         List<Ore> currentOresList = new List<Ore>();
+        Transform oreDetectColl_transform;
+        Transform playerTransform;
 
         [HideInInspector] public Transform myTransform;
         [HideInInspector] public bool isPicked = true;
@@ -55,6 +57,8 @@ namespace Game.Drill
         {
             player = FindObjectOfType<PlayerController>();
             myTransform = transform;
+            oreDetectColl_transform = oreDetectColl.transform;
+            playerTransform = player.transform;
 
             currentTimeBtwMining = timeBtwMining;
             health = maxHealth;
@@ -76,7 +80,11 @@ namespace Game.Drill
         private void Update()
         {
             if (isPicked)
+            {
+                oreDetectColl_transform.position = playerTransform.position;
+
                 return;
+            }
 
             // mining animation & mining
             if(currentOre && isMining)
@@ -126,6 +134,7 @@ namespace Game.Drill
         {
             currentOre.currentDrill = this;
             item = currentOre.item;
+            oreDetectColl_transform.position = myTransform.position;
 
             myTransform.position = oreTransform.position;
             backLegsSR.sortingLayerName = worldSortingLayer;

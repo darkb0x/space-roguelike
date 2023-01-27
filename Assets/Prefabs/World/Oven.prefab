@@ -694,7 +694,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  remeltingTime: 2
+  remeltingTime: 4
 --- !u!114 &6429762916929469685
 MonoBehaviour:
   m_ObjectHideFlags: 0

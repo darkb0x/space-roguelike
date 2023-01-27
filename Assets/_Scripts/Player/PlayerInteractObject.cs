@@ -20,6 +20,8 @@ namespace Game.Player
         {
             if (!playerInZone)
                 return;
+            if (UIPanelManager.manager.SomethinkIsOpened())
+                return;
 
             if(Input.GetKeyDown(interactKey))
             {
