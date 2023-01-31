@@ -61,7 +61,7 @@ namespace Game.Player
         {
             if(instatiadeObj)
             {
-                if (pickedGameObject.TryGetComponent<TurretAI>(out TurretAI turret))
+                if (pickedGameObject.TryGetComponent<Turret>(out Turret turret))
                 {
                     turret.Put();
                     pickedGameObject_transform.position = transform.position;

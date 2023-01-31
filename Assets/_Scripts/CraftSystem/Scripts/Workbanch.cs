@@ -25,9 +25,9 @@ namespace Game.CraftSystem
         {
             GameObject craftedObj = Instantiate(obj, myTransform.position, Quaternion.identity);
 
-            if(craftedObj.TryGetComponent<TurretAI>(out TurretAI turret))
+            if(craftedObj.TryGetComponent<Turret>(out Turret turret))
             {
-                turret.Initialize(player);
+                //turret.Initialize(player);
             }
 
             player.ContinuePlayerMove();
