@@ -1,10 +1,7 @@
 {
     "craftPaths": [
         "CraftSystem/Crafts/TechTree/Global/Crafts/StandartGun",
-        "CraftSystem/Crafts/DrillTree/Nodes/M2",
-        "CraftSystem/Crafts/TechTree/Global/Crafts/StandartGunLvl2",
-        "CraftSystem/Crafts/TechTree/Global/Crafts/StandartGunLvl3",
-        "CraftSystem/Crafts/TechTree/Global/Crafts/GrenadeGun"
+        "CraftSystem/Crafts/DrillTree/Nodes/M2"
     ],
     "crafts": [
         {
@@ -12,15 +9,6 @@
         },
         {
             "instanceID": 20806
-        },
-        {
-            "instanceID": 20800
-        },
-        {
-            "instanceID": 20802
-        },
-        {
-            "instanceID": 20774
         }
     ]
 }

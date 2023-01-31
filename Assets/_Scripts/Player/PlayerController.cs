@@ -74,11 +74,13 @@ namespace Game.Player
                     if (!selectedDrone.isPicked) selectedDrone.Init();
                 }
             }
+            /*
             if(Input.GetKeyDown(KeyCode.R))
             {
                 LoadCraftUtility.loadCraftUtility.ClearUnlockedCrafts();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+            */
 
             //animation
             if(moveInput.magnitude > 0)

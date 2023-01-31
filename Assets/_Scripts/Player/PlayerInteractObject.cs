@@ -14,7 +14,7 @@ namespace Game.Player
         [Header("Player interact rules")]
         [NaughtyAttributes.Tag, SerializeField] private string playerTag = "Player";
 
-        bool playerInZone = false;
+        [HideInInspector] public bool playerInZone = false;
 
         private void Update()
         {

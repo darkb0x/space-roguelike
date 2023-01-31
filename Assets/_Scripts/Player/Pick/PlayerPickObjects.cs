@@ -57,22 +57,25 @@ namespace Game.Player
 
             anim.SetBool(anim_isPickSomethink, true);
         }
-        private void PutCurrentGameobj()
+        public void PutCurrentGameobj(bool instatiadeObj = true)
         {
-            if (pickedGameObject.TryGetComponent<TurretAI>(out TurretAI turret))
+            if(instatiadeObj)
             {
-                turret.Put();
-                pickedGameObject_transform.position = transform.position;
-            }
-            if (pickedGameObject.TryGetComponent<Drill>(out Drill drill))
-            {
-                if (drill.CanPut())
+                if (pickedGameObject.TryGetComponent<TurretAI>(out TurretAI turret))
                 {
-                    drill.Put();
+                    turret.Put();
+                    pickedGameObject_transform.position = transform.position;
                 }
-                else
+                if (pickedGameObject.TryGetComponent<Drill>(out Drill drill))
                 {
-                    return;
+                    if (drill.CanPut())
+                    {
+                        drill.Put();
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using UnityEngine.UI;
 
 namespace Game.Drill
 {
@@ -11,9 +12,17 @@ namespace Game.Drill
 
     public abstract class Drill : MonoBehaviour
     {
+        [System.Serializable]
+        public struct dropped_item
+        {
+            public InventoryItem item;
+            public int amount;
+        }
+
         List<Ore> currentOresList = new List<Ore>();
         Transform oreDetectColl_transform;
         Transform playerTransform;
+        float currentBreakProgress;
 
         [HideInInspector] public Transform myTransform;
         [HideInInspector] public bool isPicked = true;
@@ -43,12 +52,22 @@ namespace Game.Drill
         public Collider2D mainColl;
         public Collider2D oreDetectColl;
         public Collider2D playerDetectColl;
-        
+
+        [Header("Break System")]
+        public PlayerInteractObject playerInteractObject;
+        [Space]
+        public GameObject breakProgress_gameObj;
+        public Image breakProgress_image;
+        public float breakTime;
+        [Space]
+        public List<dropped_item> droppedItemsAfterBroke = new List<dropped_item>();
+
+        // renderrer
         [Header("Animation")]
         public Animator anim;
         [AnimatorParam("anim")] public string anim_putTrigger;
         [AnimatorParam("anim")] public string anim_miningBool;
-        
+
         [Header("Back Legs Renderer")]
         public SpriteRenderer backLegsSR;
         [SortingLayer] public string worldSortingLayer;
@@ -62,6 +81,9 @@ namespace Game.Drill
 
             currentTimeBtwMining = timeBtwMining;
             health = maxHealth;
+            currentBreakProgress = breakTime;
+
+            breakProgress_gameObj.SetActive(false);
 
             Initialize();
         }
@@ -82,6 +104,8 @@ namespace Game.Drill
             if (isPicked)
             {
                 oreDetectColl_transform.position = playerTransform.position;
+
+                DoBreak();
 
                 return;
             }
@@ -107,14 +131,10 @@ namespace Game.Drill
                 anim.SetBool(anim_miningBool, false);
             }
 
-            // player take items
-            if(playerInZone)
+            //Break
+            if(playerInteractObject.playerInZone)
             {
-                if(Input.GetKeyDown(KeyCode.E))
-                {
-                    PlayerInventory.instance.GiveItem(item, amount);
-                    amount = 0;
-                }
+                DoBreak();
             }
         }
         private void FixedUpdate()
@@ -151,6 +171,11 @@ namespace Game.Drill
         #endregion
 
         #region Mining
+        public virtual void PlayerTakeItems()
+        {
+            PlayerInventory.instance.GiveItem(item, amount);
+            amount = 0;
+        }
         public virtual void Mine()
         {
             if(!currentOre.canGiveOre)
@@ -297,6 +322,66 @@ namespace Game.Drill
             {
                 item.DisSelect();
             }
+        }
+        #endregion
+
+        #region Broke
+        public void DoBreak()
+        {
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                breakProgress_gameObj.SetActive(true);
+                breakProgress_image.fillAmount = 0f;
+            }
+            if(Input.GetKey(KeyCode.R))
+            {
+                if(currentBreakProgress <= 0)
+                {
+                    Break();
+                }
+                else
+                {
+                    currentBreakProgress -= Time.deltaTime;
+                    breakProgress_image.fillAmount = Mathf.Abs((currentBreakProgress / breakTime) - 1);
+                }
+            }
+            if(Input.GetKeyUp(KeyCode.R))
+            {
+                StartCoroutine(EndBreaking());
+            }
+        }
+        public IEnumerator EndBreaking()
+        {
+            while (breakProgress_image.fillAmount >= 0.01f)
+            {
+                currentBreakProgress = Mathf.Lerp(currentBreakProgress, breakTime, 0.2f); ;
+
+                breakProgress_image.fillAmount = Mathf.Abs((currentBreakProgress / breakTime) - 1);
+
+                yield return null;
+            }
+
+            breakProgress_gameObj.SetActive(false);
+        }
+
+        public virtual void Break()
+        {
+            if(amount > 0)
+            {
+                PlayerTakeItems();
+            }
+
+            if(isPicked)
+            {
+                player.pickObjSystem.PutCurrentGameobj(false);
+            }
+
+            foreach (var item in droppedItemsAfterBroke)
+            {
+                PlayerInventory.instance.GiveItem(item.item, item.amount);
+            }
+
+            Destroy(gameObject);
         }
         #endregion
     }
