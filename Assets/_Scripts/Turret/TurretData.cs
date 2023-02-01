@@ -56,11 +56,14 @@ namespace Game.Turret
         [SerializeField] private float Recoil = 0f;
         [Space]
         [SerializeField, Tooltip("The size of zone which detect enemyes")] private float ColliderSize = 7f;
+
+        [Header("BODY/LEGS")]
+        [SerializeField] private Sprite BodySprite;
+        [Header("CANON")]
+        [SerializeField] private Sprite CanonSprite;
         [Space]
-        [SerializeField] private Sprite baseSprite;
-        [SerializeField] private Sprite canonSprite;
-        [Space]
-        [SerializeField] private List<DroppedItem> DroppedItems = new List<DroppedItem>();
+
+        [SerializeField] private List<DroppedItem> DroppedItems = new List<DroppedItem>(1);
         [SerializeField] private List<Variable> AdditionalVariables = new List<Variable>();
 
         public GameObject _bulletPrefab => BulletPrefab;
@@ -68,6 +71,8 @@ namespace Game.Turret
         public float _timeBtwAttack => TimeBtwAttack;
         public float _recoil => Recoil;
         public float _colliderSize => ColliderSize;
+        public Sprite _bodySprite => BodySprite;
+        public Sprite _canonSprite => CanonSprite;
         public List<DroppedItem> _droppedItems => DroppedItems;
         public List<Variable> _additionalVariables => AdditionalVariables;
 

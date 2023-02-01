@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a85181dfb53cd1348931285cdce58063
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Prefab: {fileID: 5909387419132771332, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+  - TurretAI: {instanceID: 0}
+  - TurretData: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

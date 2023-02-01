@@ -13,13 +13,14 @@ namespace Game.CraftSystem.Editor.Elements
     using Windows;
     using Data.Save;
     using Player.Inventory;
+    using ScriptableObjects;
 
     public class CSNode : Node
     {
         public string ID { get; set; }
         public string CraftName { get; set; }
         public List<CSChoiceSaveData> Choices { get; set; }
-        public GameObject Prefab { get; set; }
+        public Craft Object { get; set; }
         public Sprite Icon { get; set; }
         public int Cost { get; set; }
         public List<ItemCraft> Craft { get; set; }
@@ -33,7 +34,7 @@ namespace Game.CraftSystem.Editor.Elements
 
             CraftName = nodeName;
             Choices = new List<CSChoiceSaveData>();
-            Prefab = null;
+            Object = null;
             Cost = 0;
             Craft = new List<ItemCraft>();
 
@@ -134,11 +135,11 @@ namespace Game.CraftSystem.Editor.Elements
             customDataContainer.Add(costField);
 
             // Object
-            ObjectField turretObjectField = CSElementUtility.CreateObjectField("Object", typeof(GameObject), (callback) =>
+            ObjectField turretObjectField = CSElementUtility.CreateObjectField("Object", typeof(Craft), (callback) =>
             {
-                Prefab = (GameObject) callback.newValue;
+                Object = (Craft) callback.newValue;
             });
-            turretObjectField.value = Prefab;
+            turretObjectField.value = Object;
 
             customDataContainer.Add(turretObjectField);
 

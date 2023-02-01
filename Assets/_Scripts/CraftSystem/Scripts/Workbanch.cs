@@ -5,7 +5,9 @@ using UnityEngine;
 namespace Game.CraftSystem
 {
     using Player;
+    using Drill;
     using Turret;
+    using CraftSystem.Editor.ScriptableObjects;
 
     [RequireComponent(typeof(PlayerInteractObject))]
     public class Workbanch : MonoBehaviour
@@ -21,13 +23,14 @@ namespace Game.CraftSystem
             myTransform = transform;
         }
 
-        public void Craft(GameObject obj)
+        public void Craft(Craft obj)
         {
-            GameObject craftedObj = Instantiate(obj, myTransform.position, Quaternion.identity);
+            GameObject craftedObj = Instantiate(obj._prefab, myTransform.position, Quaternion.identity);
 
-            if(craftedObj.TryGetComponent<Turret>(out Turret turret))
+            if(obj is CraftTurret craftData_turret)
             {
-                //turret.Initialize(player);
+                Turret turret = craftedObj.GetComponent<Turret>();
+                turret.Initialize(player, craftData_turret._turretAI, craftData_turret._turretData);
             }
 
             player.ContinuePlayerMove();

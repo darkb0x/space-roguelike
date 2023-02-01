@@ -48,7 +48,7 @@ namespace Game.Turret.AI
             if (isReloading)
                 return;
 
-            Rocket rocket = Instantiate(data._bulletPrefab, turret.shotPos.position, turret.shotPos.rotation).GetComponent<Rocket>();
+            Rocket rocket = Instantiate(data._bulletPrefab, turret.ShotPos.position, turret.ShotPos.rotation).GetComponent<Rocket>();
             rocket.Init(data._damage, turret.currentEnemy);
             currentRocketsCount--;
         }

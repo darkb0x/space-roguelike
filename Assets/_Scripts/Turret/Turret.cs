@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using UnityEngine.UI;
 
 namespace Game.Turret
 {
@@ -19,6 +20,9 @@ namespace Game.Turret
             public int amount;
         }
         private bool isFacingRight = true;
+        private float currentBreakProgress;
+        private PlayerController player;
+        private bool playerInZone = false;
 
         [Header("Turret data")]
         [Expandable] public TurretData Data;
@@ -26,10 +30,12 @@ namespace Game.Turret
         [Header("Turret AI")]
         [Expandable] public TurretAI AI;
 
-        [Header("Turret rotation")]
+        [Header("Turret")]
         public float TurretRotateTime = 0.2f;
         public float TurretBackRotateTime = 0.05f;
+        [Space]
         public Transform TurretCanon;
+        public Transform ShotPos;
 
         [Header("Enemy detecion")]
         [Tag] public string EnemyTag;
@@ -38,31 +44,54 @@ namespace Game.Turret
         [ReadOnly] public Transform currentEnemy;
         [ReadOnly] public List<GameObject> targets = new List<GameObject>();
 
-        [Header("other")]
-        public Transform shotPos;
+        [Header("Break system")]
+        public GameObject breakProgress_gameObj;
+        public Image breakProgress_image;
+        public float breakTime;
+
+        [Header("Renderer")]
+        public SpriteRenderer BodySpriteRenderer;
+        public SpriteRenderer CanonSpriteRenderer;
+
+        [Header("Other")]
+        [Tag] public string PlayerTag = "Player";
         public bool isPicked;
-        public CircleCollider2D coll;
+        
+        [Header("Collisions")]
+        public CircleCollider2D EnemyDetectionCollider;
+        public CircleCollider2D PlayerDetectionCollider;
 
         new Transform transform;
         [HideInInspector] public float currentTimeBtwAttacks;
-
-        private TurretAI currentAI;
 
         private void OnDrawGizmosSelected()
         {
             if (currentEnemy != null)
             {
-                Gizmos.color = Color.green;
-                Gizmos.DrawLine(transform.position, currentEnemy.transform.position);
-
                 Gizmos.DrawWireCube(currentEnemy.transform.position, Vector3.one*1.5f);
+            }
+            if(targets.Count > 0)
+            {
+                foreach (var target in targets)
+                {
+                    if(target.transform == GetNearestEnemy())
+                    {
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawLine(transform.position, currentEnemy.transform.position);
+
+                        continue;
+                    }
+
+                    Gizmos.color = Color.yellow;
+                    Gizmos.DrawLine(transform.position, target.transform.position);
+                }
             }
 
             if(AI != null)
             {
                 AI.turret = this;
 
-                if (shotPos == null | TurretCanon == null)
+                if (ShotPos == null | TurretCanon == null)
                     return;
                 if (Data == null)
                     return;
@@ -71,16 +100,16 @@ namespace Game.Turret
                 {
                     float distance = (float)Data.GetVariable(TurretLaser.LASER_DISTANCE);
 
-                    Debug.DrawRay(shotPos.position, TurretCanon.right * distance, Color.blue);
+                    Debug.DrawRay(ShotPos.position, TurretCanon.right * distance, Color.blue);
                 }
                 if(AI is TurretFiregun)
                 {
                     float distance = (float)Data.GetVariable(TurretFiregun.DISTANCE);
                     float range = (float)Data.GetVariable(TurretFiregun.RANGE);
 
-                    Debug.DrawRay(shotPos.position, TurretCanon.right * distance, Color.blue);
-                    Debug.DrawRay(shotPos.position, (TurretCanon.right + TurretCanon.up * range) * distance, Color.blue);
-                    Debug.DrawRay(shotPos.position, (TurretCanon.right + TurretCanon.up * -range) * distance, Color.blue);
+                    Debug.DrawRay(ShotPos.position, TurretCanon.right * distance, Color.blue);
+                    Debug.DrawRay(ShotPos.position, (TurretCanon.right + TurretCanon.up * range) * distance, Color.blue);
+                    Debug.DrawRay(ShotPos.position, (TurretCanon.right + TurretCanon.up * -range) * distance, Color.blue);
                 }
             }
         }
@@ -88,33 +117,52 @@ namespace Game.Turret
         public void Start()
         {
             transform = GetComponent<Transform>();
+
+            currentBreakProgress = breakTime;
+
+            breakProgress_gameObj.SetActive(false);
         }
 
         public void Initialize(PlayerController p, TurretAI ai, TurretData data)
         {
-            currentAI = ai;
-            currentAI = Instantiate(AI);
-            currentAI.turret = this;
-            currentAI.Initialize();
+            player = p;
+
+            AI = Instantiate(ai);
+            AI.turret = this;
+            AI.data = data;
+            AI.Initialize();
 
             Data = data;
+            if(Data._bodySprite == null | Data._canonSprite == null)
+            {
+                Debug.LogWarning($"{gameObject.name}/Turret.cs/Data({Data.name}) _bodySprite or _canonSprite is null");
+            }
+            else
+            {
+                BodySpriteRenderer.sprite = Data._bodySprite;
+                CanonSpriteRenderer.sprite = Data._canonSprite;
+            }
 
             currentTimeBtwAttacks = Data._timeBtwAttack;
-            coll.radius = Data._colliderSize;
+            EnemyDetectionCollider.radius = Data._colliderSize;
 
             isPicked = true;
-            coll.enabled = false;
+            EnemyDetectionCollider.enabled = false;
 
-            p.pickObjSystem.SetPickedGameobj(gameObject);
+            player.pickObjSystem.SetPickedGameobj(gameObject);
         }
 
         #region Updates
         private void Update()
         {
-            currentAI.Run();
+            AI.Run();
 
             if (isPicked)
+            {
+                DoBreak();
+
                 return;
+            }
 
             #region rotation
             if (currentEnemy != null)
@@ -161,6 +209,15 @@ namespace Game.Turret
             #endregion
 
             enemyInZone = (targets.Count > 0);
+            if(enemyInZone)
+            {
+                currentEnemy = GetNearestEnemy();
+            }
+
+            if(playerInZone)
+            {
+                DoBreak();
+            }
         }
         #endregion
 
@@ -175,9 +232,9 @@ namespace Game.Turret
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.tag == EnemyTag)
+            if (collision.tag == PlayerTag)
             {
-                currentEnemy = GetNearestEnemy();
+                playerInZone = true;
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
@@ -185,10 +242,11 @@ namespace Game.Turret
             if (collision.tag == EnemyTag)
             {
                 targets.Remove(collision.gameObject);
-                if (currentEnemy == collision.transform)
-                {
-                    currentEnemy = GetNearestEnemy();
-                }
+            }
+
+            if (collision.tag == PlayerTag)
+            {
+                playerInZone = false;
             }
         }
         #endregion
@@ -241,8 +299,63 @@ namespace Game.Turret
         public void Put()
         {
             isPicked = false;
-            coll.enabled = true;
+            EnemyDetectionCollider.enabled = true;
         }
+
+        #region Break
+        public void DoBreak()
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                breakProgress_gameObj.SetActive(true);
+                breakProgress_image.fillAmount = 0f;
+            }
+            if (Input.GetKey(KeyCode.R))
+            {
+                if (currentBreakProgress <= 0)
+                {
+                    Break();
+                }
+                else
+                {
+                    currentBreakProgress -= Time.deltaTime;
+                    breakProgress_image.fillAmount = Mathf.Abs((currentBreakProgress / breakTime) - 1);
+                }
+            }
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                StartCoroutine(EndBreaking());
+            }
+        }
+        public IEnumerator EndBreaking()
+        {
+            while (breakProgress_image.fillAmount >= 0.01f)
+            {
+                currentBreakProgress = Mathf.Lerp(currentBreakProgress, breakTime, 0.2f); ;
+
+                breakProgress_image.fillAmount = Mathf.Abs((currentBreakProgress / breakTime) - 1);
+
+                yield return null;
+            }
+
+            breakProgress_gameObj.SetActive(false);
+        }
+
+        public virtual void Break()
+        {
+            if (isPicked)
+            {
+                player.pickObjSystem.PutCurrentGameobj(false);
+            }
+
+            foreach (var item in Data._droppedItems)
+            {
+                PlayerInventory.instance.GiveItem(item.Item, item.Amount);
+            }
+
+            Destroy(gameObject);
+        }
+        #endregion
     }
 }
 

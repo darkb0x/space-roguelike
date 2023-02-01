@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9366ed4d1f887948929d63ef3587193, type: 3}
+  m_Name: minigunData 0
+  m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 8391570029910690502, guid: 58e9ba1f092aedc43a93f65e1db1ad4a, type: 3}
+  Damage: 0.5
+  TimeBtwAttack: 0.1
+  Recoil: 15
+  ColliderSize: 7
+  BodySprite: {fileID: -1866517931141025007, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+  CanonSprite: {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+  DroppedItems:
+  - Item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
+    Amount: 5
+  AdditionalVariables: []

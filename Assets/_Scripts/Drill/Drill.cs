@@ -325,7 +325,7 @@ namespace Game.Drill
         }
         #endregion
 
-        #region Broke
+        #region Break
         public void DoBreak()
         {
             if(Input.GetKeyDown(KeyCode.R))

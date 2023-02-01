@@ -9,12 +9,9 @@ namespace Game.Turret.AI
     public abstract class TurretAI : ScriptableObject
     {
         [HideInInspector] public Turret turret;
-        protected TurretData data;
+        [HideInInspector] public TurretData data;
 
-        public virtual void Initialize()
-        {
-            data = turret.Data;
-        }
+        public virtual void Initialize() { }
 
         public virtual void Run ()
         {
@@ -39,7 +36,7 @@ namespace Game.Turret.AI
             float damage = data._damage;
 
             float recoilRotation = Random.Range(-recoil, recoil);
-            Bullet bullet = Instantiate(bulletPrefab, turret.shotPos.position, turret.shotPos.rotation).GetComponent<Bullet>();
+            Bullet bullet = Instantiate(bulletPrefab, turret.ShotPos.position, turret.ShotPos.rotation).GetComponent<Bullet>();
             bullet.gameObject.transform.Rotate(0, 0, recoilRotation);
             bullet.Init(damage);
         }

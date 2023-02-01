@@ -19,7 +19,7 @@ MonoBehaviour:
     <Name>k__BackingField: M2
     <Choices>k__BackingField:
     - <NodeID>k__BackingField: ee545e94-044f-4ca5-8837-46aeb335786a
-    <Prefab>k__BackingField: {fileID: 2157149943185910446, guid: 84ae8224564c2804b88a3e5abd13b1e3, type: 3}
+    <Object>k__BackingField: {fileID: 11400000, guid: 412e48b8f211421489e2e34222af798b, type: 2}
     <Icon>k__BackingField: {fileID: -5388209310669713511, guid: 56858579fd5d47340868aa94b8f97173, type: 3}
     <Cost>k__BackingField: 0
     <Craft>k__BackingField:
@@ -31,7 +31,7 @@ MonoBehaviour:
     <Name>k__BackingField: M1
     <Choices>k__BackingField:
     - <NodeID>k__BackingField: 
-    <Prefab>k__BackingField: {fileID: 8642285146016992751, guid: 7023e5f17394842419e7d317ed8e8442, type: 3}
+    <Object>k__BackingField: {fileID: 11400000, guid: a3c70147950c18f46a2848bd33b0a7a2, type: 2}
     <Icon>k__BackingField: {fileID: -4572900513582700462, guid: 4b5a4ff3f2b7f60488b8e56def7b3fef, type: 3}
     <Cost>k__BackingField: 100
     <Craft>k__BackingField:

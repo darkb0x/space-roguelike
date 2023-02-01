@@ -31,7 +31,7 @@ namespace Game.Turret.AI
 
         public override void Attack()
         {
-            Transform shotPos = turret.shotPos;
+            Transform shotPos = turret.ShotPos;
             Transform turretCanon = turret.TurretCanon;
 
             RaycastHit2D[] hits = Physics2D.RaycastAll(shotPos.position, turretCanon.right, laserDistance, Layers);

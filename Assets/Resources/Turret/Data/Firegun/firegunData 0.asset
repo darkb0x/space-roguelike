@@ -17,7 +17,11 @@ MonoBehaviour:
   TimeBtwAttack: 0.1
   Recoil: 0
   ColliderSize: 4
-  DroppedItems: []
+  BodySprite: {fileID: -1866517931141025007, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+  CanonSprite: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+  DroppedItems:
+  - Item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
+    Amount: 5
   AdditionalVariables:
   - Name: Distance
     VariableType: 1

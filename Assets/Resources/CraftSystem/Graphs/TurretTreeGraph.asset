@@ -15,241 +15,82 @@ MonoBehaviour:
   <FileName>k__BackingField: TurretTree
   <Nodes>k__BackingField:
   - <NodeID>k__BackingField: 
-    <ID>k__BackingField: d3b11f91-bddc-4fe5-a804-d2e49b753404
-    <Name>k__BackingField: StandartGunLvl3
+    <ID>k__BackingField: fc14dbde-e281-4ea9-8fe8-411f1c05f62c
+    <Name>k__BackingField: StandartTurret
     <Choices>k__BackingField:
-    - <NodeID>k__BackingField: b20b0cc1-c653-47e4-aa2f-d4e4b92d7254
-    - <NodeID>k__BackingField: 
-    <Prefab>k__BackingField: {fileID: 5909387419132771332, guid: 9367530f25bc3b14eba67ca93b1fc41a, type: 3}
-    <Icon>k__BackingField: {fileID: 2007721827993941286, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
-    <Cost>k__BackingField: 150
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      amount: 15
-    <Position>k__BackingField: {x: 793, y: 0}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 8a576504-db48-4c50-8a6c-5a76360e9657
-    <Name>k__BackingField: StandartGunLvl2
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: d3b11f91-bddc-4fe5-a804-d2e49b753404
-    - <NodeID>k__BackingField: ab30b3d1-8038-42a8-8ee4-b27d91841edd
-    <Prefab>k__BackingField: {fileID: 5909387419132771332, guid: 2bf565fc82c524d4ba2a228e93e3157a, type: 3}
-    <Icon>k__BackingField: {fileID: -5775172910849150067, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
-    <Cost>k__BackingField: 50
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      amount: 10
-    <Position>k__BackingField: {x: 408, y: 0}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: d6b81edb-44ec-4ac1-b269-aed7b1766fbe
-    <Name>k__BackingField: StandartGun
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 8a576504-db48-4c50-8a6c-5a76360e9657
-    <Prefab>k__BackingField: {fileID: 5909387419132771332, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+    - <NodeID>k__BackingField: ba78adf8-7652-4a96-bc10-6c544c902d41
+    <Object>k__BackingField: {fileID: 11400000, guid: b51eda8199d6f7d4bba67a59ca6cdf0a, type: 2}
     <Icon>k__BackingField: {fileID: 6504606697198498462, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
-    <Cost>k__BackingField: 0
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      amount: 5
-    <Position>k__BackingField: {x: 0, y: 0}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: ab30b3d1-8038-42a8-8ee4-b27d91841edd
-    <Name>k__BackingField: Minigun
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 6a94ce6d-7bf2-478c-9c64-1654d6a67026
-    <Prefab>k__BackingField: {fileID: 4890399241219555966, guid: 6c149d2627ae7a140a9500203d685a50, type: 3}
-    <Icon>k__BackingField: {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
     <Cost>k__BackingField: 100
     <Craft>k__BackingField:
     - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
       amount: 1
-    <Position>k__BackingField: {x: 793, y: 301}
+    <Position>k__BackingField: {x: 0, y: 0}
   - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 6a94ce6d-7bf2-478c-9c64-1654d6a67026
-    <Name>k__BackingField: MinigunLvl2
+    <ID>k__BackingField: ba78adf8-7652-4a96-bc10-6c544c902d41
+    <Name>k__BackingField: MinigunTurret
     <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 177d5f40-da61-427d-ae9a-23af92a1f128
-    <Prefab>k__BackingField: {fileID: 4890399241219555966, guid: 9ae98b40cf29aac418f15258ba678cfe, type: 3}
-    <Icon>k__BackingField: {fileID: -3023398558421556299, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+    - <NodeID>k__BackingField: d3979fa4-b99a-456c-817b-34d128bc2997
+    - <NodeID>k__BackingField: 76caf43e-c986-4414-8290-1f4696cff26c
+    <Object>k__BackingField: {fileID: 11400000, guid: 4552f64fe9361304586c3033c3b35299, type: 2}
+    <Icon>k__BackingField: {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
     <Cost>k__BackingField: 150
     <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
       amount: 1
-    <Position>k__BackingField: {x: 1184, y: 301}
+    <Position>k__BackingField: {x: 394, y: 0}
   - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 177d5f40-da61-427d-ae9a-23af92a1f128
-    <Name>k__BackingField: MinigunLvl3
+    <ID>k__BackingField: d3979fa4-b99a-456c-817b-34d128bc2997
+    <Name>k__BackingField: FiregunTurret
     <Choices>k__BackingField:
-    - <NodeID>k__BackingField: b20b0cc1-c653-47e4-aa2f-d4e4b92d7254
-    - <NodeID>k__BackingField: faf74993-44ec-4777-beab-4d6424884028
-    <Prefab>k__BackingField: {fileID: 4890399241219555966, guid: 86f802c6e8a14a845afc11ef4943f3f4, type: 3}
-    <Icon>k__BackingField: {fileID: -1234075964109648898, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
-    <Cost>k__BackingField: 170
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 1573, y: 301}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: b20b0cc1-c653-47e4-aa2f-d4e4b92d7254
-    <Name>k__BackingField: GrenadeGun
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 961fb05e-2b33-44f0-ba9d-106911ba9cb3
-    <Prefab>k__BackingField: {fileID: 4432319713743771285, guid: 85ce9c4d184aaea4f8434e419a730de4, type: 3}
-    <Icon>k__BackingField: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
-    <Cost>k__BackingField: 250
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 1909, y: 0}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: faf74993-44ec-4777-beab-4d6424884028
-    <Name>k__BackingField: Firegun
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: bc162c99-e657-4098-9c70-405ca368dacd
-    <Prefab>k__BackingField: {fileID: 5304330532916855163, guid: c72d0207ff4e22049930fc62ddd07aa7, type: 3}
+    - <NodeID>k__BackingField: c5664bb0-b500-4803-a524-1e03b18844be
+    <Object>k__BackingField: {fileID: 11400000, guid: b9579c68d2783b64bb7ca90cb017fe04, type: 2}
     <Icon>k__BackingField: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+    <Cost>k__BackingField: 200
+    <Craft>k__BackingField:
+    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      amount: 1
+    <Position>k__BackingField: {x: 803, y: 0}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: 76caf43e-c986-4414-8290-1f4696cff26c
+    <Name>k__BackingField: GrenadeTurret
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: b176770f-4414-4b59-8014-94d873bafcab
+    <Object>k__BackingField: {fileID: 11400000, guid: 9245abc976d03bf42bca14b6717e36f8, type: 2}
+    <Icon>k__BackingField: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+    <Cost>k__BackingField: 200
+    <Craft>k__BackingField:
+    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      amount: 1
+    <Position>k__BackingField: {x: 803, y: 371}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: b176770f-4414-4b59-8014-94d873bafcab
+    <Name>k__BackingField: RocketTurret
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 
+    <Object>k__BackingField: {fileID: 11400000, guid: 27ff1eea191ff2148823659d866bbb43, type: 2}
+    <Icon>k__BackingField: {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
     <Cost>k__BackingField: 250
     <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
       amount: 1
-    <Position>k__BackingField: {x: 2012, y: 451}
+    <Position>k__BackingField: {x: 1222, y: 371}
   - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 961fb05e-2b33-44f0-ba9d-106911ba9cb3
-    <Name>k__BackingField: GrenadeGunLvl2
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: f6aaeb8d-b8db-4c0a-99d1-277d3b209ee0
-    <Prefab>k__BackingField: {fileID: 4432319713743771285, guid: 8aed6021150b8294eb37d4f80265dccb, type: 3}
-    <Icon>k__BackingField: {fileID: 7337600296622790751, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
-    <Cost>k__BackingField: 300
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 2330, y: 0}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: bc162c99-e657-4098-9c70-405ca368dacd
-    <Name>k__BackingField: FiregunLvl2
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 39d0d7ab-c65f-4875-910d-8605bac3f4e1
-    <Prefab>k__BackingField: {fileID: 5304330532916855163, guid: e1ee25b6abeaffe45bc5ce98e6721b9c, type: 3}
-    <Icon>k__BackingField: {fileID: 7337600296622790751, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
-    <Cost>k__BackingField: 300
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 2417, y: 451}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: f6aaeb8d-b8db-4c0a-99d1-277d3b209ee0
-    <Name>k__BackingField: GrenadeGunLvl3
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 3c4fe337-4b07-4576-a8c5-ee5089615239
-    <Prefab>k__BackingField: {fileID: 4432319713743771285, guid: ddfcf9818eb47b04fb4e67079407a736, type: 3}
-    <Icon>k__BackingField: {fileID: 6012115335786710259, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
-    <Cost>k__BackingField: 500
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 2748, y: 0}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 39d0d7ab-c65f-4875-910d-8605bac3f4e1
-    <Name>k__BackingField: FiregunLvl3
+    <ID>k__BackingField: c5664bb0-b500-4803-a524-1e03b18844be
+    <Name>k__BackingField: LaserTurret
     <Choices>k__BackingField:
     - <NodeID>k__BackingField: 
-    <Prefab>k__BackingField: {fileID: 5304330532916855163, guid: 93a05f9b23d783c4a8c3cb58f3b4ecf4, type: 3}
-    <Icon>k__BackingField: {fileID: 6012115335786710259, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
-    <Cost>k__BackingField: 400
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 2823, y: 451}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 3c4fe337-4b07-4576-a8c5-ee5089615239
-    <Name>k__BackingField: Moverocket
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: ec5d7f0d-98c6-4336-b3e7-de1888d36327
-    - <NodeID>k__BackingField: 0fbe82e0-a7b9-409a-a353-431dedca1430
-    <Prefab>k__BackingField: {fileID: 1615404746759015651, guid: f00ea62508f20bf409876b2e8cda1d20, type: 3}
-    <Icon>k__BackingField: {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
-    <Cost>k__BackingField: 600
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 3227, y: 88}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 0fbe82e0-a7b9-409a-a353-431dedca1430
-    <Name>k__BackingField: MoverocketLvl2
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 87bf5ede-77b7-492b-acab-3f7b8544d7ff
-    <Prefab>k__BackingField: {fileID: 1615404746759015651, guid: 3047c4ae983c7d64ea97c519cfe7fb51, type: 3}
-    <Icon>k__BackingField: {fileID: -5684688948141070065, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
-    <Cost>k__BackingField: 700
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 3723, y: 199}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 87bf5ede-77b7-492b-acab-3f7b8544d7ff
-    <Name>k__BackingField: MoverocketLvl3
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 
-    <Prefab>k__BackingField: {fileID: 1615404746759015651, guid: f4f685fed47f198449aa3f3c0c63a089, type: 3}
-    <Icon>k__BackingField: {fileID: 8710807232114406779, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
-    <Cost>k__BackingField: 750
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 4160, y: 199}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: e838da98-790b-4109-80a9-d66b0a74b0d4
-    <Name>k__BackingField: LaserGunLvl2
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: c5e684bd-0bf8-46ac-9ec7-6f8238c33326
-    <Prefab>k__BackingField: {fileID: 7484445719804984884, guid: f5991cecf6952dc4795c004c82eca2db, type: 3}
-    <Icon>k__BackingField: {fileID: 7355283632040961757, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
-    <Cost>k__BackingField: 700
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 4125, y: -287}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: ec5d7f0d-98c6-4336-b3e7-de1888d36327
-    <Name>k__BackingField: LaserGun
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: e838da98-790b-4109-80a9-d66b0a74b0d4
-    <Prefab>k__BackingField: {fileID: 7484445719804984884, guid: 0496214919ecbd043a119758e508aa3b, type: 3}
+    <Object>k__BackingField: {fileID: 11400000, guid: 84ef48a303abd4540849cf3cc987dab5, type: 2}
     <Icon>k__BackingField: {fileID: -1895180281693119143, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
-    <Cost>k__BackingField: 650
+    <Cost>k__BackingField: 250
     <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+    - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
       amount: 1
-    <Position>k__BackingField: {x: 3707, y: -287}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: c5e684bd-0bf8-46ac-9ec7-6f8238c33326
-    <Name>k__BackingField: LaserGunLvl3
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 
-    <Prefab>k__BackingField: {fileID: 7484445719804984884, guid: c2033d386af52b349b2ec800168a6fd3, type: 3}
-    <Icon>k__BackingField: {fileID: -7066744340616056132, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
-    <Cost>k__BackingField: 750
-    <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-      amount: 1
-    <Position>k__BackingField: {x: 4561, y: -287}
+    <Position>k__BackingField: {x: 1222, y: 0}
   <OldUngroupedNodeNames>k__BackingField:
-  - StandartGunLvl3
-  - StandartGunLvl2
-  - StandartGun
-  - Minigun
-  - MinigunLvl2
-  - MinigunLvl3
-  - GrenadeGun
-  - Firegun
-  - GrenadeGunLvl2
-  - FiregunLvl2
-  - GrenadeGunLvl3
-  - FiregunLvl3
-  - Moverocket
-  - MoverocketLvl2
-  - MoverocketLvl3
-  - LaserGunLvl2
-  - LaserGun
-  - LaserGunLvl3
+  - StandartTurret
+  - MinigunTurret
+  - FiregunTurret
+  - GrenadeTurret
+  - RocketTurret
+  - LaserTurret

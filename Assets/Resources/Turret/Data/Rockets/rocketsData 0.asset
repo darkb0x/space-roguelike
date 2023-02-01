@@ -17,9 +17,11 @@ MonoBehaviour:
   TimeBtwAttack: 0.5
   Recoil: 0
   ColliderSize: 7
-  baseSprite: {fileID: 0}
-  canonSprite: {fileID: 0}
-  DroppedItems: []
+  BodySprite: {fileID: -1866517931141025007, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+  CanonSprite: {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+  DroppedItems:
+  - Item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
+    Amount: 5
   AdditionalVariables:
   - Name: RocketsCount
     VariableType: 0

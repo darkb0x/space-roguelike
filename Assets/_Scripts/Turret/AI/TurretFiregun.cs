@@ -27,7 +27,7 @@ namespace Game.Turret.AI
             distance = (float)data.GetVariable(DISTANCE);
             range = (float)data.GetVariable(RANGE);
 
-            fireParticle = Instantiate(data._bulletPrefab, turret.shotPos).GetComponent<ParticleSystem>();
+            fireParticle = Instantiate(data._bulletPrefab, turret.ShotPos).GetComponent<ParticleSystem>();
             fireParticle.gameObject.SetActive(false);
         }
 
@@ -57,7 +57,7 @@ namespace Game.Turret.AI
 
         public override void Attack()
         {
-            Transform shotPos = turret.shotPos;
+            Transform shotPos = turret.ShotPos;
             Transform turretCanon = turret.TurretCanon;
 
             RaycastHit2D[] hits_left = Physics2D.RaycastAll(shotPos.position, turretCanon.right, distance, Layers);
