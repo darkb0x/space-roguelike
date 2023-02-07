@@ -26,16 +26,21 @@ namespace Game.Enemy
         public bool IsAttacking = true;
         [Space]
         public float Damage;
-        public float AttackRadius;
         public float TimeBtwAttacks;
-        public LayerMask AttackLayers;
         [Space]
-        public float VisionRadius;
-        public LayerMask TargetLayer;
+        [SerializeField] private float VisionRadius;
+        [SerializeField] private LayerMask TargetLayer;
 
         [Header("Movement")]
         public float Speed;
-        public float NextWaypointDistance = 2f;
+        [SerializeField] private float NextWaypointDistance = 2f;
+
+        [Header("Visual")]
+        [SerializeField] private Animator Anim;
+        [SerializeField, AnimatorParam("Anim")] private string Anim_IsRunningBool;
+        [SerializeField, AnimatorParam("Anim")] private string Anim_AttackTrigger;
+        [Space]
+        [SerializeField] private SpriteRenderer Sprite;
 
         // Movement variables
         private Path path;
@@ -54,9 +59,6 @@ namespace Game.Enemy
 
         private void OnDrawGizmosSelected()
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, AttackRadius);
-
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, VisionRadius);
         }
@@ -80,6 +82,9 @@ namespace Game.Enemy
 
         public virtual void Update()
         {
+            if (!IsAttacking)
+                return;
+
             if (currentTarget == null)
             {
                 if(!targetInVision)
@@ -101,6 +106,9 @@ namespace Game.Enemy
                     currentTimeBtwAttack -= Time.deltaTime;
                 }
             }
+
+            // Animation
+            Anim.SetBool(Anim_IsRunningBool, !reachedEndOfPath);
         }
         public virtual void FixedUpdate()
         {
@@ -125,8 +133,12 @@ namespace Game.Enemy
                 reachedEndOfPath = false;
             }
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-            Vector2 force = direction * (Speed * 100f) * Time.deltaTime;
-            rb.AddForce(force, ForceMode2D.Force);
+            Vector2 force = direction * (Speed * 50f) * Time.deltaTime;
+
+            rb.AddForce(force);
+            Sprite.flipX = direction.x < 0.2f;
+            //Debug.Log(direction.x);
+
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
             if (distance < NextWaypointDistance)
             {
@@ -154,6 +166,7 @@ namespace Game.Enemy
         protected virtual void Attack()
         {
             currentTarget.Hurt(Damage);
+            Anim.SetTrigger(Anim_AttackTrigger);
         }
 
         protected virtual void CheckTargetsInVision()
@@ -168,6 +181,17 @@ namespace Game.Enemy
                     {
                         currentTarget = target;
                         break;
+                    }
+                    else
+                    {
+                        float fromEnemyTo_CurrentTarget = Vector2.Distance(myTransform.position, currentTarget.transform.position);
+                        float fromEnemyTo_Target = Vector2.Distance(myTransform.position, target.transform.position);
+
+                        if(fromEnemyTo_Target < fromEnemyTo_CurrentTarget)
+                        {
+                            currentTarget = target;
+                            break;
+                        }
                     }
                 }
             }

@@ -10,12 +10,13 @@ namespace Game.CraftSystem
     using CraftSystem.Editor.ScriptableObjects;
 
     [RequireComponent(typeof(PlayerInteractObject))]
-    [RequireComponent(typeof(Enemy.EnemyTarget))]
     public class Workbanch : MonoBehaviour, IDamagable
     {
         CSManager craftSystem;
         PlayerController player;
         Transform myTransform;
+
+        [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
         private void Start()
         {
@@ -23,7 +24,7 @@ namespace Game.CraftSystem
             player = FindObjectOfType<PlayerController>();
             myTransform = transform;
 
-            GetComponent<Enemy.EnemyTarget>().Initialize(this);
+            EnemyTarget.Initialize(this);
         }
 
         public void Craft(Craft obj)
@@ -48,12 +49,8 @@ namespace Game.CraftSystem
             }
         }
 
-        public void Damage(float dmg)
-        {
-            Debug.Log(gameObject.name + " damaged!");
-        }
-
-        public void Die()
+        // IDamagable
+        void IDamagable.Die()
         {
             Destroy(gameObject);
         }

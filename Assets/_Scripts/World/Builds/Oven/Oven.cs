@@ -10,7 +10,6 @@ namespace Game.Oven
     using Manager;
 
     [RequireComponent(typeof(PlayerInteractObject))]
-    [RequireComponent(typeof(Enemy.EnemyTarget))]
     public class Oven : MonoBehaviour, IDamagable
     {
         OvenManager manager;
@@ -24,6 +23,7 @@ namespace Game.Oven
 
         [Header("Variables")]
         [SerializeField] private float remeltingTime = 2f;
+        [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
         OvenCraftList.craft currentItem;
         float currentTime;
@@ -33,7 +33,7 @@ namespace Game.Oven
         {
             manager = FindObjectOfType<OvenManager>();
 
-            GetComponent<Enemy.EnemyTarget>().Initialize(this);
+            EnemyTarget.Initialize(this);
 
             DisableProgressBar();
         }
@@ -102,12 +102,8 @@ namespace Game.Oven
             progressBarObject.SetActive(false);
         }
 
-        public void Damage(float dmg)
-        {
-            Debug.Log(gameObject.name + " damaged!");
-        }
-
-        public void Die()
+        // IDamagable
+        void IDamagable.Die()
         {
             Destroy(gameObject);
         }

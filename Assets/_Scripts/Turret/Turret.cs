@@ -218,19 +218,16 @@ namespace Game.Turret
         #endregion
 
         #region Collision triggers
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.tag == EnemyTag)
-            {
-                if (!targets.Contains(collision.gameObject))
-                    targets.Add(collision.gameObject);
-            }
-        }
         private void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.tag == PlayerTag)
             {
                 playerInZone = true;
+            }
+            if (collision.tag == EnemyTag)
+            {
+                if (!targets.Contains(collision.gameObject))
+                    targets.Add(collision.gameObject);
             }
         }
         private void OnTriggerExit2D(Collider2D collision)

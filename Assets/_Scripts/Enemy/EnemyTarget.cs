@@ -4,17 +4,21 @@ using UnityEngine;
 
 public interface IDamagable
 {
-    public void Damage(float dmg);
-    public void Die();
+    public void Damage(float dmg, Game.Enemy.EnemyTarget enemyTarget)
+    {
+        if (enemyTarget.Health <= 0)
+        {
+            Die();
+        }
+    }
+    protected abstract void Die();
 }
 
 namespace Game.Enemy
 {
     public enum EnemyTargetPriority
     {
-        Turret = 0, 
-        Drill = 1,
-        Player = 2
+        None = 0
     }
 
     public class EnemyTarget : MonoBehaviour
@@ -34,10 +38,7 @@ namespace Game.Enemy
         {
             Health -= dmg;
 
-            damagableObject.Damage(dmg);
-
-            if (Health <= 0)
-                damagableObject.Die();
+            damagableObject.Damage(dmg, this);
         }
     }
 }
