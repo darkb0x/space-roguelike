@@ -18,6 +18,8 @@ namespace Game.Turret.AI
             if (!turret.enemyInZone)
                 return;
 
+            turret.currentEnemy = turret.GetNearestEnemy();
+
             if (turret.currentTimeBtwAttacks <= 0)
             {
                 Attack();

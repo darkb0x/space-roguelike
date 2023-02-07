@@ -39,8 +39,23 @@ namespace Game.Turret.AI
                 Reload();
             }
 
-            if (!turret.isPicked)
-                base.Run();
+            if (!turret.enemyInZone)
+                return;
+            else
+            {
+                if (turret.currentEnemy == null)
+                    turret.currentEnemy = turret.GetNearestEnemy();
+            }
+
+            if (turret.currentTimeBtwAttacks <= 0)
+            {
+                Attack();
+                turret.currentTimeBtwAttacks = data._timeBtwAttack;
+            }
+            else
+            {
+                turret.currentTimeBtwAttacks -= Time.deltaTime;
+            }
         }
 
         public override void Attack()
@@ -51,6 +66,8 @@ namespace Game.Turret.AI
             Rocket rocket = Instantiate(data._bulletPrefab, turret.ShotPos.position, turret.ShotPos.rotation).GetComponent<Rocket>();
             rocket.Init(data._damage, turret.currentEnemy);
             currentRocketsCount--;
+
+            turret.currentEnemy = turret.targets[Random.Range(0, turret.targets.Count - 1)].transform;
         }
 
         private void Reload()

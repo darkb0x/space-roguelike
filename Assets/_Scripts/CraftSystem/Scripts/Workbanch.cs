@@ -10,7 +10,8 @@ namespace Game.CraftSystem
     using CraftSystem.Editor.ScriptableObjects;
 
     [RequireComponent(typeof(PlayerInteractObject))]
-    public class Workbanch : MonoBehaviour
+    [RequireComponent(typeof(Enemy.EnemyTarget))]
+    public class Workbanch : MonoBehaviour, IDamagable
     {
         CSManager craftSystem;
         PlayerController player;
@@ -21,6 +22,8 @@ namespace Game.CraftSystem
             craftSystem = FindObjectOfType<CSManager>();
             player = FindObjectOfType<PlayerController>();
             myTransform = transform;
+
+            GetComponent<Enemy.EnemyTarget>().Initialize(this);
         }
 
         public void Craft(Craft obj)
@@ -43,6 +46,16 @@ namespace Game.CraftSystem
                 player.StopPlayerMove(transform.position);
                 craftSystem.OpenMenu(this);
             }
+        }
+
+        public void Damage(float dmg)
+        {
+            Debug.Log(gameObject.name + " damaged!");
+        }
+
+        public void Die()
+        {
+            Destroy(gameObject);
         }
     }
 }

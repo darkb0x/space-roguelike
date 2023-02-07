@@ -10,7 +10,8 @@ namespace Game.Oven
     using Manager;
 
     [RequireComponent(typeof(PlayerInteractObject))]
-    public class Oven : MonoBehaviour
+    [RequireComponent(typeof(Enemy.EnemyTarget))]
+    public class Oven : MonoBehaviour, IDamagable
     {
         OvenManager manager;
 
@@ -31,6 +32,8 @@ namespace Game.Oven
         private void Start()
         {
             manager = FindObjectOfType<OvenManager>();
+
+            GetComponent<Enemy.EnemyTarget>().Initialize(this);
 
             DisableProgressBar();
         }
@@ -97,6 +100,16 @@ namespace Game.Oven
         private void DisableProgressBar()
         {
             progressBarObject.SetActive(false);
+        }
+
+        public void Damage(float dmg)
+        {
+            Debug.Log(gameObject.name + " damaged!");
+        }
+
+        public void Die()
+        {
+            Destroy(gameObject);
         }
     }
 }

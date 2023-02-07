@@ -209,10 +209,6 @@ namespace Game.Turret
             #endregion
 
             enemyInZone = (targets.Count > 0);
-            if(enemyInZone)
-            {
-                currentEnemy = GetNearestEnemy();
-            }
 
             if(playerInZone)
             {

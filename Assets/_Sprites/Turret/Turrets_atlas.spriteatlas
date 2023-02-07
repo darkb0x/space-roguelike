@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Turrets_atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 0c9bdfd7c1955ed4cbf1d6e3735dcae8, type: 3}
+    - {fileID: 2800000, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+    - {fileID: 2800000, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+    - {fileID: 2800000, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+    - {fileID: 2800000, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+    - {fileID: 2800000, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+    - {fileID: 2800000, guid: 49fe882ddfff8c6489a937b8658b997e, type: 3}
+    - {fileID: 2800000, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
+    - {fileID: 2800000, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+    - {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+    - {fileID: 7337600296622790751, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+    - {fileID: 6012115335786710259, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+    - {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+    - {fileID: 7337600296622790751, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+    - {fileID: 6012115335786710259, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+    - {fileID: -1895180281693119143, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+    - {fileID: 7355283632040961757, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+    - {fileID: -7066744340616056132, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+    - {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+    - {fileID: -3023398558421556299, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+    - {fileID: -1234075964109648898, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+    - {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+    - {fileID: -5684688948141070065, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+    - {fileID: 8710807232114406779, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+    - {fileID: 6504606697198498462, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
+    - {fileID: -5775172910849150067, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
+    - {fileID: 2007721827993941286, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
+    - {fileID: -1866517931141025007, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+    - {fileID: 4583186294838536085, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+    - {fileID: -2704523744288723953, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+    totalSpriteSurfaceArea: 2945
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -7066744340616056132, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+  - {fileID: 7355283632040961757, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+  - {fileID: -1895180281693119143, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+  - {fileID: 6012115335786710259, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+  - {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+  - {fileID: 7337600296622790751, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+  - {fileID: -3023398558421556299, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+  - {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+  - {fileID: -1234075964109648898, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+  - {fileID: -5684688948141070065, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+  - {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+  - {fileID: 8710807232114406779, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+  - {fileID: 6012115335786710259, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+  - {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+  - {fileID: 7337600296622790751, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+  - {fileID: -2704523744288723953, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+  - {fileID: -1866517931141025007, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+  - {fileID: 4583186294838536085, guid: 6915db15ad513f3429c64350db47417e, type: 3}
+  - {fileID: 21300000, guid: 0c9bdfd7c1955ed4cbf1d6e3735dcae8, type: 3}
+  - {fileID: 21300000, guid: 49fe882ddfff8c6489a937b8658b997e, type: 3}
+  - {fileID: -5775172910849150067, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
+  - {fileID: 6504606697198498462, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
+  - {fileID: 2007721827993941286, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - lasergun_turrets_2
+  - lasergun_turrets_1
+  - lasergun_turrets_0
+  - grenade_turrets_2
+  - grenade_turrets_0
+  - grenade_turrets_1
+  - minigun_turrets_1
+  - minigun_turrets_0
+  - minigun_turrets_2
+  - moverocket_turrets_1
+  - moverocket_turrets_0
+  - moverocket_turrets_2
+  - firegun_turrets_2
+  - firegun_turrets_0
+  - firegun_turrets_1
+  - turret_legs_2
+  - turret_legs_0
+  - turret_legs_1
+  - barrelgun
+  - rocket
+  - standart_turrets_1
+  - standart_turrets_0
+  - standart_turrets_2
+  m_RenderDataMap: {}
+  m_Tag: Turrets_atlas
+  m_IsVariant: 0

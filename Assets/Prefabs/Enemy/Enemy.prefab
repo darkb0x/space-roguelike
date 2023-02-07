@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6017197773101789543}
-  - component: {fileID: 6017197773101789540}
+  - component: {fileID: 1919633350629462414}
   - component: {fileID: 6017197773101789541}
-  - component: {fileID: 6017197773101789546}
-  - component: {fileID: 1989248852394385134}
+  - component: {fileID: 8740799799362526667}
+  - component: {fileID: 1454632451978491089}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -36,7 +36,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6017197773101789540
+--- !u!114 &1919633350629462414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,15 +45,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 6017197773101789547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abda63c8f06bbe4438ccdfd4262390ea, type: 3}
+  m_Script: {fileID: 11500000, guid: ab4eb13496689624795fd78500f773db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 30
-  hp: 0
-  protection: 1
-  hp_protection: 5
-  hpBar_object: {fileID: 6017197774826470315}
-  hpBar_image: {fileID: 6017197774923744358}
+  MaxHp: 20
+  currentHp: 0
+  currentProtection: 0
+  Protection: 5
+  HealthBarObject: {fileID: 6017197774826470315}
+  HealthBarImage: {fileID: 6017197774923744358}
+  IsAttacking: 1
+  Damage: 2
+  AttackRadius: 2
+  TargetLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  TimeBtwAttacks: 1
+  Speed: 5
+  NextWaypointDistance: 1.3
 --- !u!61 &6017197773101789541
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -80,7 +89,35 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &6017197773101789546
+--- !u!114 &8740799799362526667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6017197773101789547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!50 &1454632451978491089
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -93,33 +130,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!95 &1989248852394385134
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6017197773101789547}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6d922a97b5e422f43bbf79bc04d313bf, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Constraints: 4
 --- !u!1 &6017197773652898315
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +427,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.559
+  m_FillAmount: 0.5
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 5229090850673107012}
   - component: {fileID: 6260234444251507125}
   - component: {fileID: 7505630652442847889}
+  - component: {fileID: 7491082862392374977}
   - component: {fileID: 8881952376237271144}
   m_Layer: 0
   m_Name: Workbanch
@@ -186,7 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987a1619aa04590478a593d744db1641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 2.7
 --- !u!114 &7505630652442847889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +216,20 @@ MonoBehaviour:
         m_CallState: 2
   interactKey: 101
   playerTag: Player
+  playerInZone: 0
+--- !u!114 &7491082862392374977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5229090850673107013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c00f67f7bbafeb46929846092497ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Priority: 0
 --- !u!58 &8881952376237271144
 CircleCollider2D:
   m_ObjectHideFlags: 0
