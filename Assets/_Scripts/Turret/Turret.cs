@@ -11,7 +11,7 @@ namespace Game.Turret
     using Bullets;
     using AI;
 
-    public class Turret : MonoBehaviour
+    public class Turret : MonoBehaviour, IDamagable
     {
         [System.Serializable]
         public struct Item
@@ -36,6 +36,10 @@ namespace Game.Turret
         [Space]
         public Transform TurretCanon;
         public Transform ShotPos;
+
+        [Header("Turret survivability")]
+        [ReadOnly] public float currentHealth;
+        [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
         [Header("Enemy detecion")]
         [Tag] public string EnemyTag;
@@ -119,6 +123,7 @@ namespace Game.Turret
             transform = GetComponent<Transform>();
 
             currentBreakProgress = breakTime;
+            EnemyTarget.Initialize(this);
 
             breakProgress_gameObj.SetActive(false);
         }
@@ -145,6 +150,7 @@ namespace Game.Turret
 
             currentTimeBtwAttacks = Data._timeBtwAttack;
             EnemyDetectionCollider.radius = Data._colliderSize;
+            currentHealth = Data._health;
 
             isPicked = true;
             EnemyDetectionCollider.enabled = false;
@@ -346,7 +352,34 @@ namespace Game.Turret
                 PlayerInventory.instance.GiveItem(item.Item, item.Amount);
             }
 
+            EnemySpawner.instance.RemoveTarget(EnemyTarget);
             Destroy(gameObject);
+        }
+        #endregion
+
+        #region Health
+        public void TakeDamage(float value)
+        {
+            currentHealth -= value;
+
+            if(currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+        private void Die()
+        {
+            Destroy(gameObject);
+        }
+
+        void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
+        {
+            TakeDamage(dmg);
+        }
+        void IDamagable.Die()
+        {
+            EnemySpawner.instance.RemoveTarget(EnemyTarget);
+            Die();
         }
         #endregion
     }

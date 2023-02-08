@@ -1,107 +1,14 @@
 {
     "craftPaths": [
-        "CraftSystem/Crafts/TechTree/Global/Crafts/StandartGun",
-        "CraftSystem/Crafts/DrillTree/Nodes/M2",
         "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret",
-        "CraftSystem/Crafts/TurretTree/Nodes/MinigunTurret",
-        "CraftSystem/Crafts/TurretTree/Nodes/FiregunTurret",
-        "CraftSystem/Crafts/TurretTree/Nodes/LaserTurret",
-        "CraftSystem/Crafts/TurretTree/Nodes/GrenadeTurret",
-        "CraftSystem/Crafts/TurretTree/Nodes/RocketTurret"
+        "CraftSystem/Crafts/DrillTree/Nodes/M2"
     ],
     "crafts": [
         {
-            "instanceID": 0
+            "instanceID": 26040
         },
         {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 21116
-        },
-        {
-            "instanceID": 21130
-        },
-        {
-            "instanceID": 41484
-        },
-        {
-            "instanceID": 41684
-        },
-        {
-            "instanceID": 41486
-        },
-        {
-            "instanceID": 41492
-        },
-        {
-            "instanceID": 41494
-        },
-        {
-            "instanceID": 41502
-        },
-        {
-            "instanceID": 41498
+            "instanceID": 26054
         }
     ]
 }

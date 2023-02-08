@@ -7,27 +7,18 @@ namespace Game.CraftSystem
     using Player;
 
     [RequireComponent(typeof(PlayerInteractObject))]
-    public class LearnWorkbanch : MonoBehaviour, IDamagable
+    public class LearnWorkbanch : MonoBehaviour
     {
         LearnCSManager learnSystem;
-
-        [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
         private void Start()
         {
             learnSystem = FindObjectOfType<LearnCSManager>();
-
-            EnemyTarget.Initialize(this);
         }
 
         public void OpenMenu()
         {
             learnSystem.OpenMenu();
-        }
-
-        void IDamagable.Die()
-        {
-            Destroy(gameObject);
         }
     }
 }

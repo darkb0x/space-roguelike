@@ -36,19 +36,15 @@ namespace Game.Enemy
         [SerializeField] private float NextWaypointDistance = 2f;
 
         [Header("Visual")]
-        [SerializeField] private Animator Anim;
-        [SerializeField, AnimatorParam("Anim")] private string Anim_IsRunningBool;
-        [SerializeField, AnimatorParam("Anim")] private string Anim_AttackTrigger;
-        [Space]
-        [SerializeField] private SpriteRenderer Sprite;
+        public EnemyVisual EnemyVisual;
 
         // Movement variables
         private Path path;
         private int currentWaypoint = 0;
-        protected bool reachedEndOfPath = false;
+        public bool reachedEndOfPath { get; protected set; }
 
         // Attack variables
-        protected EnemyTarget currentTarget;
+        public EnemyTarget currentTarget { get; protected set; }
         protected float currentTimeBtwAttack;
         private bool targetInVision = false;
 
@@ -99,20 +95,17 @@ namespace Game.Enemy
                 {
                     currentTimeBtwAttack = TimeBtwAttacks;
 
-                    Attack();
+                    StartAttacking();
                 }
                 else
                 {
                     currentTimeBtwAttack -= Time.deltaTime;
                 }
             }
-
-            // Animation
-            Anim.SetBool(Anim_IsRunningBool, !reachedEndOfPath);
         }
         public virtual void FixedUpdate()
         {
-            if (IsAttacking)
+            if (IsAttacking && !reachedEndOfPath)
                 Movement();
         }
 
@@ -121,6 +114,7 @@ namespace Game.Enemy
         {
             if (path == null)
             {
+                reachedEndOfPath = true;
                 return;
             }
             if (currentWaypoint >= path.vectorPath.Count)
@@ -132,12 +126,16 @@ namespace Game.Enemy
             {
                 reachedEndOfPath = false;
             }
+
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
             Vector2 force = direction * (Speed * 50f) * Time.deltaTime;
 
             rb.AddForce(force);
-            Sprite.flipX = direction.x < 0.2f;
-            //Debug.Log(direction.x);
+
+            if(EnemyVisual)
+                EnemyVisual.FlipSprite(rb.velocity.x < 0.2f);
+            else
+                Debug.LogWarning(gameObject.name + "/EnemyAI.cs/EnemyVisual is null!");
 
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
             if (distance < NextWaypointDistance)
@@ -149,6 +147,7 @@ namespace Game.Enemy
         {
             if (seecker.IsDone())
             {
+                reachedEndOfPath = false;
                 seecker.StartPath(rb.position, currentTarget.transform.position, OnPathComlete);
             }
         }
@@ -163,10 +162,13 @@ namespace Game.Enemy
         #endregion
 
         #region Attack
-        protected virtual void Attack()
+        private void StartAttacking()
+        {
+            EnemyVisual.StartAttacking();
+        }
+        public virtual void Attack()
         {
             currentTarget.Hurt(Damage);
-            Anim.SetTrigger(Anim_AttackTrigger);
         }
 
         protected virtual void CheckTargetsInVision()
@@ -199,7 +201,11 @@ namespace Game.Enemy
         }
         protected virtual EnemyTarget GetRandomTarget()
         {
-            EnemyTarget[] targets = FindObjectsOfType<EnemyTarget>();
+            EnemyTarget[] targets = EnemySpawner.instance.GetTargetList().ToArray();
+
+            if (targets.Length <= 0)
+                return null;
+
             return targets[Random.Range(0, targets.Length - 1)];
         }
         #endregion

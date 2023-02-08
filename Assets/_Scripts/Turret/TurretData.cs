@@ -50,12 +50,16 @@ namespace Game.Turret
             }
         }
 
+        [Header("Fire power")]
         [SerializeField] private GameObject BulletPrefab;
         [SerializeField] private float Damage = 1;
         [SerializeField] private float TimeBtwAttack = 0.3f;
         [SerializeField] private float Recoil = 0f;
         [Space]
         [SerializeField, Tooltip("The size of zone which detect enemyes")] private float ColliderSize = 7f;
+
+        [Header("Survivability")]
+        [SerializeField] private float Health = 15f;
 
         [Header("BODY/LEGS")]
         [SerializeField] private Sprite BodySprite;
@@ -71,6 +75,7 @@ namespace Game.Turret
         public float _timeBtwAttack => TimeBtwAttack;
         public float _recoil => Recoil;
         public float _colliderSize => ColliderSize;
+        public float _health => Health;
         public Sprite _bodySprite => BodySprite;
         public Sprite _canonSprite => CanonSprite;
         public List<DroppedItem> _droppedItems => DroppedItems;

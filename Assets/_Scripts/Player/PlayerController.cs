@@ -11,7 +11,7 @@ namespace Game.Player
     using Inventory;
     using CraftSystem;
 
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IDamagable
     {
         [Header("Oxygen")]
         [SerializeField, ProgressBar("Oxygen", "maxOxygen", EColor.Blue)] private float oxygen = 50;
@@ -40,6 +40,7 @@ namespace Game.Player
         [Header("components")]
         public PlayerPickObjects pickObjSystem;
         [HideInInspector] public PlayerInventory inventory;
+        [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
         Vector2 moveInput;
 
@@ -55,6 +56,7 @@ namespace Game.Player
 
             inventory = FindObjectOfType<PlayerInventory>();
             cam = Camera.main;
+            EnemyTarget.Initialize(this);
 
             health = maxHealth;
             oxygen = maxOxygen;
@@ -74,13 +76,6 @@ namespace Game.Player
                     if (!selectedDrone.isPicked) selectedDrone.Init();
                 }
             }
-            /*
-            if(Input.GetKeyDown(KeyCode.R))
-            {
-                LoadCraftUtility.loadCraftUtility.ClearUnlockedCrafts();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-            */
 
             //animation
             if(moveInput.magnitude > 0)
@@ -150,8 +145,18 @@ namespace Game.Player
         }
         private void Die()
         {
-            Debug.Log("Player is die");
-            return;
+            LoadCraftUtility.loadCraftUtility.ClearUnlockedCrafts();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
+        {
+            TakeDamage(dmg);
+        }
+        void IDamagable.Die()
+        {
+            EnemySpawner.instance.RemoveTarget(EnemyTarget);
+            Die();
         }
         #endregion
 

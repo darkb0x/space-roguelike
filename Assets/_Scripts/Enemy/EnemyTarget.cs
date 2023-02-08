@@ -2,43 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamagable
+namespace Game
 {
-    public void Damage(float dmg, Game.Enemy.EnemyTarget enemyTarget)
+    public interface IDamagable
     {
-        if (enemyTarget.Health <= 0)
+        public void Damage(float dmg, Enemy.EnemyTarget enemyTarget)
         {
-            Die();
+            if(enemyTarget.IsDamaging)
+            {
+                enemyTarget.Health -= dmg;
+
+                if (enemyTarget.Health <= 0)
+                {
+                    Die();
+                }
+            }
         }
+        public void Die();
     }
-    protected abstract void Die();
 }
 
 namespace Game.Enemy
 {
     public enum EnemyTargetPriority
     {
-        None = 0
+        Player = 0,
+        Turret = 1,
+        Drill = 2
     }
 
     public class EnemyTarget : MonoBehaviour
     {
         public EnemyTargetPriority Priority;
         [Space]
-        public float Health;
+        public bool IsDamaging = true;
+        [NaughtyAttributes.EnableIf("IsDamaging")] public float Health;
 
         private IDamagable damagableObject;
 
         public void Initialize(IDamagable obj)
         {
             damagableObject = obj;
+            EnemySpawner.instance.AddTarget(this);
         }
 
         public void Hurt(float dmg)
         {
-            Health -= dmg;
-
-            damagableObject.Damage(dmg, this);
+            if (damagableObject != null)
+                damagableObject.Damage(dmg, this);
+            else
+                Debug.LogWarning($"{transform.parent.name} > {gameObject.name}/EnemyTarget.cs/damagableObject is null (Maybe you didn't initialized it.)");
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Game.Drill
     using Player;
     using Player.Inventory;
 
-    public abstract class Drill : MonoBehaviour
+    public abstract class Drill : MonoBehaviour, IDamagable
     {
         [System.Serializable]
         public struct dropped_item
@@ -29,6 +29,7 @@ namespace Game.Drill
         [HideInInspector] public Transform oreTransform;
         [HideInInspector] public PlayerController player;
         [HideInInspector] public bool playerInZone = false;
+        protected float currentHealth;
 
         [Header("Variables")]
         public int damage;
@@ -62,6 +63,10 @@ namespace Game.Drill
         [Space]
         public List<dropped_item> droppedItemsAfterBroke = new List<dropped_item>();
 
+        [Header("Health")]
+        public float MaxHealth;
+        [SerializeField] private Enemy.EnemyTarget EnemyTarget;
+
         // renderrer
         [Header("Animation")]
         public Animator anim;
@@ -78,10 +83,12 @@ namespace Game.Drill
             myTransform = transform;
             oreDetectColl_transform = oreDetectColl.transform;
             playerTransform = player.transform;
+            EnemyTarget.Initialize(this);
 
             currentTimeBtwMining = timeBtwMining;
             health = maxHealth;
             currentBreakProgress = breakTime;
+            currentHealth = MaxHealth;
 
             breakProgress_gameObj.SetActive(false);
 
@@ -211,11 +218,6 @@ namespace Game.Drill
         #endregion
 
         #region Health
-        [Button]
-        private void TakeDamage1()
-        {
-            TakeDamage(1);
-        }
 
         public virtual void TakeDamage(float value)
         {
@@ -230,6 +232,17 @@ namespace Game.Drill
         public virtual void Die()
         {
             MiningEnded();
+        }
+
+        void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
+        {
+            TakeDamage(dmg);
+        }
+
+        void IDamagable.Die()
+        {
+            EnemySpawner.instance.RemoveTarget(EnemyTarget);
+            Die();
         }
         #endregion
 
@@ -381,6 +394,7 @@ namespace Game.Drill
                 PlayerInventory.instance.GiveItem(item.item, item.amount);
             }
 
+            EnemySpawner.instance.RemoveTarget(EnemyTarget);
             Destroy(gameObject);
         }
         #endregion

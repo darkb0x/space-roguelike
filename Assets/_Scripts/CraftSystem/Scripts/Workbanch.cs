@@ -10,21 +10,17 @@ namespace Game.CraftSystem
     using CraftSystem.Editor.ScriptableObjects;
 
     [RequireComponent(typeof(PlayerInteractObject))]
-    public class Workbanch : MonoBehaviour, IDamagable
+    public class Workbanch : MonoBehaviour
     {
         CSManager craftSystem;
         PlayerController player;
         Transform myTransform;
-
-        [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
         private void Start()
         {
             craftSystem = FindObjectOfType<CSManager>();
             player = FindObjectOfType<PlayerController>();
             myTransform = transform;
-
-            EnemyTarget.Initialize(this);
         }
 
         public void Craft(Craft obj)
@@ -47,12 +43,6 @@ namespace Game.CraftSystem
                 player.StopPlayerMove(transform.position);
                 craftSystem.OpenMenu(this);
             }
-        }
-
-        // IDamagable
-        void IDamagable.Die()
-        {
-            Destroy(gameObject);
         }
     }
 }

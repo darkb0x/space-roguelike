@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5524210314995782484}
   - component: {fileID: 6555739109386732369}
   - component: {fileID: 2199427768211752707}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: EnemyTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority: 0
+  IsDamaging: 0
   Health: 10
 --- !u!58 &2199427768211752707
 CircleCollider2D:
