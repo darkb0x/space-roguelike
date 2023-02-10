@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CraftName>k__BackingField: LaserTurret
   <Choices>k__BackingField: []
-  <Object>k__BackingField: {fileID: 11400000, guid: 84ef48a303abd4540849cf3cc987dab5, type: 2}
+  <ObjectPrefab>k__BackingField: {fileID: 8243757421391822110, guid: bc24ed00d7c3e6a45abd489650a8012e, type: 3}
   <IconSprite>k__BackingField: {fileID: -1895180281693119143, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
   <CraftCost>k__BackingField: 250
   <ObjectCraft>k__BackingField:

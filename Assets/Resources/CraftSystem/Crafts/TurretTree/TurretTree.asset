@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: TurretTree
   <Nodes>k__BackingField:
-  - {fileID: 11400000, guid: 749f6d43a37883f44b67add6aae5c8c7, type: 2}
-  - {fileID: 11400000, guid: fba923f76a548c849a377d1eac0aa43c, type: 2}
   - {fileID: 11400000, guid: 6de25e8bbb63fb34a913658b987b2a67, type: 2}
   - {fileID: 11400000, guid: ef82c1b5866cb264e982d5efad7e9990, type: 2}
-  - {fileID: 11400000, guid: 865192890c74d6e4b9e89c3c6e4a8956, type: 2}
   - {fileID: 11400000, guid: 9ba03c007e0791844ad15a9b5553847b, type: 2}
+  - {fileID: 11400000, guid: 749f6d43a37883f44b67add6aae5c8c7, type: 2}
+  - {fileID: 11400000, guid: fba923f76a548c849a377d1eac0aa43c, type: 2}
+  - {fileID: 11400000, guid: 865192890c74d6e4b9e89c3c6e4a8956, type: 2}

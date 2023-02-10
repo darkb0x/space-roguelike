@@ -15,7 +15,7 @@ MonoBehaviour:
   <CraftName>k__BackingField: StandartTurret
   <Choices>k__BackingField:
   - <NextCraft>k__BackingField: {fileID: 11400000, guid: fba923f76a548c849a377d1eac0aa43c, type: 2}
-  <Object>k__BackingField: {fileID: 11400000, guid: b51eda8199d6f7d4bba67a59ca6cdf0a, type: 2}
+  <ObjectPrefab>k__BackingField: {fileID: 1015198258546676979, guid: ddf97bd134cc8294fbd2f50a86b1d53d, type: 3}
   <IconSprite>k__BackingField: {fileID: 6504606697198498462, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
   <CraftCost>k__BackingField: 100
   <ObjectCraft>k__BackingField:

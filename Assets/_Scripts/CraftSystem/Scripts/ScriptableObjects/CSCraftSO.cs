@@ -10,7 +10,7 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
     {
         [field: SerializeField] public string CraftName { get; set; }
         [field: SerializeField] public List<CSCraftChoiceData> Choices { get; set; }
-        [field: SerializeField] public Craft Object { get; set; }
+        [field: SerializeField] public GameObject ObjectPrefab { get; set; }
         [field: SerializeField] public Sprite IconSprite { get; set; }
         [field: SerializeField] public int CraftCost { get; set; }
         [field: SerializeField] public List<ItemCraft> ObjectCraft { get; set; }
@@ -18,11 +18,11 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
         [field: SerializeField] public Vector2 Position { get; set; }
         [field: SerializeField] public string AssetPath { get; set; }
 
-        public void Initialize(string craftName, List<CSCraftChoiceData> choices, Craft obj, Sprite iconSprite, int craftCost, List<ItemCraft> objectCraft, bool isStartingDialogue, Vector2 pos, string path)
+        public void Initialize(string craftName, List<CSCraftChoiceData> choices, GameObject obj, Sprite iconSprite, int craftCost, List<ItemCraft> objectCraft, bool isStartingDialogue, Vector2 pos, string path)
         {
             CraftName = craftName;
             Choices = choices;
-            Object = obj;
+            ObjectPrefab = obj;
             IconSprite = iconSprite;
             CraftCost = craftCost;
             ObjectCraft = objectCraft;

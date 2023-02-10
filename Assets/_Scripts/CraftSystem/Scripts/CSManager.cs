@@ -78,7 +78,7 @@ namespace Game.CraftSystem
                 PlayerInventory.instance.TakeItem(item.item, item.amount);
             }
 
-            currentWorkbanch.Craft(craft.Object);
+            currentWorkbanch.Craft(craft.ObjectPrefab);
 
             CloseMenu();
         }

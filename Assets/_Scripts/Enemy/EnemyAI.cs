@@ -148,6 +148,9 @@ namespace Game.Enemy
             if (seecker.IsDone())
             {
                 reachedEndOfPath = false;
+
+                if (currentTarget == null)
+                    return;
                 seecker.StartPath(rb.position, currentTarget.transform.position, OnPathComlete);
             }
         }
@@ -179,6 +182,13 @@ namespace Game.Enemy
                 if(enemyTarget.TryGetComponent<EnemyTarget>(out EnemyTarget target))
                 {
                     targetInVision = true;
+
+                    if (currentTarget == null)
+                    {
+                        currentTarget = target;
+                        continue;
+                    }
+
                     if ((int)target.Priority > (int)currentTarget.Priority)
                     {
                         currentTarget = target;

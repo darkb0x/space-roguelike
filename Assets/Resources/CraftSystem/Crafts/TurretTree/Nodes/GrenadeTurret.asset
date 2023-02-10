@@ -15,7 +15,7 @@ MonoBehaviour:
   <CraftName>k__BackingField: GrenadeTurret
   <Choices>k__BackingField:
   - <NextCraft>k__BackingField: {fileID: 11400000, guid: 865192890c74d6e4b9e89c3c6e4a8956, type: 2}
-  <Object>k__BackingField: {fileID: 11400000, guid: 9245abc976d03bf42bca14b6717e36f8, type: 2}
+  <ObjectPrefab>k__BackingField: {fileID: 2867941612549407698, guid: 9c0bf4c13a555f04fb680894fdcbcd0e, type: 3}
   <IconSprite>k__BackingField: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
   <CraftCost>k__BackingField: 200
   <ObjectCraft>k__BackingField:

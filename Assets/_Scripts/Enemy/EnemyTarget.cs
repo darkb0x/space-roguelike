@@ -37,13 +37,16 @@ namespace Game.Enemy
         [Space]
         public bool IsDamaging = true;
         [NaughtyAttributes.EnableIf("IsDamaging")] public float Health;
+        [SerializeField] private bool AddObjectToListAtStart = true;
 
         private IDamagable damagableObject;
 
         public void Initialize(IDamagable obj)
         {
             damagableObject = obj;
-            EnemySpawner.instance.AddTarget(this);
+
+            if(AddObjectToListAtStart)
+                EnemySpawner.instance.AddTarget(this);
         }
 
         public void Hurt(float dmg)

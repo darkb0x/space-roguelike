@@ -20,7 +20,7 @@ namespace Game.CraftSystem.Editor.Elements
         public string ID { get; set; }
         public string CraftName { get; set; }
         public List<CSChoiceSaveData> Choices { get; set; }
-        public Craft Object { get; set; }
+        public GameObject Object { get; set; }
         public Sprite Icon { get; set; }
         public int Cost { get; set; }
         public List<ItemCraft> Craft { get; set; }
@@ -135,9 +135,9 @@ namespace Game.CraftSystem.Editor.Elements
             customDataContainer.Add(costField);
 
             // Object
-            ObjectField turretObjectField = CSElementUtility.CreateObjectField("Object", typeof(Craft), (callback) =>
+            ObjectField turretObjectField = CSElementUtility.CreateObjectField("Object", typeof(GameObject), (callback) =>
             {
-                Object = (Craft) callback.newValue;
+                Object = (GameObject) callback.newValue;
             });
             turretObjectField.value = Object;
 

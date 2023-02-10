@@ -23,14 +23,13 @@ namespace Game.CraftSystem
             myTransform = transform;
         }
 
-        public void Craft(Craft obj)
+        public void Craft(GameObject objPrefab)
         {
-            GameObject craftedObj = Instantiate(obj._prefab, myTransform.position, Quaternion.identity);
+            GameObject craftedObj = Instantiate(objPrefab, myTransform.position, Quaternion.identity);
 
-            if(obj is CraftTurret craftData_turret)
+            if(craftedObj.TryGetComponent<Turret>(out Turret turret))
             {
-                Turret turret = craftedObj.GetComponent<Turret>();
-                turret.Initialize(player, craftData_turret._turretAI, craftData_turret._turretData);
+                turret.Initialize(player);
             }
 
             player.ContinuePlayerMove();

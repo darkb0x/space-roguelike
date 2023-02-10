@@ -9,148 +9,93 @@ namespace Game.Turret
     using Player;
     using Player.Inventory;
     using Bullets;
-    using AI;
 
-    public class Turret : MonoBehaviour, IDamagable
+    public abstract class Turret : MonoBehaviour, IDamagable
     {
         [System.Serializable]
-        public struct Item
+        public struct DroppedItem
         {
-            public InventoryItem item;
-            public int amount;
+            public InventoryItem Item;
+            public int Amount;
         }
         private bool isFacingRight = true;
+        protected bool playerInZone { get; private set; }
+        protected bool enemyInZone { get; private set; }
+
         private float currentBreakProgress;
+        private float currentTimeBtwAttacks;
+
         private PlayerController player;
-        private bool playerInZone = false;
+        private Transform myTransform;
 
-        [Header("Turret data")]
-        [Expandable] public TurretData Data;
-
-        [Header("Turret AI")]
-        [Expandable] public TurretAI AI;
-
-        [Header("Turret")]
-        public float TurretRotateTime = 0.2f;
-        public float TurretBackRotateTime = 0.05f;
+        [Header("Turret variables")]
+        [SerializeField] protected GameObject BulletPrefab;
+        [SerializeField] protected float Damage = 1;
+        [SerializeField] protected float TimeBtwAttack = 0.3f;
+        [SerializeField] protected float Recoil = 0f;
         [Space]
-        public Transform TurretCanon;
-        public Transform ShotPos;
+        [SerializeField] private List<DroppedItem> DroppedItems = new List<DroppedItem>(1);
 
         [Header("Turret survivability")]
-        [ReadOnly] public float currentHealth;
         [SerializeField] private Enemy.EnemyTarget EnemyTarget;
+        [field: SerializeField] public float Health { get; protected set; }
+        [ReadOnly] public float currentHealth;
+
+        [Header("Turret/Canon")]
+        [SerializeField] protected float TurretRotateTime = 0.2f;
+        [SerializeField] protected float TurretBackRotateTime = 0.05f;
+        [Space]
+        [SerializeField] protected Transform TurretCanon;
+        [SerializeField] protected Transform ShotPos;
+
 
         [Header("Enemy detecion")]
-        [Tag] public string EnemyTag;
+        [Tag, SerializeField] protected string EnemyTag = "Enemy";
         [Space]
-        [ReadOnly] public bool enemyInZone;
         [ReadOnly] public Transform currentEnemy;
         [ReadOnly] public List<GameObject> targets = new List<GameObject>();
 
         [Header("Break system")]
-        public GameObject breakProgress_gameObj;
-        public Image breakProgress_image;
-        public float breakTime;
-
-        [Header("Renderer")]
-        public SpriteRenderer BodySpriteRenderer;
-        public SpriteRenderer CanonSpriteRenderer;
+        [SerializeField] private GameObject BreakProgressGameObj;
+        [SerializeField] private Image BreakProgressImage;
+        [SerializeField] protected float BreakTime = 5;
 
         [Header("Other")]
-        [Tag] public string PlayerTag = "Player";
-        public bool isPicked;
+        [Tag, SerializeField] protected string PlayerTag = "Player";
+        [field: SerializeField] public bool isPicked { get; protected set; }
         
         [Header("Collisions")]
-        public CircleCollider2D EnemyDetectionCollider;
-        public CircleCollider2D PlayerDetectionCollider;
-
-        new Transform transform;
-        [HideInInspector] public float currentTimeBtwAttacks;
+        [SerializeField] protected CircleCollider2D EnemyDetectionCollider;
+        [SerializeField] protected CircleCollider2D PlayerDetectionCollider;
 
         private void OnDrawGizmosSelected()
         {
             if (currentEnemy != null)
             {
-                Gizmos.DrawWireCube(currentEnemy.transform.position, Vector3.one*1.5f);
-            }
-            if(targets.Count > 0)
-            {
-                foreach (var target in targets)
-                {
-                    if(target.transform == GetNearestEnemy())
-                    {
-                        Gizmos.color = Color.green;
-                        Gizmos.DrawLine(transform.position, currentEnemy.transform.position);
-
-                        continue;
-                    }
-
-                    Gizmos.color = Color.yellow;
-                    Gizmos.DrawLine(transform.position, target.transform.position);
-                }
-            }
-
-            if(AI != null)
-            {
-                AI.turret = this;
-
-                if (ShotPos == null | TurretCanon == null)
-                    return;
-                if (Data == null)
-                    return;
-
-                if (AI is TurretLaser)
-                {
-                    float distance = (float)Data.GetVariable(TurretLaser.LASER_DISTANCE);
-
-                    Debug.DrawRay(ShotPos.position, TurretCanon.right * distance, Color.blue);
-                }
-                if(AI is TurretFiregun)
-                {
-                    float distance = (float)Data.GetVariable(TurretFiregun.DISTANCE);
-                    float range = (float)Data.GetVariable(TurretFiregun.RANGE);
-
-                    Debug.DrawRay(ShotPos.position, TurretCanon.right * distance, Color.blue);
-                    Debug.DrawRay(ShotPos.position, (TurretCanon.right + TurretCanon.up * range) * distance, Color.blue);
-                    Debug.DrawRay(ShotPos.position, (TurretCanon.right + TurretCanon.up * -range) * distance, Color.blue);
-                }
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(myTransform.position, currentEnemy.transform.position);
+                Gizmos.DrawWireSphere(currentEnemy.transform.position, 1.5f);
             }
         }
 
-        public void Start()
+        protected virtual void Start()
         {
-            transform = GetComponent<Transform>();
+            myTransform = GetComponent<Transform>();
 
-            currentBreakProgress = breakTime;
+            currentBreakProgress = BreakTime;
             EnemyTarget.Initialize(this);
 
-            breakProgress_gameObj.SetActive(false);
+            BreakProgressGameObj.SetActive(false);
+
+            Initialize(FindObjectOfType<PlayerController>());
         }
 
-        public void Initialize(PlayerController p, TurretAI ai, TurretData data)
+        public virtual void Initialize(PlayerController p)
         {
             player = p;
 
-            AI = Instantiate(ai);
-            AI.turret = this;
-            AI.data = data;
-            AI.Initialize();
-
-            Data = data;
-            if(Data._bodySprite == null | Data._canonSprite == null)
-            {
-                Debug.LogWarning($"{gameObject.name}/Turret.cs/Data({Data.name}) _bodySprite or _canonSprite is null");
-            }
-            else
-            {
-                BodySpriteRenderer.sprite = Data._bodySprite;
-                CanonSpriteRenderer.sprite = Data._canonSprite;
-            }
-
-            currentTimeBtwAttacks = Data._timeBtwAttack;
-            EnemyDetectionCollider.radius = Data._colliderSize;
-            currentHealth = Data._health;
+            currentTimeBtwAttacks = TimeBtwAttack;
+            currentHealth = Health;
 
             isPicked = true;
             EnemyDetectionCollider.enabled = false;
@@ -159,10 +104,8 @@ namespace Game.Turret
         }
 
         #region Updates
-        private void Update()
+        protected virtual void Update()
         {
-            AI.Run();
-
             if (isPicked)
             {
                 DoBreak();
@@ -214,9 +157,26 @@ namespace Game.Turret
             }
             #endregion
 
+            #region attacking
             enemyInZone = (targets.Count > 0);
 
-            if(playerInZone)
+            currentEnemy = GetNearestEnemy();
+
+            if(enemyInZone)
+            {
+                if (currentTimeBtwAttacks <= 0)
+                {
+                    Attack();
+                    currentTimeBtwAttacks = TimeBtwAttack;
+                }
+                else
+                {
+                    currentTimeBtwAttacks -= Time.deltaTime;
+                }
+            }
+            #endregion
+
+            if (playerInZone)
             {
                 DoBreak();
             }
@@ -279,35 +239,37 @@ namespace Game.Turret
             scaler.y *= -1;
             TurretCanon.localScale = scaler;
         }
-        public Transform GetNearestEnemy()
+        protected virtual Transform GetNearestEnemy()
         {
             if (targets == null | targets.Count <= 0)
                 return null;
 
             GameObject enemy = targets[0];
-            float curDistance = Vector2.Distance(transform.position, enemy.transform.position);
+            float curDistance = Vector2.Distance(myTransform.position, enemy.transform.position);
             for (int i = 1; i < targets.Count; i++)
             {
-                if (Vector2.Distance(transform.position, targets[i].transform.position) < curDistance)
+                if (Vector2.Distance(myTransform.position, targets[i].transform.position) < curDistance)
                     enemy = targets[i];
             }
             return enemy.transform;
         }
         #endregion
 
-        public void Put()
+        public virtual void Put()
         {
             isPicked = false;
             EnemyDetectionCollider.enabled = true;
+
+            EnemySpawner.instance.AddTarget(EnemyTarget);
         }
 
         #region Break
-        public void DoBreak()
+        protected void DoBreak()
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                breakProgress_gameObj.SetActive(true);
-                breakProgress_image.fillAmount = 0f;
+                BreakProgressGameObj.SetActive(true);
+                BreakProgressImage.fillAmount = 0f;
             }
             if (Input.GetKey(KeyCode.R))
             {
@@ -318,7 +280,7 @@ namespace Game.Turret
                 else
                 {
                     currentBreakProgress -= Time.deltaTime;
-                    breakProgress_image.fillAmount = Mathf.Abs((currentBreakProgress / breakTime) - 1);
+                    BreakProgressImage.fillAmount = Mathf.Abs((currentBreakProgress / BreakTime) - 1);
                 }
             }
             if (Input.GetKeyUp(KeyCode.R))
@@ -326,28 +288,28 @@ namespace Game.Turret
                 StartCoroutine(EndBreaking());
             }
         }
-        public IEnumerator EndBreaking()
+        protected IEnumerator EndBreaking()
         {
-            while (breakProgress_image.fillAmount >= 0.01f)
+            while (BreakProgressImage.fillAmount >= 0.01f)
             {
-                currentBreakProgress = Mathf.Lerp(currentBreakProgress, breakTime, 0.2f); ;
+                currentBreakProgress = Mathf.Lerp(currentBreakProgress, BreakTime, 0.2f); ;
 
-                breakProgress_image.fillAmount = Mathf.Abs((currentBreakProgress / breakTime) - 1);
+                BreakProgressImage.fillAmount = Mathf.Abs((currentBreakProgress / BreakTime) - 1);
 
                 yield return null;
             }
 
-            breakProgress_gameObj.SetActive(false);
+            BreakProgressGameObj.SetActive(false);
         }
 
-        public virtual void Break()
+        protected virtual void Break()
         {
             if (isPicked)
             {
                 player.pickObjSystem.PutCurrentGameobj(false);
             }
 
-            foreach (var item in Data._droppedItems)
+            foreach (var item in DroppedItems)
             {
                 PlayerInventory.instance.GiveItem(item.Item, item.Amount);
             }
@@ -357,8 +319,12 @@ namespace Game.Turret
         }
         #endregion
 
+        #region Attacking
+        protected abstract void Attack();
+        #endregion
+
         #region Health
-        public void TakeDamage(float value)
+        public virtual void TakeDamage(float value)
         {
             currentHealth -= value;
 
@@ -367,7 +333,7 @@ namespace Game.Turret
                 Die();
             }
         }
-        private void Die()
+        protected virtual void Die()
         {
             Destroy(gameObject);
         }

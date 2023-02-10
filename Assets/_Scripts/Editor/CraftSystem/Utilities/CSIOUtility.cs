@@ -102,7 +102,7 @@ namespace Game.CraftSystem.Editor.Utilities
                 ID = node.ID,
                 Name = node.CraftName,
                 Choices = choices,
-                Object = node.Object,
+                ObjectPrefab = node.Object,
                 Icon = node.Icon,
                 Cost = node.Cost,
                 Craft = node.Craft,
@@ -227,7 +227,7 @@ namespace Game.CraftSystem.Editor.Utilities
 
                 node.ID = nodeData.ID;
                 node.Choices = choices;
-                node.Object = nodeData.Object;
+                node.Object = nodeData.ObjectPrefab;
                 node.Icon = nodeData.Icon;
                 node.Cost = nodeData.Cost;
                 node.Craft = nodeData.Craft;

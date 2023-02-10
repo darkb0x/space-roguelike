@@ -15,7 +15,7 @@ MonoBehaviour:
   <CraftName>k__BackingField: FiregunTurret
   <Choices>k__BackingField:
   - <NextCraft>k__BackingField: {fileID: 11400000, guid: 9ba03c007e0791844ad15a9b5553847b, type: 2}
-  <Object>k__BackingField: {fileID: 11400000, guid: b9579c68d2783b64bb7ca90cb017fe04, type: 2}
+  <ObjectPrefab>k__BackingField: {fileID: 7672746000741777773, guid: 3ad694691941cec409a179f9a177f07c, type: 3}
   <IconSprite>k__BackingField: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
   <CraftCost>k__BackingField: 200
   <ObjectCraft>k__BackingField:
