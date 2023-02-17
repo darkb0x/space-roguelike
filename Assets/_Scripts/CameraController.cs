@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Game
 {
@@ -17,15 +18,16 @@ namespace Game
         [SerializeField] private float scrollSpeed = 1.2f;
         [SerializeField] private float scaleSpeed = 2.2f;
 
-        Transform target;
-        Vector3 _targetInVector3;
-        new Transform transform;
-        Camera cam;
-        float currentZoom;
+        private Transform target;
+        private Vector3 targetInVector3;
+        private Transform myTransform;
+        private Camera cam;
+        private float currentZoom;
+        private float mouseScrollDelta = 0;
 
         private void Start()
         {
-            transform = GetComponent<Transform>();
+            myTransform = GetComponent<Transform>();
             cam = GetComponent<Camera>();
 
             target = FindObjectOfType<PlayerController>().transform;
@@ -34,13 +36,15 @@ namespace Game
 
         private void Update()
         {
+            mouseScrollDelta = Mathf.Clamp(mouseScrollDelta + GameInput.Instance.GetMouseScrollDeltaY(), -maxCamViewScale, maxCamViewScale);
+
             if (!UIPanelManager.manager.SomethinkIsOpened())
             {
-                currentZoom = Mathf.Clamp(currentZoom + -Input.mouseScrollDelta.y * scrollSpeed, minCamViewScale, maxCamViewScale);
+                currentZoom = Mathf.Clamp(currentZoom + -mouseScrollDelta * scrollSpeed, minCamViewScale, maxCamViewScale);
                 cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
             }
 
-            transform.position = target.position - new Vector3(0, 0, Mathf.Abs(transform.position.z)); 
+            myTransform.position = target.position - new Vector3(0, 0, Mathf.Abs(myTransform.position.z)); 
         }
     }
 }

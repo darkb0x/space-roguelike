@@ -67,15 +67,7 @@ namespace Game.Player
 
         private void Update()
         {
-            moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (selectedDrone)
-                {
-                    if (!selectedDrone.isPicked) selectedDrone.Init();
-                }
-            }
+            moveInput = GameInput.Instance.GetMoveInput();
 
             //animation
             if(moveInput.magnitude > 0)
@@ -91,7 +83,7 @@ namespace Game.Player
                 if (!UIPanelManager.manager.SomethinkIsOpened())
                 {
 
-                    Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+                    Vector3 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
                     Vector2 dir = -(transform.position - mousePos).normalized;
 
                     anim.SetFloat(anim_horizontal, dir.x);
@@ -158,6 +150,19 @@ namespace Game.Player
             EnemySpawner.instance.RemoveTarget(EnemyTarget);
             Die();
         }
+        #endregion
+        
+        #region Drone
+        /*
+        private void AddDrone(object sender, EventArgs e)
+        {
+            Debug.Log("Drone used");
+            if (selectedDrone)
+            {
+                if (!selectedDrone.isPicked) selectedDrone.Init();
+            }
+        }
+        */
         #endregion
 
         #region Collision triggers

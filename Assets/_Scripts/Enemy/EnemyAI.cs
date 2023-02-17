@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using Pathfinding;
 using NaughtyAttributes;
 
@@ -12,12 +13,14 @@ namespace Game.Enemy
         private const float UPDATE_PATH_TIME = 1f;
         private const float CHECK_TARGET_IN_VISION_TIME = 0.7f;
 
+        [Header("Data")]
+        [SerializeField, Expandable] protected EnemyData Data;
+
         [Header("Health")]
-        public float MaxHp;
         [ReadOnly] public float currentHp;
+        [SerializeField] protected GameObject DeathParticle;
         [Space]
         [ReadOnly] public float currentProtection;
-        public float Protection;
         [Space]
         [SerializeField] private GameObject HealthBarObject;
         [SerializeField] private Image HealthBarImage;
@@ -25,7 +28,8 @@ namespace Game.Enemy
         [Header("Attack")]
         public bool IsAttacking = true;
         [Space]
-        public float Damage;
+        [SerializeField] protected float AttackRadius;
+        [ReadOnly] public float Damage;
         public float TimeBtwAttacks;
         [Space]
         [SerializeField] private float VisionRadius;
@@ -57,18 +61,28 @@ namespace Game.Enemy
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, VisionRadius);
+
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(transform.position, AttackRadius);
         }
 
         public virtual void Start()
         {
-            currentHp = MaxHp;
-            currentTimeBtwAttack = TimeBtwAttacks;
-
             HealthBarObject.SetActive(false);
 
             seecker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
             myTransform = transform;
+        }
+
+        public virtual void Initialize(EnemyData data, float difficultFactor = 1)
+        {
+            Data = data;
+
+            currentHp = Data.Health * difficultFactor;
+            currentProtection = Data.Protection * difficultFactor;
+            Damage = Data.Damage;
+            currentTimeBtwAttack = TimeBtwAttacks;
 
             currentTarget = GetRandomTarget();
 
@@ -78,6 +92,9 @@ namespace Game.Enemy
 
         public virtual void Update()
         {
+            if (Keyboard.current.kKey.isPressed)
+                Die();
+
             if (!IsAttacking)
                 return;
 
@@ -169,9 +186,21 @@ namespace Game.Enemy
         {
             EnemyVisual.StartAttacking();
         }
-        public virtual void Attack()
+        public virtual bool Attack()
         {
-            currentTarget.Hurt(Damage);
+            Collider2D[] targets = Physics2D.OverlapCircleAll(myTransform.position, AttackRadius, TargetLayer);
+            foreach (var target in targets)
+            {
+                if(target.TryGetComponent<EnemyTarget>(out EnemyTarget enemyTarget))
+                {
+                    if(enemyTarget == currentTarget)
+                    {
+                        currentTarget.Hurt(Damage);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         protected virtual void CheckTargetsInVision()
@@ -216,7 +245,7 @@ namespace Game.Enemy
             if (targets.Length <= 0)
                 return null;
 
-            return targets[Random.Range(0, targets.Length - 1)];
+            return targets[Random.Range(0, targets.Length)];
         }
         #endregion
 
@@ -224,24 +253,25 @@ namespace Game.Enemy
         public virtual void TakeDamage(float value)
         {
             float dmg = value - currentProtection;
+            float maxHp = Data.Health;
 
             if (dmg <= 0)
             {
-                Protection--;
-                if (Protection <= 0)
+                currentProtection--;
+                if (currentProtection <= 0)
                 {
                     currentProtection = 0;
                 }
             }
             else
             {
-                currentHp = Mathf.Clamp(currentHp - dmg, 0, MaxHp);
+                currentHp = Mathf.Clamp(currentHp - dmg, 0, maxHp);
             }
 
-            if (currentHp < MaxHp)
+            if (currentHp < maxHp)
             {
                 HealthBarObject.SetActive(true);
-                HealthBarImage.fillAmount = currentHp / MaxHp;
+                HealthBarImage.fillAmount = currentHp / maxHp;
             }
 
             if (currentHp <= 0)
@@ -250,7 +280,11 @@ namespace Game.Enemy
 
         public virtual void Die()
         {
-            Destroy(gameObject);
+            IsAttacking = false;
+
+            EnemyVisual.Death();
+
+            EnemySpawner.instance.RemoveEnemy(this);
         }
         #endregion
     }

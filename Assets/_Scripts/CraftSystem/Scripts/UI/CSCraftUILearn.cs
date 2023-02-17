@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using NaughtyAttributes;
 using TMPro;
 
@@ -66,7 +67,7 @@ namespace Game.CraftSystem
                 }
 
                 GameObject obj = Instantiate(itemListComponent, itemListTransform);
-                obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item._icon; // item icon
+                obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item.Icon; // item icon
                 obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.amount.ToString(); // items amount
             }
 
@@ -100,7 +101,7 @@ namespace Game.CraftSystem
         {
             if (isMouseEnterToCraftButton)
             {
-                if (Input.GetMouseButton(0))
+                if (Mouse.current.leftButton.isPressed)
                 {
                     currentProgress += Time.deltaTime;
                     learnButtonImage.fillAmount = currentProgress / maxProgress;

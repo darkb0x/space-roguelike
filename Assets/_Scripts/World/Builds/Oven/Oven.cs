@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using NaughtyAttributes;
 
 namespace Game.Oven
 {
@@ -24,6 +25,16 @@ namespace Game.Oven
         [Header("Variables")]
         [SerializeField] private float remeltingTime = 2f;
 
+        [Header("Animation")]
+        [SerializeField] private Animator Anim;
+        [AnimatorParam("Anim"), SerializeField] private string Anim_StartFireTrigger;
+        [AnimatorParam("Anim"), SerializeField] private string Anim_FireBool;
+
+        [Header("Particles")]
+        [SerializeField] private ParticleSystem SmokeParticle;
+        [ReadOnly, SerializeField] private float StartRateOverTime = 5f;
+        [SerializeField] private float SmokeEnabledSpeed = 0.2f;
+
         OvenCraftList.craft currentItem;
         float currentTime;
         bool canTakeItem = false;
@@ -32,28 +43,49 @@ namespace Game.Oven
         {
             manager = FindObjectOfType<OvenManager>();
 
+            SmokeParticle.gameObject.SetActive(false);
+            StartRateOverTime = SmokeParticle.emission.rateOverTime.constantMax;
+
             DisableProgressBar();
         }
 
         private void Update()
         {
+            float targetEmmision = 0;
+            ParticleSystem.EmissionModule emmision = SmokeParticle.emission;
+            if(currentItem != null)
+            {
+                targetEmmision = StartRateOverTime;
+                if(canTakeItem)
+                {
+                    targetEmmision = 0;
+                }
+            }
+            emmision.rateOverTime = Mathf.Lerp(emmision.rateOverTime.constantMax, targetEmmision, SmokeEnabledSpeed * Time.deltaTime);
+
             if (currentItem == null)
                 return;
 
             if(currentTime <= 0)
             {
+                Anim.SetBool(Anim_FireBool, false);
+
                 canTakeItem = true;
             }
             else
             {
                 currentTime -= Time.deltaTime;
-
                 UpdateProgressBar();
             }
         }
 
         public void StartRemelting(OvenCraftList.craft craft)
         {
+            Anim.SetTrigger(Anim_StartFireTrigger);
+            Anim.SetBool(Anim_FireBool, true);
+
+            SmokeParticle.gameObject.SetActive(true);
+
             currentItem = craft;
             currentTime = remeltingTime;
 
@@ -88,7 +120,7 @@ namespace Game.Oven
         }
         private void EnableProgressBar()
         {
-            itemImage.sprite = currentItem.finalItem.item._icon;
+            itemImage.sprite = currentItem.finalItem.item.Icon;
             progressRender.fillAmount = 0;
             progressRender.color = progressColor.Evaluate(0);
 

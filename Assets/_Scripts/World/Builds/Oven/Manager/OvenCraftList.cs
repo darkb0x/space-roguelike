@@ -7,7 +7,7 @@ namespace Game.Oven.Manager
 {
     using Player.Inventory;
 
-    [CreateAssetMenu(fileName = "Oven craft list", menuName = "Oven/new craft list")]
+    [CreateAssetMenu(fileName = "Oven craft list", menuName = "Game/new Oven craft list")]
     public class OvenCraftList : ScriptableObject
     {
         [System.Serializable]
@@ -27,8 +27,8 @@ namespace Game.Oven.Manager
             public s_item finalItem = new s_item() { amount = 1 };
         }
 
-        [SerializeField] private List<craft> Items = new List<craft>();
+        [SerializeField] private List<craft> m_Items = new List<craft>();
 
-        public List<craft> _items => Items;
+        public List<craft> Items => m_Items;
     }
 }

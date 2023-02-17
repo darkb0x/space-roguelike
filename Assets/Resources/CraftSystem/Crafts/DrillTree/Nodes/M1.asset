@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CraftName>k__BackingField: M1
   <Choices>k__BackingField: []
-  <ObjectPrefab>k__BackingField: {fileID: 8642285146016992751, guid: 7023e5f17394842419e7d317ed8e8442, type: 3}
+  <ObjectPrefab>k__BackingField: {fileID: 2260988901494986822, guid: b4a9d44ddf5e66847b939080750c14b0, type: 3}
   <IconSprite>k__BackingField: {fileID: -4572900513582700462, guid: 4b5a4ff3f2b7f60488b8e56def7b3fef, type: 3}
   <CraftCost>k__BackingField: 100
   <ObjectCraft>k__BackingField:

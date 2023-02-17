@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using NaughtyAttributes;
 
 namespace Game.Oven.Manager
@@ -22,19 +23,12 @@ namespace Game.Oven.Manager
 
         private void Start()
         {
-            foreach (var item in craftList._items)
+            GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
+
+            foreach (var item in craftList.Items)
             {
                 OvenManagerElement element = Instantiate(craftElement.gameObject, craftListParent).GetComponent<OvenManagerElement>();
                 element.Initialize(item, this);
-            }
-        }
-
-        private void Update()
-        {
-            if(isOpened)
-            {
-                if (Input.GetKeyDown(KeyCode.Escape))
-                    ClosePanel();
             }
         }
 
@@ -79,6 +73,10 @@ namespace Game.Oven.Manager
             isOpened = false;
 
             UIPanelManager.manager.ClosePanel(panel);
+        }
+        public void ClosePanel(InputAction.CallbackContext context)
+        {
+            ClosePanel();
         }
         #endregion
     }

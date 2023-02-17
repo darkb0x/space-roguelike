@@ -34,7 +34,7 @@ namespace Game.Oven.Manager
             {
                 GameObject obj = Instantiate(itemPrefab, firstItems_parent);
 
-                obj.GetComponentInChildren<Image>().sprite = currentCraft.firstItems[i].item._icon;
+                obj.GetComponentInChildren<Image>().sprite = currentCraft.firstItems[i].item.Icon;
 
                 TextMeshProUGUI text = obj.GetComponentInChildren<TextMeshProUGUI>();
                 text.text = currentCraft.firstItems[i].amount.ToString();
@@ -45,7 +45,7 @@ namespace Game.Oven.Manager
             // final item
             GameObject obj_final = Instantiate(itemPrefab, finalItem_parent);
 
-            obj_final.GetComponentInChildren<Image>().sprite = currentCraft.finalItem.item._icon;
+            obj_final.GetComponentInChildren<Image>().sprite = currentCraft.finalItem.item.Icon;
             obj_final.GetComponentInChildren<TextMeshProUGUI>().text = currentCraft.finalItem.amount.ToString();
         }
 

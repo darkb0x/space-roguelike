@@ -4,16 +4,13 @@ using UnityEngine;
 
 namespace Game.Player.Inventory
 {
-    [CreateAssetMenu(fileName = "Inventory item", menuName = "Item/new Inventory item")]
+    [CreateAssetMenu(fileName = "Inventory item", menuName = "Game/new Inventory item")]
     public class InventoryItem : ScriptableObject
     {
-        [SerializeField, NaughtyAttributes.ShowAssetPreview] private Sprite icon;
-        [SerializeField, Min(1)] private int cost = 1;
+        [field: SerializeField, NaughtyAttributes.ShowAssetPreview] public Sprite Icon { get; private set; }
+        [field: SerializeField, Min(1)] public int Cost { get; private set; }
         [Space]
-        public List<Sprite> oreSprites = new List<Sprite>();
-
-        public Sprite _icon => icon;
-        public int _cost => cost;
-
+        [SerializeField] private bool IsOre = false;
+        [NaughtyAttributes.ShowIf("IsOre")] public List<Sprite> OreSprites = new List<Sprite>();
     }
 }

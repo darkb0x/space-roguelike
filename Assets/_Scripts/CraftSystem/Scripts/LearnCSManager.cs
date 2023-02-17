@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 namespace Game.CraftSystem
 {
@@ -67,6 +68,8 @@ namespace Game.CraftSystem
 
         private void Start()
         {
+            GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
+
             player = FindObjectOfType<PlayerController>();
 
             foreach (var item in LoadCraftUtility.loadCraftUtility.allUnlockedCrafts)
@@ -84,14 +87,9 @@ namespace Game.CraftSystem
         {
             if (isOpened)
             {
-                currentScale = Mathf.Clamp(currentScale + Input.mouseScrollDelta.y * sensitivity, minTreeScale, maxTreeScale);
+                currentScale = Mathf.Clamp(currentScale + GameInput.Instance.GetMouseScrollDeltaY() * sensitivity, minTreeScale, maxTreeScale);
                 float scale = Mathf.Lerp(openedTechTree.techTreeRenderTransform.localScale.x, currentScale, sensitivity);
                 openedTechTree.techTreeRenderTransform.localScale = new Vector3(scale, scale, 1);
-
-                if(Input.GetKeyDown(KeyCode.Escape))
-                {
-                    CloseMenu();
-                }
             }
         }
 
@@ -112,6 +110,13 @@ namespace Game.CraftSystem
             player.canMove = false;
         }
         public void CloseMenu()
+        {
+            UIPanelManager.manager.ClosePanel(techTreePanel);
+            isOpened = false;
+
+            player.canMove = true;
+        }
+        public void CloseMenu(InputAction.CallbackContext context)
         {
             UIPanelManager.manager.ClosePanel(techTreePanel);
             isOpened = false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 namespace Game.Turret
 {
@@ -40,6 +41,8 @@ namespace Game.Turret
         [SerializeField] private Enemy.EnemyTarget EnemyTarget;
         [field: SerializeField] public float Health { get; protected set; }
         [ReadOnly] public float currentHealth;
+        [Space]
+        [SerializeField] private GameObject DestroyParticle;
 
         [Header("Turret/Canon")]
         [SerializeField] protected float TurretRotateTime = 0.2f;
@@ -54,11 +57,6 @@ namespace Game.Turret
         [Space]
         [ReadOnly] public Transform currentEnemy;
         [ReadOnly] public List<GameObject> targets = new List<GameObject>();
-
-        [Header("Break system")]
-        [SerializeField] private GameObject BreakProgressGameObj;
-        [SerializeField] private Image BreakProgressImage;
-        [SerializeField] protected float BreakTime = 5;
 
         [Header("Other")]
         [Tag, SerializeField] protected string PlayerTag = "Player";
@@ -82,12 +80,7 @@ namespace Game.Turret
         {
             myTransform = GetComponent<Transform>();
 
-            currentBreakProgress = BreakTime;
             EnemyTarget.Initialize(this);
-
-            BreakProgressGameObj.SetActive(false);
-
-            Initialize(FindObjectOfType<PlayerController>());
         }
 
         public virtual void Initialize(PlayerController p)
@@ -106,10 +99,11 @@ namespace Game.Turret
         #region Updates
         protected virtual void Update()
         {
+            if (Keyboard.current.kKey.isPressed)
+                Die();
+
             if (isPicked)
             {
-                DoBreak();
-
                 return;
             }
 
@@ -157,16 +151,20 @@ namespace Game.Turret
             }
             #endregion
 
+
             #region attacking
             enemyInZone = (targets.Count > 0);
 
-            currentEnemy = GetNearestEnemy();
-
-            if(enemyInZone)
+            if (enemyInZone)
             {
+                if (currentEnemy == null)
+                    currentEnemy = GetNearestEnemy();
+
                 if (currentTimeBtwAttacks <= 0)
                 {
-                    Attack();
+                    if (!isPicked)
+                        Attack();
+                    currentEnemy = GetNearestEnemy();
                     currentTimeBtwAttacks = TimeBtwAttack;
                 }
                 else
@@ -175,11 +173,6 @@ namespace Game.Turret
                 }
             }
             #endregion
-
-            if (playerInZone)
-            {
-                DoBreak();
-            }
         }
         #endregion
 
@@ -245,13 +238,29 @@ namespace Game.Turret
                 return null;
 
             GameObject enemy = targets[0];
-            float curDistance = Vector2.Distance(myTransform.position, enemy.transform.position);
+            float curDistance = 1000f;
+            if (enemy != null)
+                Vector2.Distance(myTransform.position, enemy.transform.position);
+            int errorIndex = 0;
             for (int i = 1; i < targets.Count; i++)
             {
-                if (Vector2.Distance(myTransform.position, targets[i].transform.position) < curDistance)
-                    enemy = targets[i];
+                if(targets[i] != null)
+                {
+                    float targetDistance = Vector2.Distance(myTransform.position, targets[i].transform.position);
+                    if (targetDistance < curDistance)
+                        enemy = targets[i];
+                }
+                else
+                {
+                    errorIndex = 0;
+                    break;
+                }
             }
-            return enemy.transform;
+            targets.RemoveAt(errorIndex);
+            if (enemy != null)
+                return enemy.transform;
+            else
+                return null;
         }
         #endregion
 
@@ -264,45 +273,7 @@ namespace Game.Turret
         }
 
         #region Break
-        protected void DoBreak()
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                BreakProgressGameObj.SetActive(true);
-                BreakProgressImage.fillAmount = 0f;
-            }
-            if (Input.GetKey(KeyCode.R))
-            {
-                if (currentBreakProgress <= 0)
-                {
-                    Break();
-                }
-                else
-                {
-                    currentBreakProgress -= Time.deltaTime;
-                    BreakProgressImage.fillAmount = Mathf.Abs((currentBreakProgress / BreakTime) - 1);
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.R))
-            {
-                StartCoroutine(EndBreaking());
-            }
-        }
-        protected IEnumerator EndBreaking()
-        {
-            while (BreakProgressImage.fillAmount >= 0.01f)
-            {
-                currentBreakProgress = Mathf.Lerp(currentBreakProgress, BreakTime, 0.2f); ;
-
-                BreakProgressImage.fillAmount = Mathf.Abs((currentBreakProgress / BreakTime) - 1);
-
-                yield return null;
-            }
-
-            BreakProgressGameObj.SetActive(false);
-        }
-
-        protected virtual void Break()
+        public virtual void Break()
         {
             if (isPicked)
             {
@@ -333,8 +304,15 @@ namespace Game.Turret
                 Die();
             }
         }
+        [Button]
         protected virtual void Die()
         {
+            if(isPicked)
+                player.pickObjSystem.PutCurrentGameobj(false);
+
+            GameObject particle = Instantiate(DestroyParticle, myTransform.position, Quaternion.identity);
+            particle.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 360));
+
             Destroy(gameObject);
         }
 

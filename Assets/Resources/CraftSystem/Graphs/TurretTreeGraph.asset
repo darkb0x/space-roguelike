@@ -31,7 +31,7 @@ MonoBehaviour:
     <Name>k__BackingField: GrenadeTurret
     <Choices>k__BackingField:
     - <NodeID>k__BackingField: b176770f-4414-4b59-8014-94d873bafcab
-    <ObjectPrefab>k__BackingField: {fileID: 2867941612549407698, guid: 9c0bf4c13a555f04fb680894fdcbcd0e, type: 3}
+    <ObjectPrefab>k__BackingField: {fileID: 5034969440185020039, guid: dd34d4c9839ca3645bf55f110ca179bc, type: 3}
     <Icon>k__BackingField: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
     <Cost>k__BackingField: 200
     <Craft>k__BackingField:

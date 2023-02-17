@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
   m_Name: zuldun_ingot
   m_EditorClassIdentifier: 
-  icon: {fileID: -4360650958587565854, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
-  cost: 1
-  oreSprites: []
+  <Icon>k__BackingField: {fileID: -4360650958587565854, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
+  <Cost>k__BackingField: 1
+  OreSprites: []

@@ -19,78 +19,65 @@ namespace Game.Drill
             public int amount;
         }
 
-        List<Ore> currentOresList = new List<Ore>();
-        Transform oreDetectColl_transform;
-        Transform playerTransform;
-        float currentBreakProgress;
+        private List<Ore> currentOresList = new List<Ore>();
+        private Transform oreDetectColl_transform;
+        private Transform playerTransform;
 
-        [HideInInspector] public Transform myTransform;
-        [HideInInspector] public bool isPicked = true;
-        [HideInInspector] public Transform oreTransform;
-        [HideInInspector] public PlayerController player;
-        [HideInInspector] public bool playerInZone = false;
-        protected float currentHealth;
+        protected Transform myTransform;
+        protected bool isPicked = true;
+        protected Transform oreTransform;
+        protected PlayerController player;
+        protected bool playerInZone = false;
+        protected PlayerInteractObject playerInteractObject;
 
         [Header("Variables")]
-        public int damage;
-        public float timeBtwMining;
-        [HideInInspector] public float currentTimeBtwMining;
-        [ReadOnly] public bool isMining = false;
+        [SerializeField] protected int MiningDamage;
+        [SerializeField] protected float TimeBtwMining;
+        protected float currentTimeBtwMining;
+        [ReadOnly] public bool IsMining = false;
         [Space]
-        [ReadOnly] public float health;
-        public float maxHealth;
-        [Space]
-        [Tag] public string playerTag = "Player";
+        [Tag, SerializeField] protected string PlayerTag = "Player";
 
         [Header("Inventory")]
-        public InventoryItem item;
-        public int amount;
-        [ReadOnly] public int allExtractedOre = 0;
+        public InventoryItem Item;
+        public int Amount;
+        [ReadOnly, SerializeField] protected int allExtractedOre = 0;
         [Space]
-        [ReadOnly] public Ore currentOre;
+        [ReadOnly] public Ore CurrentOre;
 
         [Header("Colliders")]
-        public Collider2D mainColl;
-        public Collider2D oreDetectColl;
-        public Collider2D playerDetectColl;
+        [SerializeField] protected Collider2D MainColl;
+        [SerializeField] protected Collider2D OreDetectColl;
+        [SerializeField] protected Collider2D PlayerDetectColl;
 
         [Header("Break System")]
-        public PlayerInteractObject playerInteractObject;
-        [Space]
-        public GameObject breakProgress_gameObj;
-        public Image breakProgress_image;
-        public float breakTime;
-        [Space]
-        public List<dropped_item> droppedItemsAfterBroke = new List<dropped_item>();
+        public List<dropped_item> DroppedItemsAfterBroke = new List<dropped_item>();
 
         [Header("Health")]
-        public float MaxHealth;
+        public float MaxHealth = 10;
+        [ReadOnly] public float CurrentHealth;
         [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
         // renderrer
         [Header("Animation")]
-        public Animator anim;
-        [AnimatorParam("anim")] public string anim_putTrigger;
-        [AnimatorParam("anim")] public string anim_miningBool;
+        [SerializeField] protected Animator Anim;
+        [AnimatorParam("Anim"), SerializeField] protected string Anim_putTrigger;
+        [AnimatorParam("Anim"), SerializeField] protected string Anim_miningBool;
 
         [Header("Back Legs Renderer")]
-        public SpriteRenderer backLegsSR;
-        [SortingLayer] public string worldSortingLayer;
+        [SerializeField] protected SpriteRenderer BackLegsSR;
+        [SortingLayer, SerializeField] protected string WorldSortingLayer;
 
         public virtual void Start()
         {
             player = FindObjectOfType<PlayerController>();
             myTransform = transform;
-            oreDetectColl_transform = oreDetectColl.transform;
+            oreDetectColl_transform = OreDetectColl.transform;
             playerTransform = player.transform;
             EnemyTarget.Initialize(this);
 
-            currentTimeBtwMining = timeBtwMining;
-            health = maxHealth;
-            currentBreakProgress = breakTime;
-            currentHealth = MaxHealth;
-
-            breakProgress_gameObj.SetActive(false);
+            currentTimeBtwMining = TimeBtwMining;
+            CurrentHealth = MaxHealth;
 
             Initialize();
         }
@@ -99,9 +86,9 @@ namespace Game.Drill
         {
             isPicked = true;
 
-            mainColl.enabled = false;
-            oreDetectColl.enabled = true;
-            playerDetectColl.enabled = false;
+            MainColl.enabled = false;
+            OreDetectColl.enabled = true;
+            PlayerDetectColl.enabled = false;
 
             player.pickObjSystem.SetPickedGameobj(gameObject);
         }
@@ -112,21 +99,19 @@ namespace Game.Drill
             {
                 oreDetectColl_transform.position = playerTransform.position;
 
-                DoBreak();
-
                 return;
             }
 
             // mining animation & mining
-            if(currentOre && isMining)
+            if(CurrentOre && IsMining)
             {
-                anim.SetBool(anim_miningBool, true);
+                Anim.SetBool(Anim_miningBool, true);
 
                 if(currentTimeBtwMining <= 0)
                 {
                     Mine();
 
-                    currentTimeBtwMining = timeBtwMining;
+                    currentTimeBtwMining = TimeBtwMining;
                 }
                 else
                 {
@@ -135,43 +120,37 @@ namespace Game.Drill
             }
             else
             {
-                anim.SetBool(anim_miningBool, false);
-            }
-
-            //Break
-            if(playerInteractObject.playerInZone)
-            {
-                DoBreak();
+                Anim.SetBool(Anim_miningBool, false);
             }
         }
         private void FixedUpdate()
         {
             if(isPicked)
             {
-                currentOre = GetNearestOre();
+                CurrentOre = GetNearestOre();
             }
         }
 
         #region Put
         public bool CanPut()
         {
-            return currentOre;
+            return CurrentOre;
         }
         public virtual void Put()
         {
-            currentOre.currentDrill = this;
-            item = currentOre.item;
+            CurrentOre.currentDrill = this;
+            Item = CurrentOre.item;
             oreDetectColl_transform.position = myTransform.position;
 
             myTransform.position = oreTransform.position;
-            backLegsSR.sortingLayerName = worldSortingLayer;
+            BackLegsSR.sortingLayerName = WorldSortingLayer;
 
-            mainColl.enabled = true;
-            oreDetectColl.enabled = false;
-            playerDetectColl.enabled = true;
+            MainColl.enabled = true;
+            OreDetectColl.enabled = false;
+            PlayerDetectColl.enabled = true;
             isPicked = false;
 
-            anim.SetTrigger(anim_putTrigger);
+            Anim.SetTrigger(Anim_putTrigger);
 
             DisSelectAllOres();
         }
@@ -180,14 +159,14 @@ namespace Game.Drill
         #region Mining
         public virtual void PlayerTakeItems()
         {
-            PlayerInventory.instance.GiveItem(item, amount);
-            amount = 0;
+            PlayerInventory.instance.GiveItem(Item, Amount);
+            Amount = 0;
         }
         public virtual void Mine()
         {
-            if(!currentOre.canGiveOre)
+            if(!CurrentOre.canGiveOre)
             {
-                currentOre = null;
+                CurrentOre = null;
                 oreTransform = null;
 
                 MiningEnded();
@@ -195,12 +174,12 @@ namespace Game.Drill
                 return;
             }
 
-            int oreAmount = damage;
-            currentOre.Take(damage);
+            int oreAmount = MiningDamage;
+            CurrentOre.Take(MiningDamage);
 
-            if(currentOre.amount < 0)
+            if(CurrentOre.amount < 0)
             {
-                oreAmount += currentOre.amount;
+                oreAmount += CurrentOre.amount;
 
                 if (oreAmount <= 0)
                 {
@@ -208,7 +187,7 @@ namespace Game.Drill
                 }
             }
 
-            amount += oreAmount;
+            Amount += oreAmount;
             allExtractedOre += oreAmount;
         }
         public virtual void MiningEnded()
@@ -221,9 +200,9 @@ namespace Game.Drill
 
         public virtual void TakeDamage(float value)
         {
-            health -= value;
+            CurrentHealth -= value;
 
-            if(health <= 0)
+            if(CurrentHealth <= 0)
             {
                 Die();
             }
@@ -249,7 +228,7 @@ namespace Game.Drill
         #region Collision triggers
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (isPicked && oreDetectColl.enabled)
+            if (isPicked && OreDetectColl.enabled)
             {
                 if (collision.TryGetComponent<Ore>(out Ore ore))
                 {
@@ -260,7 +239,7 @@ namespace Game.Drill
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.tag == playerTag && playerDetectColl.enabled)
+            if (collision.tag == PlayerTag && PlayerDetectColl.enabled)
             {
                 playerInZone = true;
             }
@@ -278,7 +257,7 @@ namespace Game.Drill
                 }
             }
 
-            if (collision.tag == playerTag)
+            if (collision.tag == PlayerTag)
             {
                 playerInZone = false;
             }
@@ -339,47 +318,9 @@ namespace Game.Drill
         #endregion
 
         #region Break
-        public void DoBreak()
-        {
-            if(Input.GetKeyDown(KeyCode.R))
-            {
-                breakProgress_gameObj.SetActive(true);
-                breakProgress_image.fillAmount = 0f;
-            }
-            if(Input.GetKey(KeyCode.R))
-            {
-                if(currentBreakProgress <= 0)
-                {
-                    Break();
-                }
-                else
-                {
-                    currentBreakProgress -= Time.deltaTime;
-                    breakProgress_image.fillAmount = Mathf.Abs((currentBreakProgress / breakTime) - 1);
-                }
-            }
-            if(Input.GetKeyUp(KeyCode.R))
-            {
-                StartCoroutine(EndBreaking());
-            }
-        }
-        public IEnumerator EndBreaking()
-        {
-            while (breakProgress_image.fillAmount >= 0.01f)
-            {
-                currentBreakProgress = Mathf.Lerp(currentBreakProgress, breakTime, 0.2f); ;
-
-                breakProgress_image.fillAmount = Mathf.Abs((currentBreakProgress / breakTime) - 1);
-
-                yield return null;
-            }
-
-            breakProgress_gameObj.SetActive(false);
-        }
-
         public virtual void Break()
         {
-            if(amount > 0)
+            if(Amount > 0)
             {
                 PlayerTakeItems();
             }
@@ -389,7 +330,7 @@ namespace Game.Drill
                 player.pickObjSystem.PutCurrentGameobj(false);
             }
 
-            foreach (var item in droppedItemsAfterBroke)
+            foreach (var item in DroppedItemsAfterBroke)
             {
                 PlayerInventory.instance.GiveItem(item.item, item.amount);
             }

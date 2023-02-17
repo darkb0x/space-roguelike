@@ -61,6 +61,8 @@ namespace Game
         {
             EnablePanel(panel, false);
 
+            GameInput.Instance.SetPlayerActionMap();
+
             Notify();
         }
 
@@ -68,6 +70,8 @@ namespace Game
         {
             currentOpenedPanel = panel;
             EnablePanel(panel, true);
+
+            GameInput.Instance.SetUIActionMap();
 
             Notify();
         }

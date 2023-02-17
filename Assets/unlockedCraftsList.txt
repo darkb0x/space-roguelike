@@ -1,20 +1,60 @@
 {
     "craftPaths": [
         "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret",
-        "CraftSystem/Crafts/DrillTree/Nodes/M2"
+        "CraftSystem/Crafts/DrillTree/Nodes/M2",
+        "CraftSystem/Crafts/TurretTree/Nodes/MinigunTurret",
+        "CraftSystem/Crafts/TurretTree/Nodes/GrenadeTurret",
+        "CraftSystem/Crafts/TurretTree/Nodes/FiregunTurret",
+        "CraftSystem/Crafts/TurretTree/Nodes/LaserTurret"
     ],
     "crafts": [
         {
-            "instanceID": 26040
+            "instanceID": 0
         },
         {
-            "instanceID": 26054
+            "instanceID": 26082
         },
         {
-            "instanceID": 26064
+            "instanceID": 26076
         },
         {
-            "instanceID": 26078
+            "instanceID": 26070
+        },
+        {
+            "instanceID": 26066
+        },
+        {
+            "instanceID": 26068
+        },
+        {
+            "instanceID": 26060
+        },
+        {
+            "instanceID": 26808
+        },
+        {
+            "instanceID": 26816
+        },
+        {
+            "instanceID": 26828
+        },
+        {
+            "instanceID": 26836
+        },
+        {
+            "instanceID": 26832
+        },
+        {
+            "instanceID": 26840
+        },
+        {
+            "instanceID": 26834
+        },
+        {
+            "instanceID": 26826
+        },
+        {
+            "instanceID": 26830
         }
     ]
 }

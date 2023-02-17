@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1162830341040462719, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+      propertyPath: Break.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1938265587010808776}
+    - target: {fileID: 1162830341040462719, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+      propertyPath: Break.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Break
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162830341040462719, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+      propertyPath: Break.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Game.Turret.Turret, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162830341040462719, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+      propertyPath: Break.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5909387419132771332, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
       propertyPath: m_Name
       value: TurretStandart_0
@@ -57,11 +73,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
---- !u!1 &794821804053636520 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6274411326295838047, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
-  m_PrefabInstance: {fileID: 6635185314821777655}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1015198256846407117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5909387417684159802, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
@@ -104,16 +115,14 @@ MonoBehaviour:
   EnemyTarget: {fileID: 3849847590448110927}
   <Health>k__BackingField: 15
   currentHealth: 0
-  TurretRotateTime: 0.2
+  DestroyParticle: {fileID: 4550200863518524, guid: 57a5b17d8e8d0d04b84708a9ddc7c585, type: 3}
+  TurretRotateTime: 0.05
   TurretBackRotateTime: 0.05
   TurretCanon: {fileID: 1015198257507967451}
   ShotPos: {fileID: 1015198256846407117}
   EnemyTag: Enemy
   currentEnemy: {fileID: 0}
   targets: []
-  BreakProgressGameObj: {fileID: 794821804053636520}
-  BreakProgressImage: {fileID: 6943178028777427719}
-  BreakTime: 5
   PlayerTag: Player
   <isPicked>k__BackingField: 0
   EnemyDetectionCollider: {fileID: 1015198257108429915}
@@ -132,16 +141,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c00f67f7bbafeb46929846092497ffd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6943178028777427719 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4345962932744780784, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
-  m_PrefabInstance: {fileID: 6635185314821777655}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

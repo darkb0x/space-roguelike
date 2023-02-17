@@ -56,7 +56,7 @@ namespace Game.CraftSystem
                 }
 
                 GameObject obj = Instantiate(itemListComponent, itemListTransform);
-                obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item._icon; // item icon
+                obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item.Icon; // item icon
 
                 // items amount
                 TextMeshProUGUI text = obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();

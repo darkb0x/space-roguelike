@@ -6,7 +6,7 @@ namespace Game.Drone
 {
     using Player.Inventory;
 
-    [CreateAssetMenu(fileName = "drone action mine", menuName = "Drone/new action mine")]
+    [CreateAssetMenu(fileName = "drone action mine", menuName = "Game/Drone/new Action mine")]
     public class DA_mine : DroneAction
     {
         PlayerInventory playerInventory;

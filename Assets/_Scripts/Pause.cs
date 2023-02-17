@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
+using UnityEngine.InputSystem;
 
 namespace Game
 {
@@ -11,7 +9,13 @@ namespace Game
 
         bool pauseEnabled = false;
 
-        private void Update()
+        private void Start()
+        {
+            GameInput.InputActions.Player.Pause.performed += OpenClose;
+            GameInput.InputActions.UI.CloseWindow.performed += OpenClose;
+        }
+
+        private void OpenClose(InputAction.CallbackContext context)
         {
             if(UIPanelManager.manager.SomethinkIsOpened())
             {
@@ -21,18 +25,15 @@ namespace Game
                 }
             }
 
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                pauseEnabled = !pauseEnabled;
+            pauseEnabled = !pauseEnabled;
 
-                if(pauseEnabled)
-                {
-                    pause();
-                }
-                else
-                {
-                    resume();
-                }
+            if (pauseEnabled)
+            {
+                pause();
+            }
+            else
+            {
+                resume();
             }
         }
 

@@ -6,7 +6,7 @@ namespace Game.Drone
 {
     using Bullets;
 
-    [CreateAssetMenu(fileName = "drone action attack", menuName = "Drone/new action attack")]
+    [CreateAssetMenu(fileName = "drone action attack", menuName = "Game/Drone/new Action attack")]
     public class DA_attack : DroneAction
     {
         float radiusValue = 0;

@@ -60,8 +60,8 @@ namespace Game.World
         [NaughtyAttributes.Button]
         public void GenerateRandomSprites()
         {
-            currentRockSprite = rockSprites[Random.Range(0, rockSprites.Length - 1)];
-            currentOreSprite = item.oreSprites[Random.Range(0, item.oreSprites.Count - 1)];
+            currentRockSprite = rockSprites[Random.Range(0, rockSprites.Length)];
+            currentOreSprite = item.OreSprites[Random.Range(0, item.OreSprites.Count)];
 
             oreRender.sprite = CombineSprites.MergeSprites(new Sprite[2] { currentRockSprite, currentOreSprite }, new Vector2Int(18, 18), name);
         }

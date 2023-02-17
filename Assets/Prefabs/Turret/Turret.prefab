@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 5909387419132771335}
   - component: {fileID: 5909387419132771333}
   - component: {fileID: 5909387419132771336}
+  - component: {fileID: 1162830341040462719}
   m_Layer: 11
   m_Name: Turret
   m_TagString: Untagged
@@ -329,6 +330,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1162830341040462719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909387419132771332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16567ce842dc434e85c3593c04dcb3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerTag: Player
+  BreakProgressGameObj: {fileID: 6274411326295838047}
+  BreakProgressImage: {fileID: 4345962932744780784}
+  BreakTime: 5
+  Break:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5909387419188500409
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4954113653826347055}
   m_Layer: 11
-  m_Name: BrokeProgress
+  m_Name: BreakProgress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

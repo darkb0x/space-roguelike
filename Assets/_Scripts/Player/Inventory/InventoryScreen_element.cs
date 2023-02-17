@@ -13,7 +13,7 @@ namespace Game.Player.Inventory
 
         public void UpdateData(PlayerInventory.Item pItem)
         {
-            UI_icon.sprite = pItem.item._icon;
+            UI_icon.sprite = pItem.item.Icon;
             UI_amount.text = pItem.amount.ToString();
         }
     }

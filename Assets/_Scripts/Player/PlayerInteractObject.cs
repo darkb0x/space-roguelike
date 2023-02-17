@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using NaughtyAttributes;
 
 namespace Game.Player
 {
@@ -9,24 +11,24 @@ namespace Game.Player
     {
         [Header("Action")]
         [SerializeField] private UnityEvent action;
-        [SerializeField] private KeyCode interactKey = KeyCode.E;
-
         [Header("Player interact rules")]
-        [NaughtyAttributes.Tag, SerializeField] private string playerTag = "Player";
+        [Tag, SerializeField] private string playerTag = "Player";
 
         [HideInInspector] public bool playerInZone = false;
 
-        private void Update()
+        private void Start()
+        {
+            GameInput.InputActions.Player.Interact.performed += Interact;
+        }
+
+        private void Interact(InputAction.CallbackContext context)
         {
             if (!playerInZone)
                 return;
             if (UIPanelManager.manager.SomethinkIsOpened())
                 return;
 
-            if(Input.GetKeyDown(interactKey))
-            {
-                action.Invoke();
-            }
+            action.Invoke();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

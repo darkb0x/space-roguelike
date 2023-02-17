@@ -141,7 +141,7 @@ namespace Game.Player.Inventory
             // main
             foreach (var item in items)
             {
-                item.UI_icon.sprite = item.item._icon;
+                item.UI_icon.sprite = item.item.Icon;
                 item.UI_amount.text = item.amount.ToString();
             }
 

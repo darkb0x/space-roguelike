@@ -10,11 +10,11 @@ namespace Game.Drill
 
         public void Enable_isMining()
         {
-            drillController.isMining = true;
+            drillController.IsMining = true;
         }
         public void Disable_isMining()
         {
-            drillController.isMining = false;
+            drillController.IsMining = false;
         }
     }
 }

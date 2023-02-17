@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1162830341040462719, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+      propertyPath: Break.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9110195830719306619}
+    - target: {fileID: 1162830341040462719, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+      propertyPath: Break.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Break
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162830341040462719, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+      propertyPath: Break.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Game.Turret.Turret, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162830341040462719, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+      propertyPath: Break.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5909387418092210477, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -61,22 +77,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
---- !u!114 &3139682704715065715 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4345962932744780784, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
-  m_PrefabInstance: {fileID: 1719691762395435651}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &4669878016169730012 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6274411326295838047, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
-  m_PrefabInstance: {fileID: 1719691762395435651}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5034969440185020039 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5909387419132771332, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 105337205602081558, guid: 448802a1ce4fe674da7515a9d57edf5e, type: 3}
-  Damage: 5
+  Damage: 10
   TimeBtwAttack: 0.3
   Recoil: 0
   DroppedItems:
@@ -104,16 +104,14 @@ MonoBehaviour:
   EnemyTarget: {fileID: 9125450167013893947}
   <Health>k__BackingField: 15
   currentHealth: 0
-  TurretRotateTime: 0.2
+  DestroyParticle: {fileID: 4550200863518524, guid: 57a5b17d8e8d0d04b84708a9ddc7c585, type: 3}
+  TurretRotateTime: 0.05
   TurretBackRotateTime: 0.05
   TurretCanon: {fileID: 5034969441292671919}
   ShotPos: {fileID: 5034969441700741049}
   EnemyTag: Enemy
   currentEnemy: {fileID: 0}
   targets: []
-  BreakProgressGameObj: {fileID: 4669878016169730012}
-  BreakProgressImage: {fileID: 3139682704715065715}
-  BreakTime: 5
   PlayerTag: Player
   <isPicked>k__BackingField: 0
   EnemyDetectionCollider: {fileID: 5034969441438455343}

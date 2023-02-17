@@ -14,9 +14,11 @@ namespace Game.Enemy
         [SerializeField] private Animator Anim;
         [SerializeField, AnimatorParam("Anim")] private string Anim_IsRunningBool;
         [SerializeField, AnimatorParam("Anim")] private string Anim_AttackTrigger;
+        [SerializeField, AnimatorParam("Anim")] private string Anim_DieTrigger;
         [Space]
-        [SerializeField] private Transform AttackVisual;
-        [SerializeField] private Animator AttackVisualAnim;
+        [SerializeField] private float DisappearanceSpeed;
+        [Space]
+        [SerializeField] private GameObject AttackVisual;
 
         private void Update()
         {
@@ -36,14 +38,30 @@ namespace Game.Enemy
         }
         public void Attack()
         {
-            Enemy.Attack();
+            bool hit = Enemy.Attack();
 
-            // Attack visual
-            Vector2 difference = transform.position - Enemy.currentTarget.transform.position;
-            float rotation = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-            float offset = 180f;
-            AttackVisual.rotation = Quaternion.Euler(0, 0, rotation + offset);
-            AttackVisualAnim.SetTrigger("Attack");
+            if(hit)
+            {
+                // Attack visual
+                Animator animator = Instantiate(AttackVisual, Enemy.currentTarget.transform.position, Quaternion.identity).GetComponent<Animator>();
+                animator.SetTrigger("Attack");
+                Destroy(animator.gameObject, 0.5f);
+            }
+        }
+        public void Death()
+        {
+            Anim.SetTrigger(Anim_DieTrigger);
+        }
+        private IEnumerator EnemyDisappearance()
+        {
+            while(Sprite.color.a > 0)
+            {
+                yield return null;
+                float alphaValue = Mathf.MoveTowards(Sprite.color.a, 0, DisappearanceSpeed * Time.deltaTime);
+                Sprite.color = new Color(1, 1, 1, alphaValue);
+            }
+
+            Destroy(Enemy.gameObject);
         }
 
         public void FlipSprite(bool right)

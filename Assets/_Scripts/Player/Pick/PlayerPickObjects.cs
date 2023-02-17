@@ -7,6 +7,8 @@ namespace Game.Player
 {
     using Turret;
     using Drill;
+    using UnityEngine.InputSystem;
+    using System;
 
     public class PlayerPickObjects : MonoBehaviour
     {
@@ -31,20 +33,25 @@ namespace Game.Player
             Gizmos.DrawWireSphere(transform.position, pickRadius);
         }
 
+        private void Start()
+        {
+            GameInput.InputActions.Player.Build.performed += Pick;
+        }
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (pickedGameObject)
-                    PutCurrentGameobj();
-                else
-                    PickGameObj();
-            }
-
             if (pickedGameObject && pickedGameObject_transform)
             {
                 pickedGameObject_transform.position = pickedGameObject_renderPosition.position;
             }
+        }
+
+        private void Pick(InputAction.CallbackContext obj)
+        {
+            if (pickedGameObject)
+                PutCurrentGameobj();
+            else
+                PickGameObj();
         }
 
         public void SetPickedGameobj(GameObject obj)

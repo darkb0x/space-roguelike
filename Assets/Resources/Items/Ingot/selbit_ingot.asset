@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
   m_Name: selbit_ingot
   m_EditorClassIdentifier: 
-  icon: {fileID: 1093264017326094163, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
-  cost: 1
-  oreSprites: []
+  <Icon>k__BackingField: {fileID: 1093264017326094163, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
+  <Cost>k__BackingField: 1
+  OreSprites: []

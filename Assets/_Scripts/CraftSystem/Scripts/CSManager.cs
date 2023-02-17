@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using NaughtyAttributes;
+using UnityEngine.InputSystem;
 
 namespace Game.CraftSystem
 {
@@ -55,17 +55,8 @@ namespace Game.CraftSystem
             openedTechTree = techTrees[0];
 
             categoryButtons.Initialize(ConvertListOfTechTree(techTrees));
-        }
 
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                if(isOpened)
-                {
-                    CloseMenu();
-                }
-            }
+            GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
         }
 
         public void Craft(CSCraftSO craft)
@@ -97,12 +88,16 @@ namespace Game.CraftSystem
 
             isOpened = true;
         }
-        public void CloseMenu()
+        private void CloseMenu()
         {
             UIPanelManager.manager.ClosePanel(craftTreePanel);
             isOpened = false;
 
             player.ContinuePlayerMove();
+        }
+        private void CloseMenu(InputAction.CallbackContext context)
+        {
+            CloseMenu();
         }
         #endregion
 

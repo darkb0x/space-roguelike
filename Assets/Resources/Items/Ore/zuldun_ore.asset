@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
   m_Name: zuldun_ore
   m_EditorClassIdentifier: 
-  icon: {fileID: 1106232271658436647, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
-  cost: 1
-  oreSprites:
+  <Icon>k__BackingField: {fileID: 1106232271658436647, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
+  <Cost>k__BackingField: 1
+  IsOre: 1
+  OreSprites:
   - {fileID: 21300000, guid: c9b033303b7d26244955e355e6a8166b, type: 3}
   - {fileID: 21300000, guid: 4274de68db83f684db70ed2e99edcaea, type: 3}
   - {fileID: 21300000, guid: 8c4a6bb1da5532f42be8c15faf686a73, type: 3}
