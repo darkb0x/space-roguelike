@@ -1,60 +1,13 @@
 {
     "craftPaths": [
-        "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret",
         "CraftSystem/Crafts/DrillTree/Nodes/M2",
-        "CraftSystem/Crafts/TurretTree/Nodes/MinigunTurret",
-        "CraftSystem/Crafts/TurretTree/Nodes/GrenadeTurret",
-        "CraftSystem/Crafts/TurretTree/Nodes/FiregunTurret",
-        "CraftSystem/Crafts/TurretTree/Nodes/LaserTurret"
-    ],
-    "crafts": [
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 26082
-        },
-        {
-            "instanceID": 26076
-        },
-        {
-            "instanceID": 26070
-        },
-        {
-            "instanceID": 26066
-        },
-        {
-            "instanceID": 26068
-        },
-        {
-            "instanceID": 26060
-        },
-        {
-            "instanceID": 26808
-        },
-        {
-            "instanceID": 26816
-        },
-        {
-            "instanceID": 26828
-        },
-        {
-            "instanceID": 26836
-        },
-        {
-            "instanceID": 26832
-        },
-        {
-            "instanceID": 26840
-        },
-        {
-            "instanceID": 26834
-        },
-        {
-            "instanceID": 26826
-        },
-        {
-            "instanceID": 26830
-        }
+        "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret1lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret2lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret3lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/FiregunTurret1lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/FiregunTurret2lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/LaserTurret1lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/LaserTurret2lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/LaserTurret3lvl"
     ]
 }

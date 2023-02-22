@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using System;
 using System.IO;
 
 namespace Game.CraftSystem
@@ -17,19 +16,14 @@ namespace Game.CraftSystem
 
     public class LoadCraftUtility : MonoBehaviour
     {
-        string saveDataPath;
-        string dataName = "unlockedCraftsList";
+        private string saveDataPath;
+        private string dataName = "unlockedCraftsList";
 
-        public static LoadCraftUtility loadCraftUtility;
+        public static LoadCraftUtility Instance;
         private List<ICraftListObserver> observers = new List<ICraftListObserver>();
 
         [SerializeField] private List<string> unlockedCraftPaths = new List<string>();
         public List<CSCraftSO> allUnlockedCrafts = new List<CSCraftSO>();
-
-        public CSCraftSO GetCraft(string path)
-        {
-            return Resources.Load<CSCraftSO>(path);
-        }
 
         public void AddUnlockedCraft(CSCraftSO craft)
         {
@@ -63,8 +57,7 @@ namespace Game.CraftSystem
         {
             SaveData data = new SaveData()
             {
-                craftPaths = unlockedCraftPaths,
-                crafts = allUnlockedCrafts
+                craftPaths = unlockedCraftPaths
             };
 
             string json = JsonUtility.ToJson(data, true);
@@ -83,14 +76,43 @@ namespace Game.CraftSystem
 
             SaveData data = JsonUtility.FromJson<SaveData>(json);
             unlockedCraftPaths = data.craftPaths;
-            allUnlockedCrafts = data.crafts;
+            allUnlockedCrafts = GetCraftByPathList(ref unlockedCraftPaths);
+        }
+        #endregion
+
+        #region Utilities
+        public CSCraftSO GetCraft(string path)
+        {
+            return Resources.Load<CSCraftSO>(path);
+        }
+        private List<CSCraftSO> GetCraftByPathList(ref List<string> pathList)
+        {
+            List<CSCraftSO> items = new List<CSCraftSO>();
+            List<string> elementToRemove = new List<string>();
+            foreach (var itemPath in pathList)
+            {
+                CSCraftSO craft = GetCraft(itemPath);
+                if(craft != null)
+                {
+                    items.Add(craft);
+                }
+                else
+                {
+                    elementToRemove.Add(itemPath);
+                }
+            }
+            foreach (var itemToRemove in elementToRemove)
+            {
+                pathList.Remove(itemToRemove);
+            }
+            return items;
         }
         #endregion
 
         #region MonoBehaviour
         private void Awake()
         {
-            loadCraftUtility = this;
+            Instance = this;
 
 #if UNITY_EDITOR
             saveDataPath = Path.Combine(Application.dataPath, dataName+".txt");
@@ -101,7 +123,7 @@ namespace Game.CraftSystem
         }
 #endregion
 
-#region Observer
+        #region Observer
         public void AddObserver(ICraftListObserver o)
         {
             observers.Add(o);
@@ -125,13 +147,12 @@ namespace Game.CraftSystem
                 observer.Initialize(new List<CSCraftSO>());
             }
         }
-#endregion
+        #endregion
     }
 
     [System.Serializable]
     class SaveData
     {
         public List<string> craftPaths;
-        public List<CSCraftSO> crafts;
     }
 }

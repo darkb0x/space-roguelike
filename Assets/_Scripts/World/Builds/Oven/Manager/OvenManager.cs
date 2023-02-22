@@ -66,13 +66,13 @@ namespace Game.Oven.Manager
 
             isOpened = true;
 
-            UIPanelManager.manager.OpenPanel(panel);
+            UIPanelManager.Instance.OpenPanel(panel);
         }
         public void ClosePanel()
         {
             isOpened = false;
 
-            UIPanelManager.manager.ClosePanel(panel);
+            UIPanelManager.Instance.ClosePanel(panel);
         }
         public void ClosePanel(InputAction.CallbackContext context)
         {

@@ -50,7 +50,7 @@ namespace Game.CraftSystem
             SpawnObjects();
 
             player = FindObjectOfType<PlayerController>();
-            LoadCraftUtility.loadCraftUtility.AddObserver(this);
+            LoadCraftUtility.Instance.AddObserver(this);
 
             openedTechTree = techTrees[0];
 
@@ -84,13 +84,13 @@ namespace Game.CraftSystem
                 uiElement.UpdateUI();
             }
 
-            UIPanelManager.manager.OpenPanel(craftTreePanel);
+            UIPanelManager.Instance.OpenPanel(craftTreePanel);
 
             isOpened = true;
         }
         private void CloseMenu()
         {
-            UIPanelManager.manager.ClosePanel(craftTreePanel);
+            UIPanelManager.Instance.ClosePanel(craftTreePanel);
             isOpened = false;
 
             player.ContinuePlayerMove();

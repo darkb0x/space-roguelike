@@ -103,7 +103,8 @@ namespace Game.CraftSystem
             {
                 if (Mouse.current.leftButton.isPressed)
                 {
-                    currentProgress += Time.deltaTime;
+                    float addedValue = Time.unscaledDeltaTime;
+                    currentProgress += addedValue; 
                     learnButtonImage.fillAmount = currentProgress / maxProgress;
 
                     if (currentProgress >= maxProgress)
@@ -228,7 +229,7 @@ namespace Game.CraftSystem
         }
         public void OnExitPointer_learn()
         {
-            if(isUnlocked)
+            if (isUnlocked)
             {
                 isMouseEnterToCraftButton = false;
             }

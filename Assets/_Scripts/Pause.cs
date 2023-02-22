@@ -5,9 +5,27 @@ namespace Game
 {
     public class Pause : MonoBehaviour
     {
-        [SerializeField] private GameObject pausePanel;
+        public static Pause Instance;
 
-        bool pauseEnabled = false;
+        [SerializeField] private GameObject pausePanel;
+        [SerializeField, NaughtyAttributes.ReadOnly] private bool m_PauseEnabled = false;
+
+        public bool pauseEnabled { 
+            get 
+            {
+                return m_PauseEnabled;       
+            } 
+            set 
+            {
+                m_PauseEnabled = value;
+                Time.timeScale = value ? 0 : 1;
+            } 
+        }
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
@@ -17,9 +35,9 @@ namespace Game
 
         private void OpenClose(InputAction.CallbackContext context)
         {
-            if(UIPanelManager.manager.SomethinkIsOpened())
+            if(UIPanelManager.Instance.SomethinkIsOpened())
             {
-                if(UIPanelManager.manager.currentOpenedPanel != pausePanel)
+                if(UIPanelManager.Instance.currentOpenedPanel != pausePanel)
                 {
                     return;
                 }
@@ -39,20 +57,12 @@ namespace Game
 
         public void pause()
         {
-            UIPanelManager.manager.OpenPanel(pausePanel);
-
-            pauseEnabled = true;
-
-            Time.timeScale = 0;
+            UIPanelManager.Instance.OpenPanel(pausePanel);
         }
 
         public void resume()
         {
-            UIPanelManager.manager.ClosePanel(pausePanel);
-
-            pauseEnabled = false;
-
-            Time.timeScale = 1;
+            UIPanelManager.Instance.ClosePanel(pausePanel);
         }
 
         public void Exit()
@@ -67,7 +77,7 @@ namespace Game
                 if (Application.isEditor)
                     return;
 
-                UIPanelManager.manager.CloseAllPanel();
+                UIPanelManager.Instance.CloseAllPanel();
                 pause();
             }
         }

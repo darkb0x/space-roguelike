@@ -72,7 +72,7 @@ namespace Game.Player
             //animation
             if(moveInput.magnitude > 0)
             {
-                if (!UIPanelManager.manager.SomethinkIsOpened())
+                if (!UIPanelManager.Instance.SomethinkIsOpened())
                 {
                     anim.SetFloat(anim_horizontal, moveInput.x);
                     anim.SetFloat(anim_vertical, moveInput.y);
@@ -80,7 +80,7 @@ namespace Game.Player
             }
             else
             {
-                if (!UIPanelManager.manager.SomethinkIsOpened())
+                if (!UIPanelManager.Instance.SomethinkIsOpened())
                 {
 
                     Vector3 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
@@ -137,7 +137,7 @@ namespace Game.Player
         }
         private void Die()
         {
-            LoadCraftUtility.loadCraftUtility.ClearUnlockedCrafts();
+            LoadCraftUtility.Instance.ClearUnlockedCrafts();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 

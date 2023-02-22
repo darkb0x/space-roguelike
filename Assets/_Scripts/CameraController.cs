@@ -36,11 +36,9 @@ namespace Game
 
         private void Update()
         {
-            mouseScrollDelta = Mathf.Clamp(mouseScrollDelta + GameInput.Instance.GetMouseScrollDeltaY(), -maxCamViewScale, maxCamViewScale);
-
-            if (!UIPanelManager.manager.SomethinkIsOpened())
+            if (!UIPanelManager.Instance.SomethinkIsOpened())
             {
-                currentZoom = Mathf.Clamp(currentZoom + -mouseScrollDelta * scrollSpeed, minCamViewScale, maxCamViewScale);
+                currentZoom = Mathf.Clamp(currentZoom + -GameInput.Instance.GetMouseScrollDeltaY() * scrollSpeed, minCamViewScale, maxCamViewScale);
                 cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
             }
 

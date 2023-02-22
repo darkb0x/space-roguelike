@@ -347,6 +347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: smoke
       objectReference: {fileID: 0}
+    - target: {fileID: 5994051113416135673, guid: 28662c48e2687424e89f3334dec21a17, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6527205543441214195, guid: 28662c48e2687424e89f3334dec21a17, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -18,6 +18,7 @@ namespace Game.Bullets
 
         Rigidbody2D rb;
         Transform myTransform;
+        private float factor;
 
         private void OnDrawGizmosSelected()
         {
@@ -31,6 +32,7 @@ namespace Game.Bullets
             myTransform = GetComponent<Transform>();
 
             damage = dmg;
+            factor = speed_rotation / Mathf.PI;
 
             rb.AddForce(myTransform.right * speed);
 
@@ -39,9 +41,9 @@ namespace Game.Bullets
 
         public override void Update()
         {
-            myTransform.Rotate(0, 0, speed_rotation);
+            myTransform.Rotate(0, 0, speed_rotation * Time.deltaTime);
             if (speed_rotation > 0)
-                speed_rotation -= Time.deltaTime;
+                speed_rotation -= (factor * Time.deltaTime);
         }
 
         IEnumerator explode()

@@ -43,11 +43,10 @@ namespace Game.CraftSystem
 
         [Header("Scale")]
         [SerializeField] private float currentScale = 1;
+        [SerializeField] private float scaleSpeed = 3f;
         [Space]
         [SerializeField] private float minTreeScale = 0.5f;
         [SerializeField] private float maxTreeScale = 1;
-        [Space]
-        [SerializeField] private float sensitivity = 0.2f;
 
         [Header("UI/Panels")]
         [SerializeField] private GameObject techTreePanel;
@@ -72,7 +71,7 @@ namespace Game.CraftSystem
 
             player = FindObjectOfType<PlayerController>();
 
-            foreach (var item in LoadCraftUtility.loadCraftUtility.allUnlockedCrafts)
+            foreach (var item in LoadCraftUtility.Instance.allUnlockedCrafts)
             {
                 unlockedCrafts.Add(item);
             }
@@ -81,21 +80,24 @@ namespace Game.CraftSystem
 
             categoryButtons.Initialize(techTrees, this);
 
-            UIPanelManager.manager.Attach(this);
+            UIPanelManager.Instance.Attach(this);
         }
         private void Update()
         {
             if (isOpened)
             {
+                float sensitivity = 0.2f;
+
+
                 currentScale = Mathf.Clamp(currentScale + GameInput.Instance.GetMouseScrollDeltaY() * sensitivity, minTreeScale, maxTreeScale);
-                float scale = Mathf.Lerp(openedTechTree.techTreeRenderTransform.localScale.x, currentScale, sensitivity);
+                float scale = Mathf.Lerp(openedTechTree.techTreeRenderTransform.localScale.x, currentScale, scaleSpeed * Time.unscaledDeltaTime);
                 openedTechTree.techTreeRenderTransform.localScale = new Vector3(scale, scale, 1);
             }
         }
 
         public void LearnCraft(CSCraftSO craft)
         {
-            LoadCraftUtility.loadCraftUtility.AddUnlockedCraft(craft);
+            LoadCraftUtility.Instance.AddUnlockedCraft(craft);
 
             if(!unlockedCrafts.Contains(craft))
                 unlockedCrafts.Add(craft);
@@ -104,21 +106,21 @@ namespace Game.CraftSystem
         #region UI Actions
         public void OpenMenu()
         {
-            UIPanelManager.manager.OpenPanel(techTreePanel);
+            UIPanelManager.Instance.OpenPanel(techTreePanel);
             isOpened = true;
 
             player.canMove = false;
         }
         public void CloseMenu()
         {
-            UIPanelManager.manager.ClosePanel(techTreePanel);
+            UIPanelManager.Instance.ClosePanel(techTreePanel);
             isOpened = false;
 
             player.canMove = true;
         }
         public void CloseMenu(InputAction.CallbackContext context)
         {
-            UIPanelManager.manager.ClosePanel(techTreePanel);
+            UIPanelManager.Instance.ClosePanel(techTreePanel);
             isOpened = false;
 
             player.canMove = true;

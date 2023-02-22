@@ -12,7 +12,7 @@ namespace Game
 
     public class UIPanelManager : MonoBehaviour
     {
-        public static UIPanelManager manager;
+        public static UIPanelManager Instance;
 
         List<IUIPanelManagerObserver> observers = new List<IUIPanelManagerObserver>();
         [HideInInspector] public GameObject currentOpenedPanel;
@@ -30,11 +30,12 @@ namespace Game
         [Header("OpenClose panels")]
         public List<Panels> panels = new List<Panels>();
 
-        private void Awake() => manager = this;
+        private void Awake() => Instance = this;
 
         private void EnablePanel(GameObject panel, bool enabled)
         {
             playerUI.SetActive(!enabled);
+            Pause.Instance.pauseEnabled = enabled;
 
             for (int i = 0; i < panels.Count; i++)
             {

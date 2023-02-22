@@ -55,7 +55,7 @@ namespace Game.Enemy
         // Components
         protected Transform myTransform;
         protected Seeker seecker;
-        protected Rigidbody2D rb;
+        public Rigidbody2D rb { get; private set; }
 
         private void OnDrawGizmosSelected()
         {
@@ -145,7 +145,8 @@ namespace Game.Enemy
             }
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-            Vector2 force = direction * (Speed * 50f) * Time.deltaTime;
+            float speedFactor = 50f;
+            Vector2 force = direction * (Speed * speedFactor) * Time.deltaTime;
 
             rb.AddForce(force);
 

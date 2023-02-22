@@ -40,11 +40,11 @@ namespace Game.Turret
                 return;
 
             Rocket rocket = Instantiate(BulletPrefab, ShotPos.position, ShotPos.rotation).GetComponent<Rocket>();
-            rocket.Init(Damage, currentEnemy);
+            rocket.Init(Damage, currentEnemyTransform);
             currentRocketsCount--;
 
             int index = Random.Range(0, targets.Count - 1);
-            currentEnemy = targets[index].transform;
+            currentEnemyTransform = targets[index].transform;
         }
 
         private void Reload()

@@ -9,10 +9,12 @@ namespace Game.Turret
 {
     using Player;
     using Player.Inventory;
-    using Bullets;
+    using Enemy;
 
     public abstract class Turret : MonoBehaviour, IDamagable
     {
+        private const float STANDART_ROTATION_TIME = 5f;
+
         [System.Serializable]
         public struct DroppedItem
         {
@@ -23,7 +25,6 @@ namespace Game.Turret
         protected bool playerInZone { get; private set; }
         protected bool enemyInZone { get; private set; }
 
-        private float currentBreakProgress;
         private float currentTimeBtwAttacks;
 
         private PlayerController player;
@@ -45,8 +46,9 @@ namespace Game.Turret
         [SerializeField] private GameObject DestroyParticle;
 
         [Header("Turret/Canon")]
-        [SerializeField] protected float TurretRotateTime = 0.2f;
-        [SerializeField] protected float TurretBackRotateTime = 0.05f;
+        [SerializeField] private bool ChangeRotationTime ;
+        [EnableIf("ChangeRotationTime"), SerializeField] protected float TurretRotateTime = STANDART_ROTATION_TIME;
+        [EnableIf("ChangeRotationTime"), SerializeField] protected float TurretBackRotateTime = STANDART_ROTATION_TIME;
         [Space]
         [SerializeField] protected Transform TurretCanon;
         [SerializeField] protected Transform ShotPos;
@@ -54,8 +56,11 @@ namespace Game.Turret
 
         [Header("Enemy detecion")]
         [Tag, SerializeField] protected string EnemyTag = "Enemy";
+        [SerializeField] protected bool UseEnemyTrajectory = false;
         [Space]
-        [ReadOnly] public Transform currentEnemy;
+        [ReadOnly] public Transform currentEnemyTransform;
+        protected EnemyAI currentEnemy;
+        protected Vector2 enemyTrajectory;
         [ReadOnly] public List<GameObject> targets = new List<GameObject>();
 
         [Header("Other")]
@@ -68,17 +73,25 @@ namespace Game.Turret
 
         private void OnDrawGizmosSelected()
         {
-            if (currentEnemy != null)
+            if (currentEnemyTransform != null)
             {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawLine(myTransform.position, currentEnemy.transform.position);
-                Gizmos.DrawWireSphere(currentEnemy.transform.position, 1.5f);
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(myTransform.position, currentEnemyTransform.transform.position);
+
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(currentEnemyTransform.position, currentEnemyTransform.position + (Vector3)currentEnemy.rb.velocity / 2);
             }
         }
 
         protected virtual void Start()
         {
             myTransform = GetComponent<Transform>();
+
+            if(!ChangeRotationTime)
+            {
+                TurretRotateTime = STANDART_ROTATION_TIME;
+                TurretBackRotateTime = STANDART_ROTATION_TIME;
+            }
 
             EnemyTarget.Initialize(this);
         }
@@ -108,9 +121,9 @@ namespace Game.Turret
             }
 
             #region rotation
-            if (currentEnemy != null)
+            if (currentEnemyTransform != null)
             {
-                RotateToTarget(currentEnemy);
+                RotateToTarget(currentEnemyTransform);
             }
             else
             {
@@ -157,14 +170,14 @@ namespace Game.Turret
 
             if (enemyInZone)
             {
-                if (currentEnemy == null)
-                    currentEnemy = GetNearestEnemy();
+                if (currentEnemyTransform == null)
+                    currentEnemyTransform = GetNearestEnemy();
 
                 if (currentTimeBtwAttacks <= 0)
                 {
                     if (!isPicked)
                         Attack();
-                    currentEnemy = GetNearestEnemy();
+                    currentEnemyTransform = GetNearestEnemy();
                     currentTimeBtwAttacks = TimeBtwAttack;
                 }
                 else
@@ -206,13 +219,22 @@ namespace Game.Turret
         #region Utilties
         private void RotateToTarget(Transform target)
         {
-            if (currentEnemy != null)
+            if (currentEnemyTransform != null)
             {
-                Vector3 dir = target.position - TurretCanon.position;
+                Vector3 dir = Vector3.zero;
+                if (UseEnemyTrajectory)
+                {
+                    dir = (Vector3)enemyTrajectory - TurretCanon.position;
+                }
+                else
+                {
+                    dir = target.position - TurretCanon.position;
+                }
+
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
                 Quaternion a = TurretCanon.rotation;
                 Quaternion b = Quaternion.Euler(0, TurretCanon.rotation.y, angle);
-                TurretCanon.rotation = Quaternion.Lerp(a, b, TurretRotateTime);
+                TurretCanon.rotation = Quaternion.Lerp(a, b, TurretRotateTime * Time.deltaTime);
             }
             else
             {
@@ -223,7 +245,7 @@ namespace Game.Turret
         {
             Quaternion a = TurretCanon.rotation;
             Quaternion b = Quaternion.Euler(0, TurretCanon.rotation.y, 0);
-            TurretCanon.rotation = Quaternion.Lerp(a, b, TurretBackRotateTime);
+            TurretCanon.rotation = Quaternion.Lerp(a, b, TurretBackRotateTime * Time.deltaTime);
         }
         private void FlipCanonTurret()
         {
@@ -258,9 +280,17 @@ namespace Game.Turret
             }
             targets.RemoveAt(errorIndex);
             if (enemy != null)
+            {
+                currentEnemy = enemy.GetComponent<EnemyAI>();
+                enemyTrajectory = enemy.transform.position + (Vector3)currentEnemy.rb.velocity / 2;
                 return enemy.transform;
+            }
             else
+            {
+                currentEnemy = null;
+                enemyTrajectory = Vector2.zero;
                 return null;
+            }
         }
         #endregion
 

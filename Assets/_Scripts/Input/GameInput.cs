@@ -14,6 +14,9 @@ namespace Game
 
         private Camera cam;
 
+        private enum SelectedInputActonMap { Player, UI }
+        private SelectedInputActonMap currentInputActionMap = SelectedInputActonMap.Player;
+
         private void Awake()
         {
             Instance = this;
@@ -34,7 +37,21 @@ namespace Game
         }
         public float GetMouseScrollDeltaY()
         {
-            return InputActions.Player.Zoom.ReadValue<Vector2>().y;
+            float scroll = 0;
+            float scrollDivision = 100f;
+
+            switch (currentInputActionMap)
+            {
+                case SelectedInputActonMap.Player:
+                    scroll = InputActions.Player.Zoom.ReadValue<Vector2>().y / scrollDivision;
+                    break;
+                case SelectedInputActonMap.UI:
+                    scroll = InputActions.UI.Zoom.ReadValue<Vector2>().y / scrollDivision;
+                    break;
+                default:
+                    goto case SelectedInputActonMap.Player;
+            }
+            return scroll;
         }
         public Vector2 GetMousePosition()
         {
@@ -47,11 +64,15 @@ namespace Game
 
         public void SetPlayerActionMap()
         {
+            currentInputActionMap = SelectedInputActonMap.Player;
+
             InputActions.Player.Enable();
             InputActions.UI.Disable();
         }
         public void SetUIActionMap()
         {
+            currentInputActionMap = SelectedInputActonMap.UI;
+
             InputActions.Player.Disable();
             InputActions.UI.Enable();
         }
