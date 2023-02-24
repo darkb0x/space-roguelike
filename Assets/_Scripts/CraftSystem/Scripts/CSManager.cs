@@ -29,10 +29,10 @@ namespace Game.CraftSystem
         [SerializeField] private List<CraftTechTree> techTrees = new List<CraftTechTree>();
 
         [Header("UI/Panels")]
-        [SerializeField] private GameObject craftTreePanel;
-        [SerializeField] private Transform craftRenderTransform;
+        [SerializeField, Tooltip("Canvas/Craft list")] private GameObject craftTreePanel;
+        [SerializeField, Tooltip("Canvas/Craft list/Scroll View/Viewport/Content")] private Transform craftRenderTransform;
         [Space]
-        [SerializeField] private CSCategoryButtons categoryButtons;
+        [SerializeField, Tooltip("Canvas/Craft list/Categories")] private CSCategoryButtons categoryButtons;
 
         [Header("UI/Prefabs")]
         [SerializeField] private CSCraftUICraft craftObjectPrefab;

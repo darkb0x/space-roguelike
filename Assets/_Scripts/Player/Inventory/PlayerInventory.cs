@@ -66,10 +66,10 @@ namespace Game.Player.Inventory
         [SerializeField] private TextMeshProUGUI[] money_texts;
 
         [Header("UI")]
-        [SerializeField] private Transform uiElements_tranform;
+        [SerializeField, Tooltip("Canvas/Player/Items")] private Transform uiElements_tranform;
         [SerializeField] private GameObject itemInUI_prefab;
         [Space]
-        [SerializeField] private InventoryScreen[] screens;
+        [SerializeField] private InventoryScreen[] InventoryScreens;
 
         private void Start()
         {
@@ -146,7 +146,7 @@ namespace Game.Player.Inventory
             }
 
             // screens data
-            foreach (var screen in screens)
+            foreach (var screen in InventoryScreens)
             {
                 screen.UpdateData(items);
             }

@@ -49,9 +49,9 @@ namespace Game.CraftSystem
         [SerializeField] private float maxTreeScale = 1;
 
         [Header("UI/Panels")]
-        [SerializeField] private GameObject techTreePanel;
-        [SerializeField] private Transform content;
-        [SerializeField] private CSCategoryButtons categoryButtons;
+        [SerializeField, Tooltip("Canvas/Craft tree")] private GameObject techTreePanel;
+        [SerializeField, Tooltip("Canvas/Craft tree/Scroll View/Content")] private Transform content;
+        [SerializeField, Tooltip("Canvas/Craft tree/Categories")] private CSCategoryButtons categoryButtons;
 
         [Header("UI/Prefabs")]
         [SerializeField] private CSCraftUILearn learnCraftPrefab;
@@ -59,7 +59,7 @@ namespace Game.CraftSystem
         [SerializeField] private RectTransform nullObjPrefab;
 
         [Header("Other")]
-        [SerializeField] private Canvas canvas;
+        [SerializeField, Tooltip("Default canvas")] private Canvas canvas;
         public bool isOpened = false;
         public TechTree openedTechTree;
 

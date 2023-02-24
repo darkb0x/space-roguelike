@@ -13,10 +13,10 @@ namespace Game.Oven.Manager
         [SerializeField, Expandable] private OvenCraftList craftList;
 
         [Header("UI")]
-        [SerializeField] private GameObject panel;
+        [SerializeField, Tooltip("Canvas/Oven")] private GameObject panel;
         [Space]
         [SerializeField] private OvenManagerElement craftElement;
-        [SerializeField] private Transform craftListParent;
+        [SerializeField, Tooltip("Canvas/Oven/Craft list/Scroll View/Viewport/Content")] private Transform craftListParent;
 
         Oven currentOven;
         bool isOpened = false;

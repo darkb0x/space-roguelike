@@ -17,12 +17,14 @@ namespace Game.Player
         [SerializeField, ProgressBar("Oxygen", "maxOxygen", EColor.Blue)] private float oxygen = 50;
         [SerializeField] private float maxOxygen = 100f;
         [SerializeField] private float oxygenUseSpeed = 1.3f;
+        [SerializeField] private bool DoOxygenCycle = true;
         [Space]
         [SerializeField] private Image oxygenBarUI;
 
         [Header("Health")]
         [SerializeField, ProgressBar("Health", "maxHealth", EColor.Red)] private float health = 10;
         [SerializeField] private float maxHealth;
+        [SerializeField] private bool DoHealthCycle = true;
         [Space]
         [SerializeField] private Image healthBarUI;
 
@@ -59,10 +61,26 @@ namespace Game.Player
             EnemyTarget.Initialize(this);
 
             health = maxHealth;
-            oxygen = maxOxygen;
+            if (healthBarUI != null)
+            {
+                healthBarUI.fillAmount = health / maxHealth;
+            }
+            else
+            {
+                Debug.LogError("healthBarUI is null");
+                DoHealthCycle = false;
+            }
 
-            oxygenBarUI.fillAmount = oxygen / maxOxygen;
-            healthBarUI.fillAmount = health / maxHealth;
+            oxygen = maxOxygen;
+            if (oxygenBarUI != null)
+            {
+                oxygenBarUI.fillAmount = oxygen / maxOxygen;
+            }
+            else
+            {
+                Debug.LogError("oxygenBarUI in null");
+                DoOxygenCycle = false;
+            }
         }
 
         private void Update()
@@ -97,7 +115,8 @@ namespace Game.Player
                 anim.SetBool(anim_isRunning, false);
 
             //oxygen
-            OxygenCycle();
+            if(DoOxygenCycle)
+                OxygenCycle();
         }
 
         private void FixedUpdate()
@@ -143,10 +162,16 @@ namespace Game.Player
 
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
         {
+            if (!DoHealthCycle)
+                return;
+
             TakeDamage(dmg);
         }
         void IDamagable.Die()
         {
+            if (!DoHealthCycle)
+                return;
+
             EnemySpawner.instance.RemoveTarget(EnemyTarget);
             Die();
         }

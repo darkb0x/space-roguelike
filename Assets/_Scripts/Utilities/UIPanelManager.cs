@@ -17,7 +17,7 @@ namespace Game
         List<IUIPanelManagerObserver> observers = new List<IUIPanelManagerObserver>();
         [HideInInspector] public GameObject currentOpenedPanel;
 
-        [SerializeField] private GameObject playerUI;
+        [SerializeField, Tooltip("Canvas/Player")] private GameObject playerUI;
         [Space]
         [SerializeField] private Volume blurVolume;
 
