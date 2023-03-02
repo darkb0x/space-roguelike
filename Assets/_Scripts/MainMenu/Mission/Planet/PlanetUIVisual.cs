@@ -7,16 +7,19 @@ namespace Game.MainMenu.Mission.Planet
 {
     public class PlanetUIVisual : MonoBehaviour
     {
-        private PlanetSO planetData;
+        public PlanetSO planetData { get; private set; }
         private Transform myTransform;
-        private void Start()
-        {
-            myTransform = transform;
-        }
 
         public void Initialize(PlanetSO so)
         {
+            myTransform = transform;
+
             planetData = so;
+        }
+
+        public void SelectPlanet()
+        {
+
         }
 
         public void Rotate(Transform point, float direction, float rangeFromPoint)

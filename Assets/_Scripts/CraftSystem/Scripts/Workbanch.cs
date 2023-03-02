@@ -5,9 +5,7 @@ using UnityEngine;
 namespace Game.CraftSystem
 {
     using Player;
-    using Drill;
     using Turret;
-    using CraftSystem.Editor.ScriptableObjects;
 
     [RequireComponent(typeof(PlayerInteractObject))]
     public class Workbanch : MonoBehaviour

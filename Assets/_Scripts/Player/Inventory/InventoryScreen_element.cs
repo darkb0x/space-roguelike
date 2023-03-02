@@ -11,10 +11,10 @@ namespace Game.Player.Inventory
         [SerializeField] private Image UI_icon;
         [SerializeField] private TextMeshProUGUI UI_amount;
 
-        public void UpdateData(PlayerInventory.Item pItem)
+        public void UpdateData(ItemData pItem)
         {
-            UI_icon.sprite = pItem.item.Icon;
-            UI_amount.text = pItem.amount.ToString();
+            UI_icon.sprite = pItem.Item.Icon;
+            UI_amount.text = pItem.Amount.ToString();
         }
     }
 }

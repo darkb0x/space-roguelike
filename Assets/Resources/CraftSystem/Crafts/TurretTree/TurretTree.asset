@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: TurretTree
   <Nodes>k__BackingField:
-  - {fileID: 11400000, guid: ad1fa2b72b8a5684d993c5962e2f61dd, type: 2}
-  - {fileID: 11400000, guid: e90621e9e46958f4380a59af032f9592, type: 2}
   - {fileID: 11400000, guid: 7ea84ede0cfe47847af9a993649e8f3a, type: 2}
   - {fileID: 11400000, guid: 509b02aecc4c37f46804cc957f072040, type: 2}
   - {fileID: 11400000, guid: a175f6486f9a9f94fbf7aca6429efad8, type: 2}
   - {fileID: 11400000, guid: bc1dd266bfe772147a20860d3688cfb8, type: 2}
-  - {fileID: 11400000, guid: 7212d7e2cd5cb3148a2204a2a9666944, type: 2}
   - {fileID: 11400000, guid: 5d9e6feb61b15804eb4a28fdd3931ce1, type: 2}
   - {fileID: 11400000, guid: 73cdb8a0967a94b4b8c70f023a994416, type: 2}
   - {fileID: 11400000, guid: 884e78ed1414a0845b2af10691fe2984, type: 2}
-  - {fileID: 11400000, guid: 95d993fef660db54986f8a377bf5bb1c, type: 2}
   - {fileID: 11400000, guid: f0b37fd8f4884a0439c200188045df58, type: 2}
-  - {fileID: 11400000, guid: 142daac6c84ef7741a1f7f8af5ed468c, type: 2}
   - {fileID: 11400000, guid: 46bf2eacf8d52dc4f8709353744d5a89, type: 2}
   - {fileID: 11400000, guid: 9f4dc253a43f7cd47b6b405d6518e371, type: 2}
-  - {fileID: 11400000, guid: bdd358032c81b754190d4fa452327c4d, type: 2}
   - {fileID: 11400000, guid: e6da554ff6026e5418579a76e615c54b, type: 2}
   - {fileID: 11400000, guid: da57c6f8f591b5846a3d5adf260546d5, type: 2}
+  - {fileID: 11400000, guid: 95d993fef660db54986f8a377bf5bb1c, type: 2}
+  - {fileID: 11400000, guid: bdd358032c81b754190d4fa452327c4d, type: 2}
+  - {fileID: 11400000, guid: 7212d7e2cd5cb3148a2204a2a9666944, type: 2}
+  - {fileID: 11400000, guid: ad1fa2b72b8a5684d993c5962e2f61dd, type: 2}
+  - {fileID: 11400000, guid: e90621e9e46958f4380a59af032f9592, type: 2}
+  - {fileID: 11400000, guid: 142daac6c84ef7741a1f7f8af5ed468c, type: 2}

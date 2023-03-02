@@ -5,7 +5,7 @@ using System;
 
 namespace Game.CraftSystem.Editor.Data.Save
 {
-    using ScriptableObjects;
+    using Player.Inventory;
 
     [Serializable]
     public class CSNodeSaveData
@@ -17,7 +17,7 @@ namespace Game.CraftSystem.Editor.Data.Save
         [field: SerializeField] public GameObject ObjectPrefab { get; set; }
         [field: SerializeField] public Sprite Icon { get; set; }
         [field: SerializeField] public int Cost { get; set; }
-        [field: SerializeField] public List<ItemCraft> Craft { get; set; }
+        [field: SerializeField] public List<ItemData> Craft { get; set; }
         [field: SerializeField] public Vector2 Position { get; set; }
     }
 }

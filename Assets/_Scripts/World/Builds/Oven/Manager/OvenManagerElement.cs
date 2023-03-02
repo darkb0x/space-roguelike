@@ -63,7 +63,7 @@ namespace Game.Oven.Manager
             for (int i = 0; i < amountsText.Count; i++)
             {
                 OvenCraftList.craft.s_item item = currentCraft.firstItems[i];
-                amountsText[i].color = inventory.GetItem(item.item).amount >= item.amount ? Color.white : Color.red;
+                amountsText[i].color = inventory.GetItem(item.item).Amount >= item.amount ? Color.white : Color.red;
             }
         }
     }

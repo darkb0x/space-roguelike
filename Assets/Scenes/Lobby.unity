@@ -357,6 +357,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &275612010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3761534330666920320, guid: 7219a96cca7494a4abb58a22beb1e186, type: 3}
+  m_PrefabInstance: {fileID: 30479932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &275612011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3761534331266191431, guid: 7219a96cca7494a4abb58a22beb1e186, type: 3}
+  m_PrefabInstance: {fileID: 30479932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &275612012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3761534331170739109, guid: 7219a96cca7494a4abb58a22beb1e186, type: 3}
+  m_PrefabInstance: {fileID: 30479932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &319736784 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3761534330852257964, guid: 7219a96cca7494a4abb58a22beb1e186, type: 3}
@@ -712,6 +745,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 30479939}
     - target: {fileID: 973950430753082533, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
+      propertyPath: money_texts.Array.data[0]
+      value: 
+      objectReference: {fileID: 275612012}
+    - target: {fileID: 973950430753082533, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
+      propertyPath: money_texts.Array.data[1]
+      value: 
+      objectReference: {fileID: 275612011}
+    - target: {fileID: 973950430753082533, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
+      propertyPath: money_texts.Array.data[2]
+      value: 
+      objectReference: {fileID: 275612010}
+    - target: {fileID: 973950430753082533, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
       propertyPath: InventoryScreens.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -764,6 +809,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 356495164}
     - target: {fileID: 6465428977077885692, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
+      propertyPath: panels.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6465428977077885692, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
+      propertyPath: panels.Array.data[4].name
+      value: Choose Mission
+      objectReference: {fileID: 0}
+    - target: {fileID: 6465428977077885692, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
       propertyPath: panels.Array.data[0].panel_obj
       value: 
       objectReference: {fileID: 1717325270}
@@ -779,6 +832,10 @@ PrefabInstance:
       propertyPath: panels.Array.data[3].panel_obj
       value: 
       objectReference: {fileID: 1717325269}
+    - target: {fileID: 6465428977077885692, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
+      propertyPath: panels.Array.data[4].panel_obj
+      value: 
+      objectReference: {fileID: 2030542981}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
 --- !u!1 &968968802
@@ -1144,7 +1201,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   action:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1947506308}
+        m_TargetAssemblyTypeName: Game.MainMenu.Mission.MissionChooseManager, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playerTag: Player
   playerInZone: 0
 --- !u!1 &1551125111
@@ -1202,11 +1271,11 @@ MonoBehaviour:
   m_Content: {fileID: 1624644082}
   m_Horizontal: 1
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 0
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 0
   m_Viewport: {fileID: 0}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
@@ -1289,7 +1358,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: -0.00030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1717325269 stripped
@@ -1383,9 +1452,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c1828f1072482418874f9ec395984d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentViewScale: 1
+  ViewScaleSpeed: 3
+  MinPlanetsViewScale: 0.5
+  MaxPlanetsViewScale: 1
+  MainPanel: {fileID: 2030542981}
+  Content: {fileID: 1624644082}
+  PlanetVisual: {fileID: 4564827419844963912, guid: 2edae23a7b71e524fad4b2c6c839f31f, type: 3}
   PlanetMap: {fileID: 11400000, guid: 8016a38d66b812043b7a065d71bf0781, type: 2}
   CentralPoint: {fileID: 517721013}
-  PlanetVisual: {fileID: 4564827419844963912, guid: 2edae23a7b71e524fad4b2c6c839f31f, type: 3}
 --- !u!1 &2030542981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,12 +1471,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2030542982}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Choose Mission
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2030542982
 RectTransform:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace Game.Player
 {
-    public class BreakBuildSystem : MonoBehaviour
+    public class BreakingBuildObject : MonoBehaviour
     {
         [SerializeField, NaughtyAttributes.Tag] private string PlayerTag = "Player";
         [Space]
@@ -80,6 +80,11 @@ namespace Game.Player
         {
             if (collision.CompareTag(PlayerTag))
                 playerInZone = false;
+        }
+
+        private void OnDisable()
+        {
+            GameInput.InputActions.Player.Break.canceled -= EndBreaking;
         }
     }
 }

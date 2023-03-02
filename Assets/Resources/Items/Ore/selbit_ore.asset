@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: selbit_ore
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: -203749126781165649, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
+  <LowSizeIcon>k__BackingField: {fileID: -1083282776, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   <Cost>k__BackingField: 1
   IsOre: 1
   OreSprites:

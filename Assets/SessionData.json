@@ -1,0 +1,35 @@
+{
+    "UnlockedCraftPaths": [
+        "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret1lvl",
+        "CraftSystem/Crafts/DrillTree/Nodes/M2"
+    ],
+    "Items": {
+        "list": [
+            {
+                "Key": "Items/scrap",
+                "Value": 0
+            },
+            {
+                "Key": "Items/Ingot/selbit_ingot",
+                "Value": 0
+            },
+            {
+                "Key": "Items/Ingot/zuldun_ingot",
+                "Value": 0
+            },
+            {
+                "Key": "Items/Ore/selbit_ore",
+                "Value": 0
+            },
+            {
+                "Key": "Items/Ore/zuldun_ore",
+                "Value": 0
+            },
+            {
+                "Key": "Items/Ore/marbet_ore",
+                "Value": 0
+            }
+        ]
+    },
+    "Money": 0
+}

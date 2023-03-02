@@ -58,17 +58,16 @@ namespace Game.CraftSystem
             craft_icon.sprite = craft.IconSprite;
             craft_cost.text = craft.CraftCost+"$";
 
-            foreach (ItemCraft item in craft.ObjectCraft)
+            foreach (ItemData item in craft.ObjectCraft)
             {
-                if(item == null | item.item == null)
+                if(item == null | item.Item == null)
                 {
-                    Debug.Log(data.AssetPath + " ObjectCraft have null item");
                     continue;
                 }
 
                 GameObject obj = Instantiate(itemListComponent, itemListTransform);
-                obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item.Icon; // item icon
-                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.amount.ToString(); // items amount
+                obj.transform.GetChild(0).GetComponent<Image>().sprite = item.Item.Icon; // item icon
+                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.Amount.ToString(); // items amount
             }
 
             //Variables

@@ -23,7 +23,7 @@ namespace Game.CraftSystem.Editor.Elements
         public GameObject Object { get; set; }
         public Sprite Icon { get; set; }
         public int Cost { get; set; }
-        public List<ItemCraft> Craft { get; set; }
+        public List<ItemData> Craft { get; set; }
 
         protected CSGraphView graphView;
         private Color defaultBackgroundColor;
@@ -36,9 +36,9 @@ namespace Game.CraftSystem.Editor.Elements
             Choices = new List<CSChoiceSaveData>();
             Object = null;
             Cost = 0;
-            Craft = new List<ItemCraft>();
+            Craft = new List<ItemData>();
 
-            Craft.Add(new ItemCraft() { amount = 1 });
+            Craft.Add(new ItemData() { Amount = 1 });
             Choices.Add(new CSChoiceSaveData());
 
             graphView = dsGraphView;
@@ -168,7 +168,7 @@ namespace Game.CraftSystem.Editor.Elements
             //Add Element
             Button AddButton = CSElementUtility.CreateButton("Add", () =>
             {
-                Craft.Add(AddElementToFoldout(craftFoldout, new ItemCraft()));
+                Craft.Add(AddElementToFoldout(craftFoldout, new ItemData()));
             });
             craftFoldout.Insert(0, AddButton);
 
@@ -181,7 +181,7 @@ namespace Game.CraftSystem.Editor.Elements
             RefreshExpandedState();
         }
 
-        private ItemCraft AddElementToFoldout(Foldout craftFoldout, ItemCraft craft)
+        private ItemData AddElementToFoldout(Foldout craftFoldout, ItemData craft)
         {
             // Element Foldout
             Foldout elementFoldout = CSElementUtility.CreateFoldout("Item");
@@ -189,16 +189,16 @@ namespace Game.CraftSystem.Editor.Elements
             //Item Object
             ObjectField itemField = CSElementUtility.CreateObjectField("Item", typeof(InventoryItem), (callback) =>
             {
-                craft.item = (InventoryItem)callback.newValue;
+                craft.Item = (InventoryItem)callback.newValue;
             });
-            itemField.value = craft.item;
+            itemField.value = craft.Item;
 
             //Item Amount
             IntegerField itemAmountField = CSElementUtility.CreateIntField("Amount", (callback) =>
             {
-                craft.amount = callback.newValue;
+                craft.Amount = callback.newValue;
             });
-            itemAmountField.value = craft.amount;
+            itemAmountField.value = craft.Amount;
 
             //Remove Button
             Button removeButton = CSElementUtility.CreateButton("Remove", () =>
@@ -219,7 +219,7 @@ namespace Game.CraftSystem.Editor.Elements
 
             return craft;
         }
-        private void RemoveElementFromFoldout(Foldout craftFoldout, ItemCraft craft, VisualElement element)
+        private void RemoveElementFromFoldout(Foldout craftFoldout, ItemData craft, VisualElement element)
         {
             Craft.Remove(craft);
             craftFoldout.Remove(element);

@@ -9,7 +9,7 @@ namespace Game.Player.Inventory
         [SerializeField] private InventoryScreen_element elementPrefab;
         private List<InventoryScreen_element> elements = new List<InventoryScreen_element>();
 
-        public void UpdateData(List<PlayerInventory.Item> list)
+        public void UpdateData(List<ItemData> list)
         {
             if(elements.Count == 0 || elements == null)
             {

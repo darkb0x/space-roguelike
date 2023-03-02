@@ -47,20 +47,20 @@ namespace Game.CraftSystem
             craft_name.text = craft.CraftName;
             craft_icon.sprite = craft.IconSprite;
 
-            foreach (ItemCraft item in craft.ObjectCraft)
+            foreach (var item in craft.ObjectCraft)
             {
-                if (item == null | item.item == null)
+                if (item == null | item.Item == null)
                 {
                     Debug.Log(craft.AssetPath + " Object craft have null item, please fix it!");
                     continue;
                 }
 
                 GameObject obj = Instantiate(itemListComponent, itemListTransform);
-                obj.transform.GetChild(0).GetComponent<Image>().sprite = item.item.Icon; // item icon
+                obj.transform.GetChild(0).GetComponent<Image>().sprite = item.Item.Icon; // item icon
 
                 // items amount
                 TextMeshProUGUI text = obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                text.text = item.amount.ToString();
+                text.text = item.Amount.ToString();
                 amountsText.Add(text);
             }
         }
@@ -74,8 +74,8 @@ namespace Game.CraftSystem
         {
             for (int i = 0; i < craft.ObjectCraft.Count; i++)
             {
-                ItemCraft curCraft = craft.ObjectCraft[i];
-                amountsText[i].color = PlayerInventory.instance.GetItem(curCraft.item).amount < curCraft.amount ? Color.red : Color.white;
+                ItemData curCraft = craft.ObjectCraft[i];
+                amountsText[i].color = PlayerInventory.instance.GetItem(curCraft.Item).Amount < curCraft.Amount ? Color.red : Color.white;
             }
         }
 

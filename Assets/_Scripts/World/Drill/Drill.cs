@@ -22,6 +22,7 @@ namespace Game.Drill
         private List<Ore> currentOresList = new List<Ore>();
         private Transform oreDetectColl_transform;
         private Transform playerTransform;
+        protected DrillInventoryVisual inventoryVisual;
 
         protected Transform myTransform;
         protected bool isPicked = true;
@@ -39,9 +40,10 @@ namespace Game.Drill
         [Tag, SerializeField] protected string PlayerTag = "Player";
 
         [Header("Inventory")]
-        public InventoryItem Item;
-        public int Amount;
+        [ReadOnly] public InventoryItem CurrentItem;
+        [ReadOnly] public int ItemAmount;
         [ReadOnly, SerializeField] protected int allExtractedOre = 0;
+        [Space]
         [Space]
         [ReadOnly] public Ore CurrentOre;
 
@@ -71,14 +73,16 @@ namespace Game.Drill
         public virtual void Start()
         {
             player = FindObjectOfType<PlayerController>();
+            inventoryVisual = GetComponent<DrillInventoryVisual>();
             myTransform = transform;
             oreDetectColl_transform = OreDetectColl.transform;
             playerTransform = player.transform;
-            EnemyTarget.Initialize(this);
 
             currentTimeBtwMining = TimeBtwMining;
             CurrentHealth = MaxHealth;
 
+            inventoryVisual.EnableVisual(false);
+            EnemyTarget.Initialize(this);
             Initialize();
         }
 
@@ -139,7 +143,7 @@ namespace Game.Drill
         public virtual void Put()
         {
             CurrentOre.currentDrill = this;
-            Item = CurrentOre.item;
+            CurrentItem = CurrentOre.item;
             oreDetectColl_transform.position = myTransform.position;
 
             myTransform.position = oreTransform.position;
@@ -152,6 +156,7 @@ namespace Game.Drill
 
             Anim.SetTrigger(Anim_putTrigger);
 
+            inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
             DisSelectAllOres();
         }
         #endregion
@@ -159,8 +164,17 @@ namespace Game.Drill
         #region Mining
         public virtual void PlayerTakeItems()
         {
-            PlayerInventory.instance.GiveItem(Item, Amount);
-            Amount = 0;
+            if (CurrentItem == null | isPicked)
+                return;
+
+            PlayerInventory.instance.GiveItem(CurrentItem, ItemAmount);
+            ItemAmount = 0;
+            inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
+
+            if (CurrentOre.amount < 0)
+            {
+                EnableVisual(false);
+            }
         }
         public virtual void Mine()
         {
@@ -187,8 +201,9 @@ namespace Game.Drill
                 }
             }
 
-            Amount += oreAmount;
+            ItemAmount += oreAmount;
             allExtractedOre += oreAmount;
+            inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
         }
         public virtual void MiningEnded()
         {
@@ -236,6 +251,10 @@ namespace Game.Drill
                         currentOresList.Add(ore);
                 }
             }
+            if (collision.tag == PlayerTag && PlayerDetectColl.enabled)
+            {
+                EnableVisual(true);
+            }
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
@@ -243,7 +262,7 @@ namespace Game.Drill
             {
                 playerInZone = true;
             }
-        }
+        }      
         private void OnTriggerExit2D(Collider2D collision)
         {
             if(isPicked)
@@ -260,6 +279,8 @@ namespace Game.Drill
             if (collision.tag == PlayerTag)
             {
                 playerInZone = false;
+
+                EnableVisual(false);
             }
         }
         #endregion
@@ -320,7 +341,7 @@ namespace Game.Drill
         #region Break
         public virtual void Break()
         {
-            if(Amount > 0)
+            if(ItemAmount > 0)
             {
                 PlayerTakeItems();
             }
@@ -337,6 +358,27 @@ namespace Game.Drill
 
             EnemySpawner.instance.RemoveTarget(EnemyTarget);
             Destroy(gameObject);
+        }
+        #endregion
+
+        #region Visual
+        protected void EnableVisual(bool enabled)
+        {
+            if(enabled)
+            {
+                bool canEnable = true;
+
+                if (isPicked)
+                    canEnable = false;
+                if (CurrentOre?.amount < 0 && ItemAmount == 0)
+                    canEnable = false;
+
+                inventoryVisual.EnableVisual(canEnable);
+            }
+            else
+            {
+                inventoryVisual.EnableVisual(false);
+            }
         }
         #endregion
     }

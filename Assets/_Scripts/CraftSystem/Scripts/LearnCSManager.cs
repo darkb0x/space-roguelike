@@ -10,13 +10,7 @@ namespace Game.CraftSystem
     using CraftSystem.Editor.ScriptableObjects;
     using Player.Inventory;
     using Player;
-
-    [System.Serializable]
-    public class ItemCraft
-    {
-        public InventoryItem item;
-        public int amount;
-    }
+    using SaveData;
 
     [System.Serializable]
     public class TechTree
@@ -69,15 +63,21 @@ namespace Game.CraftSystem
         {
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
 
-            player = FindObjectOfType<PlayerController>();
-
-            foreach (var item in LoadCraftUtility.Instance.allUnlockedCrafts)
+            if (GameData.Instance.CurrentSessionData.UnlockedCraftPaths.Count == 0 | GameData.Instance.CurrentSessionData.UnlockedCraftPaths == null)
             {
-                unlockedCrafts.Add(item);
+                AddStartingCrafts();
+            }
+            else
+            {
+                foreach (var item in GameData.Instance.CurrentSessionData.UnlockedCraftPaths)
+                {
+                    LearnCraft(LoadCraftUtility.Instance.GetCraft(item));
+                }
             }
 
             InitializeCraftSystem();
 
+            player = FindObjectOfType<PlayerController>();
             categoryButtons.Initialize(techTrees, this);
 
             UIPanelManager.Instance.Attach(this);
@@ -87,7 +87,6 @@ namespace Game.CraftSystem
             if (isOpened)
             {
                 float sensitivity = 0.2f;
-
 
                 currentScale = Mathf.Clamp(currentScale + GameInput.Instance.GetMouseScrollDeltaY() * sensitivity, minTreeScale, maxTreeScale);
                 float scale = Mathf.Lerp(openedTechTree.techTreeRenderTransform.localScale.x, currentScale, scaleSpeed * Time.unscaledDeltaTime);
@@ -101,6 +100,8 @@ namespace Game.CraftSystem
 
             if(!unlockedCrafts.Contains(craft))
                 unlockedCrafts.Add(craft);
+
+            GameData.Instance.Save();
         }
 
         #region UI Actions
@@ -108,26 +109,33 @@ namespace Game.CraftSystem
         {
             UIPanelManager.Instance.OpenPanel(techTreePanel);
             isOpened = true;
-
-            player.canMove = false;
         }
         public void CloseMenu()
         {
             UIPanelManager.Instance.ClosePanel(techTreePanel);
             isOpened = false;
-
-            player.canMove = true;
         }
         public void CloseMenu(InputAction.CallbackContext context)
         {
-            UIPanelManager.Instance.ClosePanel(techTreePanel);
-            isOpened = false;
-
-            player.canMove = true;
+            CloseMenu();
         }
         #endregion
 
         #region Utilities
+        private void AddStartingCrafts()
+        {
+            foreach (TechTree tree in techTrees)
+            {
+                foreach (var node in tree.techTree.Nodes)
+                {
+                    if(node.IsStartingNode)
+                    {
+                        LearnCraft(node);
+                    }
+                }
+            }
+        }
+
         [Button]
         private void InitializeCraftSystem()
         {
@@ -256,6 +264,7 @@ namespace Game.CraftSystem
         }
         #endregion
 
+        #region Interfaces
         public void OpenedPanel(RectTransform panelTransform)
         {
             foreach (var tree in techTrees)
@@ -277,5 +286,6 @@ namespace Game.CraftSystem
                 content.localPosition = Vector3.zero;
             }
         }
+        #endregion
     }
 }

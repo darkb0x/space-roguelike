@@ -34,29 +34,29 @@ namespace Game.Oven.Manager
 
         public void RemeltingItem(OvenCraftList.craft craft)
         {
-            if(CanCraft(craft))
+            List<ItemData> itemsData = ConvertOvenCraftToItemData(craft);
+
+            if (PlayerInventory.instance.CanTakeItems(itemsData))
             {
-                TakeItemsFromInventory(craft);
+                PlayerInventory.instance.TakeItem(itemsData);
                 currentOven.StartRemelting(craft);
                 ClosePanel();
             }
         }
 
-        private bool CanCraft(OvenCraftList.craft craft)
+        private List<ItemData> ConvertOvenCraftToItemData(OvenCraftList.craft craft)
         {
+            List<ItemData> itemsData = new List<ItemData>();
             foreach (var item in craft.firstItems)
             {
-                if (PlayerInventory.instance.GetItem(item.item).amount < item.amount)
-                    return false;
+                ItemData data = new ItemData()
+                {
+                    Item = item.item,
+                    Amount = item.amount
+                };
+                itemsData.Add(data);
             }
-            return true;
-        }
-        private void TakeItemsFromInventory(OvenCraftList.craft craft)
-        {
-            foreach (var item in craft.firstItems)
-            {
-                PlayerInventory.instance.TakeItem(item.item, item.amount);
-            }
+            return itemsData;
         }
 
         #region UI Interaction

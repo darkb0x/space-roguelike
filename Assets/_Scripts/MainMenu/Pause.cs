@@ -35,7 +35,9 @@ namespace Game
 
         private void OpenClose(InputAction.CallbackContext context)
         {
-            if(UIPanelManager.Instance.SomethinkIsOpened())
+            Debug.Log("Esc");
+            Debug.Log(UIPanelManager.Instance.SomethinkIsOpened());
+            if (UIPanelManager.Instance.SomethinkIsOpened())
             {
                 if(UIPanelManager.Instance.currentOpenedPanel != pausePanel)
                 {

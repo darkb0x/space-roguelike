@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
   m_Name: scrap
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
+  <Icon>k__BackingField: {fileID: -1174898945, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
+  <LowSizeIcon>k__BackingField: {fileID: 1952006705, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
   <Cost>k__BackingField: 1
   IsOre: 0
   OreSprites: []

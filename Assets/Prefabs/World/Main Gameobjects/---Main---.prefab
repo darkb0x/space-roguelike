@@ -38,6 +38,7 @@ Transform:
   - {fileID: 973950430612386139}
   - {fileID: 973950431904851695}
   - {fileID: 6465428977077885683}
+  - {fileID: 4389373989018900434}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,7 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e2a104f8f745746b0a5dc9532cc28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedCraftPaths: []
   allUnlockedCrafts: []
 --- !u!1 &973950430612386136
 GameObject:
@@ -140,7 +140,7 @@ MonoBehaviour:
   DifficultFactor: 1
   EnemyAmountFactor: 1
   SpawnScore: 70
-  EnemyMaxAmount: 1
+  EnemyMaxAmount: 40
 --- !u!1 &973950430753082587
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,31 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c4b288d0ddab745933f608c1b331b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
-    amount: 10
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-    amount: 20
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-    amount: 20
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
-    amount: 20
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
-    amount: 20
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
-    amount: 0
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
+  itemsVisuals: []
   m_money: 10000
   money_texts:
   - {fileID: 0}
@@ -572,6 +548,57 @@ MonoBehaviour:
   craftObjectPrefab: {fileID: 3511368520870876680, guid: dce1f10b9a7498144b22fd810086b1a2, type: 3}
   renderTransformPrefab: {fileID: 2207880412841316525, guid: a82148efaeadd6846a005f441c0d7726, type: 3}
   isOpened: 0
+--- !u!1 &5708861595961547674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4389373989018900434}
+  - component: {fileID: 7295520195962688068}
+  m_Layer: 0
+  m_Name: GameData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4389373989018900434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5708861595961547674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 973950430228214895}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7295520195962688068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5708861595961547674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f8d42c537cfd6449208dd711101238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentSessionData:
+    FilePath: 
+    FileName: 
+  CurrentSettingsData:
+    FilePath: 
+    FileName: 
+    MaxFps: 0
 --- !u!1 &6465428977077885682
 GameObject:
   m_ObjectHideFlags: 0

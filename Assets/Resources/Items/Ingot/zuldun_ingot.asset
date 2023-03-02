@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: zuldun_ingot
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: -4360650958587565854, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
+  <LowSizeIcon>k__BackingField: {fileID: 1400391229, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
   <Cost>k__BackingField: 1
+  IsOre: 0
   OreSprites: []

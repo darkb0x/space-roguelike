@@ -23,8 +23,8 @@ MonoBehaviour:
     <Icon>k__BackingField: {fileID: -5388209310669713511, guid: 56858579fd5d47340868aa94b8f97173, type: 3}
     <Cost>k__BackingField: 0
     <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
-      amount: 1
+    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      Amount: 1
     <Position>k__BackingField: {x: 0, y: 0}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: ee545e94-044f-4ca5-8837-46aeb335786a
@@ -35,8 +35,8 @@ MonoBehaviour:
     <Icon>k__BackingField: {fileID: -4572900513582700462, guid: 4b5a4ff3f2b7f60488b8e56def7b3fef, type: 3}
     <Cost>k__BackingField: 100
     <Craft>k__BackingField:
-    - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
-      amount: 1
+    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      Amount: 1
     <Position>k__BackingField: {x: 439, y: 0}
   <OldUngroupedNodeNames>k__BackingField:
   - M2

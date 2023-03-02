@@ -15,7 +15,7 @@ namespace Game
         public static UIPanelManager Instance;
 
         List<IUIPanelManagerObserver> observers = new List<IUIPanelManagerObserver>();
-        [HideInInspector] public GameObject currentOpenedPanel;
+        [NaughtyAttributes.ReadOnly] public GameObject currentOpenedPanel;
 
         [SerializeField, Tooltip("Canvas/Player")] private GameObject playerUI;
         [Space]
@@ -32,10 +32,10 @@ namespace Game
 
         private void Awake() => Instance = this;
 
-        private void EnablePanel(GameObject panel, bool enabled)
+        private void EnablePanel(GameObject panel, bool enabled, bool stopTime = true)
         {
             playerUI.SetActive(!enabled);
-            Pause.Instance.pauseEnabled = enabled;
+            Pause.Instance.pauseEnabled = stopTime;
 
             for (int i = 0; i < panels.Count; i++)
             {
@@ -60,17 +60,17 @@ namespace Game
 
         public void ClosePanel(GameObject panel)
         {
-            EnablePanel(panel, false);
+            EnablePanel(panel, false, false);
 
             GameInput.Instance.SetPlayerActionMap();
 
             Notify();
         }
 
-        public void OpenPanel(GameObject panel)
+        public void OpenPanel(GameObject panel, bool stopTime = true)
         {
             currentOpenedPanel = panel;
-            EnablePanel(panel, true);
+            EnablePanel(panel, true, stopTime);
 
             GameInput.Instance.SetUIActionMap();
 
@@ -89,7 +89,15 @@ namespace Game
 
         public bool SomethinkIsOpened()
         {
-            return blurVolume.weight == 1;
+            foreach (var item in panels)
+            {
+                if (item.panel_obj.activeSelf)
+                {
+                    Debug.Log(item.panel_obj.name + " " + item.panel_obj.activeSelf);
+                    return true;
+                }
+            }
+            return false;
         }
 
         #region interface logic

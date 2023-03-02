@@ -64,10 +64,7 @@ namespace Game.CraftSystem
             if (!PlayerInventory.instance.CanTakeItems(craft.ObjectCraft))
                 return;
 
-            foreach (var item in craft.ObjectCraft)
-            {
-                PlayerInventory.instance.TakeItem(item.item, item.amount);
-            }
+            PlayerInventory.instance.TakeItem(craft.ObjectCraft);
 
             currentWorkbanch.Craft(craft.ObjectPrefab);
 

@@ -57,7 +57,10 @@ namespace Game
         [Button]
         public void StartSpawning()
         {
-            StartCoroutine(SpawnEnemies());
+            if(Application.isPlaying)
+            {
+                StartCoroutine(SpawnEnemies());
+            }
         }
         IEnumerator SpawnEnemies()
         {

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: marbet_ore
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: -31291522549906435, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
+  <LowSizeIcon>k__BackingField: {fileID: 1762901815, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
   <Cost>k__BackingField: 1
   IsOre: 1
   OreSprites:

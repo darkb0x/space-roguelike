@@ -120,7 +120,7 @@ namespace Game.Oven
         }
         private void EnableProgressBar()
         {
-            itemImage.sprite = currentItem.finalItem.item.Icon;
+            itemImage.sprite = currentItem.finalItem.item.LowSizeIcon;
             progressRender.fillAmount = 0;
             progressRender.color = progressColor.Evaluate(0);
 

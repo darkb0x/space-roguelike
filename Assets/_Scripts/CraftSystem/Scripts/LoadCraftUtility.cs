@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using System.IO;
 
 namespace Game.CraftSystem
 {
     using CraftSystem.Editor.ScriptableObjects;
+    using SaveData;
 
     public interface ICraftListObserver
     {
@@ -16,79 +16,50 @@ namespace Game.CraftSystem
 
     public class LoadCraftUtility : MonoBehaviour
     {
-        private string saveDataPath;
-        private string dataName = "unlockedCraftsList";
-
         public static LoadCraftUtility Instance;
         private List<ICraftListObserver> observers = new List<ICraftListObserver>();
 
-        [SerializeField] private List<string> unlockedCraftPaths = new List<string>();
         public List<CSCraftSO> allUnlockedCrafts = new List<CSCraftSO>();
+
+        private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+        private void Start()
+        {
+            allUnlockedCrafts = GetCraftByPathList(currentSessionData.UnlockedCraftPaths);
+            InitializeObservers();
+        }
 
         public void AddUnlockedCraft(CSCraftSO craft)
         {
-            if (!unlockedCraftPaths.Contains(craft.AssetPath))
+            if (!currentSessionData.UnlockedCraftPaths.Contains(craft.AssetPath))
             {
-                unlockedCraftPaths.Add(craft.AssetPath);
+                currentSessionData.UnlockedCraftPaths.Add(craft.AssetPath);
             }
             if (!allUnlockedCrafts.Contains(craft))
             {
                 allUnlockedCrafts.Add(craft);
                 UpdateObservers(craft);
             }
-
-            Save();
         }
         [Button]
         public void ClearUnlockedCrafts()
         {
-            unlockedCraftPaths.Clear();
+            currentSessionData.UnlockedCraftPaths.Clear();
             allUnlockedCrafts.Clear();
-
-            Save();
-            //ResetDataInObservers();
-
-            PlayerPrefs.SetString("unlockedCraftsList", "");
         }
-
-        #region Save/Load
-        [Button]
-        private void Save()
-        {
-            SaveData data = new SaveData()
-            {
-                craftPaths = unlockedCraftPaths
-            };
-
-            string json = JsonUtility.ToJson(data, true);
-
-            File.WriteAllText(saveDataPath, json);
-        }
-        [Button]
-        private void Load()
-        {
-            if(!File.Exists(saveDataPath))
-            {
-                return;
-            }
-
-            string json = File.ReadAllText(saveDataPath);
-
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
-            unlockedCraftPaths = data.craftPaths;
-            allUnlockedCrafts = GetCraftByPathList(ref unlockedCraftPaths);
-        }
-        #endregion
 
         #region Utilities
         public CSCraftSO GetCraft(string path)
         {
             return Resources.Load<CSCraftSO>(path);
         }
-        private List<CSCraftSO> GetCraftByPathList(ref List<string> pathList)
+        private List<CSCraftSO> GetCraftByPathList(List<string> pathList)
         {
             List<CSCraftSO> items = new List<CSCraftSO>();
-            List<string> elementToRemove = new List<string>();
             foreach (var itemPath in pathList)
             {
                 CSCraftSO craft = GetCraft(itemPath);
@@ -96,38 +67,15 @@ namespace Game.CraftSystem
                 {
                     items.Add(craft);
                 }
-                else
-                {
-                    elementToRemove.Add(itemPath);
-                }
-            }
-            foreach (var itemToRemove in elementToRemove)
-            {
-                pathList.Remove(itemToRemove);
             }
             return items;
         }
         #endregion
 
-        #region MonoBehaviour
-        private void Awake()
-        {
-            Instance = this;
-
-#if UNITY_EDITOR
-            saveDataPath = Path.Combine(Application.dataPath, dataName+".txt");
-#else
-            saveDataPath = Path.Combine(Application.dataPath, dataName);
-#endif
-            Load();
-        }
-#endregion
-
         #region Observer
         public void AddObserver(ICraftListObserver o)
         {
             observers.Add(o);
-            o.Initialize(allUnlockedCrafts);
         }
         public void RemoveObserver(ICraftListObserver o)
         {
@@ -140,19 +88,13 @@ namespace Game.CraftSystem
                 observer.GetNewCraft(this, craft);
             }
         }
-        public void ResetDataInObservers()
+        public void InitializeObservers()
         {
             foreach (ICraftListObserver observer in observers)
             {
-                observer.Initialize(new List<CSCraftSO>());
+                observer.Initialize(allUnlockedCrafts);
             }
         }
         #endregion
-    }
-
-    [System.Serializable]
-    class SaveData
-    {
-        public List<string> craftPaths;
     }
 }
