@@ -14,7 +14,7 @@ namespace Game.Player
     public class PlayerController : MonoBehaviour, IDamagable
     {
         [Header("Oxygen")]
-        [SerializeField, ProgressBar("Oxygen", "maxOxygen", EColor.Blue)] private float oxygen = 50;
+        [SerializeField] private float oxygen = 50;
         [SerializeField] private float maxOxygen = 100f;
         [SerializeField] private float oxygenUseSpeed = 1.3f;
         [SerializeField] private bool DoOxygenCycle = true;
@@ -22,7 +22,7 @@ namespace Game.Player
         [SerializeField] private Image oxygenBarUI;
 
         [Header("Health")]
-        [SerializeField, ProgressBar("Health", "maxHealth", EColor.Red)] private float health = 10;
+        [SerializeField] private float health = 10;
         [SerializeField] private float maxHealth;
         [SerializeField] private bool DoHealthCycle = true;
         [Space]

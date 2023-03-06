@@ -1,48 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using NaughtyAttributes;
 
 namespace Game.MainMenu.Mission
 {
     using Planet;
-    using Player;
+    using Planet.Visual;
+    using Visual;
 
-    public class MissionChooseManager : MonoBehaviour, IUIPanelManagerObserver
+    public class MissionChooseManager : MonoBehaviour
     {
         public static MissionChooseManager Instance;
 
-        [Header("UI Visual")]
-        [SerializeField, Tooltip("Canvas/Choose mission")] private GameObject MainPanel;
-        [SerializeField, Tooltip("Canvas/Choose mission/Scroll View/Content")] private Transform Content;
-        [Space]
-        [SerializeField] private PlanetUIVisual PlanetVisual;
+        [Header("Visual")]
+        [SerializeField] private MissionChooseVisual Visual;
+        [SerializeField] private PlanetUIVisual PlanetVisualPrefab;
+        [SerializeField] private Canvas Canvas;
 
         [Header("Planets")]
         [SerializeField, Expandable] private PlanetMapSO PlanetMap;
-        [SerializeField] private Transform CentralPoint;    
+        [SerializeField] private Transform CentralPoint;
+
+        [Header("Variables")]
+        [SerializeField] private float m_StartMissionTimer;
 
         private Dictionary<Orbit, List<PlanetUIVisual>> allPlanetsOnUI = new Dictionary<Orbit, List<PlanetUIVisual>>();
         private Dictionary<Orbit, float> planetDirection = new Dictionary<Orbit, float>();
         private Dictionary<Orbit, int> planetProgress = new Dictionary<Orbit, int>();
-        private bool isOpened = false;
-        private Vector2 defaultContentPosition;
+        private PlanetSO selectedMission;
 
-        private PlayerController player;
+        private bool startMission = false;
+        private float startMissionTimer;
 
         private void Awake()
         {
             Instance = this;
+
+            startMissionTimer = m_StartMissionTimer;
         }
 
         private void Start()
         {
-            player = FindObjectOfType<PlayerController>();
-
-            // Input
-            GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
-
             // Initialize planets
             for (int i = 0; i < PlanetMap.Orbits.Count; i++)
             {
@@ -55,20 +55,21 @@ namespace Game.MainMenu.Mission
 
                 foreach (var planet in orbit.PlanetsOnOrbit)
                 {
-                    PlanetUIVisual visual = Instantiate(PlanetVisual.gameObject, CentralPoint).GetComponent<PlanetUIVisual>();
+                    PlanetUIVisual visual = Instantiate(PlanetVisualPrefab.gameObject, CentralPoint).GetComponent<PlanetUIVisual>();
                     visual.Initialize(planet);
 
                     allPlanetsOnUI[orbit].Add(visual);
                 }
             }
 
-            defaultContentPosition = Content.position;
-            UIPanelManager.Instance.Attach(this);
+            Visual.HideMissionTab();
+            Visual.HideStartMissionTimer();
         }
 
         private void Update()
         {
             UpdateOrbit();
+            UpdateStartMissionTimer();
         }
 
         private void UpdateOrbit()
@@ -79,52 +80,53 @@ namespace Game.MainMenu.Mission
 
                 foreach (var planet in allPlanetsOnUI[orbit])
                 {
-                    planet.Rotate(CentralPoint, ((float)planetProgress[orbit] / (float)orbit.PlanetsOnOrbit.Count) * 360f + planetDirection[orbit], orbit.DistanceFromPoint);
+                    planet.Rotate(CentralPoint, ((float)planetProgress[orbit] / (float)orbit.PlanetsOnOrbit.Count) * 360f + planetDirection[orbit], orbit.DistanceFromPoint * Canvas.scaleFactor);
                     planetProgress[orbit]++;
                 }
             }
         }
-
-        #region UI Actions
-        public void OpenMenu()
+        private void UpdateStartMissionTimer()
         {
-            UIPanelManager.Instance.OpenPanel(MainPanel, false);
-            isOpened = true;
-
-            player.canMove = false;
-        }
-        public void CloseMenu()
-        {
-            UIPanelManager.Instance.ClosePanel(MainPanel);
-            isOpened = false;
-
-            player.canMove = true;
-        }
-        public void CloseMenu(InputAction.CallbackContext context)
-        {
-            UIPanelManager.Instance.ClosePanel(MainPanel);
-            isOpened = false;
-
-            player.canMove = true;
-        }
-        #endregion
-
-        private void OnDisable()
-        {
-            GameInput.InputActions.UI.CloseWindow.performed -= CloseMenu;
-        }
-
-        public void PanelStateIsChanged(GameObject panel)
-        {
-            if (panel == MainPanel)
+            if(!startMission)
             {
-                if (!MainPanel.activeSelf)
-                {
-                    return;
-                }
+                startMissionTimer = m_StartMissionTimer;
 
-                Content.position = defaultContentPosition;
+                Visual.HideStartMissionTimer();
+
+                return;
             }
+
+            startMissionTimer -= Time.deltaTime;
+
+            Visual.ShowStartMissionTimer(startMissionTimer);
+
+            if (startMissionTimer <= 0)
+                StartMission();
+        }
+
+        public void SelectMission(PlanetSO mission)
+        {
+            selectedMission = mission;
+
+            Visual.ShowMissionTab(mission.MissionIcon, mission.MissionName);
+
+            Visual.CloseMenu();
+        }
+
+        public void StartMission()
+        {
+            SceneManager.LoadScene(selectedMission.SceneId);
+        }
+        public void StartMissionTimer()
+        {
+            if (selectedMission == null)
+                return;
+
+            startMission = true;
+        }
+        public void StopMissionTimer()
+        {
+            startMission = false;
         }
     }
 }

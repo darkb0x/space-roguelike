@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.MainMenu.Mission.Planet
+namespace Game.MainMenu.Mission.Planet.Visual
 {
+
     public class PlanetUIVisual : MonoBehaviour
     {
+        [SerializeField] private Image PlanetImage;
+
         public PlanetSO planetData { get; private set; }
         private Transform myTransform;
 
@@ -15,11 +18,13 @@ namespace Game.MainMenu.Mission.Planet
             myTransform = transform;
 
             planetData = so;
+
+            PlanetImage.sprite = planetData.PlanetSprite;
         }
 
         public void SelectPlanet()
         {
-
+            MissionChooseManager.Instance.SelectMission(planetData); 
         }
 
         public void Rotate(Transform point, float direction, float rangeFromPoint)

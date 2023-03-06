@@ -30,12 +30,13 @@ namespace Game
         [Header("OpenClose panels")]
         public List<Panels> panels = new List<Panels>();
 
+        private bool canOpen = true;
+
         private void Awake() => Instance = this;
 
-        private void EnablePanel(GameObject panel, bool enabled, bool stopTime = true)
+        private void EnablePanel(GameObject panel, bool enabled)
         {
             playerUI.SetActive(!enabled);
-            Pause.Instance.pauseEnabled = stopTime;
 
             for (int i = 0; i < panels.Count; i++)
             {
@@ -60,31 +61,44 @@ namespace Game
 
         public void ClosePanel(GameObject panel)
         {
-            EnablePanel(panel, false, false);
+            EnablePanel(panel, false);
+
+            Time.timeScale = 1;
 
             GameInput.Instance.SetPlayerActionMap();
 
             Notify();
+            StartCoroutine(SetCooldown());
         }
 
-        public void OpenPanel(GameObject panel, bool stopTime = true)
+        public bool OpenPanel(GameObject panel, bool stopTime = true)
         {
+            if (!canOpen)
+                return false;
+
             currentOpenedPanel = panel;
-            EnablePanel(panel, true, stopTime);
+            EnablePanel(panel, true);
 
             GameInput.Instance.SetUIActionMap();
 
             Notify();
+
+            if (stopTime)
+                Time.timeScale = 0;
+
+            return true;
         }
 
         public void CloseAllPanel()
         {
+            Time.timeScale = 1;
             blurVolume.weight = 0;
             for (int i = 0; i < panels.Count; i++)
             {
                 panels[i].panel_obj.SetActive(false);
             }
             playerUI.SetActive(true);
+            GameInput.Instance.SetPlayerActionMap();
         }
 
         public bool SomethinkIsOpened()
@@ -93,11 +107,22 @@ namespace Game
             {
                 if (item.panel_obj.activeSelf)
                 {
-                    Debug.Log(item.panel_obj.name + " " + item.panel_obj.activeSelf);
                     return true;
                 }
             }
             return false;
+        }
+
+        private IEnumerator SetCooldown()
+        {
+            float time = Time.time;
+            float cooldown = 0.15f;
+            canOpen = false;
+            while(Time.time < time+cooldown)
+            {
+                yield return null;
+            }
+            canOpen = true;
         }
 
         #region interface logic

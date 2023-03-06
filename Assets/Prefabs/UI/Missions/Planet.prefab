@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b2cde469906ae741a5dd32dfdc2e576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlanetImage: {fileID: 674422441394442995}
 --- !u!114 &6313886133009072384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,12 +97,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4564827419844963912}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+        m_TargetAssemblyTypeName: Game.MainMenu.Mission.Planet.PlanetUIVisual, Assembly-CSharp
+        m_MethodName: SelectPlanet
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

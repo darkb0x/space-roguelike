@@ -8,6 +8,10 @@ namespace Game.MainMenu.Mission.Planet
     [CreateAssetMenu(fileName = "Planet map", menuName = "Game/Mission/new Planet")]
     public class PlanetSO : ScriptableObject
     {
+        public string MissionName;
+        public Sprite MissionIcon;
+        [Space]
+        public Sprite PlanetSprite;
         [Scene] public int SceneId;
     }
 }

@@ -185,7 +185,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c4b288d0ddab745933f608c1b331b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsVisuals: []
+  itemsVisuals:
+  - item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
+    amount: 0
+    UI_icon: {fileID: 0}
+    UI_amount: {fileID: 0}
+  - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+    amount: 0
+    UI_icon: {fileID: 0}
+    UI_amount: {fileID: 0}
+  - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
+    amount: 0
+    UI_icon: {fileID: 0}
+    UI_amount: {fileID: 0}
+  - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+    amount: 0
+    UI_icon: {fileID: 0}
+    UI_amount: {fileID: 0}
+  - item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+    amount: 0
+    UI_icon: {fileID: 0}
+    UI_amount: {fileID: 0}
+  - item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+    amount: 0
+    UI_icon: {fileID: 0}
+    UI_amount: {fileID: 0}
   m_money: 10000
   money_texts:
   - {fileID: 0}
@@ -486,7 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 0}
-  m_PauseEnabled: 0
+  pauseEnabled: 0
 --- !u!1 &973950432118627693
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,11 +617,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSessionData:
-    FilePath: 
-    FileName: 
+    UnlockedCraftPaths: []
+    Items:
+      list: []
+    Money: 0
   CurrentSettingsData:
-    FilePath: 
-    FileName: 
     MaxFps: 0
 --- !u!1 &6465428977077885682
 GameObject:

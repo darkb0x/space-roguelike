@@ -8,19 +8,8 @@ namespace Game
         public static Pause Instance;
 
         [SerializeField, Tooltip("Canvas/Pause")] private GameObject pausePanel;
-        [SerializeField, NaughtyAttributes.ReadOnly] private bool m_PauseEnabled = false;
 
-        public bool pauseEnabled { 
-            get 
-            {
-                return m_PauseEnabled;       
-            } 
-            set 
-            {
-                m_PauseEnabled = value;
-                Time.timeScale = value ? 0 : 1;
-            } 
-        }
+        public bool pauseEnabled = false;
 
         private void Awake()
         {
@@ -35,8 +24,6 @@ namespace Game
 
         private void OpenClose(InputAction.CallbackContext context)
         {
-            Debug.Log("Esc");
-            Debug.Log(UIPanelManager.Instance.SomethinkIsOpened());
             if (UIPanelManager.Instance.SomethinkIsOpened())
             {
                 if(UIPanelManager.Instance.currentOpenedPanel != pausePanel)
@@ -59,12 +46,16 @@ namespace Game
 
         public void pause()
         {
-            UIPanelManager.Instance.OpenPanel(pausePanel);
+            if(UIPanelManager.Instance.OpenPanel(pausePanel, false))
+            {
+                Time.timeScale = 0;
+            }
         }
 
         public void resume()
         {
             UIPanelManager.Instance.ClosePanel(pausePanel);
+            Time.timeScale = 1;
         }
 
         public void Exit()

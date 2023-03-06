@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ba1fd9d74922f4fac65c66717d8c8a, type: 3}
   m_Name: Planet
   m_EditorClassIdentifier: 
-  SceneId: 2
+  MissionName: First mission
+  MissionIcon: {fileID: 7482667652216324306, guid: ed826bc6af5cf7c4ea90e05d324507e8, type: 3}
+  PlanetSprite: {fileID: 7482667652216324306, guid: ed826bc6af5cf7c4ea90e05d324507e8, type: 3}
+  SceneId: 0
