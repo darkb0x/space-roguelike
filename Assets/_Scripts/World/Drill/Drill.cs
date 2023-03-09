@@ -235,7 +235,7 @@ namespace Game.Drill
 
         void IDamagable.Die()
         {
-            EnemySpawner.instance.RemoveTarget(EnemyTarget);
+            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
             Die();
         }
         #endregion
@@ -356,7 +356,7 @@ namespace Game.Drill
                 PlayerInventory.instance.GiveItem(item.item, item.amount);
             }
 
-            EnemySpawner.instance.RemoveTarget(EnemyTarget);
+            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
             Destroy(gameObject);
         }
         #endregion

@@ -1,7 +1,13 @@
 {
     "UnlockedCraftPaths": [
         "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret1lvl",
-        "CraftSystem/Crafts/DrillTree/Nodes/M2"
+        "CraftSystem/Crafts/DrillTree/Nodes/M2",
+        "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret2lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret3lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/GrenadeTurret1lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/FiregunTurret1lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/MinigungTurret1lvl",
+        "CraftSystem/Crafts/TurretTree/Nodes/MinigunTurret2lvl"
     ],
     "Items": {
         "list": [
@@ -11,7 +17,7 @@
             },
             {
                 "Key": "Items/Ingot/selbit_ingot",
-                "Value": 0
+                "Value": 100
             },
             {
                 "Key": "Items/Ingot/zuldun_ingot",

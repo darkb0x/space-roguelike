@@ -10,8 +10,8 @@ namespace Game
 
     public class EnemySpawner : MonoBehaviour
     {
-        public static EnemySpawner instance;
-        public void Awake() => instance = this;
+        public static EnemySpawner Instance;
+        public void Awake() => Instance = this;
 
         private List<EnemyAI> AllEnemies = new List<EnemyAI>();
 
@@ -27,7 +27,8 @@ namespace Game
         [Header("Difficult")]
         [SerializeField] private float DifficultFactor = 1f;
         [SerializeField] private float EnemyAmountFactor = 1f;
-        [SerializeField] private int SpawnScore = 70;
+        [SerializeField, ReadOnly] private float SpawnScore;
+        [SerializeField] private int MaxSpawnScore = 70;
         [SerializeField] private int EnemyMaxAmount = 40;
 
         private void OnDrawGizmos()
@@ -41,14 +42,14 @@ namespace Game
 
         private void Start()
         {
-            SpawnScore = Mathf.RoundToInt(SpawnScore * EnemyAmountFactor);
+            SpawnScore = Mathf.RoundToInt(MaxSpawnScore * EnemyAmountFactor);
         }
 
         private void Update()
         {
             if(Keyboard.current.gKey.isPressed)
             {
-                SpawnScore = 70;
+                SpawnScore = MaxSpawnScore;
 
                 StartSpawning();
             }
@@ -59,12 +60,21 @@ namespace Game
         {
             if(Application.isPlaying)
             {
-                StartCoroutine(SpawnEnemies());
+                StartCoroutine(SpawnEnemies(SpawnScore));
             }
         }
-        IEnumerator SpawnEnemies()
+        public void StartSpawning(int percentFromSpawnScore)
         {
-            while(SpawnScore > 0)
+            float score = SpawnScore / 100 * percentFromSpawnScore;
+            if (Application.isPlaying)
+            {
+                StartCoroutine(SpawnEnemies(score));
+            }
+        }
+        IEnumerator SpawnEnemies(float spawnScore)
+        {
+            int currentSpawnScore = Mathf.RoundToInt(spawnScore);
+            while(currentSpawnScore > 0)
             {
                 if (AllEnemies.Count >= EnemyMaxAmount)
                 {
@@ -79,17 +89,16 @@ namespace Game
                 EnemyAI enemy = Instantiate(enemyData.EnemyPrefab, (Vector2)spawnPoint.position + direction, Quaternion.identity).GetComponent<EnemyAI>();
                 enemy.Initialize(enemyData, DifficultFactor);
 
-                SpawnScore -= enemyData.Cost;
+                currentSpawnScore -= enemyData.Cost;
                 AllEnemies.Add(enemy);
                 yield return new WaitForSeconds(TimeBtwSpawnEnemy);
             }
         }
-
         public void RemoveEnemy(EnemyAI enemyAI)
         {
             AllEnemies.Remove(enemyAI);
 
-            if (AllEnemies.Count < EnemyMaxAmount && SpawnScore > 0)
+            if (AllEnemies.Count < EnemyMaxAmount && MaxSpawnScore > 0)
             {
                 StartSpawning();
             }

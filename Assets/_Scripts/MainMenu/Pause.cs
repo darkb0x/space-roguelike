@@ -3,13 +3,18 @@ using UnityEngine.InputSystem;
 
 namespace Game
 {
+    public delegate void OnGamePaused(bool enabled);
+
     public class Pause : MonoBehaviour
     {
+
         public static Pause Instance;
 
         [SerializeField, Tooltip("Canvas/Pause")] private GameObject pausePanel;
 
         public bool pauseEnabled = false;
+
+        public event OnGamePaused OnGamePaused;
 
         private void Awake()
         {
@@ -49,6 +54,7 @@ namespace Game
             if(UIPanelManager.Instance.OpenPanel(pausePanel, false))
             {
                 Time.timeScale = 0;
+                OnGamePaused?.Invoke(true);
             }
         }
 
@@ -56,6 +62,7 @@ namespace Game
         {
             UIPanelManager.Instance.ClosePanel(pausePanel);
             Time.timeScale = 1;
+            OnGamePaused?.Invoke(false);
         }
 
         public void Exit()

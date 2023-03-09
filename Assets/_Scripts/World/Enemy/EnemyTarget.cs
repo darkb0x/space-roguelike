@@ -46,7 +46,7 @@ namespace Game.Enemy
             damagableObject = obj;
 
             if(AddObjectToListAtStart)
-                EnemySpawner.instance.AddTarget(this);
+                EnemySpawner.Instance.AddTarget(this);
         }
 
         public void Hurt(float dmg)

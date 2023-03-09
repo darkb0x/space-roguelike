@@ -299,7 +299,7 @@ namespace Game.Turret
             isPicked = false;
             EnemyDetectionCollider.enabled = true;
 
-            EnemySpawner.instance.AddTarget(EnemyTarget);
+            EnemySpawner.Instance.AddTarget(EnemyTarget);
         }
 
         #region Break
@@ -315,7 +315,7 @@ namespace Game.Turret
                 PlayerInventory.instance.GiveItem(item.Item, item.Amount);
             }
 
-            EnemySpawner.instance.RemoveTarget(EnemyTarget);
+            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
             Destroy(gameObject);
         }
         #endregion
@@ -352,7 +352,7 @@ namespace Game.Turret
         }
         void IDamagable.Die()
         {
-            EnemySpawner.instance.RemoveTarget(EnemyTarget);
+            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
             Die();
         }
         #endregion

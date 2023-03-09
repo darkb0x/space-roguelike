@@ -172,7 +172,7 @@ namespace Game.Player
             if (!DoHealthCycle)
                 return;
 
-            EnemySpawner.instance.RemoveTarget(EnemyTarget);
+            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
             Die();
         }
         #endregion

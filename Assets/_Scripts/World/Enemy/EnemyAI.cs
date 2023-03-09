@@ -241,7 +241,7 @@ namespace Game.Enemy
         }
         protected virtual EnemyTarget GetRandomTarget()
         {
-            EnemyTarget[] targets = EnemySpawner.instance.GetTargetList().ToArray();
+            EnemyTarget[] targets = EnemySpawner.Instance.GetTargetList().ToArray();
 
             if (targets.Length <= 0)
                 return null;
@@ -285,7 +285,7 @@ namespace Game.Enemy
 
             EnemyVisual.Death();
 
-            EnemySpawner.instance.RemoveEnemy(this);
+            EnemySpawner.Instance.RemoveEnemy(this);
         }
         #endregion
     }

@@ -45,16 +45,20 @@ namespace Game.CraftSystem
         PlayerController player;
         CraftTechTree openedTechTree;
 
-        private void Start()
+        private void Awake()
         {
             SpawnObjects();
 
-            player = FindObjectOfType<PlayerController>();
             LoadCraftUtility.Instance.AddObserver(this);
+        }
 
-            openedTechTree = techTrees[0];
+        private void Start()
+        {
+            player = FindObjectOfType<PlayerController>();
 
             categoryButtons.Initialize(ConvertListOfTechTree(techTrees));
+
+            openedTechTree = techTrees[0];
 
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
         }
