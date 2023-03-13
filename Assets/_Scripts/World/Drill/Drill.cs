@@ -9,6 +9,7 @@ namespace Game.Drill
     using World;
     using Player;
     using Player.Inventory;
+    using Enemy;
 
     public abstract class Drill : MonoBehaviour, IDamagable
     {
@@ -167,7 +168,7 @@ namespace Game.Drill
             if (CurrentItem == null | isPicked)
                 return;
 
-            PlayerInventory.instance.GiveItem(CurrentItem, ItemAmount);
+            PlayerInventory.Instance.GiveItem(CurrentItem, ItemAmount);
             ItemAmount = 0;
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
 
@@ -353,7 +354,7 @@ namespace Game.Drill
 
             foreach (var item in DroppedItemsAfterBroke)
             {
-                PlayerInventory.instance.GiveItem(item.item, item.amount);
+                PlayerInventory.Instance.GiveItem(item.item, item.amount);
             }
 
             EnemySpawner.Instance.RemoveTarget(EnemyTarget);

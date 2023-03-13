@@ -102,7 +102,7 @@ namespace Game.Oven
             {
                 if(canTakeItem)
                 {
-                    PlayerInventory.instance.GiveItem(currentItem.finalItem.item, currentItem.finalItem.amount);
+                    PlayerInventory.Instance.GiveItem(currentItem.finalItem.item, currentItem.finalItem.amount);
                     currentItem = null;
                     canTakeItem = false;
 

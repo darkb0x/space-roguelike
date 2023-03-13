@@ -89,7 +89,7 @@ namespace Game
             return true;
         }
 
-        public void CloseAllPanel()
+        public void CloseAllPanel(bool showPlayerInterface = true)
         {
             Time.timeScale = 1;
             blurVolume.weight = 0;
@@ -97,7 +97,7 @@ namespace Game
             {
                 panels[i].panel_obj.SetActive(false);
             }
-            playerUI.SetActive(true);
+            playerUI.SetActive(showPlayerInterface);
             GameInput.Instance.SetPlayerActionMap();
         }
 

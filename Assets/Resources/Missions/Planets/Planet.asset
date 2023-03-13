@@ -15,4 +15,4 @@ MonoBehaviour:
   MissionName: First mission
   MissionIcon: {fileID: 7482667652216324306, guid: ed826bc6af5cf7c4ea90e05d324507e8, type: 3}
   PlanetSprite: {fileID: 21300000, guid: 5526d094cc9017b45b23a4811b2ed6d9, type: 3}
-  SceneId: 0
+  SceneId: 2

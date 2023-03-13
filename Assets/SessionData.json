@@ -21,19 +21,19 @@
             },
             {
                 "Key": "Items/Ingot/zuldun_ingot",
-                "Value": 0
+                "Value": 100
             },
             {
                 "Key": "Items/Ore/selbit_ore",
-                "Value": 0
+                "Value": 10
             },
             {
                 "Key": "Items/Ore/zuldun_ore",
-                "Value": 0
+                "Value": 50
             },
             {
                 "Key": "Items/Ore/marbet_ore",
-                "Value": 0
+                "Value": 50
             }
         ]
     },

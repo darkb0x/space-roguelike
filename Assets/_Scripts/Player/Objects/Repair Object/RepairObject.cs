@@ -66,7 +66,7 @@ namespace Game.Player
         {
             foreach (var item in ItemsForRepair)
             {
-                if(PlayerInventory.instance.GetItem(item.Item).Amount < item.Amount)
+                if(PlayerInventory.Instance.GetItem(item.Item).Amount < item.Amount)
                 {
                     return false;
                 }
@@ -77,7 +77,7 @@ namespace Game.Player
         {
             foreach (var item in ItemsForRepair)
             {
-                PlayerInventory.instance.TakeItem(item.Item, item.Amount);
+                PlayerInventory.Instance.TakeItem(item.Item, item.Amount);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Game.Player
                     repairItem = itemForRepair;
             }
 
-            if (PlayerInventory.instance.GetItem(repairItem.Item).Amount < repairItem.Amount)
+            if (PlayerInventory.Instance.GetItem(repairItem.Item).Amount < repairItem.Amount)
                 return Color.red;
             else
                 return Color.white;

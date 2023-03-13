@@ -65,10 +65,10 @@ namespace Game.CraftSystem
 
         public void Craft(CSCraftSO craft)
         {
-            if (!PlayerInventory.instance.CanTakeItems(craft.ObjectCraft))
+            if (!PlayerInventory.Instance.CanTakeItems(craft.ObjectCraft))
                 return;
 
-            PlayerInventory.instance.TakeItem(craft.ObjectCraft);
+            PlayerInventory.Instance.TakeItem(craft.ObjectCraft);
 
             currentWorkbanch.Craft(craft.ObjectPrefab);
 

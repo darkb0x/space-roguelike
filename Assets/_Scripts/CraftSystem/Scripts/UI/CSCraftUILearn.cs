@@ -127,7 +127,7 @@ namespace Game.CraftSystem
 
         public virtual void Buy()
         {
-            if (PlayerInventory.instance.money < craft.CraftCost)
+            if (PlayerInventory.Instance.money < craft.CraftCost)
             {
                 return;
             }
@@ -154,7 +154,7 @@ namespace Game.CraftSystem
             if(canBuy)
             {
                 isPursached = true;
-                PlayerInventory.instance.money -= craft.CraftCost;
+                PlayerInventory.Instance.money -= craft.CraftCost;
                 fullUnlock();
                 OnEnterPointer();
                 learnCraftSystem.LearnCraft(craft);

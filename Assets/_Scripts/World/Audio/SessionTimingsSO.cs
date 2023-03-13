@@ -13,7 +13,7 @@ namespace Game.Audio
         [Space]
         [OnValueChanged("OnTimeVariablesChanged"), SerializeField, AllowNesting] private int TimeMinute;
         [OnValueChanged("OnTimeVariablesChanged"), SerializeField, MaxValue(60), AllowNesting] private float TimeSecond;
-        [SerializeField, ReadOnly, AllowNesting] private string m_StartTime = "0:00";
+        [SerializeField, ReadOnly, AllowNesting] private string m_StartTime = "0:00,00";
         public float StartTime { 
             get
             {
@@ -27,7 +27,15 @@ namespace Game.Audio
         }
         private void OnTimeVariablesChanged()
         {
-            m_StartTime = $"{TimeMinute}:{TimeSecond}";
+            string minute = TimeMinute.ToString();
+
+            string seconds;
+            if (TimeSecond < 10)
+                seconds = "0" + TimeSecond;
+            else
+                seconds = TimeSecond.ToString();
+
+            m_StartTime = $"{minute}:{seconds}";
 
             if(TimeSecond >= 60)
             {
@@ -41,6 +49,6 @@ namespace Game.Audio
     public class SessionTimingsSO : ScriptableObject
     {
         [field: SerializeField] public AudioClip Music { get; set; }
-        [SerializeField] public List<SessionEvent> EventsList = new List<SessionEvent>();
+        [SerializeField, ReorderableList] public List<SessionEvent> EventsList = new List<SessionEvent>();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using NaughtyAttributes;
 
 namespace Game.Player.Inventory
 {
@@ -16,20 +17,20 @@ namespace Game.Player.Inventory
     [System.Serializable]
     public class ItemData
     {
-        [NaughtyAttributes.Expandable] public InventoryItem Item;
+        [Expandable] public InventoryItem Item;
         public int Amount;
     }
 
     public class PlayerInventory : MonoBehaviour
     {
         // singletone
-        public static PlayerInventory instance;
-        private void Awake() => instance = this;
+        public static PlayerInventory Instance;
+        private void Awake() => Instance = this;
 
         [System.Serializable]
         private class ItemVisual
         {
-            [NaughtyAttributes.Expandable] public InventoryItem item;
+            [Expandable] public InventoryItem item;
             public int amount;
 
             [HideInInspector] public Image UI_icon;
@@ -76,11 +77,18 @@ namespace Game.Player.Inventory
         [SerializeField] private GameObject itemInUI_prefab;
         [Space]
         [SerializeField] private InventoryScreen[] InventoryScreens;
+        [Space]
+        [SerializeField] private Animator InventoryAnim;
+        [SerializeField] private TextMeshProUGUI AllItemsAmountText;
+        [SerializeField, AnimatorParam("InventoryAnim")] private string InventoryAnim_OpenBool;
 
+        private bool isOpened = false;
         private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
 
         private void Start()
         {
+            GameInput.InputActions.Player.Inventory.performed += InventoryEnabled;
+
             Load();
 
             for (int i = 0; i < itemsVisuals.Count; i++)
@@ -91,6 +99,11 @@ namespace Game.Player.Inventory
 
             UpdateVisual();
         }
+        private void Update()
+        {
+            InventoryAnim.SetBool(InventoryAnim_OpenBool, isOpened);
+        }
+
         private void Load()
         {
             money = currentSessionData.Money;
@@ -193,9 +206,17 @@ namespace Game.Player.Inventory
             }
             return null;
         }
+
+        private void OnDisable()
+        {
+            GameInput.InputActions.Player.Inventory.performed -= InventoryEnabled;
+        }
+
+        #region UI Visual
         private void UpdateVisual()
         {
             List<ItemData> data = new List<ItemData>();
+            int allItemsAmount = 0;
 
             // main
             foreach (var item in itemsVisuals)
@@ -203,8 +224,11 @@ namespace Game.Player.Inventory
                 item.UI_icon.sprite = item.item.Icon;
                 item.UI_amount.text = item.amount.ToString();
 
+                allItemsAmount += item.amount;
+
                 data.Add(ConvertVisualToItem(item));
             }
+            AllItemsAmountText.text = allItemsAmount.ToString();
 
             // screens data
             foreach (var screen in InventoryScreens)
@@ -218,6 +242,16 @@ namespace Game.Player.Inventory
                 observer.UpdateData(this);
             }
         }
+
+        public void InventoryEnabled()
+        {
+            isOpened = !isOpened;
+        }
+        public void InventoryEnabled(UnityEngine.InputSystem.InputAction.CallbackContext callback)
+        {
+            InventoryEnabled();
+        }
+        #endregion
         #endregion
     }
 }

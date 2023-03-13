@@ -126,6 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3514759272854996622}
   - component: {fileID: 3514759272854996621}
+  - component: {fileID: 5340520158696822646}
   - component: {fileID: 3514759272854996626}
   - component: {fileID: 3514759272854996620}
   - component: {fileID: 3514759272854996616}
@@ -171,20 +172,38 @@ MonoBehaviour:
   oxygen: 50
   maxOxygen: 100
   oxygenUseSpeed: 0.035
-  oxygenBarUI: {fileID: 0}
+  DoOxygenCycle: 1
   health: 0
-  maxHealth: 20
-  healthBarUI: {fileID: 0}
+  maxHealth: 3
+  DoHealthCycle: 1
   speed: 3
-  anim: {fileID: 3514759272854996627}
-  anim_horizontal: Horizontal
-  anim_vertical: Vertical
-  anim_isRunning: isRunning
-  anim_isCrafting: isCrafting
+  Visual: {fileID: 5340520158696822646}
   pickObjSystem: {fileID: 3514759272854996626}
   inventory: {fileID: 0}
   EnemyTarget: {fileID: 7655071616738455957}
   canMove: 1
+--- !u!114 &5340520158696822646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3514759272854996617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7b6a01607fe6248b9288c9e6dcb0cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OxygenBarUI: {fileID: 0}
+  OxygenBarVisual: {fileID: 0}
+  FullHeartSprite: {fileID: -1046685172, guid: 903adc5ce20521946aea486d0f67c748, type: 3}
+  DamagedHeartSprite: {fileID: -2018285612, guid: 903adc5ce20521946aea486d0f67c748, type: 3}
+  HeartsTransform: {fileID: 0}
+  Anim: {fileID: 3514759272854996627}
+  Anim_horizontal: Horizontal
+  Anim_vertical: Vertical
+  Anim_isRunning: isRunning
+  Anim_isCrafting: isCrafting
 --- !u!114 &3514759272854996626
 MonoBehaviour:
   m_ObjectHideFlags: 0

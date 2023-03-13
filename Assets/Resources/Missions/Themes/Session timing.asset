@@ -14,8 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Music>k__BackingField: {fileID: 8300000, guid: be2389c35198f90449a1aa618d6f734e, type: 3}
   EventsList:
-  - EventType: 1
-    PercentFromScore: 15
+  - EventType: 0
+    PercentFromScore: 5
+    TimeMinute: 0
+    TimeSecond: 13.71
+    m_StartTime: 0:13,71
+  - EventType: 0
+    PercentFromScore: 5
+    TimeMinute: 0
+    TimeSecond: 41.14
+    m_StartTime: 0:41,14
+  - EventType: 0
+    PercentFromScore: 5
+    TimeMinute: 1
+    TimeSecond: 8.57
+    m_StartTime: 1:08,57
+  - EventType: 0
+    PercentFromScore: 5
     TimeMinute: 2
-    TimeSecond: 44
-    m_StartTime: 2:44
+    TimeSecond: 3.42
+    m_StartTime: 2:03,42
+  - EventType: 1
+    PercentFromScore: 5
+    TimeMinute: 2
+    TimeSecond: 44.57
+    m_StartTime: 2:44,57
+  - EventType: 0
+    PercentFromScore: 5
+    TimeMinute: 4
+    TimeSecond: 6.85
+    m_StartTime: 4:06,85
+  - EventType: 1
+    PercentFromScore: 5
+    TimeMinute: 4
+    TimeSecond: 48
+    m_StartTime: 4:48

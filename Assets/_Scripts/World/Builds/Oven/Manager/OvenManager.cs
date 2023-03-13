@@ -36,9 +36,9 @@ namespace Game.Oven.Manager
         {
             List<ItemData> itemsData = ConvertOvenCraftToItemData(craft);
 
-            if (PlayerInventory.instance.CanTakeItems(itemsData))
+            if (PlayerInventory.Instance.CanTakeItems(itemsData))
             {
-                PlayerInventory.instance.TakeItem(itemsData);
+                PlayerInventory.Instance.TakeItem(itemsData);
                 currentOven.StartRemelting(craft);
                 ClosePanel();
             }

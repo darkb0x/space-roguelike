@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 using NaughtyAttributes;
 
 namespace Game.MainMenu.Mission
 {
+    using Utilities;
     using Planet;
     using Planet.Visual;
     using Visual;
@@ -18,6 +19,8 @@ namespace Game.MainMenu.Mission
         [SerializeField] private MissionChooseVisual Visual;
         [SerializeField] private PlanetUIVisual PlanetVisualPrefab;
         [SerializeField] private Canvas Canvas;
+        [Space]
+        [SerializeField] private PlayableDirector Cutscene;
 
         [Header("Planets")]
         [SerializeField, Expandable] private PlanetMapSO PlanetMap;
@@ -96,26 +99,35 @@ namespace Game.MainMenu.Mission
                 return;
             }
 
-            startMissionTimer -= Time.deltaTime;
+            startMissionTimer = Mathf.Clamp(startMissionTimer - Time.deltaTime, 0, m_StartMissionTimer);
 
             Visual.ShowStartMissionTimer(startMissionTimer);
 
             if (startMissionTimer <= 0)
-                StartMission();
+                StartCutscene();
         }
 
         public void SelectMission(PlanetSO mission)
         {
-            selectedMission = mission;
+            if(selectedMission != mission)
+            {
+                selectedMission = mission;
+            }
 
             Visual.ShowMissionTab(mission.MissionIcon, mission.MissionName);
 
             Visual.CloseMenu();
         }
 
+        public void StartCutscene()
+        {
+            UIPanelManager.Instance.CloseAllPanel(false);
+            Cutscene.Play();
+            StartCoroutine(LoadSceneUtility.Instance.LoadSceneAsync(selectedMission.SceneId, 20));
+        }
         public void StartMission()
         {
-            SceneManager.LoadScene(selectedMission.SceneId);
+            LoadSceneUtility.Instance.EnableLoadedAsyncScene();
         }
         public void StartMissionTimer()
         {

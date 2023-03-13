@@ -24,7 +24,7 @@ namespace Game.Oven.Manager
 
         public void Initialize(OvenCraftList.craft craft, OvenManager m)
         {
-            PlayerInventory.instance.observers.Add(this);
+            PlayerInventory.Instance.observers.Add(this);
 
             currentCraft = craft;
             manager = m;

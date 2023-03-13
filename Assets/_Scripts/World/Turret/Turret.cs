@@ -312,7 +312,7 @@ namespace Game.Turret
 
             foreach (var item in DroppedItems)
             {
-                PlayerInventory.instance.GiveItem(item.Item, item.Amount);
+                PlayerInventory.Instance.GiveItem(item.Item, item.Amount);
             }
 
             EnemySpawner.Instance.RemoveTarget(EnemyTarget);

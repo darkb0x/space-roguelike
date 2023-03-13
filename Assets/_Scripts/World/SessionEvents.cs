@@ -31,6 +31,8 @@ namespace Game
         private int currentEvent = 0;
         [SerializeField] private float currentTime;
 
+        private bool isPlaying = false;
+
         private void Awake()
         {
             Instance = this;
@@ -42,13 +44,21 @@ namespace Game
         private void Start()
         {
             Pause.Instance.OnGamePaused += OnGamePaused;
+        }
 
+        public void Initialize()
+        {
             MusicAudioSource.clip = SessionTimings.Music;
             MusicAudioSource.Play();
+
+            isPlaying = true;
         }
 
         private void Update()
         {
+            if (!isPlaying)
+                return;
+
             DebugText.text = $"Time: {currentTime}\n" +
                              $"Event: {currentEvent}";
 

@@ -9,6 +9,7 @@ namespace Game.Player
 {
     using Drone;
     using Inventory;
+    using Visual;
     using CraftSystem;
 
     public class PlayerController : MonoBehaviour, IDamagable
@@ -18,26 +19,17 @@ namespace Game.Player
         [SerializeField] private float maxOxygen = 100f;
         [SerializeField] private float oxygenUseSpeed = 1.3f;
         [SerializeField] private bool DoOxygenCycle = true;
-        [Space]
-        [SerializeField] private Image oxygenBarUI;
 
         [Header("Health")]
         [SerializeField] private float health = 10;
         [SerializeField] private float maxHealth;
         [SerializeField] private bool DoHealthCycle = true;
-        [Space]
-        [SerializeField] private Image healthBarUI;
 
-        [Header("movement")]
+        [Header("Movement")]
         [SerializeField] private float speed;
 
-        [Header("animator")]
-        public Animator anim;
-        [Space]
-        [AnimatorParam("anim"), SerializeField] string anim_horizontal;
-        [AnimatorParam("anim"), SerializeField] string anim_vertical;
-        [AnimatorParam("anim"), SerializeField] string anim_isRunning;
-        [AnimatorParam("anim"), SerializeField] string anim_isCrafting;
+        [Header("Visual")]
+        [SerializeField] private PlayerVisual Visual;
 
         [Header("components")]
         public PlayerPickObjects pickObjSystem;
@@ -61,26 +53,10 @@ namespace Game.Player
             EnemyTarget.Initialize(this);
 
             health = maxHealth;
-            if (healthBarUI != null)
-            {
-                healthBarUI.fillAmount = health / maxHealth;
-            }
-            else
-            {
-                Debug.LogError("healthBarUI is null");
-                DoHealthCycle = false;
-            }
+            Visual.InitializeHealthVisual((int)health);
 
             oxygen = maxOxygen;
-            if (oxygenBarUI != null)
-            {
-                oxygenBarUI.fillAmount = oxygen / maxOxygen;
-            }
-            else
-            {
-                Debug.LogError("oxygenBarUI in null");
-                DoOxygenCycle = false;
-            }
+            Visual.EnableOxygenVisual(DoOxygenCycle);
         }
 
         private void Update()
@@ -92,27 +68,33 @@ namespace Game.Player
             {
                 if (!UIPanelManager.Instance.SomethinkIsOpened())
                 {
-                    anim.SetFloat(anim_horizontal, moveInput.x);
-                    anim.SetFloat(anim_vertical, moveInput.y);
+                    Visual.PlayerLookDirection(moveInput);
                 }
             }
             else
             {
                 if (!UIPanelManager.Instance.SomethinkIsOpened())
                 {
-
                     Vector3 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
                     Vector2 dir = -(transform.position - mousePos).normalized;
 
-                    anim.SetFloat(anim_horizontal, dir.x);
-                    anim.SetFloat(anim_vertical, dir.y);
+                    Visual.PlayerLookDirection(dir);
                 }
             }
 
-            if(canMove)
-                anim.SetBool(anim_isRunning, moveInput.magnitude > 0);
+            if (canMove)
+            {
+                if (moveInput.magnitude > 0)
+                {
+                    Visual.PlayerRunAnimation();
+                }
+                else
+                {
+                    Visual.PlayerIdleAnimation();
+                }
+            }
             else
-                anim.SetBool(anim_isRunning, false);
+                Visual.PlayerIdleAnimation();
 
             //oxygen
             if(DoOxygenCycle)
@@ -134,7 +116,7 @@ namespace Game.Player
             }
 
             oxygen -= (Time.deltaTime * oxygenUseSpeed);
-            oxygenBarUI.fillAmount = oxygen / maxOxygen;
+            Visual.UpdateOxygenVisual(oxygen, maxOxygen);
         }
 
         public void AddOxygen(float amount)
@@ -144,10 +126,17 @@ namespace Game.Player
         #endregion
 
         #region Health
+        [Button]
+        public void TakeDamage()
+        {
+            TakeDamage(1);
+        }
+
         public void TakeDamage(float value)
         {
-            health -= value;
-            healthBarUI.fillAmount = health / maxHealth;
+            health -= Mathf.RoundToInt(value);
+
+            Visual.UpdateHealthVisual((int)health);
 
             if (health <= 0)
             {
@@ -172,7 +161,7 @@ namespace Game.Player
             if (!DoHealthCycle)
                 return;
 
-            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
+            Enemy.EnemySpawner.Instance.RemoveTarget(EnemyTarget);
             Die();
         }
         #endregion
@@ -206,12 +195,29 @@ namespace Game.Player
         #endregion
 
         #region Animation Control
-        public void StopPlayerMove(Vector3 pos)
+        public void StopPlayerMove(Transform posTransform)
+        {
+            canMove = false;
+            transform.position = posTransform.position;
+        }
+        public void StopPlayerMove()
         {
             canMove = false;
         }
         public void ContinuePlayerMove()
         {
+            canMove = true;
+        }
+
+        public void LockPlayerPosition(Transform posPosition)
+        {
+            canMove = false;
+            transform.SetParent(posPosition);
+            transform.localPosition = Vector2.zero;
+        }
+        public void UnlockPlayerPosition()
+        {
+            transform.SetParent(null);
             canMove = true;
         }
         #endregion

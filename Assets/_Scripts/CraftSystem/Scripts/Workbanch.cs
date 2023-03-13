@@ -37,7 +37,7 @@ namespace Game.CraftSystem
         {
             if (!player.pickObjSystem.pickedGameObject)
             {
-                player.StopPlayerMove(transform.position);
+                player.StopPlayerMove();
                 craftSystem.OpenMenu(this);
             }
         }

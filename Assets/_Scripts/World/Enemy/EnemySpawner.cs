@@ -4,7 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using UnityEngine.InputSystem;
 
-namespace Game
+namespace Game.Enemy
 {
     using Enemy;
 
