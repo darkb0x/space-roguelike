@@ -7,6 +7,9 @@ namespace Game
 {
     using Audio;
     using Enemy;
+    using MainMenu.Mission.Planet;
+    using MainMenu.Pause;
+    using SaveData;
 
     public enum SessionEventType
     {
@@ -33,6 +36,8 @@ namespace Game
 
         private bool isPlaying = false;
 
+        public PlanetSO planetData { get; private set; }
+
         private void Awake()
         {
             Instance = this;
@@ -43,7 +48,9 @@ namespace Game
 
         private void Start()
         {
-            Pause.Instance.OnGamePaused += OnGamePaused;
+            PauseManager.Instance.OnGamePaused += OnGamePaused;
+
+            planetData = GameData.Instance.CurrentSessionData.Planet;
         }
 
         public void Initialize()
@@ -105,7 +112,7 @@ namespace Game
 
         private void OnDisable()
         {
-            Pause.Instance.OnGamePaused += OnGamePaused;
+            PauseManager.Instance.OnGamePaused += OnGamePaused;
         }
     }
 }

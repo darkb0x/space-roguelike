@@ -49,14 +49,22 @@ namespace Game
                 {
                     panel.SetActive(enabled);
                     currentOpenedPanel = enabled ? panel : null;
-                    blurVolume.weight = enabled ? 1 : 0;
                     Notify();
+
+                    if (blurVolume != null)
+                        blurVolume.weight = enabled ? 1 : 0;
+                    else
+                        Debug.LogWarning(gameObject.name + " Blur Volume is null!");
+
                     return;
                 }
             }
 
             panel.SetActive(enabled);
-            blurVolume.weight = enabled ? 1 : 0;
+            if (blurVolume != null)
+                blurVolume.weight = enabled ? 1 : 0;
+            else
+                Debug.LogWarning(gameObject.name + " Blur Volume is null!");
         }
 
         public void ClosePanel(GameObject panel)

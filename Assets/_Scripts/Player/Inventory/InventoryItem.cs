@@ -12,8 +12,8 @@ namespace Game.Player.Inventory
         [field: SerializeField, ShowAssetPreview] public Sprite Icon { get; private set; }
         [field: SerializeField, ShowAssetPreview] public Sprite LowSizeIcon { get; private set; }
         [field: SerializeField, Min(1)] public int Cost { get; private set; }
-        [Space]
-        [SerializeField] private bool IsOre = false;
+        [field: Space]
+        [field: SerializeField] public bool IsOre { get; set; }
         [ShowIf("IsOre")] public List<Sprite> OreSprites = new List<Sprite>();
 
         [field: Space]
@@ -21,9 +21,22 @@ namespace Game.Player.Inventory
 
         private void OnEnable()
         {
-            AssetPath = AssetDatabase.GetAssetPath(this);
-            AssetPath = AssetPath.Substring(7+10); // Assets/Resources/___
-            AssetPath = AssetPath.Substring(0, AssetPath.Length - 6); // ___.asset
+            UpdateAssetPath();
+        }
+
+        [Button]
+        private void UpdateAssetPath()
+        {
+            try
+            {
+                AssetPath = AssetDatabase.GetAssetPath(this);
+                AssetPath = AssetPath.Substring(7 + 10); // Assets/Resources/___
+                AssetPath = AssetPath.Substring(0, AssetPath.Length - 6); // ___.asset
+            }
+            catch (System.Exception)
+            {
+                return;
+            }
         }
     }
 }

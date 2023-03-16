@@ -8,6 +8,7 @@ using NaughtyAttributes;
 namespace Game.Player.Inventory
 {
     using SaveData;
+    using MainMenu.Mission.Planet;
 
     public interface IInventoryObserver
     {
@@ -19,6 +20,12 @@ namespace Game.Player.Inventory
     {
         [Expandable] public InventoryItem Item;
         public int Amount;
+
+        public ItemData(InventoryItem item, int amount = 0)
+        {
+            Item = item;
+            Amount = amount;
+        }
     }
 
     public class PlayerInventory : MonoBehaviour
@@ -27,33 +34,8 @@ namespace Game.Player.Inventory
         public static PlayerInventory Instance;
         private void Awake() => Instance = this;
 
-        [System.Serializable]
-        private class ItemVisual
-        {
-            [Expandable] public InventoryItem item;
-            public int amount;
-
-            [HideInInspector] public Image UI_icon;
-            [HideInInspector] public TextMeshProUGUI UI_amount;
-
-            public void Add(int value)
-            {
-                this.amount += value;
-            }
-            public void Take(int value)
-            {
-                this.amount -= value;
-            }
-            public void InitializeVisual(Image img, TextMeshProUGUI text)
-            {
-                UI_icon = img;
-                UI_amount = text;
-            }
-        }
-
         [Header("Inventory")]
-        [SerializeField] private List<ItemVisual> itemsVisuals = new List<ItemVisual>();
-        public List<IInventoryObserver> observers = new List<IInventoryObserver>();
+        [ReadOnly] public List<ItemData> Items = new List<ItemData>();
         public int money
         {
             get
@@ -73,17 +55,13 @@ namespace Game.Player.Inventory
         [SerializeField] private TextMeshProUGUI[] money_texts;
 
         [Header("UI")]
-        [SerializeField, Tooltip("Canvas/Player/Items")] private Transform uiElements_tranform;
-        [SerializeField] private GameObject itemInUI_prefab;
-        [Space]
-        [SerializeField] private InventoryScreen[] InventoryScreens;
-        [Space]
         [SerializeField] private Animator InventoryAnim;
         [SerializeField] private TextMeshProUGUI AllItemsAmountText;
         [SerializeField, AnimatorParam("InventoryAnim")] private string InventoryAnim_OpenBool;
 
         private bool isOpened = false;
         private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        public List<IInventoryObserver> observers = new List<IInventoryObserver>();
 
         private void Start()
         {
@@ -91,14 +69,9 @@ namespace Game.Player.Inventory
 
             Load();
 
-            for (int i = 0; i < itemsVisuals.Count; i++)
-            {
-                Transform obj = Instantiate(itemInUI_prefab, uiElements_tranform).transform;
-                itemsVisuals[i].InitializeVisual(obj.GetChild(0).GetComponent<Image>(), obj.GetChild(1).GetComponent<TextMeshProUGUI>());
-            }
-
             UpdateVisual();
         }
+
         private void Update()
         {
             InventoryAnim.SetBool(InventoryAnim_OpenBool, isOpened);
@@ -108,34 +81,41 @@ namespace Game.Player.Inventory
         {
             money = currentSessionData.Money;
 
-            if(currentSessionData.Items.Keys.Count == 0)
-            {
-                foreach (var visual in itemsVisuals)
-                {
-                    ItemData data = ConvertVisualToItem(visual);
-                    data.Amount = 0;
+            PlanetSO planetData = currentSessionData.Planet;
 
-                    currentSessionData.AddItem(data);
+            if(planetData != null)
+            {
+                foreach (var item in planetData.DefaultItems)
+                {
+                    currentSessionData.AddItem(new ItemData(item));
+                }
+                foreach (var item in planetData.UniqueItems)
+                {
+                    currentSessionData.AddItem(new ItemData(item));
                 }
 
-                GameData.Instance.Save();
+                currentSessionData.Save();
             }
 
             foreach (var item in currentSessionData.Items.Keys)
             {
                 ItemData data = currentSessionData.GetItem(item);
-                ConvertItemToVisual(data).amount = data.Amount;
+                Items.Add(data);
             }
-        }
+        } 
 
         public ItemData GetItem(InventoryItem item)
         {
-            foreach (var visual in itemsVisuals)
+            foreach (var itemData in Items)
             {
-                if (visual.item == item)
-                    return ConvertVisualToItem(visual);
+                if (itemData.Item == item)
+                    return itemData;
             }
-            return null;
+
+            ItemData data = new ItemData(item);
+            Items.Add(data);
+
+            return data;
         }
 
         /// <summary>
@@ -143,9 +123,17 @@ namespace Game.Player.Inventory
         /// </summary>
         /// <param name="item">item to give</param>
         /// <param name="amount">amount</param>
-        public void GiveItem(InventoryItem item, int amount)
+        public void AddItem(InventoryItem item, int amount)
         {
-            ConvertItemToVisual(GetItem(item)).Add(amount);
+            ItemData itemData = GetItem(item);
+            if (itemData == null)
+            {
+                Items.Add(new ItemData(item, amount));
+            }
+            else
+            {
+                itemData.Amount += amount;
+            }
 
             UpdateVisual();
         }
@@ -155,13 +143,22 @@ namespace Game.Player.Inventory
         /// </summary>
         /// <param name="item">Item to take</param>
         /// <param name="amount">Amount</param>
-        public void TakeItem(InventoryItem item, int amount)
+        public bool TakeItem(InventoryItem item, int amount)
         {
-            ItemVisual it = ConvertItemToVisual(GetItem(item));
-            if (it.amount >= amount)
+            ItemData itemData = GetItem(item);
+            if (itemData == null)
             {
-                it.Take(amount);
-                UpdateVisual();
+                Items.Add(new ItemData(item));
+                return false;
+            }
+            else
+            {
+                if(itemData.Amount >= amount)
+                {
+                    itemData.Amount -= amount;
+                    return true;
+                }
+                return false;
             }
         }
         /// <summary>
@@ -186,27 +183,6 @@ namespace Game.Player.Inventory
             return true;
         }
 
-        #region Utilities
-        private ItemData ConvertVisualToItem(ItemVisual visual)
-        {
-            ItemData item = new ItemData
-            {
-                Item = visual.item,
-                Amount = visual.amount
-            };
-
-            return item;
-        }
-        private ItemVisual ConvertItemToVisual(ItemData item)
-        {
-            foreach (var visual in itemsVisuals)
-            {
-                if (visual.item == item.Item)
-                    return visual;
-            }
-            return null;
-        }
-
         private void OnDisable()
         {
             GameInput.InputActions.Player.Inventory.performed -= InventoryEnabled;
@@ -215,26 +191,14 @@ namespace Game.Player.Inventory
         #region UI Visual
         private void UpdateVisual()
         {
-            List<ItemData> data = new List<ItemData>();
             int allItemsAmount = 0;
 
             // main
-            foreach (var item in itemsVisuals)
+            foreach (var itemData in Items)
             {
-                item.UI_icon.sprite = item.item.Icon;
-                item.UI_amount.text = item.amount.ToString();
-
-                allItemsAmount += item.amount;
-
-                data.Add(ConvertVisualToItem(item));
+                allItemsAmount += itemData.Amount;
             }
             AllItemsAmountText.text = allItemsAmount.ToString();
-
-            // screens data
-            foreach (var screen in InventoryScreens)
-            {
-                screen.UpdateData(data);
-            }
 
             // observers data
             foreach (var observer in observers)
@@ -243,15 +207,23 @@ namespace Game.Player.Inventory
             }
         }
 
-        public void InventoryEnabled()
+        public void InventoryEnabled(UnityEngine.InputSystem.InputAction.CallbackContext callback)
         {
             isOpened = !isOpened;
         }
-        public void InventoryEnabled(UnityEngine.InputSystem.InputAction.CallbackContext callback)
-        {
-            InventoryEnabled();
-        }
         #endregion
+
+        #region IInventoryObserver
+        public void Attach(IInventoryObserver observer, bool initialize = false)
+        {
+            observers.Add(observer);
+            if(initialize)
+                observer.UpdateData(this);
+        }
+        public void Detach(IInventoryObserver observer)
+        {
+            observers.Remove(observer);
+        }
         #endregion
     }
 }

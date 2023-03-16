@@ -33,10 +33,7 @@ Transform:
   - {fileID: 973950430383152459}
   - {fileID: 973950430778393663}
   - {fileID: 973950431960813279}
-  - {fileID: 973950431966872226}
   - {fileID: 973950431650127927}
-  - {fileID: 973950431904851695}
-  - {fileID: 6465428977077885683}
   - {fileID: 4389373989018900434}
   - {fileID: 8779144328709606868}
   m_Father: {fileID: 0}
@@ -131,39 +128,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c4b288d0ddab745933f608c1b331b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsVisuals:
-  - item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
-    amount: 0
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-    amount: 0
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
-    amount: 0
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-    amount: 0
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
-    amount: 0
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
-  - item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
-    amount: 0
-    UI_icon: {fileID: 0}
-    UI_amount: {fileID: 0}
+  Items: []
   m_money: 10000
   money_texts:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  uiElements_tranform: {fileID: 0}
-  itemInUI_prefab: {fileID: 2780875277850686497, guid: 5666c237387a3a34abdee26b1bde0cf3, type: 3}
-  InventoryScreens: []
+  InventoryAnim: {fileID: 0}
+  AllItemsAmountText: {fileID: 0}
+  InventoryAnim_OpenBool: 
 --- !u!1 &973950430778393660
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +278,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 973950430228214895}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &973950431650127926
 MonoBehaviour:
@@ -323,50 +296,6 @@ MonoBehaviour:
   panel: {fileID: 0}
   craftElement: {fileID: 8990283819396065657, guid: 100ed3d76d4d61f4ea3095aa92f5770c, type: 3}
   craftListParent: {fileID: 0}
---- !u!1 &973950431904851692
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 973950431904851695}
-  - component: {fileID: 973950431904851694}
-  m_Layer: 0
-  m_Name: Settings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &973950431904851695
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 973950431904851692}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 973950430228214895}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &973950431904851694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 973950431904851692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e14c01b97c9ab64dbf9281231a332cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &973950431960813276
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,52 +340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d520d6d1f83492f479567e928803e641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &973950431966872227
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 973950431966872226}
-  - component: {fileID: 973950431966872237}
-  m_Layer: 0
-  m_Name: PauseManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &973950431966872226
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 973950431966872227}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 973950430228214895}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &973950431966872237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 973950431966872227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 569635f1304eb9c4484f81ab7f24e4c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pausePanel: {fileID: 0}
-  pauseEnabled: 0
 --- !u!1 &973950432118627693
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +431,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 973950430228214895}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8055168628683782975
 MonoBehaviour:
@@ -592,7 +475,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 973950430228214895}
-  m_RootOrder: 9
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7295520195962688068
 MonoBehaviour:
@@ -606,66 +489,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f8d42c537cfd6449208dd711101238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savePath: 
   CurrentSessionData:
+    dataSavePath: 
+    dataFileName: 
     UnlockedCraftPaths: []
     Items:
       list: []
     Money: 0
+    Planet: {fileID: 0}
   CurrentSettingsData:
+    dataSavePath: 
+    dataFileName: 
     MaxFps: 0
---- !u!1 &6465428977077885682
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6465428977077885683}
-  - component: {fileID: 6465428977077885692}
-  m_Layer: 0
-  m_Name: UIPanelManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6465428977077885683
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6465428977077885682}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 400.56638, y: 225.70432, z: 6.0555973}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 973950430228214895}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6465428977077885692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6465428977077885682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 687226ee548062246ab29b7dbc50a994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentOpenedPanel: {fileID: 0}
-  playerUI: {fileID: 0}
-  blurVolume: {fileID: 0}
-  panels:
-  - name: Craft
-    panel_obj: {fileID: 0}
-  - name: Tech Tree
-    panel_obj: {fileID: 0}
-  - name: Pause
-    panel_obj: {fileID: 0}
-  - name: Oven
-    panel_obj: {fileID: 0}

@@ -16,13 +16,18 @@ namespace Game.MainMenu.Mission.Visual
 
         [Header("Mission Tab")]
         [SerializeField] private GameObject SelectedMissionPanel;
+        [Space]
         [SerializeField] private Image SelectedMissionIcon;
+        [Space]
         [SerializeField] private TextMeshProUGUI SelectedMissionNameText;
+        [Space]
+        [SerializeField] private Transform SelectedMissionUniqueItemsContent;
+        [SerializeField] private Vector2 UniqueItemsSize = new Vector2(100, 100);
 
         [Header("Start Mission Timer")]
         [SerializeField] private TextMeshProUGUI StartMissionTimerText;
 
-        private bool isOpened = false;
+        public bool isOpened { get; private set; }
         private Vector2 defaultContentPosition;
 
         private void Start()
@@ -33,10 +38,31 @@ namespace Game.MainMenu.Mission.Visual
             UIPanelManager.Instance.Attach(this);
         }
 
-        public void ShowMissionTab(Sprite missionIcon, string missionName)
+        public void ShowMissionTab(Sprite missionIcon, string missionName, List<Player.Inventory.InventoryItem> items)
         {
             SelectedMissionIcon.sprite = missionIcon;
             SelectedMissionNameText.text = missionName;
+
+            if(SelectedMissionUniqueItemsContent.childCount > 0)
+            {
+                int childCount = SelectedMissionUniqueItemsContent.childCount;
+                for (int i = childCount - 1; i >= 0; i--)
+                {
+                    DestroyImmediate(SelectedMissionUniqueItemsContent.GetChild(i).gameObject);
+                }
+            }
+            foreach (var item in items)
+            {
+                GameObject itemObj = new GameObject();
+
+                itemObj.transform.SetParent(SelectedMissionUniqueItemsContent);
+                itemObj.transform.localScale = Vector3.one;
+
+                Image itemImage = itemObj.AddComponent<Image>();
+                itemImage.sprite = item.Icon;
+
+                itemImage.rectTransform.sizeDelta = UniqueItemsSize;
+            }
 
             SelectedMissionPanel.SetActive(true);
         }

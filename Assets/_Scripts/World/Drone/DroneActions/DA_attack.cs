@@ -13,7 +13,6 @@ namespace Game.Drone
         Transform playerTransform;
         Transform myTransform;
         Vector3 moveTarget;
-        bool doRotate = true;
         float attackTime;
 
         [SerializeField] private float rotateSpeed;

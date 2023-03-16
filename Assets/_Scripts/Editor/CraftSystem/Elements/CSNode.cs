@@ -38,7 +38,7 @@ namespace Game.CraftSystem.Editor.Elements
             Cost = 0;
             Craft = new List<ItemData>();
 
-            Craft.Add(new ItemData() { Amount = 1 });
+            Craft.Add(new ItemData(null, 1));
             Choices.Add(new CSChoiceSaveData());
 
             graphView = dsGraphView;
@@ -168,7 +168,7 @@ namespace Game.CraftSystem.Editor.Elements
             //Add Element
             Button AddButton = CSElementUtility.CreateButton("Add", () =>
             {
-                Craft.Add(AddElementToFoldout(craftFoldout, new ItemData()));
+                Craft.Add(AddElementToFoldout(craftFoldout, new ItemData(null, 1)));
             });
             craftFoldout.Insert(0, AddButton);
 

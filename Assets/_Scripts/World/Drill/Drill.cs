@@ -168,7 +168,7 @@ namespace Game.Drill
             if (CurrentItem == null | isPicked)
                 return;
 
-            PlayerInventory.Instance.GiveItem(CurrentItem, ItemAmount);
+            PlayerInventory.Instance.AddItem(CurrentItem, ItemAmount);
             ItemAmount = 0;
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
 
@@ -242,7 +242,7 @@ namespace Game.Drill
         #endregion
 
         #region Collision triggers
-        private void OnTriggerEnter2D(Collider2D collision)
+        protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
             if (isPicked && OreDetectColl.enabled)
             {
@@ -257,14 +257,14 @@ namespace Game.Drill
                 EnableVisual(true);
             }
         }
-        private void OnTriggerStay2D(Collider2D collision)
+        protected virtual void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.tag == PlayerTag && PlayerDetectColl.enabled)
             {
                 playerInZone = true;
             }
-        }      
-        private void OnTriggerExit2D(Collider2D collision)
+        }
+        protected virtual void OnTriggerExit2D(Collider2D collision)
         {
             if(isPicked)
             {
@@ -354,7 +354,7 @@ namespace Game.Drill
 
             foreach (var item in DroppedItemsAfterBroke)
             {
-                PlayerInventory.Instance.GiveItem(item.item, item.amount);
+                PlayerInventory.Instance.AddItem(item.item, item.amount);
             }
 
             EnemySpawner.Instance.RemoveTarget(EnemyTarget);

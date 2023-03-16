@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace Game.Player
 {
     using Drone;
     using Inventory;
     using Visual;
-    using CraftSystem;
+    using SaveData;
 
     public class PlayerController : MonoBehaviour, IDamagable
     {
@@ -145,8 +143,7 @@ namespace Game.Player
         }
         private void Die()
         {
-            LoadCraftUtility.Instance.ClearUnlockedCrafts();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            GameData.Instance.ResetSessionData();
         }
 
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)

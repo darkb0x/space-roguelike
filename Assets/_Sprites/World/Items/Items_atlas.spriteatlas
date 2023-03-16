@@ -54,6 +54,15 @@ SpriteAtlas:
     - {fileID: -4360650958587565854, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
     - {fileID: 1106232271658436647, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
     - {fileID: 2800000, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
+    - {fileID: 2800000, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
+    - {fileID: 1497946694, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
+    - {fileID: 2126256010, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
+    - {fileID: 2800000, guid: d61ef88880779684283f1b3b346c3643, type: 3}
+    - {fileID: -249963922, guid: d61ef88880779684283f1b3b346c3643, type: 3}
+    - {fileID: 1373220078, guid: d61ef88880779684283f1b3b346c3643, type: 3}
+    - {fileID: 2800000, guid: 48797e3736e8fed48abcebae51e46dcc, type: 3}
+    - {fileID: 2023303692, guid: 48797e3736e8fed48abcebae51e46dcc, type: 3}
+    - {fileID: -1895329992, guid: 48797e3736e8fed48abcebae51e46dcc, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -63,10 +72,16 @@ SpriteAtlas:
   - {fileID: 1400391229, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
   - {fileID: 1106232271658436647, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
   - {fileID: -4360650958587565854, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
+  - {fileID: 2126256010, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
+  - {fileID: 1497946694, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
   - {fileID: -1559031926, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
   - {fileID: 1762901815, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
   - {fileID: -2753837133825085448, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
   - {fileID: -31291522549906435, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
+  - {fileID: -1895329992, guid: 48797e3736e8fed48abcebae51e46dcc, type: 3}
+  - {fileID: 2023303692, guid: 48797e3736e8fed48abcebae51e46dcc, type: 3}
+  - {fileID: -249963922, guid: d61ef88880779684283f1b3b346c3643, type: 3}
+  - {fileID: 1373220078, guid: d61ef88880779684283f1b3b346c3643, type: 3}
   - {fileID: 246653284, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   - {fileID: -1083282776, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   - {fileID: 1093264017326094163, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
@@ -78,10 +93,16 @@ SpriteAtlas:
   - zuldun_icon_3
   - zuldun_icon_0
   - zuldun_icon_1
+  - acid_icon_1
+  - acid_icon_0
   - marbet_icon_3
   - marbet_icon_2
   - marbet_icon_1
   - marbet_icon_0
+  - water_icon_1
+  - water_icon_0
+  - oil_icon_0
+  - oil_icon_1
   - selbit_icon_3
   - selbit_icon_2
   - selbit_icon_1

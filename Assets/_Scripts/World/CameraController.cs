@@ -9,8 +9,6 @@ namespace Game
 
     public class CameraController : MonoBehaviour
     {
-        [Header("Скорость с какой камера будет приследость игрока(target)")]
-        [SerializeField, Range(1, 10)] private float followSpeed = 3;
         [Header("обзор камеры")]
         [SerializeField] private float maxCamViewScale = 15;
         [SerializeField] private float minCamViewScale = 5;
@@ -19,11 +17,9 @@ namespace Game
         [SerializeField] private float scaleSpeed = 2.2f;
 
         private Transform target;
-        private Vector3 targetInVector3;
         private Transform myTransform;
         private Camera cam;
         private float currentZoom;
-        private float mouseScrollDelta = 0;
 
         private void Start()
         {

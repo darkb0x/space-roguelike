@@ -10,6 +10,7 @@ namespace Game.MainMenu.Mission
     using Planet;
     using Planet.Visual;
     using Visual;
+    using SaveData;
 
     public class MissionChooseManager : MonoBehaviour
     {
@@ -36,6 +37,8 @@ namespace Game.MainMenu.Mission
 
         private bool startMission = false;
         private float startMissionTimer;
+
+        private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
 
         private void Awake()
         {
@@ -114,7 +117,7 @@ namespace Game.MainMenu.Mission
                 selectedMission = mission;
             }
 
-            Visual.ShowMissionTab(mission.MissionIcon, mission.MissionName);
+            Visual.ShowMissionTab(mission.MissionIcon, mission.MissionName, mission.UniqueItems);
 
             Visual.CloseMenu();
         }
@@ -122,8 +125,13 @@ namespace Game.MainMenu.Mission
         public void StartCutscene()
         {
             UIPanelManager.Instance.CloseAllPanel(false);
+
             Cutscene.Play();
+
+            currentSessionData.Planet = selectedMission;
             StartCoroutine(LoadSceneUtility.Instance.LoadSceneAsync(selectedMission.SceneId, 20));
+
+            currentSessionData.Save();
         }
         public void StartMission()
         {

@@ -20,7 +20,6 @@ namespace Game.CraftSystem
         private List<ICraftListObserver> observers = new List<ICraftListObserver>();
 
         public List<CSCraftSO> allUnlockedCrafts = new List<CSCraftSO>();
-
         private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
 
         private void Awake()

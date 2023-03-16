@@ -12,7 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ba1fd9d74922f4fac65c66717d8c8a, type: 3}
   m_Name: Planet 1
   m_EditorClassIdentifier: 
-  MissionName: Second mission
-  MissionIcon: {fileID: 21300000, guid: 2223b0a570b66ee42b3e0a79f0789b2a, type: 3}
+  MissionName: First mission
+  MissionIcon: {fileID: 7482667652216324306, guid: ed826bc6af5cf7c4ea90e05d324507e8, type: 3}
   PlanetSprite: {fileID: 21300000, guid: 5526d094cc9017b45b23a4811b2ed6d9, type: 3}
-  SceneId: 3
+  SceneId: 2
+  DefaultItems:
+  - {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
+  - {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+  - {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+  - {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+  - {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+  - {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
+  UniqueItems:
+  - {fileID: 11400000, guid: 1eeedf641798ca24bb205c84a409122d, type: 2}
+  - {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
+  - {fileID: 11400000, guid: 434848ef0f2b2fe40815ccfa519a5807, type: 2}

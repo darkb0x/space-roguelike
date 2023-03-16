@@ -120,12 +120,12 @@ TextureImporter:
       name: Rocket_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 38
-        width: 23
-        height: 44
+        x: 3
+        y: 55
+        width: 19
+        height: 47
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -141,12 +141,12 @@ TextureImporter:
       name: Rocket_1
       rect:
         serializedVersion: 2
-        x: 25
-        y: 0
+        x: 28
+        y: 46
         width: 23
-        height: 82
+        height: 56
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,11 +163,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3
-        y: 19
-        width: 15
-        height: 15
+        y: 27
+        width: 13
+        height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -175,6 +175,27 @@ TextureImporter:
       bones: []
       spriteID: 16aa78ede2bb85c418e338d0da295ebf
       internalID: 2049121411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rocket_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 18
+        width: 45
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a07d931f33de2c5439c9542c13696993
+      internalID: 1842841639
       vertices: []
       indices: 
       edges: []
@@ -190,6 +211,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Rocket_2: 1842841639
       Rocket_1: 246218015
       Rocket_0: 1483589662
       Rocket_background: 2049121411

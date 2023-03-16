@@ -15,5 +15,6 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 1093264017326094163, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   <LowSizeIcon>k__BackingField: {fileID: 246653284, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   <Cost>k__BackingField: 1
-  IsOre: 0
+  <IsOre>k__BackingField: 0
   OreSprites: []
+  <AssetPath>k__BackingField: Items/Ingot/selbit_ingot

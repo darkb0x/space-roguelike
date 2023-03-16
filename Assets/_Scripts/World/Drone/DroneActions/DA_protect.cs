@@ -9,13 +9,10 @@ namespace Game.Drone
     [CreateAssetMenu(fileName = "drone action protect", menuName = "Game/Drone/new Action protect")]
     public class DA_protect : DroneAction
     {
-        float radiusValue = 0;
         Transform playerTransform;
-        Transform myTransform;
         float attackTime;
 
         [SerializeField] private float rotateSpeed;
-        [SerializeField] private float moveSpeed = 0.5f;
         [SerializeField] private float radius;
         [SerializeField] private int damage = 1;
         [SerializeField] private float timeBtwAttack;
@@ -26,7 +23,6 @@ namespace Game.Drone
         public override void Init()
         {
             playerTransform = player.transform;
-            myTransform = drone.transform;
             attackTime = timeBtwAttack;
 
             drone.playerDrCo.AttachProtectorDrone(drone);

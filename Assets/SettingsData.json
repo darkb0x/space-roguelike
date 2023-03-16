@@ -1,3 +1,5 @@
 {
+    "dataSavePath": "C:/Unity/space-roguelike/Assets/",
+    "dataFileName": "SettingsData",
     "MaxFps": 60
 }

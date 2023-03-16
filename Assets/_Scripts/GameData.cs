@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using System;
+using System.IO;
 
 namespace Game.SaveData
 {
     using Player.Inventory;
     using Utilities;
+    using MainMenu.Mission.Planet;
 
     public class GameData : MonoBehaviour
     {
@@ -15,11 +17,10 @@ namespace Game.SaveData
 
         public const string SESSION_DATA_FILENAME = "SessionData";
         public const string SETTINGS_DATA_FILENAME = "SettingsData";
+        [ReadOnly] public string savePath;
 
         public SessionData CurrentSessionData;
         public SettingsData CurrentSettingsData;
-
-        private string savePath;
 
         private void Awake()
         {
@@ -27,21 +28,23 @@ namespace Game.SaveData
 
             savePath = $"{Application.dataPath}/";
             
-            CurrentSessionData = (SessionData)SaveDataUtility.LoadData<SessionData>(savePath, SESSION_DATA_FILENAME, new SessionData());
-            CurrentSettingsData = (SettingsData)SaveDataUtility.LoadData<SettingsData>(savePath, SETTINGS_DATA_FILENAME, new SettingsData());
+            CurrentSessionData = (SessionData)SaveDataUtility.LoadData<SessionData>(savePath, SESSION_DATA_FILENAME, new SessionData(savePath, SESSION_DATA_FILENAME));
+            CurrentSettingsData = (SettingsData)SaveDataUtility.LoadData<SettingsData>(savePath, SETTINGS_DATA_FILENAME, new SettingsData(savePath, SETTINGS_DATA_FILENAME));
         }
 
-        public void ResetAllData()
+        public void ResetSessionData()
         {
-            CurrentSessionData = new SessionData();
-            CurrentSettingsData = new SettingsData();
-
-            CurrentSessionData.Save(savePath, SESSION_DATA_FILENAME);
-            CurrentSettingsData.Save(savePath, SETTINGS_DATA_FILENAME);
+            CurrentSessionData = new SessionData(savePath, SESSION_DATA_FILENAME);
+            CurrentSessionData.Save();
+        }
+        public void ResetSettingsData()
+        {
+            CurrentSettingsData = new SettingsData(savePath, SETTINGS_DATA_FILENAME);
+            CurrentSettingsData.Save();
         }
 
         [Button]
-        public void Save()
+        public void SaveAllData()
         {
             CurrentSessionData.Save(savePath, SESSION_DATA_FILENAME);
             CurrentSettingsData.Save(savePath, SETTINGS_DATA_FILENAME);
@@ -49,7 +52,11 @@ namespace Game.SaveData
 
         public abstract class Data
         {
+            public string dataSavePath;
+            public string dataFileName;
+
             public virtual void Save(string filePath, string fileName) { }
+            public virtual void Save() { }
         }
 
         [Serializable]
@@ -62,12 +69,20 @@ namespace Game.SaveData
             public SerializableDictionary<string, int> Items;
             public int Money;
 
-            public SessionData()
+            // Planet
+            public PlanetSO Planet;
+
+            public SessionData(string savePath, string fileName)
             {
+                dataSavePath = savePath;
+                dataFileName = fileName;
+
                 UnlockedCraftPaths = new List<string>();
 
                 Items = new SerializableDictionary<string, int>();
                 Money = 0;
+
+                Planet = null;
             }
 
             public void AddItem(ItemData data)
@@ -86,11 +101,7 @@ namespace Game.SaveData
                     if(item == path)
                     {
                         InventoryItem inventoryItem = Resources.Load<InventoryItem>(item);
-                        ItemData data = new ItemData()
-                        {
-                            Item = inventoryItem,
-                            Amount = Items[item]
-                        };
+                        ItemData data = new ItemData(inventoryItem, Items[item]);
                         return data;
                     }
                 }
@@ -100,20 +111,17 @@ namespace Game.SaveData
             public override void Save(string filePath, string fileName)
             {
                 base.Save(filePath, fileName);
+
+                dataSavePath = filePath;
+                dataFileName = fileName;
+
                 SaveDataUtility.SaveData(this, fileName, filePath);
             }
-
-            [Serializable]
-            public class SerializableKeyValuePair
+            public override void Save()
             {
-                public string Key;
-                public int Value;
+                base.Save();
 
-                public SerializableKeyValuePair(string key, int value)
-                {
-                    this.Key = key;
-                    this.Value = value;
-                }
+                SaveDataUtility.SaveData(this, dataFileName, dataSavePath);
             }
         }
 
@@ -122,15 +130,28 @@ namespace Game.SaveData
         {
             public int MaxFps = 60;
 
-            public SettingsData()
+            public SettingsData(string savePath, string fileName)
             {
+                dataSavePath = savePath;
+                dataFileName = fileName;
+
                 MaxFps = 60;
             }
 
             public override void Save(string filePath, string fileName)
             {
                 base.Save(filePath, fileName);
+
+                dataSavePath = filePath;
+                dataFileName = fileName;
+
                 SaveDataUtility.SaveData(this, fileName, filePath);
+            }
+            public override void Save()
+            {
+                base.Save();
+
+                SaveDataUtility.SaveData(this, dataFileName, dataSavePath);
             }
         }
     }

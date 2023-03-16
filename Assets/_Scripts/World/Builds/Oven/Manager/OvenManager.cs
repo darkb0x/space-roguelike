@@ -19,7 +19,7 @@ namespace Game.Oven.Manager
         [SerializeField, Tooltip("Canvas/Oven/Craft list/Scroll View/Viewport/Content")] private Transform craftListParent;
 
         Oven currentOven;
-        bool isOpened = false;
+        public bool isOpened { get; private set; }
 
         private void Start()
         {
@@ -49,11 +49,7 @@ namespace Game.Oven.Manager
             List<ItemData> itemsData = new List<ItemData>();
             foreach (var item in craft.firstItems)
             {
-                ItemData data = new ItemData()
-                {
-                    Item = item.item,
-                    Amount = item.amount
-                };
+                ItemData data = new ItemData(item.item, item.amount);
                 itemsData.Add(data);
             }
             return itemsData;

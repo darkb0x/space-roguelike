@@ -63,16 +63,10 @@ namespace Game.CraftSystem
         {
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
 
-            if (GameData.Instance.CurrentSessionData.UnlockedCraftPaths.Count == 0 | GameData.Instance.CurrentSessionData.UnlockedCraftPaths == null)
+            AddStartingCrafts();
+            foreach (var item in GameData.Instance.CurrentSessionData.UnlockedCraftPaths)
             {
-                AddStartingCrafts();
-            }
-            else
-            {
-                foreach (var item in GameData.Instance.CurrentSessionData.UnlockedCraftPaths)
-                {
-                    LearnCraft(LoadCraftUtility.Instance.GetCraft(item));
-                }
+                LearnCraft(LoadCraftUtility.Instance.GetCraft(item));
             }
 
             InitializeCraftSystem();
@@ -101,7 +95,7 @@ namespace Game.CraftSystem
             if(!unlockedCrafts.Contains(craft))
                 unlockedCrafts.Add(craft);
 
-            GameData.Instance.Save();
+            GameData.Instance.CurrentSessionData.Save();
         }
 
         #region UI Actions
