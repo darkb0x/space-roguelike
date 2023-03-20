@@ -9,8 +9,9 @@ namespace Game.CraftSystem
     using CraftSystem.Editor.ScriptableObjects;
     using Player.Inventory;
     using Player;
+    using SaveData;
 
-    public class CSManager : MonoBehaviour, ICraftListObserver
+    public class CSManager : MonoBehaviour
     {
         [System.Serializable]
         public class CraftTechTree
@@ -41,15 +42,14 @@ namespace Game.CraftSystem
         [Header("Other")]
         public bool isOpened = true;
 
-        Workbanch currentWorkbanch;
-        PlayerController player;
-        CraftTechTree openedTechTree;
+        private Workbanch currentWorkbanch;
+        private PlayerController player;
+        private CraftTechTree openedTechTree;
+        private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
 
         private void Awake()
         {
             SpawnObjects();
-
-            LoadCraftUtility.Instance.AddObserver(this);
         }
 
         private void Start()
@@ -57,10 +57,15 @@ namespace Game.CraftSystem
             player = FindObjectOfType<PlayerController>();
 
             categoryButtons.Initialize(ConvertListOfTechTree(techTrees));
-
             openedTechTree = techTrees[0];
 
+            InitializeCraftSystem();
+
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
+            if(LearnCSManager.Instance != null)
+            {
+                LearnCSManager.Instance.OnCraftLearned += GotNewCraft;
+            }
         }
 
         public void Craft(CSCraftSO craft)
@@ -105,6 +110,26 @@ namespace Game.CraftSystem
         #region Utilities
         private void InitializeCraftSystem()
         {
+            List<CSCraftSO> crafts = GetCrafts();
+            foreach (CSCraftSO item in crafts)
+            {
+                if (item == null)
+                    continue;
+
+                CraftTechTree currentTechTree = default;
+                foreach (var tree in techTrees)
+                {
+                    if (tree.techTree.Nodes.Contains(item))
+                    {
+                        currentTechTree = GetTechTreeByCraftContainer(tree.techTree);
+                        break;
+                    }
+                }
+
+                if (!currentTechTree.unlockedCrafts.Contains(item))
+                    currentTechTree.unlockedCrafts.Add(item);
+            }
+
             foreach (CraftTechTree tree in techTrees)
             {
                 foreach (CSCraftSO item in tree.unlockedCrafts)
@@ -146,7 +171,6 @@ namespace Game.CraftSystem
         {
             CSCraftUICraft obj = Instantiate(craftObjectPrefab.gameObject, tree.renderTransform).GetComponent<CSCraftUICraft>();
             obj.Initialize(item, this);
-
             tree.loadedCraftObjects.Add(obj);
         }
 
@@ -159,37 +183,28 @@ namespace Game.CraftSystem
             }
             return default;
         }
+
+        private List<CSCraftSO> GetCrafts()
+        {
+            List<CSCraftSO> crafts = new List<CSCraftSO>();
+            foreach (var craft in currentSessionData.UnlockedCraftPaths)
+            {
+                crafts.Add(currentSessionData.GetCraft(craft));
+            }
+            return crafts;
+        }
         #endregion
 
-        #region Interface
-        public void Initialize(List<CSCraftSO> crafts)
-        {
-            foreach (CSCraftSO item in crafts)
-            {
-                if (item == null)
-                    continue;
-
-                CraftTechTree currentTechTree = default;
-                foreach (var tree in techTrees)
-                {
-                    if (tree.techTree.Nodes.Contains(item))
-                    {
-                        currentTechTree = GetTechTreeByCraftContainer(tree.techTree);
-                        break;
-                    }
-                }
-                currentTechTree.unlockedCrafts.Add(item);
-            }
-
-            InitializeCraftSystem();
-        }
-        public void GetNewCraft(LoadCraftUtility craftUtility, CSCraftSO newCraft)
+        public void GotNewCraft(CSCraftSO newCraft)
         {
             CraftTechTree techTree = default;
             foreach (var tree in techTrees)
             {
                 if (tree.techTree.Nodes.Contains(newCraft))
                 {
+                    if (tree.unlockedCrafts.Contains(newCraft))
+                        return;
+
                     techTree = GetTechTreeByCraftContainer(tree.techTree);
                     break;
                 }
@@ -197,6 +212,5 @@ namespace Game.CraftSystem
 
             SpawnItem(newCraft, techTree);
         }
-        #endregion
     }
 }

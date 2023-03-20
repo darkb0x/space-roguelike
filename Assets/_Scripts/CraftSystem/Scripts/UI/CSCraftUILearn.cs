@@ -14,11 +14,6 @@ namespace Game.CraftSystem
 
     public class CSCraftUILearn : MonoBehaviour
     {
-        [HideInInspector] public RectTransform rectTransform;
-        private LearnCSManager learnCraftSystem;
-        private float currentProgress = 0f;
-        private bool isMouseEnterToCraftButton = false;
-
         [Header("Node Variable")]
         [ReadOnly, Expandable] public CSCraftSO craft;
 
@@ -46,6 +41,13 @@ namespace Game.CraftSystem
         [SerializeField] private Transform itemListTransform;
         [SerializeField] private GameObject itemListComponent;
 
+        [HideInInspector] public RectTransform rectTransform;
+        private LearnCSManager learnCraftSystem;
+        private float currentProgress = 0f;
+        private bool isMouseEnterToCraftButton = false;
+        private Color startPriceTextColor;
+        private Color noMoneyColor = Color.red;
+
         public void Initialize(CSCraftSO data, Vector2 position, LearnCSManager manager)
         {
             rectTransform = GetComponent<RectTransform>();
@@ -54,6 +56,8 @@ namespace Game.CraftSystem
             rectTransform.localPosition = position;
 
             //UI
+            startPriceTextColor = craft_cost.color;
+
             craft_name.text = craft.CraftName;
             craft_icon.sprite = craft.IconSprite;
             craft_cost.text = craft.CraftCost+"$";
@@ -102,7 +106,7 @@ namespace Game.CraftSystem
             {
                 if (Mouse.current.leftButton.isPressed)
                 {
-                    float addedValue = Time.unscaledDeltaTime;
+                    float addedValue = Time.deltaTime;
                     currentProgress += addedValue; 
                     learnButtonImage.fillAmount = currentProgress / maxProgress;
 
@@ -129,6 +133,7 @@ namespace Game.CraftSystem
         {
             if (PlayerInventory.Instance.money < craft.CraftCost)
             {
+                StartCoroutine(NoMoneyAnimation());
                 return;
             }
             if(!isUnlocked)
@@ -231,6 +236,27 @@ namespace Game.CraftSystem
             if (isUnlocked)
             {
                 isMouseEnterToCraftButton = false;
+            }
+        }
+
+        private IEnumerator NoMoneyAnimation()
+        {
+            float changeSpeed = 3;
+
+            craft_cost.color = noMoneyColor;
+
+            while(craft_cost.color != startPriceTextColor)
+            {
+                Color current = new Color()
+                {
+                    r = Mathf.MoveTowards(craft_cost.color.r, startPriceTextColor.r, changeSpeed * Time.deltaTime),
+                    g = Mathf.MoveTowards(craft_cost.color.g, startPriceTextColor.g, changeSpeed * Time.deltaTime),
+                    b = Mathf.MoveTowards(craft_cost.color.b, startPriceTextColor.b, changeSpeed * Time.deltaTime),
+                    a = 1
+                };
+                craft_cost.color = current;
+
+                yield return null;
             }
         }
         #endregion

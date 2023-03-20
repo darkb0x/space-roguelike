@@ -10,6 +10,7 @@ namespace Game.SaveData
     using Player.Inventory;
     using Utilities;
     using MainMenu.Mission.Planet;
+    using CraftSystem.Editor.ScriptableObjects;
 
     public class GameData : MonoBehaviour
     {
@@ -105,6 +106,20 @@ namespace Game.SaveData
                         return data;
                     }
                 }
+                Debug.LogError($"Can't find '{path}'!");
+                return null;
+            }
+            public CSCraftSO GetCraft(string path)
+            {
+                foreach (var craft in UnlockedCraftPaths)
+                {
+                    if(craft == path)
+                    {
+                        CSCraftSO craftSO = Resources.Load<CSCraftSO>(craft);
+                        return craftSO;
+                    }
+                }
+                Debug.LogError($"Can't find '{path}'!");
                 return null;
             }
 

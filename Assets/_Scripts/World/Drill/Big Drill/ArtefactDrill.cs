@@ -36,7 +36,7 @@ namespace Game.Drill.SpecialDrill
             {
                 if(timeBtwAttacks <= 0)
                 {
-                    Mining();
+                    Visual.MiningAnimation();
                     timeBtwAttacks = m_TimeBtwAttacks;
                 }
                 else
@@ -46,9 +46,9 @@ namespace Game.Drill.SpecialDrill
             }
         }
 
-        private void Mining()
+        public void Mining()
         {
-            if(artefactHealth > 0)
+            if (artefactHealth > 0)
             {
                 artefactHealth -= Damage;
                 int percent = Mathf.RoundToInt((artefactHealth / m_ArtefactHealth) * 100f);
@@ -71,6 +71,7 @@ namespace Game.Drill.SpecialDrill
         {
             PlayerInventory.Instance.AddItem(Artefact, artefactsAmount);
             Visual.UpdateMiningProgress(artefactHealth, m_ArtefactHealth, 0, "Mining is ended!");
+            isMining = false;
         }
     }
 }

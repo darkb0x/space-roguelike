@@ -19,6 +19,7 @@ namespace Game.Player
 
         private List<RepairObjectItemUIVisual> ItemsForRepairInUI = new List<RepairObjectItemUIVisual>();
         private PlayerInteractObject playerInteract;
+        public bool isRepaired { get; private set; }
 
         private void Start()
         {
@@ -37,6 +38,9 @@ namespace Game.Player
 
         private void PlayerEnter(Collider2D coll)
         {
+            if (isRepaired)
+                return;
+
             foreach (var item in ItemsForRepairInUI)
             {
                 item.UpdateVisual(item.itemData, GetItemAmount(item.itemData), GetItemColor(item.itemData));
@@ -46,39 +50,28 @@ namespace Game.Player
         }
         private void PlayerExit(Collider2D coll)
         {
+            if (isRepaired)
+                return;
+
             ItemsVisualParent.gameObject.SetActive(false);
         }
 
         public void Repair()
         {
-            if (!CanTakeItems())
+            if (isRepaired)
+                return;
+            if (!PlayerInventory.Instance.CanTakeItems(ItemsForRepair))
                 return;
 
-            TakeItems();
+            PlayerInventory.Instance.TakeItem(ItemsForRepair);
 
             AfterRepair.Invoke();
+            isRepaired = true;
+
+            ItemsVisualParent.gameObject.SetActive(false);
 
             playerInteract.OnPlayerEnter -= PlayerEnter;
             playerInteract.OnPlayerExit -= PlayerExit;
-        }
-
-        private bool CanTakeItems()
-        {
-            foreach (var item in ItemsForRepair)
-            {
-                if(PlayerInventory.Instance.GetItem(item.Item).Amount < item.Amount)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        private void TakeItems()
-        {
-            foreach (var item in ItemsForRepair)
-            {
-                PlayerInventory.Instance.TakeItem(item.Item, item.Amount);
-            }
         }
 
         private Color GetItemColor(InventoryItem item)

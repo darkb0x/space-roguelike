@@ -71,7 +71,7 @@ namespace Game
         {
             EnablePanel(panel, false);
 
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
 
             GameInput.Instance.SetPlayerActionMap();
 
@@ -91,8 +91,8 @@ namespace Game
 
             Notify();
 
-            if (stopTime)
-                Time.timeScale = 0;
+            //if (stopTime)
+            //    Time.timeScale = 0;
 
             return true;
         }

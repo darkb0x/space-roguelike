@@ -12,6 +12,8 @@ namespace Game.CraftSystem
     using Player;
     using SaveData;
 
+    public delegate void OnNewCraftLearned(CSCraftSO craft);
+
     [System.Serializable]
     public class TechTree
     {
@@ -31,6 +33,8 @@ namespace Game.CraftSystem
 
     public class LearnCSManager : MonoBehaviour, ICategoryButtonsChecker, IUIPanelManagerObserver
     {
+        public static LearnCSManager Instance;
+
         [Header("Tech Tree")]
         [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
         private List<CSCraftSO> unlockedCrafts = new List<CSCraftSO>();
@@ -57,21 +61,29 @@ namespace Game.CraftSystem
         public bool isOpened = false;
         public TechTree openedTechTree;
 
-        PlayerController player;
+        public OnNewCraftLearned OnCraftLearned;
+        private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
 
             AddStartingCrafts();
-            foreach (var item in GameData.Instance.CurrentSessionData.UnlockedCraftPaths)
+            foreach (var craft in currentSessionData.UnlockedCraftPaths)
             {
-                LearnCraft(LoadCraftUtility.Instance.GetCraft(item));
+                CSCraftSO craftSO = currentSessionData.GetCraft(craft);
+
+                if (!unlockedCrafts.Contains(craftSO))
+                    unlockedCrafts.Add(craftSO);
             }
 
             InitializeCraftSystem();
 
-            player = FindObjectOfType<PlayerController>();
             categoryButtons.Initialize(techTrees, this);
 
             UIPanelManager.Instance.Attach(this);
@@ -83,19 +95,24 @@ namespace Game.CraftSystem
                 float sensitivity = 0.2f;
 
                 currentScale = Mathf.Clamp(currentScale + GameInput.Instance.GetMouseScrollDeltaY() * sensitivity, minTreeScale, maxTreeScale);
-                float scale = Mathf.Lerp(openedTechTree.techTreeRenderTransform.localScale.x, currentScale, scaleSpeed * Time.unscaledDeltaTime);
+                float scale = Mathf.Lerp(openedTechTree.techTreeRenderTransform.localScale.x, currentScale, scaleSpeed * Time.deltaTime);
                 openedTechTree.techTreeRenderTransform.localScale = new Vector3(scale, scale, 1);
             }
         }
 
         public void LearnCraft(CSCraftSO craft)
         {
-            LoadCraftUtility.Instance.AddUnlockedCraft(craft);
-
-            if(!unlockedCrafts.Contains(craft))
+            if (!unlockedCrafts.Contains(craft))
+            {
                 unlockedCrafts.Add(craft);
 
-            GameData.Instance.CurrentSessionData.Save();
+                OnCraftLearned?.Invoke(craft);
+            }
+            if (!currentSessionData.UnlockedCraftPaths.Contains(craft.AssetPath))
+            {
+                currentSessionData.UnlockedCraftPaths.Add(craft.AssetPath);
+                currentSessionData.Save();
+            }
         }
 
         #region UI Actions

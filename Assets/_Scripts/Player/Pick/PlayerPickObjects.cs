@@ -107,5 +107,10 @@ namespace Game.Player
                 }
             }
         }
+
+        private void OnDisable()
+        {
+            GameInput.InputActions.Player.Build.performed -= Pick;
+        }
     }
 }

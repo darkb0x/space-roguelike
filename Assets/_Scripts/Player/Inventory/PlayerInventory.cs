@@ -35,6 +35,9 @@ namespace Game.Player.Inventory
         private void Awake() => Instance = this;
 
         [Header("Inventory")]
+        [SerializeField] private bool AllItemsAtStart = false;
+        [SerializeField, ShowIf("AllItemsAtStart")] private InventoryItem[] AllItems;
+        [Space]
         [ReadOnly] public List<ItemData> Items = new List<ItemData>();
         public int money
         {
@@ -81,20 +84,12 @@ namespace Game.Player.Inventory
         {
             money = currentSessionData.Money;
 
-            PlanetSO planetData = currentSessionData.Planet;
-
-            if(planetData != null)
+            if(AllItemsAtStart)
             {
-                foreach (var item in planetData.DefaultItems)
+                foreach (var item in AllItems)
                 {
-                    currentSessionData.AddItem(new ItemData(item));
+                    Items.Add(new ItemData(item, 100));
                 }
-                foreach (var item in planetData.UniqueItems)
-                {
-                    currentSessionData.AddItem(new ItemData(item));
-                }
-
-                currentSessionData.Save();
             }
 
             foreach (var item in currentSessionData.Items.Keys)
