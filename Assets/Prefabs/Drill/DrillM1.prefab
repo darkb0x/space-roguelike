@@ -241,6 +241,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 6320074352280107583, guid: 4b5a4ff3f2b7f60488b8e56def7b3fef, type: 3}
+    - target: {fileID: 2243514539773430376, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3595068818390566172, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -338,7 +342,6 @@ MonoBehaviour:
   CurrentItem: {fileID: 0}
   ItemAmount: 0
   allExtractedOre: 0
-  InventoryVisual: {fileID: 7332602366350259886}
   CurrentOre: {fileID: 0}
   MainColl: {fileID: 2260988901494986820}
   OreDetectColl: {fileID: 8889763096984908966}
@@ -352,6 +355,7 @@ MonoBehaviour:
   Anim: {fileID: 2260988901494986823}
   Anim_putTrigger: Put
   Anim_miningBool: Mining
+  PreRenderPlaceObject: {fileID: 5811179409195232548}
   BackLegsSR: {fileID: 2260988901933520660}
   WorldSortingLayer: World
   MaxExtractedPercentFromOre: 50
@@ -380,15 +384,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c00f67f7bbafeb46929846092497ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7332602366350259886 stripped
+--- !u!114 &5811179409195232548 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7443810389022917702, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5920665600963207116, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
   m_PrefabInstance: {fileID: 184393719949832936}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d7c82b3fdde67d46ba9f9764716ab48, type: 3}
+  m_Script: {fileID: 11500000, guid: 4adcb6b72d694ca46b9fa09bf828e332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!58 &8889763096984908966 stripped

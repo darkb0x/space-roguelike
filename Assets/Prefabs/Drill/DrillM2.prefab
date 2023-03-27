@@ -23,6 +23,10 @@ PrefabInstance:
       propertyPath: Break.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 511209070258629042, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 974943715648241825, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -103,6 +107,38 @@ PrefabInstance:
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PlayerTakeItems
       objectReference: {fileID: 0}
+    - target: {fileID: 6277112667906574542, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277112667906574542, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277112667906574542, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277112667906574542, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6829633997319158872, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6829633997319158872, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6829633997319158872, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6829633997319158872, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
 --- !u!1 &425888126212871132 stripped
@@ -129,7 +165,6 @@ MonoBehaviour:
   CurrentItem: {fileID: 0}
   ItemAmount: 0
   allExtractedOre: 0
-  InventoryVisual: {fileID: 9172434494248123700}
   CurrentOre: {fileID: 0}
   MainColl: {fileID: 425888126212871134}
   OreDetectColl: {fileID: 7050213677724958524}
@@ -143,6 +178,7 @@ MonoBehaviour:
   Anim: {fileID: 425888126212871133}
   Anim_putTrigger: Put
   Anim_miningBool: Mine
+  PreRenderPlaceObject: {fileID: 5344892536578729662}
   BackLegsSR: {fileID: 425888127649127566}
   WorldSortingLayer: World
   PickSortingLayer: Default
@@ -178,19 +214,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c00f67f7bbafeb46929846092497ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &7050213677724958524 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8778027441869637198, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
-  m_PrefabInstance: {fileID: 1731267434928683378}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9172434494248123700 stripped
+--- !u!114 &5344892536578729662 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7443810389022917702, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5920665600963207116, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
   m_PrefabInstance: {fileID: 1731267434928683378}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d7c82b3fdde67d46ba9f9764716ab48, type: 3}
+  m_Script: {fileID: 11500000, guid: 4adcb6b72d694ca46b9fa09bf828e332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &7050213677724958524 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8778027441869637198, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+  m_PrefabInstance: {fileID: 1731267434928683378}
+  m_PrefabAsset: {fileID: 0}

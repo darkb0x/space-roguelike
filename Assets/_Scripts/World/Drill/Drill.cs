@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using UnityEngine.UI;
 
 namespace Game.Drill
 {
     using World;
     using Player;
     using Player.Inventory;
+    using Player.Pick;
     using Enemy;
 
     public abstract class Drill : MonoBehaviour, IDamagable
@@ -59,7 +59,7 @@ namespace Game.Drill
         [Header("Health")]
         public float MaxHealth = 10;
         [ReadOnly] public float CurrentHealth;
-        [SerializeField] private Enemy.EnemyTarget EnemyTarget;
+        [SerializeField] private EnemyTarget EnemyTarget;
 
         // renderrer
         [Header("Animation")]
@@ -68,6 +68,7 @@ namespace Game.Drill
         [AnimatorParam("Anim"), SerializeField] protected string Anim_miningBool;
 
         [Header("Back Legs Renderer")]
+        public PickedObjectPreRenderrer PreRenderPlaceObject;
         [SerializeField] protected SpriteRenderer BackLegsSR;
         [SortingLayer, SerializeField] protected string WorldSortingLayer;
 
@@ -156,6 +157,7 @@ namespace Game.Drill
             isPicked = false;
 
             Anim.SetTrigger(Anim_putTrigger);
+            PreRenderPlaceObject.gameObject.SetActive(false);
 
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
             DisSelectAllOres();
@@ -293,6 +295,7 @@ namespace Game.Drill
 
             if (currentOresList.Count <= 0 | currentOresList == null)
             {
+                PreRenderPlaceObject.gameObject.SetActive(false);
                 return null;
             }
 
@@ -324,9 +327,15 @@ namespace Game.Drill
             if(nearestOre)
             {
                 nearestOre.Select();
+                PreRenderPlaceObject.gameObject.SetActive(true);
 
                 oreTransform = nearestOre.transform;
+                PreRenderPlaceObject.transform.position = nearestOre.transform.position;
             }   
+            else
+            {
+                PreRenderPlaceObject.gameObject.SetActive(false);
+            }
 
             return nearestOre;
         }

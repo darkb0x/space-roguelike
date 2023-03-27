@@ -313,7 +313,17 @@ namespace Game.Turret
             Collider2D[] colls = Physics2D.OverlapCircleAll(targetPlacePosition, MendatoryFreeRadius, ConflictedLayers);
             if (colls.Length > 0)
             {
-                return false;
+                if(colls.Length == 1)
+                {
+                    if(colls[0] != GetComponent<Collider2D>())
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
 
             myTransform.position = targetPlacePosition;

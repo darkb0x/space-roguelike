@@ -26,6 +26,7 @@ namespace Game.Player.Pick
 
                 SpriteRenderer objRenderrer = spriteObj.AddComponent<SpriteRenderer>();
                 objRenderrer.sprite = sprite.sprite;
+                objRenderrer.sortingOrder = sprite.sortingOrder;
                 objRenderrer.sortingLayerName = SortingLayer;
 
                 currentSprites.Add(objRenderrer);

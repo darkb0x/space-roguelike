@@ -37098,7 +37098,7 @@ MonoBehaviour:
   EnemyAmountFactor: 1
   SpawnScore: 0
   MaxSpawnScore: 100
-  EnemyMaxAmount: 45
+  EnemyMaxAmount: 0
 --- !u!1 &1589303419
 GameObject:
   m_ObjectHideFlags: 0
