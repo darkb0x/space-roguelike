@@ -48,6 +48,7 @@ GameObject:
   m_Component:
   - component: {fileID: 973950430753082586}
   - component: {fileID: 973950430753082533}
+  - component: {fileID: 5479600179051079396}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -82,15 +83,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c4b288d0ddab745933f608c1b331b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllItemsAtStart: 0
+  AllItems: []
   Items: []
   m_money: 10000
   money_texts:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  InventoryAnim: {fileID: 0}
+  NotificationsVisual: {fileID: 5479600179051079396}
   AllItemsAmountText: {fileID: 0}
+  InventoryAnim: {fileID: 0}
   InventoryAnim_OpenBool: 
+--- !u!114 &5479600179051079396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973950430753082587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5b84b5ca0b40d4490a6a4a4b22b906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NotificationsVisualParent: {fileID: 0}
+  NotificationVisual: {fileID: 2591222034417488890, guid: 16f512004246a86488b7ecd2b5935d09, type: 3}
+  NotificationsDestroyTime: 3
 --- !u!1 &973950430778393660
 GameObject:
   m_ObjectHideFlags: 0

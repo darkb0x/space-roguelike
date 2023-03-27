@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2635897092817457021}
   - component: {fileID: 2347772277772804359}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Coll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987a1619aa04590478a593d744db1641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyTarget: {fileID: 0}
 --- !u!114 &7505630652442847889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +217,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  interactKey: 101
   playerTag: Player
   playerInZone: 0
 --- !u!58 &8881952376237271144

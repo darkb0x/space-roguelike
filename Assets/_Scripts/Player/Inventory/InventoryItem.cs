@@ -11,6 +11,7 @@ namespace Game.Player.Inventory
     {
         [field: SerializeField, ShowAssetPreview] public Sprite Icon { get; private set; }
         [field: SerializeField, ShowAssetPreview] public Sprite LowSizeIcon { get; private set; }
+        [SerializeField] private string m_ItemName;
         [field: SerializeField, Min(1)] public int Cost { get; private set; }
         [field: Space]
         [field: SerializeField] public bool IsOre { get; set; }
@@ -18,6 +19,17 @@ namespace Game.Player.Inventory
 
         [field: Space]
         [field: SerializeField, ReadOnly] public string AssetPath { get; private set; }
+
+        public string ItemName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(m_ItemName))
+                    return name;
+                else
+                    return m_ItemName;
+            }
+        }
 
         private void OnEnable()
         {

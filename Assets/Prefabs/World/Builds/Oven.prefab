@@ -598,7 +598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6429762916657780696}
   - component: {fileID: 6429762916657780697}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Coll
   m_TagString: Untagged
   m_Icon: {fileID: 0}

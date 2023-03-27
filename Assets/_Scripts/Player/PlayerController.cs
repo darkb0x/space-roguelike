@@ -7,6 +7,7 @@ namespace Game.Player
 {
     using Drone;
     using Inventory;
+    using Pick;
     using Visual;
     using SaveData;
 

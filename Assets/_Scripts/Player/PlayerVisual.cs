@@ -27,9 +27,13 @@ namespace Game.Player.Visual
 
         private List<Image> HeartsImages = new List<Image>();
         private bool updateOxygenVisual = true;
+        private Vector2 heartImageSize = new Vector2(50, 50);
+        private Vector2 shadowEffectDistance = new Vector2(5, -5);
 
         public void InitializeHealthVisual(int maxHealth)
         {
+            ClearHeartsVisual();
+
             for (int i = 0; i < maxHealth; i++)
             {
                 GameObject gameObject = new GameObject();
@@ -37,13 +41,26 @@ namespace Game.Player.Visual
 
                 Image heartImage = gameObject.AddComponent<Image>();
                 heartImage.sprite = FullHeartSprite;
-                heartImage.rectTransform.sizeDelta = new Vector2(100, 100);
+                heartImage.rectTransform.sizeDelta = heartImageSize;
+
+                Shadow heartShadow = gameObject.AddComponent<Shadow>();
+                heartShadow.effectDistance = shadowEffectDistance;
 
                 HeartsImages.Add(heartImage);
 
                 gameObject.transform.SetParent(HeartsTransform);
-
                 gameObject.transform.localScale = Vector3.one;
+            }
+        }
+        private void ClearHeartsVisual()
+        {
+            if (HeartsTransform.childCount == 0)
+                return;
+
+            int childCount = HeartsTransform.childCount;
+            for (int i = childCount - 1; i >= 0; i--)
+            {
+                DestroyImmediate(HeartsTransform.GetChild(i).gameObject);
             }
         }
 

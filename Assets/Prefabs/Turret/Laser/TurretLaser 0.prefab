@@ -85,6 +85,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+--- !u!114 &2147517479981649925 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4442918662799692063, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+  m_PrefabInstance: {fileID: 2334528438269804826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adcb6b72d694ca46b9fa09bf828e332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5268199055577855138 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7600262113866200504, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
@@ -138,10 +149,15 @@ MonoBehaviour:
   UseEnemyTrajectory: 0
   currentEnemyTransform: {fileID: 0}
   targets: []
-  PlayerTag: Player
+  MendatoryFreeRadius: 0.5
+  ConflictedLayers:
+    serializedVersion: 2
+    m_Bits: 10376
+  PreRenderPlaceObject: {fileID: 2147517479981649925}
   <isPicked>k__BackingField: 0
   EnemyDetectionCollider: {fileID: 8243757422628472246}
   PlayerDetectionCollider: {fileID: 6925763891567625031}
+  PlayerTag: Player
   Layers:
     serializedVersion: 2
     m_Bits: 512

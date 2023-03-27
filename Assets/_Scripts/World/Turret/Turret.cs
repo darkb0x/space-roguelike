@@ -9,6 +9,7 @@ namespace Game.Turret
 {
     using Player;
     using Player.Inventory;
+    using Player.Pick;
     using Enemy;
 
     public abstract class Turret : MonoBehaviour, IDamagable
@@ -26,6 +27,7 @@ namespace Game.Turret
         protected bool enemyInZone { get; private set; }
 
         private float currentTimeBtwAttacks;
+        private Vector3 targetPlacePosition;
 
         private PlayerController player;
         private Transform myTransform;
@@ -39,7 +41,7 @@ namespace Game.Turret
         [SerializeField] private List<DroppedItem> DroppedItems = new List<DroppedItem>(1);
 
         [Header("Turret survivability")]
-        [SerializeField] private Enemy.EnemyTarget EnemyTarget;
+        [SerializeField] private EnemyTarget EnemyTarget;
         [field: SerializeField] public float Health { get; protected set; }
         [ReadOnly] public float currentHealth;
         [Space]
@@ -63,16 +65,24 @@ namespace Game.Turret
         protected Vector2 enemyTrajectory;
         [ReadOnly] public List<GameObject> targets = new List<GameObject>();
 
-        [Header("Other")]
-        [Tag, SerializeField] protected string PlayerTag = "Player";
+        [Header("Pick object")]
+        [SerializeField] protected float MendatoryFreeRadius = 0.5f;
+        [SerializeField] protected LayerMask ConflictedLayers;
+        public PickedObjectPreRenderrer PreRenderPlaceObject;
         [field: SerializeField] public bool isPicked { get; protected set; }
         
         [Header("Collisions")]
         [SerializeField] protected CircleCollider2D EnemyDetectionCollider;
         [SerializeField] protected CircleCollider2D PlayerDetectionCollider;
 
+        [Header("Other")]
+        [Tag, SerializeField] protected string PlayerTag = "Player";
+
         private void OnDrawGizmosSelected()
         {
+            Gizmos.color = Color.grey;
+            Gizmos.DrawWireSphere(transform.position, MendatoryFreeRadius);
+
             if (currentEnemyTransform != null)
             {
                 Gizmos.color = Color.red;
@@ -106,17 +116,20 @@ namespace Game.Turret
             isPicked = true;
             EnemyDetectionCollider.enabled = false;
 
+            PreRenderPlaceObject.gameObject.SetActive(true);
             player.pickObjSystem.SetPickedGameobj(gameObject);
         }
 
         #region Updates
         protected virtual void Update()
         {
-            if (Keyboard.current.kKey.isPressed)
-                Die();
-
             if (isPicked)
             {
+                Vector2 offset = new Vector2(0.5f, 0.5f);
+                targetPlacePosition = new Vector2(Mathf.Round(player.transform.position.x), Mathf.Round(player.transform.position.y)) + offset;
+
+                PreRenderPlaceObject.transform.position = targetPlacePosition;
+
                 return;
             }
 
@@ -294,13 +307,26 @@ namespace Game.Turret
         }
         #endregion
 
-        public virtual void Put()
+        #region Put functions
+        public virtual bool Put()
         {
+            Collider2D[] colls = Physics2D.OverlapCircleAll(targetPlacePosition, MendatoryFreeRadius, ConflictedLayers);
+            if (colls.Length > 0)
+            {
+                return false;
+            }
+
+            myTransform.position = targetPlacePosition;
+            PreRenderPlaceObject.gameObject.SetActive(false);
+
             isPicked = false;
             EnemyDetectionCollider.enabled = true;
 
             EnemySpawner.Instance.AddTarget(EnemyTarget);
+
+            return true;
         }
+        #endregion
 
         #region Break
         public virtual void Break()

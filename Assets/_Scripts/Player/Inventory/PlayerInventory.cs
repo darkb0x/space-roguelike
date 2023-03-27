@@ -8,7 +8,7 @@ using NaughtyAttributes;
 namespace Game.Player.Inventory
 {
     using SaveData;
-    using MainMenu.Mission.Planet;
+    using Visual;
 
     public interface IInventoryObserver
     {
@@ -57,9 +57,12 @@ namespace Game.Player.Inventory
         [SerializeField] private int m_money;
         [SerializeField] private TextMeshProUGUI[] money_texts;
 
-        [Header("UI")]
-        [SerializeField] private Animator InventoryAnim;
+        [Header("Visual")]
+        [SerializeField] private InventoryNotificationsVisual NotificationsVisual;
+        [Space]
         [SerializeField] private TextMeshProUGUI AllItemsAmountText;
+        [Space]
+        [SerializeField] private Animator InventoryAnim;
         [SerializeField, AnimatorParam("InventoryAnim")] private string InventoryAnim_OpenBool;
 
         private bool isOpened = false;
@@ -107,10 +110,7 @@ namespace Game.Player.Inventory
                     return itemData;
             }
 
-            ItemData data = new ItemData(item);
-            Items.Add(data);
-
-            return data;
+            return null;
         }
 
         /// <summary>
@@ -124,9 +124,24 @@ namespace Game.Player.Inventory
             if (itemData == null)
             {
                 Items.Add(new ItemData(item, amount));
+                if(amount > 0)
+                {
+                    NotificationsVisual.NewInventoryNotification(item, amount, true, false);
+                }
             }
             else
             {
+                if (amount > 0)
+                {
+                    if(itemData.Amount == 0)
+                    {
+                        NotificationsVisual.NewInventoryNotification(item, amount, true, false);
+                    }
+                    else
+                    {
+                        NotificationsVisual.NewInventoryNotification(item, amount, false, false);
+                    }
+                }
                 itemData.Amount += amount;
             }
 
@@ -151,6 +166,8 @@ namespace Game.Player.Inventory
                 if(itemData.Amount >= amount)
                 {
                     itemData.Amount -= amount;
+                    NotificationsVisual.NewInventoryNotification(item, amount, false, true);
+                    UpdateVisual();
                     return true;
                 }
                 return false;
@@ -183,7 +200,7 @@ namespace Game.Player.Inventory
             GameInput.InputActions.Player.Inventory.performed -= InventoryEnabled;
         }
 
-        #region UI Visual
+        #region Visual
         private void UpdateVisual()
         {
             int allItemsAmount = 0;

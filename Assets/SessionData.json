@@ -1,7 +1,10 @@
 {
     "dataSavePath": "C:/Unity/space-roguelike/Assets/",
     "dataFileName": "SessionData",
-    "UnlockedCraftPaths": [],
+    "UnlockedCraftPaths": [
+        "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret1lvl",
+        "CraftSystem/Crafts/DrillTree/Nodes/M2"
+    ],
     "Items": {
         "list": []
     },

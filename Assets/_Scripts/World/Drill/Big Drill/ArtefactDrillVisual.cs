@@ -16,6 +16,7 @@ namespace Game.Drill.SpecialDrill
         [SerializeField] private GameObject MiningProgressVisual;
         [Space]
         [SerializeField] private Image MiningProgressImage;
+        [SerializeField] private Image MiningDamageProgressImage;
         [SerializeField] private TextMeshProUGUI MiningProgressText;
         [SerializeField] private TextMeshProUGUI DrillIsMiningText;
 
@@ -39,8 +40,28 @@ namespace Game.Drill.SpecialDrill
         public void UpdateMiningProgress(float current, float max, int percent, string titleText = "Drill is mining!")
         {
             MiningProgressImage.fillAmount = current / max;
+
+            StartCoroutine(UpdateDamageProgress(current, max));
+
             MiningProgressText.text = percent + "%";
             DrillIsMiningText.text = titleText;
+        }
+
+        private IEnumerator UpdateDamageProgress(float current, float max)
+        {
+            float waitTime = 0.2f;
+            float speed = 0.2f;
+
+            yield return new WaitForSeconds(waitTime);
+
+            while(MiningDamageProgressImage.fillAmount != MiningProgressImage.fillAmount)
+            {
+                MiningDamageProgressImage.fillAmount = Mathf.MoveTowards(MiningDamageProgressImage.fillAmount, MiningProgressImage.fillAmount, speed * Time.deltaTime);
+
+                yield return null;
+            }
+
+            MiningDamageProgressImage.fillAmount = MiningProgressImage.fillAmount;
         }
 
         public void MiningAnimation()

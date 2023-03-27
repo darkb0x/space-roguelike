@@ -29,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
     - target: {fileID: 5909387419132771332, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
       propertyPath: m_Name
-      value: TurretRockets_0
+      value: TurretRockets 0
       objectReference: {fileID: 0}
     - target: {fileID: 5909387419132771335, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
       propertyPath: m_RootOrder
@@ -131,17 +131,24 @@ MonoBehaviour:
   <Health>k__BackingField: 15
   currentHealth: 0
   DestroyParticle: {fileID: 4550200863518524, guid: 57a5b17d8e8d0d04b84708a9ddc7c585, type: 3}
+  ChangeRotationTime: 0
   TurretRotateTime: 0.5
   TurretBackRotateTime: 0.5
   TurretCanon: {fileID: 2757904307753516057}
   ShotPos: {fileID: 2757904308163598351}
   EnemyTag: Enemy
-  currentEnemy: {fileID: 0}
+  UseEnemyTrajectory: 0
+  currentEnemyTransform: {fileID: 0}
   targets: []
-  PlayerTag: Player
+  MendatoryFreeRadius: 0.5
+  ConflictedLayers:
+    serializedVersion: 2
+    m_Bits: 10376
+  PreRenderPlaceObject: {fileID: 5326699721908511786}
   <isPicked>k__BackingField: 0
   EnemyDetectionCollider: {fileID: 2757904307364458905}
   PlayerDetectionCollider: {fileID: 3764164285771904872}
+  PlayerTag: Player
   maxRocketsCount: 4
   startReloadTime: 2
 --- !u!58 &3764164285771904872 stripped
@@ -149,3 +156,14 @@ CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 4645648482017935965, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
   m_PrefabInstance: {fileID: 8377917788746315061}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5326699721908511786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4442918662799692063, guid: dead18e6c5933aa4284d133238c8cc31, type: 3}
+  m_PrefabInstance: {fileID: 8377917788746315061}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adcb6b72d694ca46b9fa09bf828e332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

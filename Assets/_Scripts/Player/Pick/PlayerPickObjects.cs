@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-namespace Game.Player
+namespace Game.Player.Pick
 {
     using Turret;
     using Drill;
@@ -70,8 +70,11 @@ namespace Game.Player
             {
                 if (pickedGameObject.TryGetComponent<Turret>(out Turret turret))
                 {
-                    turret.Put();
-                    pickedGameObject_transform.position = transform.position;
+                    if(!turret.Put())
+                    {
+                        return;
+                    }
+                    
                 }
                 if (pickedGameObject.TryGetComponent<Drill>(out Drill drill))
                 {
