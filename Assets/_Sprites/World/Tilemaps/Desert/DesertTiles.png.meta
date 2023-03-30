@@ -902,7 +902,7 @@ TextureImporter:
         width: 15
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -923,7 +923,7 @@ TextureImporter:
         width: 15
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -931,6 +931,27 @@ TextureImporter:
       bones: []
       spriteID: 0c06b4f6ba92c484e80bc5c4807f703b
       internalID: -1889767323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DesertTiles_16
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 60
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a83abe7a9e60b14192142773cae0af3
+      internalID: 917688004
       vertices: []
       indices: 
       edges: []
@@ -969,6 +990,7 @@ TextureImporter:
       DesertTiles_35: 87747603
       DesertTiles_shadow_7: 1985318128
       DesertTiles_2: -984245808
+      DesertTiles_16: 917688004
       DesertTiles_14: -692505884
       DesertTiles_8: 1098819591
       DesertTiles_34: -1750268819

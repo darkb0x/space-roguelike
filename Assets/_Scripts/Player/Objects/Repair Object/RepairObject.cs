@@ -17,12 +17,14 @@ namespace Game.Player
         [Space]
         [SerializeField] private UnityEvent AfterRepair;
 
-        private List<RepairObjectItemUIVisual> ItemsForRepairInUI = new List<RepairObjectItemUIVisual>();
+        private List<RepairObjectItemUIVisual> ItemsForRepairInUI;
         private PlayerInteractObject playerInteract;
         public bool isRepaired { get; private set; }
 
         private void Start()
         {
+            ItemsForRepairInUI = new List<RepairObjectItemUIVisual>();
+
             foreach (var item in ItemsForRepair)
             {
                 RepairObjectItemUIVisual visual = Instantiate(ItemForRepairVisual.gameObject, ItemsVisualParent).GetComponent<RepairObjectItemUIVisual>();
@@ -83,10 +85,21 @@ namespace Game.Player
                     repairItem = itemForRepair;
             }
 
-            if (PlayerInventory.Instance.GetItem(repairItem.Item).Amount < repairItem.Amount)
-                return Color.red;
+            if(PlayerInventory.Instance.GetItem(repairItem.Item) != null)
+            {
+                if (PlayerInventory.Instance.GetItem(repairItem.Item).Amount < repairItem.Amount)
+                {
+                    return Color.red;
+                }
+                else
+                {
+                    return Color.white;
+                }
+            }
             else
-                return Color.white;
+            {
+                return Color.red;
+            }
         }
         private int GetItemAmount(InventoryItem item)
         {

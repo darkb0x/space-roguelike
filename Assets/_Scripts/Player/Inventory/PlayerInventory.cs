@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using NaughtyAttributes;
+using UnityEngine.InputSystem;
 
 namespace Game.Player.Inventory
 {
@@ -66,11 +66,14 @@ namespace Game.Player.Inventory
         [SerializeField, AnimatorParam("InventoryAnim")] private string InventoryAnim_OpenBool;
 
         private bool isOpened = false;
-        private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
         public List<IInventoryObserver> observers = new List<IInventoryObserver>();
+        private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private GameObject inventoryVisualGameObj;
 
         private void Start()
         {
+            inventoryVisualGameObj = InventoryAnim.gameObject;
+
             GameInput.InputActions.Player.Inventory.performed += InventoryEnabled;
 
             Load();
@@ -80,26 +83,28 @@ namespace Game.Player.Inventory
 
         private void Update()
         {
-            InventoryAnim.SetBool(InventoryAnim_OpenBool, isOpened);
+            if(inventoryVisualGameObj.activeInHierarchy)
+            {
+                InventoryAnim.SetBool(InventoryAnim_OpenBool, isOpened);
+            }
+
+            if(Keyboard.current.hKey.isPressed)
+            {
+                foreach (var item in AllItems)
+                {
+                    ItemData data = new ItemData(item, 100);
+                    Items.Add(data);
+                    currentSessionData.MainInventory.AddItem(data);
+                }
+                currentSessionData.Save();
+            }
         }
 
         private void Load()
         {
             money = currentSessionData.Money;
 
-            if(AllItemsAtStart)
-            {
-                foreach (var item in AllItems)
-                {
-                    Items.Add(new ItemData(item, 100));
-                }
-            }
-
-            foreach (var item in currentSessionData.Items.Keys)
-            {
-                ItemData data = currentSessionData.GetItem(item);
-                Items.Add(data);
-            }
+            Items = currentSessionData.MainInventory.GetItemList();
         } 
 
         public ItemData GetItem(InventoryItem item)
@@ -118,28 +123,34 @@ namespace Game.Player.Inventory
         /// </summary>
         /// <param name="item">item to give</param>
         /// <param name="amount">amount</param>
-        public void AddItem(InventoryItem item, int amount)
+        public void AddItem(InventoryItem item, int amount, bool showNotify = true)
         {
             ItemData itemData = GetItem(item);
             if (itemData == null)
             {
                 Items.Add(new ItemData(item, amount));
-                if(amount > 0)
+                if(showNotify)
                 {
-                    NotificationsVisual.NewInventoryNotification(item, amount, true, false);
+                    if (amount > 0)
+                    {
+                        NotificationsVisual.NewInventoryNotification(item, amount, true, false);
+                    }
                 }
             }
             else
             {
-                if (amount > 0)
+                if(showNotify)
                 {
-                    if(itemData.Amount == 0)
+                    if (amount > 0)
                     {
-                        NotificationsVisual.NewInventoryNotification(item, amount, true, false);
-                    }
-                    else
-                    {
-                        NotificationsVisual.NewInventoryNotification(item, amount, false, false);
+                        if (itemData.Amount == 0)
+                        {
+                            NotificationsVisual.NewInventoryNotification(item, amount, true, false);
+                        }
+                        else
+                        {
+                            NotificationsVisual.NewInventoryNotification(item, amount, false, false);
+                        }
                     }
                 }
                 itemData.Amount += amount;
@@ -153,7 +164,7 @@ namespace Game.Player.Inventory
         /// </summary>
         /// <param name="item">Item to take</param>
         /// <param name="amount">Amount</param>
-        public bool TakeItem(InventoryItem item, int amount)
+        public bool TakeItem(InventoryItem item, int amount, bool showNotify = true)
         {
             ItemData itemData = GetItem(item);
             if (itemData == null)
@@ -166,8 +177,14 @@ namespace Game.Player.Inventory
                 if(itemData.Amount >= amount)
                 {
                     itemData.Amount -= amount;
-                    NotificationsVisual.NewInventoryNotification(item, amount, false, true);
+
+                    if(showNotify)
+                    {
+                        NotificationsVisual.NewInventoryNotification(item, amount, false, true);
+                    }
+
                     UpdateVisual();
+
                     return true;
                 }
                 return false;

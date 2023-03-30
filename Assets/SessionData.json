@@ -5,11 +5,92 @@
         "CraftSystem/Crafts/TurretTree/Nodes/StandartTurret1lvl",
         "CraftSystem/Crafts/DrillTree/Nodes/M2"
     ],
-    "Items": {
-        "list": []
+    "MainInventory": {
+        "Items": {
+            "list": [
+                {
+                    "Key": "Items/Ingot/selbit_ingot",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Ingot/zuldun_ingot",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Liquids/acid_liquid",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Liquids/oil_liquid",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Liquids/water_liquid",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Ore/marbet_ore",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Ore/selbit_ore",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Ore/zuldun_ore",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/scrap",
+                    "Value": 100
+                }
+            ]
+        }
+    },
+    "LobbyInventory": {
+        "Items": {
+            "list": [
+                {
+                    "Key": "Items/Ingot/selbit_ingot",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Ingot/zuldun_ingot",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Liquids/acid_liquid",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Liquids/oil_liquid",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Liquids/water_liquid",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Ore/marbet_ore",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Ore/selbit_ore",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/Ore/zuldun_ore",
+                    "Value": 100
+                },
+                {
+                    "Key": "Items/scrap",
+                    "Value": 100
+                }
+            ]
+        }
     },
     "Money": 0,
     "Planet": {
-        "instanceID": 0
+        "instanceID": 26704
     }
 }

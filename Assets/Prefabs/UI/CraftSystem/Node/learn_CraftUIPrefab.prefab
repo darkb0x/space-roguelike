@@ -388,7 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f32a5994d590743b882c4bf611836f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rectTransform: {fileID: 0}
   craft: {fileID: 0}
   isUnlocked: 0
   isPursached: 0
@@ -405,6 +404,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 7615804677063228910}
   itemListTransform: {fileID: 1957773111434525361}
   itemListComponent: {fileID: 1735719047881342933, guid: 36416cb54685a6d42beece5de679eb20, type: 3}
+  rectTransform: {fileID: 0}
 --- !u!95 &5029500803853510347
 Animator:
   serializedVersion: 4
@@ -491,12 +491,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7482667652216324306, guid: ed826bc6af5cf7c4ea90e05d324507e8, type: 3}
+  m_Sprite: {fileID: -1613199898, guid: 5c968e2a07b54174e8fad054671aef13, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 0.563
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

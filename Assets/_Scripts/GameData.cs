@@ -50,40 +50,83 @@ namespace Game.SaveData
             CurrentSessionData.Save(savePath, SESSION_DATA_FILENAME);
             CurrentSettingsData.Save(savePath, SETTINGS_DATA_FILENAME);
         }
+    }
 
-        public abstract class Data
+    public abstract class Data
+    {
+        public string dataSavePath;
+        public string dataFileName;
+
+        public virtual void Save(string filePath, string fileName) { }
+        public virtual void Save() { }
+    }
+    [Serializable]
+    public class SessionData : Data
+    {
+        // Crafts
+        public List<string> UnlockedCraftPaths;
+
+        // Inventory
+        public Inventory MainInventory;
+        public Inventory LobbyInventory;
+        public int Money;
+
+        // Planet
+        public PlanetSO Planet;
+
+        public SessionData(string savePath, string fileName)
         {
-            public string dataSavePath;
-            public string dataFileName;
+            dataSavePath = savePath;
+            dataFileName = fileName;
 
-            public virtual void Save(string filePath, string fileName) { }
-            public virtual void Save() { }
+            UnlockedCraftPaths = new List<string>();
+
+            MainInventory = new Inventory();
+            LobbyInventory = new Inventory();
+
+            Money = 0;
+
+            Planet = null;
+        }
+
+        public CSCraftSO GetCraft(string path)
+        {
+            foreach (var craft in UnlockedCraftPaths)
+            {
+                if (craft == path)
+                {
+                    CSCraftSO craftSO = Resources.Load<CSCraftSO>(craft);
+                    return craftSO;
+                }
+            }
+            Debug.LogError($"Can't find '{path}'!");
+            return null;
+        }
+
+        public override void Save(string filePath, string fileName)
+        {
+            base.Save(filePath, fileName);
+
+            dataSavePath = filePath;
+            dataFileName = fileName;
+
+            SaveDataUtility.SaveData(this, fileName, filePath);
+        }
+        public override void Save()
+        {
+            base.Save();
+
+            SaveDataUtility.SaveData(this, dataFileName, dataSavePath);
         }
 
         [Serializable]
-        public class SessionData : Data
+        public class Inventory
         {
-            // Crafts
-            public List<string> UnlockedCraftPaths;
-
-            // Inventory
             public SerializableDictionary<string, int> Items;
-            public int Money;
 
-            // Planet
-            public PlanetSO Planet;
-
-            public SessionData(string savePath, string fileName)
+            public Inventory()
             {
-                dataSavePath = savePath;
-                dataFileName = fileName;
-
-                UnlockedCraftPaths = new List<string>();
-
                 Items = new SerializableDictionary<string, int>();
-                Money = 0;
-
-                Planet = null;
             }
 
             public void AddItem(ItemData data)
@@ -99,75 +142,61 @@ namespace Game.SaveData
             {
                 foreach (var item in Items.Keys)
                 {
-                    if(item == path)
+                    if (item == path)
                     {
                         InventoryItem inventoryItem = Resources.Load<InventoryItem>(item);
                         ItemData data = new ItemData(inventoryItem, Items[item]);
                         return data;
                     }
                 }
-                Debug.LogError($"Can't find '{path}'!");
+                Debug.LogWarning($"Can't find '{path}'!");
                 return null;
             }
-            public CSCraftSO GetCraft(string path)
+            public List<ItemData> GetItemList()
             {
-                foreach (var craft in UnlockedCraftPaths)
+                List<ItemData> itemDatas = new List<ItemData>();
+                foreach (var item in Items.Keys)
                 {
-                    if(craft == path)
-                    {
-                        CSCraftSO craftSO = Resources.Load<CSCraftSO>(craft);
-                        return craftSO;
-                    }
+                    InventoryItem inventoryItem = Resources.Load<InventoryItem>(item);
+                    ItemData data = new ItemData(inventoryItem, Items[item]);
+                    itemDatas.Add(data);
                 }
-                Debug.LogError($"Can't find '{path}'!");
-                return null;
+                return itemDatas;
             }
-
-            public override void Save(string filePath, string fileName)
+            public void Clear()
             {
-                base.Save(filePath, fileName);
-
-                dataSavePath = filePath;
-                dataFileName = fileName;
-
-                SaveDataUtility.SaveData(this, fileName, filePath);
-            }
-            public override void Save()
-            {
-                base.Save();
-
-                SaveDataUtility.SaveData(this, dataFileName, dataSavePath);
+                Items.Clear();
             }
         }
+    }
 
-        [Serializable]
-        public class SettingsData : Data
+    [Serializable]
+    public class SettingsData : Data
+    {
+        public int MaxFps = 60;
+
+        public SettingsData(string savePath, string fileName)
         {
-            public int MaxFps = 60;
+            dataSavePath = savePath;
+            dataFileName = fileName;
 
-            public SettingsData(string savePath, string fileName)
-            {
-                dataSavePath = savePath;
-                dataFileName = fileName;
+            MaxFps = 60;
+        }
 
-                MaxFps = 60;
-            }
+        public override void Save(string filePath, string fileName)
+        {
+            base.Save(filePath, fileName);
 
-            public override void Save(string filePath, string fileName)
-            {
-                base.Save(filePath, fileName);
+            dataSavePath = filePath;
+            dataFileName = fileName;
 
-                dataSavePath = filePath;
-                dataFileName = fileName;
+            SaveDataUtility.SaveData(this, fileName, filePath);
+        }
+        public override void Save()
+        {
+            base.Save();
 
-                SaveDataUtility.SaveData(this, fileName, filePath);
-            }
-            public override void Save()
-            {
-                base.Save();
-
-                SaveDataUtility.SaveData(this, dataFileName, dataSavePath);
-            }
+            SaveDataUtility.SaveData(this, dataFileName, dataSavePath);
         }
     }
 }

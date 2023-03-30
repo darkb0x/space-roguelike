@@ -45,7 +45,7 @@ namespace Game.CraftSystem
         private Workbanch currentWorkbanch;
         private PlayerController player;
         private CraftTechTree openedTechTree;
-        private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
 
         private void Awake()
         {

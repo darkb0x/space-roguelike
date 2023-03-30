@@ -8,11 +8,11 @@ namespace Game.MainMenu.Settings
 
     public class SettingsManager : MonoBehaviour
     {
-        private GameData.SettingsData currentSettingsData => GameData.Instance.CurrentSettingsData;
+        private SettingsData currentSettingsData => GameData.Instance.CurrentSettingsData;
 
         private void Start()
         {
-            SetTargetFPS(currentSettingsData.MaxFps);
+            //SetTargetFPS(currentSettingsData.MaxFps);
         }
 
         private void SetTargetFPS(int fps)

@@ -33,6 +33,7 @@ namespace Game.Player
         [Header("components")]
         public PlayerPickObjects pickObjSystem;
         [HideInInspector] public PlayerInventory inventory;
+        [SerializeField] private Collider2D MainColl;
         [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
         Vector2 moveInput;
@@ -41,6 +42,7 @@ namespace Game.Player
         Camera cam;
         new Transform transform;
         [HideInInspector] public bool canMove = true;
+        [HideInInspector] public bool canLookAround = true;
 
         private void Start()
         {
@@ -67,7 +69,10 @@ namespace Game.Player
             {
                 if (!UIPanelManager.Instance.SomethinkIsOpened())
                 {
-                    Visual.PlayerLookDirection(moveInput);
+                    if(canLookAround)
+                    {
+                        Visual.PlayerLookDirection(moveInput);
+                    }
                 }
             }
             else
@@ -77,7 +82,10 @@ namespace Game.Player
                     Vector3 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
                     Vector2 dir = -(transform.position - mousePos).normalized;
 
-                    Visual.PlayerLookDirection(dir);
+                    if (canLookAround)
+                    {
+                        Visual.PlayerLookDirection(dir);
+                    }
                 }
             }
 
@@ -212,11 +220,18 @@ namespace Game.Player
             canMove = false;
             transform.SetParent(posPosition);
             transform.localPosition = Vector2.zero;
+            MainColl.enabled = false;
         }
         public void UnlockPlayerPosition()
         {
             transform.SetParent(null);
             canMove = true;
+            MainColl.enabled = true;
+        }
+
+        public void LockPlayerLook(bool enabled)
+        {
+            canLookAround = !enabled;
         }
         #endregion
     }

@@ -62,7 +62,7 @@ namespace Game.CraftSystem
         public TechTree openedTechTree;
 
         public OnNewCraftLearned OnCraftLearned;
-        private GameData.SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
 
         private void Awake()
         {

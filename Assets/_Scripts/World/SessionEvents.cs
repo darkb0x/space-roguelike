@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using NaughtyAttributes;
 
 namespace Game
 {
@@ -10,6 +11,7 @@ namespace Game
     using MainMenu.Mission.Planet;
     using MainMenu.Pause;
     using SaveData;
+    using Utilities;
 
     public enum SessionEventType
     {
@@ -22,17 +24,20 @@ namespace Game
         public static SessionEvents Instance;
 
         [Header("Session Theme")]
-        [SerializeField, NaughtyAttributes.Expandable] private SessionTimingsSO SessionTimings;
+        [SerializeField, Expandable] private SessionTimingsSO SessionTimings;
 
         [Header("Audio")]
         [SerializeField] private AudioSource MusicAudioSource;
 
         [Header("Debug")]
         [SerializeField] private TextMeshProUGUI DebugText;
+        [ReadOnly] private float currentTime;
+
+        [Header("End")]
+        [SerializeField, Scene] private int LobbySceneID = 1;
 
         private int eventsCount = 0;
         private int currentEvent = 0;
-        [SerializeField] private float currentTime;
 
         private bool isPlaying = false;
 
@@ -108,6 +113,15 @@ namespace Game
                 MusicAudioSource.Pause();
             else
                 MusicAudioSource.UnPause();
+        }
+
+        public void StartLoadingLobby()
+        {
+            LoadSceneUtility.Instance.LoadSceneAsync(LobbySceneID);
+        }
+        public void EnableLobbyScene()
+        {
+            LoadSceneUtility.Instance.EnableLoadedAsyncScene();
         }
 
         private void OnDisable()

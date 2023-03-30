@@ -157,6 +157,7 @@ namespace Game.Drill
             isPicked = false;
 
             Anim.SetTrigger(Anim_putTrigger);
+            PreRenderPlaceObject.transform.SetParent(null);
             PreRenderPlaceObject.gameObject.SetActive(false);
 
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
@@ -272,7 +273,7 @@ namespace Game.Drill
             {
                 if (collision.TryGetComponent<Ore>(out Ore ore))
                 {
-                    ore.DisSelect();
+                    //ore.DisSelect();
 
                     if (currentOresList.Contains(ore))
                         currentOresList.Remove(ore);
@@ -323,10 +324,10 @@ namespace Game.Drill
                 }
             }
 
-            DisSelectAllOres();
+            //DisSelectAllOres();
             if(nearestOre)
             {
-                nearestOre.Select();
+                //nearestOre.Select();
                 PreRenderPlaceObject.gameObject.SetActive(true);
 
                 oreTransform = nearestOre.transform;
