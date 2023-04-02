@@ -4,6 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using System;
 using System.IO;
+using AYellowpaper.SerializedCollections;
 
 namespace Game.SaveData
 {
@@ -99,8 +100,11 @@ namespace Game.SaveData
                     return craftSO;
                 }
             }
-            Debug.LogError($"Can't find '{path}'!");
             return null;
+        }
+        public bool HaveCraft(CSCraftSO craft)
+        {
+            return GetCraft(craft.AssetPath) != null;
         }
 
         public override void Save(string filePath, string fileName)
@@ -122,11 +126,12 @@ namespace Game.SaveData
         [Serializable]
         public class Inventory
         {
-            public SerializableDictionary<string, int> Items;
+            [SerializedDictionary("Item path", "Item amount")]
+            public SerializedDictionary<string, int> Items;
 
             public Inventory()
             {
-                Items = new SerializableDictionary<string, int>();
+                Items = new SerializedDictionary<string, int>();
             }
 
             public void AddItem(ItemData data)
@@ -135,6 +140,18 @@ namespace Game.SaveData
                 {
                     if (item.Key == data.Item.AssetPath)
                         return;
+                }
+                Items.Add(data.Item.AssetPath, data.Amount);
+            }
+            public void SetItem(ItemData data)
+            {
+                foreach (var item in Items.Keys)
+                {
+                    if (item == data.Item.AssetPath)
+                    {
+                        Items[item] = data.Amount;
+                        return;
+                    }
                 }
                 Items.Add(data.Item.AssetPath, data.Amount);
             }

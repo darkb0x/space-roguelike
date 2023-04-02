@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AYellowpaper.SerializedCollections;
 
 public static class CollectionUtility
 {
-    public static void AddItem<K, V>(this SerializableDictionary<K, List<V>> serializableDictionary, K key, V value)
+    public static void AddItem<K, V>(this SerializedDictionary<K, List<V>> serializableDictionary, K key, V value)
     {
         if (serializableDictionary.ContainsKey(key))
         {

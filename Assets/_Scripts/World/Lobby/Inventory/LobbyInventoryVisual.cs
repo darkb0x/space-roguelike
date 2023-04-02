@@ -42,7 +42,11 @@ namespace Game.Lobby.Inventory.Visual
             foreach (var itemData in datas)
             {
                 AddInventoryItemVisual(itemData);
-                AddTakenItemVisual(itemData, lobbyInventory);
+
+                if (itemData.Item.CanTakeInMission)
+                {
+                    AddTakenItemVisual(itemData, lobbyInventory);
+                }
             }
         }
 
@@ -92,12 +96,16 @@ namespace Game.Lobby.Inventory.Visual
 
             }
         }
-        public void UpdateTakenItems()
+        public void UpdateTakenItems(List<ItemData> itemDatas)
         {
-            foreach (var visual in TakenItemVisuals)
+            foreach (var itemData in itemDatas)
             {
-                ItemData data = GetDataByItem(visual.ItemData.Item);
-                visual.UpdateData();
+                LobbyInventoryTakenItemVisual visual = GetTakenItemVisual(itemData.Item);
+
+                if(visual == null)
+                {
+                    AddTakenItemVisual(itemData, inventory);
+                }
             }
         }
 
@@ -126,14 +134,12 @@ namespace Game.Lobby.Inventory.Visual
             }
             return null;
         }
-        private ItemData GetDataByItem(InventoryItem item)
+        private LobbyInventoryTakenItemVisual GetTakenItemVisual(InventoryItem item)
         {
-            foreach (var data in inventory.LobbyItems)
+            foreach (var visual in TakenItemVisuals)
             {
-                if (data.Item == item)
-                {
-                    return data;
-                }
+                if (visual.ItemData.Item == item)
+                    return visual;
             }
             return null;
         }

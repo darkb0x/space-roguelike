@@ -20,7 +20,19 @@ namespace Game.Lobby.Inventory.Visual
         private LobbyInventory inventory;
 
         private int itemAmount => inventory.GetItem(ItemData.Item).Amount;
-        private int maxTakenItemAmount;
+        private int maxTakenItemAmount { 
+            get
+            {
+                if (itemAmount < inventory.MaxTakenItemsAmount)
+                {
+                    return itemAmount;
+                }
+                else
+                {
+                    return inventory.MaxTakenItemsAmount;
+                }
+            }
+        }
         private int freeSpace => inventory.FreeItemsAmount;
 
         public void Initialize(ItemData itemdata, LobbyInventory lobbyInventory)
@@ -28,15 +40,6 @@ namespace Game.Lobby.Inventory.Visual
             inventory = lobbyInventory;
 
             ItemData = new ItemData(itemdata.Item);
-
-            if(itemdata.Amount < inventory.MaxTakenItemsAmount)
-            {
-                maxTakenItemAmount = itemdata.Amount;
-            }
-            else
-            {
-                maxTakenItemAmount = inventory.MaxTakenItemsAmount;
-            }
 
             ItemIconImage.sprite = ItemData.Item.Icon;
             ItemSlider.value = 0;

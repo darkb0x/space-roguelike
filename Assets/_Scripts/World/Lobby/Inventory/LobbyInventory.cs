@@ -10,6 +10,8 @@ namespace Game.Lobby.Inventory
 
     public class LobbyInventory : MonoBehaviour
     {
+        public static LobbyInventory Instance;
+
         [SerializeField] private LobbyInventoryVisual Visual;
 
         [Space]
@@ -21,6 +23,11 @@ namespace Game.Lobby.Inventory
 
         private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
 
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         void Start()
         {
             FreeItemsAmount = MaxTakenItemsAmount;
@@ -29,7 +36,7 @@ namespace Game.Lobby.Inventory
 
             foreach (var item in currentSessionData.MainInventory.GetItemList())
             {
-                AddItem(item);
+                AddItem(item, false);
             }
 
             currentSessionData.Save();
@@ -53,18 +60,51 @@ namespace Game.Lobby.Inventory
             currentSessionData.Save();
         }
 
-        private void AddItem(ItemData data)
+        public void AddItem(ItemData data, bool updateVisual = true)
         {
             ItemData itemData = GetItem(data.Item);
             if(itemData != null)
             {
                 itemData.Amount += data.Amount;
+                currentSessionData.LobbyInventory.SetItem(itemData);
+
+                if(updateVisual)
+                {
+                    Visual.UpdateItemsInInventory(LobbyItems);
+                }
             }
             else
             {
                 itemData = new ItemData(data.Item, data.Amount);
                 LobbyItems.Add(itemData);
+                currentSessionData.LobbyInventory.AddItem(itemData);
+
+                if (updateVisual)
+                {
+                    Visual.UpdateItemsInInventory(LobbyItems);
+                    Visual.UpdateTakenItems(LobbyItems);
+                }
             }
+
+            currentSessionData.Save();
+        }
+        public bool TakeItem(InventoryItem item, int amount)
+        {
+            ItemData itemData = GetItem(item);
+            if (itemData != null)
+            {
+                if(itemData.Amount >= amount)
+                {
+                    itemData.Amount -= amount;
+                    currentSessionData.LobbyInventory.SetItem(itemData);
+                    Visual.UpdateItemsInInventory(LobbyItems);
+
+                    currentSessionData.Save();
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
 
         public ItemData GetItem(InventoryItem item)

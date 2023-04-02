@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor;
 using UnityEngine;
+using AYellowpaper.SerializedCollections;
 
 namespace Game.CraftSystem.Editor.Windows
 {
@@ -20,7 +21,7 @@ namespace Game.CraftSystem.Editor.Windows
 
         private MiniMap miniMap;
 
-        private SerializableDictionary<string, CSNodeErrorData> ungroupedNodes;
+        private SerializedDictionary<string, CSNodeErrorData> ungroupedNodes;
 
         private int nameErrorsAmount;
 
@@ -50,7 +51,7 @@ namespace Game.CraftSystem.Editor.Windows
         {
             editorWindow = dsEditorWindow;
 
-            ungroupedNodes = new SerializableDictionary<string, CSNodeErrorData>();
+            ungroupedNodes = new SerializedDictionary<string, CSNodeErrorData>();
 
             AddManipulators();
             AddSearchWindow();

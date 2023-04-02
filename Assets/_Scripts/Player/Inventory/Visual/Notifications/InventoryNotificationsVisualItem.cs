@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Game.Player.Inventory.Visual
+namespace Game.Player.Inventory.Visual.Notifications
 {
     public class InventoryNotificationsVisualItem : MonoBehaviour
     {

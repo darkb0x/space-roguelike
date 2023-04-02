@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 namespace Game.Player.Inventory
 {
     using SaveData;
-    using Visual;
+    using Visual.Notifications;
 
     public interface IInventoryObserver
     {
@@ -48,6 +48,10 @@ namespace Game.Player.Inventory
             set
             {
                 m_money = value;
+
+                currentSessionData.Money = m_money;
+                currentSessionData.Save();
+
                 foreach (var text in money_texts)
                 {
                     text.text = m_money + "$";
@@ -128,7 +132,9 @@ namespace Game.Player.Inventory
             ItemData itemData = GetItem(item);
             if (itemData == null)
             {
-                Items.Add(new ItemData(item, amount));
+                ItemData data = new ItemData(item, amount);
+                Items.Add(data);
+                currentSessionData.MainInventory.AddItem(data);
                 if(showNotify)
                 {
                     if (amount > 0)
@@ -154,8 +160,10 @@ namespace Game.Player.Inventory
                     }
                 }
                 itemData.Amount += amount;
+                currentSessionData.MainInventory.Items[itemData.Item.AssetPath] = itemData.Amount;
             }
 
+            currentSessionData.Save();
             UpdateVisual();
         }
 
@@ -169,7 +177,8 @@ namespace Game.Player.Inventory
             ItemData itemData = GetItem(item);
             if (itemData == null)
             {
-                Items.Add(new ItemData(item));
+                ItemData data = new ItemData(item);
+                Items.Add(data);
                 return false;
             }
             else
@@ -177,6 +186,8 @@ namespace Game.Player.Inventory
                 if(itemData.Amount >= amount)
                 {
                     itemData.Amount -= amount;
+                    currentSessionData.MainInventory.Items[itemData.Item.AssetPath] = itemData.Amount;
+                    currentSessionData.Save();
 
                     if(showNotify)
                     {
@@ -194,11 +205,11 @@ namespace Game.Player.Inventory
         /// Take items from inventory
         /// </summary>
         /// <param name="items">List of items for take</param>
-        public void TakeItem(List<ItemData> items)
+        public void TakeItem(List<ItemData> items, bool showNotify = true)
         {
             foreach (var item in items)
             {
-                TakeItem(item.Item, item.Amount);
+                TakeItem(item.Item, item.Amount, showNotify);
             }
         }
 

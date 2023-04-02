@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Player.Inventory.Visual
+namespace Game.Player.Inventory.Visual.Notifications
 {
     public class InventoryNotificationsVisual : MonoBehaviour
     {

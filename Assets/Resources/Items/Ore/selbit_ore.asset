@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: -203749126781165649, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   <LowSizeIcon>k__BackingField: {fileID: -1083282776, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
+  m_ItemName: 
   <Cost>k__BackingField: 1
-  IsOre: 1
+  <CanTakeInMission>k__BackingField: 1
+  <IsOre>k__BackingField: 0
   OreSprites:
   - {fileID: 21300000, guid: 67b04827693d35e4392cc088542f3db0, type: 3}
   - {fileID: 21300000, guid: eec3b6b657406f8408e68c250f60bbea, type: 3}
   - {fileID: 21300000, guid: 399c7896157123d43b4cdae1a02e803d, type: 3}
+  <AssetPath>k__BackingField: Items/Ore/selbit_ore
+  AssetName: selbit_ore (default)

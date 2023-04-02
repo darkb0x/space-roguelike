@@ -11,14 +11,17 @@ namespace Game.Player.Inventory
     {
         [field: SerializeField, ShowAssetPreview] public Sprite Icon { get; private set; }
         [field: SerializeField, ShowAssetPreview] public Sprite LowSizeIcon { get; private set; }
-        [SerializeField] private string m_ItemName;
+        [SerializeField, OnValueChanged("UpdateAssetName")] private string m_ItemName;
         [field: SerializeField, Min(1)] public int Cost { get; private set; }
+        [field: Space]
+        [field: SerializeField] public bool CanTakeInMission { get; private set; }
         [field: Space]
         [field: SerializeField] public bool IsOre { get; set; }
         [ShowIf("IsOre")] public List<Sprite> OreSprites = new List<Sprite>();
 
         [field: Space]
         [field: SerializeField, ReadOnly] public string AssetPath { get; private set; }
+        [field: SerializeField, ReadOnly] private string AssetName;
 
         public string ItemName
         {
@@ -34,6 +37,7 @@ namespace Game.Player.Inventory
         private void OnEnable()
         {
             UpdateAssetPath();
+            UpdateAssetName();
         }
 
         [Button]
@@ -48,6 +52,17 @@ namespace Game.Player.Inventory
             catch (System.Exception)
             {
                 return;
+            }
+        }
+        private void UpdateAssetName()
+        {
+            if(ItemName == name)
+            {
+                AssetName = ItemName + " (default)";
+            }
+            else
+            {
+                AssetName = ItemName + " (custom)";
             }
         }
     }
