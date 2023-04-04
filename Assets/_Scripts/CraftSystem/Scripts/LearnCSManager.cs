@@ -8,8 +8,7 @@ using UnityEngine.InputSystem;
 namespace Game.CraftSystem
 {
     using CraftSystem.Editor.ScriptableObjects;
-    using Player.Inventory;
-    using Player;
+    using Utilities.Notifications;
     using SaveData;
 
     public delegate void OnNewCraftLearned(CSCraftSO craft);
@@ -107,6 +106,8 @@ namespace Game.CraftSystem
                 unlockedCrafts.Add(craft);
 
                 OnCraftLearned?.Invoke(craft);
+
+                NotificationManager.NewNotification(craft.IconSprite, "New craft!", true);
             }
             if (!currentSessionData.UnlockedCraftPaths.Contains(craft.AssetPath))
             {

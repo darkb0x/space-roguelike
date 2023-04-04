@@ -394,11 +394,17 @@ MonoBehaviour:
     dataSavePath: 
     dataFileName: 
     UnlockedCraftPaths: []
-    Items:
-      list: []
+    MainInventory:
+      Items:
+        _serializedList: []
+    LobbyInventory:
+      Items:
+        _serializedList: []
     Money: 0
-    Planet: {fileID: 0}
+    PlanetPath: 
   CurrentSettingsData:
     dataSavePath: 
     dataFileName: 
-    MaxFps: 0
+    MasterVolume: 0
+    MusicVolume: 0
+    EffectsVolume: 0

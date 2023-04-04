@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
+  m_Name: Zuldun Ingot
+  m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: -4360650958587565854, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
+  <LowSizeIcon>k__BackingField: {fileID: 1400391229, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
+  m_ItemName: 
+  <Cost>k__BackingField: 1
+  <CanTakeInMission>k__BackingField: 1
+  <IsOre>k__BackingField: 0
+  OreSprites: []
+  <AssetPath>k__BackingField: Items/Ingot/zuldun_ingot
+  AssetName: zuldun_ingot (default)

@@ -33,3 +33,24 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
         }
     }
 }
+
+/*
+namespace Game.CraftSystem.Editor.ScriptableObjects.Serialized
+{
+    using Player.Inventory;
+    using Data;
+
+    public class SerializedCraft
+    {
+        public string CraftName;
+        public List<CSCraftChoiceData> Choices;
+        public GameObject ObjectPrefab;
+        public Sprite IconSprite;
+        public int CraftCost;
+        public List<ItemData> ObjectCraf;
+        public bool IsStartingNode;
+        public Vector2 Position;
+        public string AssetPath;
+    }
+}
+*/

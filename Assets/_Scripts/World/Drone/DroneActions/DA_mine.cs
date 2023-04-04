@@ -91,9 +91,9 @@ namespace Game.Drone
         {
             if (mineTime <= 0)
             {
-                if (drone.targetOre.canGiveOre)
+                if (drone.targetOre.CanGiveOre)
                 {
-                    playerInventory.AddItem(drone.targetOre.item, itemPerTime);
+                    playerInventory.AddItem(drone.targetOre.Item, itemPerTime);
                     drone.targetOre.Take(itemPerTime);
                 }
                 mineTime = mineSpeed;

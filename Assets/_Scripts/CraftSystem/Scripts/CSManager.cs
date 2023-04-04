@@ -10,6 +10,7 @@ namespace Game.CraftSystem
     using Player.Inventory;
     using Player;
     using SaveData;
+    using Utilities.Notifications;
 
     public class CSManager : MonoBehaviour
     {
@@ -76,6 +77,8 @@ namespace Game.CraftSystem
             PlayerInventory.Instance.TakeItem(craft.ObjectCraft);
 
             currentWorkbanch.Craft(craft.ObjectPrefab);
+
+            NotificationManager.NewNotification(craft.IconSprite, "Crafted!", false);
 
             CloseMenu();
         }
@@ -211,6 +214,11 @@ namespace Game.CraftSystem
             }
 
             SpawnItem(newCraft, techTree);
+        }
+
+        private void OnDisable()
+        {
+            GameInput.InputActions.UI.CloseWindow.performed -= CloseMenu;
         }
     }
 }

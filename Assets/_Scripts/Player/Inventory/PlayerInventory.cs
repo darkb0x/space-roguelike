@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 namespace Game.Player.Inventory
 {
     using SaveData;
-    using Visual.Notifications;
+    using Utilities.Notifications;
 
     public interface IInventoryObserver
     {
@@ -35,9 +35,6 @@ namespace Game.Player.Inventory
         private void Awake() => Instance = this;
 
         [Header("Inventory")]
-        [SerializeField] private bool AllItemsAtStart = false;
-        [SerializeField, ShowIf("AllItemsAtStart")] private InventoryItem[] AllItems;
-        [Space]
         [ReadOnly] public List<ItemData> Items = new List<ItemData>();
         public int money
         {
@@ -62,8 +59,6 @@ namespace Game.Player.Inventory
         [SerializeField] private TextMeshProUGUI[] money_texts;
 
         [Header("Visual")]
-        [SerializeField] private InventoryNotificationsVisual NotificationsVisual;
-        [Space]
         [SerializeField] private TextMeshProUGUI AllItemsAmountText;
         [Space]
         [SerializeField] private Animator InventoryAnim;
@@ -90,17 +85,6 @@ namespace Game.Player.Inventory
             if(inventoryVisualGameObj.activeInHierarchy)
             {
                 InventoryAnim.SetBool(InventoryAnim_OpenBool, isOpened);
-            }
-
-            if(Keyboard.current.hKey.isPressed)
-            {
-                foreach (var item in AllItems)
-                {
-                    ItemData data = new ItemData(item, 100);
-                    Items.Add(data);
-                    currentSessionData.MainInventory.AddItem(data);
-                }
-                currentSessionData.Save();
             }
         }
 
@@ -139,7 +123,7 @@ namespace Game.Player.Inventory
                 {
                     if (amount > 0)
                     {
-                        NotificationsVisual.NewInventoryNotification(item, amount, true, false);
+                        NotificationManager.NewNotification(item.Icon, $"{item.ItemName} <color={NotificationManager.GreenColor}>+{amount}</color>", true);
                     }
                 }
             }
@@ -151,11 +135,11 @@ namespace Game.Player.Inventory
                     {
                         if (itemData.Amount == 0)
                         {
-                            NotificationsVisual.NewInventoryNotification(item, amount, true, false);
+                            NotificationManager.NewNotification(item.Icon, $"{item.ItemName} <color={NotificationManager.GreenColor}>+{amount}</color>", true);
                         }
                         else
                         {
-                            NotificationsVisual.NewInventoryNotification(item, amount, false, false);
+                            NotificationManager.NewNotification(item.Icon, $"{item.ItemName} <color={NotificationManager.GreenColor}>+{amount}</color>", false);
                         }
                     }
                 }
@@ -191,7 +175,7 @@ namespace Game.Player.Inventory
 
                     if(showNotify)
                     {
-                        NotificationsVisual.NewInventoryNotification(item, amount, false, true);
+                        NotificationManager.NewNotification(item.Icon, $"{item.ItemName} <color={NotificationManager.RedColor}>-{amount}</color>", false);
                     }
 
                     UpdateVisual();
@@ -217,8 +201,16 @@ namespace Game.Player.Inventory
         {
             foreach (var item in items)
             {
-                if (GetItem(item.Item).Amount < item.Amount)
+                ItemData data = GetItem(item.Item);
+                if(data != null)
+                {
+                    if (GetItem(item.Item).Amount < item.Amount)
+                        return false;
+                }
+                else
+                {
                     return false;
+                }
             }
             return true;
         }

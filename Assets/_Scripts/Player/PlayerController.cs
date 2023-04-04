@@ -152,7 +152,7 @@ namespace Game.Player
         }
         private void Die()
         {
-            GameData.Instance.ResetSessionData();
+            //GameData.Instance.ResetSessionData();
         }
 
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)

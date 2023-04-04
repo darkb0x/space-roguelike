@@ -6,7 +6,7 @@ using NaughtyAttributes;
 
 namespace Game.MainMenu
 {
-    using Utilities;
+    using Utilities.LoadScene;
 
     public class MainMenu : MonoBehaviour
     {

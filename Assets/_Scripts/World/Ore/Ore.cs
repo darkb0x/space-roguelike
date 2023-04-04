@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.World
+namespace Game.World.Generation.Ore
 {
     using Player.Inventory;
     using Drill;
@@ -11,59 +11,51 @@ namespace Game.World
     {
         [HideInInspector] public Drill currentDrill;
 
-        public InventoryItem item;
-        public int maxAmount;
-        public int amount;
-        public bool canGiveOre = true;
+        public InventoryItem Item;
+        public int MaxAmount;
+        public int Amount;
+        public bool CanGiveOre = true;
         [Space]
-        [SerializeField] private SpriteRenderer oreRender;
+        [SerializeField] private SpriteRenderer RockRenderer;
+        [SerializeField] private SpriteRenderer OreRenderer;
         [Space]
-        [SerializeField] private Material standartMaterial;
-        [SerializeField] private Material selectMaterial;
-        [Space]
-        [SerializeField] private Sprite[] rockSprites;
+        [SerializeField] private Sprite[] RockSprites;
 
-        Sprite currentRockSprite;
-        Sprite currentOreSprite;
+        public bool isInitialized { get; private set; }
 
         private void Start()
         {
-            name = $"Ore ({item.name})";
+            name = $"Ore ({Item.name})";
 
-            amount = maxAmount;
+            Amount = MaxAmount;
+        }
+        public void Initialize(InventoryItem item)
+        {
+            if (!item.IsOre)
+            {
+                Debug.LogError($"{item.ItemName} isn't ore!");
+                return;
+            }
 
-            GenerateRandomSprites();
+            Item = item;
+
+            RockRenderer.sprite = RockSprites[Random.Range(0, RockSprites.Length)];
+            OreRenderer.sprite = Item.OreSprites[Random.Range(0, Item.OreSprites.Count)];
+
+            isInitialized = true;
         }
 
         public int Take(int value)
         {
-            amount = Mathf.Clamp(amount -= value, 0, maxAmount);
+            Amount = Mathf.Clamp(Amount -= value, 0, MaxAmount);
 
-            if (amount <= 0)
+            if (Amount <= 0)
             {
-                canGiveOre = false;
-                oreRender.sprite = currentRockSprite;
+                CanGiveOre = false;
+                OreRenderer.gameObject.SetActive(false);
             }
 
-            return amount;
-        }
-
-        public void Select()
-        {
-            oreRender.material = selectMaterial;
-        }
-        public void DisSelect()
-        {
-            oreRender.material = standartMaterial;
-        }
-
-        [NaughtyAttributes.Button]
-        public void GenerateRandomSprites()
-        {
-            currentRockSprite = rockSprites[Random.Range(0, rockSprites.Length)];
-            currentOreSprite = item.OreSprites[Random.Range(0, item.OreSprites.Count)];
-
-            oreRender.sprite = CombineSprites.MergeSprites(new Sprite[2] { currentRockSprite, currentOreSprite }, new Vector2Int(18, 18), name);
+            return Amount;
         }
     }
 }

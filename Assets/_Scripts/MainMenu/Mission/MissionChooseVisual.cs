@@ -38,7 +38,7 @@ namespace Game.MainMenu.Mission.Visual
             UIPanelManager.Instance.Attach(this);
         }
 
-        public void ShowMissionTab(Sprite missionIcon, string missionName, List<Player.Inventory.InventoryItem> items)
+        public void ShowMissionTab(Sprite missionIcon, string missionName, List<Planet.PlanetSO.ItemGenerationData> items)
         {
             SelectedMissionIcon.sprite = missionIcon;
             SelectedMissionNameText.text = missionName;
@@ -59,7 +59,7 @@ namespace Game.MainMenu.Mission.Visual
                 itemObj.transform.localScale = Vector3.one;
 
                 Image itemImage = itemObj.AddComponent<Image>();
-                itemImage.sprite = item.Icon;
+                itemImage.sprite = item.Item.Icon;
 
                 itemImage.rectTransform.sizeDelta = UniqueItemsSize;
             }

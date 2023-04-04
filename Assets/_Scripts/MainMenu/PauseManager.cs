@@ -10,7 +10,8 @@ namespace Game.MainMenu.Pause
 
         public static PauseManager Instance;
 
-        [SerializeField, Tooltip("Canvas/Pause")] private GameObject pausePanel;
+        [SerializeField, Tooltip("Canvas/Pause")] private GameObject MainPanel;
+        [SerializeField] private GameObject[] PauseChildPanels;
 
         public bool pauseEnabled = false;
 
@@ -31,7 +32,7 @@ namespace Game.MainMenu.Pause
         {
             if (UIPanelManager.Instance.SomethinkIsOpened())
             {
-                if(UIPanelManager.Instance.currentOpenedPanel != pausePanel)
+                if(UIPanelManager.Instance.currentOpenedPanel != MainPanel)
                 {
                     return;
                 }
@@ -51,7 +52,7 @@ namespace Game.MainMenu.Pause
 
         public void Pause()
         {
-            if(UIPanelManager.Instance.OpenPanel(pausePanel, false))
+            if(UIPanelManager.Instance.OpenPanel(MainPanel, false))
             {
                 Time.timeScale = 0;
                 OnGamePaused?.Invoke(true);
@@ -60,7 +61,12 @@ namespace Game.MainMenu.Pause
 
         public void Resume()
         {
-            UIPanelManager.Instance.ClosePanel(pausePanel);
+            foreach (var panel in PauseChildPanels)
+            {
+                panel.SetActive(false);
+            }
+            UIPanelManager.Instance.CloseAllPanel();
+
             Time.timeScale = 1;
             OnGamePaused?.Invoke(false);
         }

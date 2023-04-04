@@ -45,6 +45,7 @@ namespace Game.Enemy
             SpawnScore = Mathf.RoundToInt(MaxSpawnScore * EnemyAmountFactor);
         }
 
+        #if UNITY_EDITOR
         private void Update()
         {
             if(Keyboard.current.gKey.isPressed)
@@ -54,26 +55,27 @@ namespace Game.Enemy
                 StartSpawning();
             }
         }
+        #endif
 
-        [Button]
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void StartSpawning()
         {
-            if(Application.isPlaying)
-            {
-                StartCoroutine(SpawnEnemies(SpawnScore));
-            }
+            StartCoroutine(SpawnEnemies(SpawnScore));
         }
+
         public void StartSpawning(int percentFromSpawnScore)
         {
-            float score = SpawnScore / 100 * percentFromSpawnScore;
             if (Application.isPlaying)
             {
+                float score = SpawnScore / 100 * percentFromSpawnScore;
                 StartCoroutine(SpawnEnemies(score));
             }
         }
+
+        int currentSpawnScore = 0;
         IEnumerator SpawnEnemies(float spawnScore)
         {
-            int currentSpawnScore = Mathf.RoundToInt(spawnScore);
+            currentSpawnScore = Mathf.RoundToInt(spawnScore);
             while(currentSpawnScore > 0)
             {
                 if (AllEnemies.Count >= EnemyMaxAmount)
@@ -91,6 +93,7 @@ namespace Game.Enemy
 
                 currentSpawnScore -= enemyData.Cost;
                 AllEnemies.Add(enemy);
+
                 yield return new WaitForSeconds(TimeBtwSpawnEnemy);
             }
         }
@@ -100,7 +103,7 @@ namespace Game.Enemy
 
             if (AllEnemies.Count < EnemyMaxAmount && MaxSpawnScore > 0)
             {
-                StartSpawning();
+                StartCoroutine(SpawnEnemies(currentSpawnScore));
             }
         }
 

@@ -30,8 +30,8 @@ namespace Game.SaveData
 
             savePath = $"{Application.dataPath}/";
             
-            CurrentSessionData = (SessionData)SaveDataUtility.LoadData<SessionData>(savePath, SESSION_DATA_FILENAME, new SessionData(savePath, SESSION_DATA_FILENAME));
-            CurrentSettingsData = (SettingsData)SaveDataUtility.LoadData<SettingsData>(savePath, SETTINGS_DATA_FILENAME, new SettingsData(savePath, SETTINGS_DATA_FILENAME));
+            CurrentSessionData = SaveDataUtility.LoadDataFromJson<SessionData>(savePath, SESSION_DATA_FILENAME, new SessionData(savePath, SESSION_DATA_FILENAME), true);
+            CurrentSettingsData = SaveDataUtility.LoadDataFromJson<SettingsData>(savePath, SETTINGS_DATA_FILENAME, new SettingsData(savePath, SETTINGS_DATA_FILENAME));
         }
 
         public void ResetSessionData()
@@ -53,6 +53,7 @@ namespace Game.SaveData
         }
     }
 
+    [Serializable]
     public abstract class Data
     {
         public string dataSavePath;
@@ -73,13 +74,13 @@ namespace Game.SaveData
         public int Money;
 
         // Planet
-        public PlanetSO Planet;
+        public string PlanetPath;
 
         public SessionData(string savePath, string fileName)
         {
             dataSavePath = savePath;
             dataFileName = fileName;
-
+ 
             UnlockedCraftPaths = new List<string>();
 
             MainInventory = new Inventory();
@@ -87,9 +88,10 @@ namespace Game.SaveData
 
             Money = 0;
 
-            Planet = null;
+            PlanetPath = "";
         }
 
+        #region Craft
         public CSCraftSO GetCraft(string path)
         {
             foreach (var craft in UnlockedCraftPaths)
@@ -106,6 +108,26 @@ namespace Game.SaveData
         {
             return GetCraft(craft.AssetPath) != null;
         }
+        #endregion
+
+        #region
+        public void SetPlanet(string path)
+        {
+            PlanetPath = path;
+        }
+        public PlanetSO GetPlanet()
+        {
+            try
+            {
+                return Resources.Load<PlanetSO>(PlanetPath);
+            }
+            catch (Exception)
+            {
+                Debug.LogError("Cant find planet at path: " + PlanetPath);
+                return null;
+            }
+        }
+        #endregion
 
         public override void Save(string filePath, string fileName)
         {
@@ -114,13 +136,13 @@ namespace Game.SaveData
             dataSavePath = filePath;
             dataFileName = fileName;
 
-            SaveDataUtility.SaveData(this, fileName, filePath);
+            SaveDataUtility.SaveDataToJson(this, fileName, filePath, true);
         }
         public override void Save()
         {
             base.Save();
 
-            SaveDataUtility.SaveData(this, dataFileName, dataSavePath);
+            SaveDataUtility.SaveDataToJson(this, dataFileName, dataSavePath, true);
         }
 
         [Serializable]
@@ -190,14 +212,18 @@ namespace Game.SaveData
     [Serializable]
     public class SettingsData : Data
     {
-        public int MaxFps = 60;
+        public float MasterVolume;
+        public float MusicVolume;
+        public float EffectsVolume;
 
         public SettingsData(string savePath, string fileName)
         {
             dataSavePath = savePath;
             dataFileName = fileName;
 
-            MaxFps = 60;
+            MasterVolume = 0f;
+            MusicVolume = 0f;
+            EffectsVolume = 0f;
         }
 
         public override void Save(string filePath, string fileName)
@@ -207,13 +233,13 @@ namespace Game.SaveData
             dataSavePath = filePath;
             dataFileName = fileName;
 
-            SaveDataUtility.SaveData(this, fileName, filePath);
+            SaveDataUtility.SaveDataToJson(this, dataFileName, dataSavePath);
         }
         public override void Save()
         {
             base.Save();
 
-            SaveDataUtility.SaveData(this, dataFileName, dataSavePath);
+            SaveDataUtility.SaveDataToJson(this, dataFileName, dataSavePath);
         }
     }
 }

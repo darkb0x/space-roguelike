@@ -8,7 +8,7 @@ namespace Game.Oven.Manager
 {
     using Player.Inventory;
 
-    public class OvenManagerElement : MonoBehaviour, IInventoryObserver
+    public class OvenManagerElement : MonoBehaviour
     {
         OvenManager manager;
 
@@ -24,8 +24,6 @@ namespace Game.Oven.Manager
 
         public void Initialize(OvenCraftList.craft craft, OvenManager m)
         {
-            PlayerInventory.Instance.observers.Add(this);
-
             currentCraft = craft;
             manager = m;
 
@@ -55,15 +53,20 @@ namespace Game.Oven.Manager
         }
 
         // interface
-        public void UpdateData(PlayerInventory inventory)
+        public void UpdateData()
         {
-            if (!gameObject.activeInHierarchy)
-                return;
-
             for (int i = 0; i < amountsText.Count; i++)
             {
                 OvenCraftList.craft.s_item item = currentCraft.firstItems[i];
-                amountsText[i].color = inventory.GetItem(item.item).Amount >= item.amount ? Color.white : Color.red;
+                ItemData data = PlayerInventory.Instance.GetItem(item.item);
+                if(data != null)
+                {
+                    amountsText[i].color = data.Amount >= item.amount ? Color.white : Color.red;
+                }
+                else
+                {
+                    amountsText[i].color = Color.red;
+                }
             }
         }
     }

@@ -13,8 +13,23 @@ namespace Game.MainMenu.Mission
 
         private void Start()
         {
-            InteractComponent.OnPlayerEnter += x => MissionChooseManager.Instance.StartMissionTimer();
-            InteractComponent.OnPlayerExit += x => MissionChooseManager.Instance.StopMissionTimer();
+            InteractComponent.OnPlayerEnter += PlayerEnter;
+            InteractComponent.OnPlayerExit += PlayerExit;
+        }
+
+        private void PlayerEnter(Collider2D coll)
+        {
+            MissionChooseManager.Instance.StartMissionTimer();
+        }
+        private void PlayerExit(Collider2D coll)
+        {
+            MissionChooseManager.Instance.StopMissionTimer();
+        }
+
+        private void OnDisable()
+        {
+            InteractComponent.OnPlayerEnter -= PlayerEnter;
+            InteractComponent.OnPlayerExit -= PlayerExit;
         }
     }
 }

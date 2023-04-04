@@ -1,5 +1,7 @@
 {
     "dataSavePath": "C:/Unity/space-roguelike/Assets/",
     "dataFileName": "SettingsData",
-    "MaxFps": 60
+    "MasterVolume": 0.0,
+    "MusicVolume": -16.518888473510743,
+    "EffectsVolume": 0.0
 }

@@ -11,7 +11,7 @@ namespace Game
     using MainMenu.Mission.Planet;
     using MainMenu.Pause;
     using SaveData;
-    using Utilities;
+    using Utilities.LoadScene;
 
     public enum SessionEventType
     {
@@ -32,6 +32,7 @@ namespace Game
         [Header("Debug")]
         [SerializeField] private TextMeshProUGUI DebugText;
         [ReadOnly] private float currentTime;
+        [SerializeField] private float speed = 1;
 
         [Header("End")]
         [SerializeField, Scene] private int LobbySceneID = 1;
@@ -55,7 +56,7 @@ namespace Game
         {
             PauseManager.Instance.OnGamePaused += OnGamePaused;
 
-            planetData = GameData.Instance.CurrentSessionData.Planet;
+            planetData = GameData.Instance.CurrentSessionData.GetPlanet();
         }
 
         public void Initialize()
@@ -77,7 +78,7 @@ namespace Game
             if (currentEvent >= eventsCount)
                 return;
 
-            currentTime += Time.deltaTime;
+            currentTime += Time.deltaTime * speed;
 
             if (currentTime >= SessionTimings.EventsList[currentEvent].StartTime)
             {
@@ -90,6 +91,7 @@ namespace Game
 
         public void ActivateEvent(SessionEvent eventData)
         {
+            Debug.Log("Event Activated " + currentEvent);
             switch (eventData.EventType)
             {
                 case SessionEventType.StartWave:

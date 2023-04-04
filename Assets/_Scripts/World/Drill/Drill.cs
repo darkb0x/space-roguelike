@@ -5,7 +5,7 @@ using NaughtyAttributes;
 
 namespace Game.Drill
 {
-    using World;
+    using World.Generation.Ore;
     using Player;
     using Player.Inventory;
     using Player.Pick;
@@ -145,7 +145,7 @@ namespace Game.Drill
         public virtual void Put()
         {
             CurrentOre.currentDrill = this;
-            CurrentItem = CurrentOre.item;
+            CurrentItem = CurrentOre.Item;
             oreDetectColl_transform.position = myTransform.position;
 
             myTransform.position = oreTransform.position;
@@ -161,7 +161,6 @@ namespace Game.Drill
             PreRenderPlaceObject.gameObject.SetActive(false);
 
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
-            DisSelectAllOres();
         }
         #endregion
 
@@ -175,14 +174,21 @@ namespace Game.Drill
             ItemAmount = 0;
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
 
-            if (CurrentOre.amount < 0)
+            if (CurrentOre != null)
+            {
+                if(CurrentOre.Amount < 0)
+                {
+                    EnableVisual(false);
+                }
+            }
+            else
             {
                 EnableVisual(false);
             }
         }
         public virtual void Mine()
         {
-            if(!CurrentOre.canGiveOre)
+            if(!CurrentOre.CanGiveOre)
             {
                 CurrentOre = null;
                 oreTransform = null;
@@ -195,9 +201,9 @@ namespace Game.Drill
             int oreAmount = MiningDamage;
             CurrentOre.Take(MiningDamage);
 
-            if(CurrentOre.amount < 0)
+            if(CurrentOre.Amount < 0)
             {
-                oreAmount += CurrentOre.amount;
+                oreAmount += CurrentOre.Amount;
 
                 if (oreAmount <= 0)
                 {
@@ -306,7 +312,7 @@ namespace Game.Drill
                 {
                     if (item.currentDrill)
                         continue;
-                    if (!item.canGiveOre)
+                    if (!item.CanGiveOre)
                         continue;
 
                     nearestOre = item;
@@ -317,7 +323,7 @@ namespace Game.Drill
                 {
                     if (item.currentDrill)
                         continue;
-                    if (!item.canGiveOre)
+                    if (!item.CanGiveOre)
                         continue;
 
                     nearestOre = item;
@@ -339,13 +345,6 @@ namespace Game.Drill
             }
 
             return nearestOre;
-        }
-        private void DisSelectAllOres()
-        {
-            foreach (var item in currentOresList)
-            {
-                item.DisSelect();
-            }
         }
         #endregion
 
@@ -381,7 +380,7 @@ namespace Game.Drill
 
                 if (isPicked)
                     canEnable = false;
-                if (CurrentOre?.amount < 0 && ItemAmount == 0)
+                if (CurrentOre?.Amount < 0 && ItemAmount == 0)
                     canEnable = false;
 
                 inventoryVisual.EnableVisual(canEnable);

@@ -20,6 +20,7 @@ namespace Game.Oven.Manager
 
         Oven currentOven;
         public bool isOpened { get; private set; }
+        private List<OvenManagerElement> craftsVisuals = new List<OvenManagerElement>();
 
         private void Start()
         {
@@ -29,6 +30,8 @@ namespace Game.Oven.Manager
             {
                 OvenManagerElement element = Instantiate(craftElement.gameObject, craftListParent).GetComponent<OvenManagerElement>();
                 element.Initialize(item, this);
+
+                craftsVisuals.Add(element);
             }
         }
 
@@ -58,6 +61,11 @@ namespace Game.Oven.Manager
         #region UI Interaction
         public void OpenPanel(Oven oven)
         {
+            foreach (var visual in craftsVisuals)
+            {
+                visual.UpdateData();
+            }
+
             currentOven = oven;
 
             isOpened = true;

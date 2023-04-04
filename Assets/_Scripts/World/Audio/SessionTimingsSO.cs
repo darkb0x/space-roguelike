@@ -9,7 +9,7 @@ namespace Game.Audio
     public class SessionEvent
     {
         public SessionEventType EventType;
-        [ShowIf("IsMicroWaveEvent"), MaxValue(100), AllowNesting] public int PercentFromScore;
+        [ShowIf("EventType", SessionEventType.StartMicroWave), MaxValue(100), AllowNesting] public int PercentFromScore;
         [Space]
         [OnValueChanged("OnTimeVariablesChanged"), SerializeField, AllowNesting] private int TimeMinute;
         [OnValueChanged("OnTimeVariablesChanged"), SerializeField, MaxValue(60), AllowNesting] private float TimeSecond;
@@ -21,11 +21,7 @@ namespace Game.Audio
             }
         }
 
-        private bool IsMicroWaveEvent()
-        {
-            return EventType == SessionEventType.StartMicroWave;
-        }
-        private void OnTimeVariablesChanged()
+        public void UpdateTimeVariables()
         {
             string minute = TimeMinute.ToString();
 
@@ -35,7 +31,7 @@ namespace Game.Audio
             else
                 seconds = TimeSecond.ToString();
 
-            m_StartTime = $"{minute}:{seconds}";
+            m_StartTime = $"{minute}:{seconds} ({StartTime})";
 
             if(TimeSecond >= 60)
             {
@@ -50,5 +46,13 @@ namespace Game.Audio
     {
         [field: SerializeField] public AudioClip Music { get; set; }
         [SerializeField, ReorderableList] public List<SessionEvent> EventsList = new List<SessionEvent>();
+
+        private void OnEnable()
+        {
+            foreach (var item in EventsList)
+            {
+                item.UpdateTimeVariables();
+            }
+        }
     }
 }

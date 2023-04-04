@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
+  m_Name: Zuldun Ore
+  m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 1106232271658436647, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
+  <LowSizeIcon>k__BackingField: {fileID: -567961629, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
+  m_ItemName: 
+  <Cost>k__BackingField: 1
+  <CanTakeInMission>k__BackingField: 1
+  <IsOre>k__BackingField: 1
+  OreSprites:
+  - {fileID: -1706949282, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
+  - {fileID: -309373149, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
+  - {fileID: 770929105, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
+  <AssetPath>k__BackingField: Items/Ore/zuldun_ore
+  AssetName: zuldun_ore (default)

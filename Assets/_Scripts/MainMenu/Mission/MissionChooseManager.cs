@@ -6,7 +6,7 @@ using NaughtyAttributes;
 
 namespace Game.MainMenu.Mission
 {
-    using Utilities;
+    using Utilities.LoadScene;
     using Planet;
     using Planet.Visual;
     using Visual;
@@ -127,8 +127,7 @@ namespace Game.MainMenu.Mission
             UIPanelManager.Instance.CloseAllPanel(false);
 
             Cutscene.Play();
-
-            currentSessionData.Planet = selectedMission;
+            currentSessionData.SetPlanet(selectedMission.AssetPath);
             StartCoroutine(LoadSceneUtility.Instance.LoadSceneAsync(selectedMission.SceneId, 20));
 
             currentSessionData.Save();

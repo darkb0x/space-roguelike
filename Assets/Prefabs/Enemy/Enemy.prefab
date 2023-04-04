@@ -65,6 +65,8 @@ MonoBehaviour:
     m_Bits: 1024
   Speed: 5
   NextWaypointDistance: 1.3
+  AllColls:
+  - {fileID: 6244823118490864838}
   EnemyVisual: {fileID: 1842241882805333569}
 --- !u!114 &8740799799362526667
 MonoBehaviour:

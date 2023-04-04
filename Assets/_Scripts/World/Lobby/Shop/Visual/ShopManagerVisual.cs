@@ -116,5 +116,10 @@ namespace Game.Lobby.Shop.Visual
         {
             ClosePanel();
         }
+
+        private void OnDisable()
+        {
+            GameInput.InputActions.UI.CloseWindow.performed -= ClosePanel;
+        }
     }
 }

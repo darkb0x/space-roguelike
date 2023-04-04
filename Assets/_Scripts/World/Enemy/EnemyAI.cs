@@ -17,6 +17,8 @@ namespace Game.Enemy
         [SerializeField, Expandable] protected EnemyData Data;
 
         [Header("Health")]
+        [SerializeField] private float m_ShieldTime = 0.7f;
+        [Space]
         [ReadOnly] public float currentHp;
         [SerializeField] protected GameObject DeathParticle;
         [Space]
@@ -38,6 +40,7 @@ namespace Game.Enemy
         [Header("Movement")]
         public float Speed;
         [SerializeField] private float NextWaypointDistance = 2f;
+        [SerializeField] private Collider2D[] AllColls;
 
         [Header("Visual")]
         public EnemyVisual EnemyVisual;
@@ -51,6 +54,8 @@ namespace Game.Enemy
         public EnemyTarget currentTarget { get; protected set; }
         protected float currentTimeBtwAttack;
         private bool targetInVision = false;
+        protected float shieldTime;
+        protected bool haveShield = true;
 
         // Components
         protected Transform myTransform;
@@ -68,11 +73,14 @@ namespace Game.Enemy
 
         public virtual void Start()
         {
-            HealthBarObject.SetActive(false);
-
             seecker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
             myTransform = transform;
+
+            HealthBarObject.SetActive(false);
+
+            shieldTime = m_ShieldTime;
+            haveShield = true;
         }
 
         public virtual void Initialize(EnemyData data, float difficultFactor = 1)
@@ -92,11 +100,23 @@ namespace Game.Enemy
 
         public virtual void Update()
         {
+            #if UNITY_EDITOR
             if (Keyboard.current.kKey.isPressed)
                 Die();
+            #endif
 
+            
             if (!IsAttacking)
                 return;
+
+            if(shieldTime > 0)
+            {
+                shieldTime -= Time.deltaTime;
+            }
+            else
+            {
+                haveShield = false;
+            }
 
             if (currentTarget == null)
             {
@@ -253,6 +273,9 @@ namespace Game.Enemy
         #region Hurt
         public virtual void TakeDamage(float value)
         {
+            if (haveShield)
+                return;
+
             float dmg = value - currentProtection;
             float maxHp = Data.Health;
 
@@ -281,11 +304,21 @@ namespace Game.Enemy
 
         public virtual void Die()
         {
+            if (haveShield)
+                return;
+
             IsAttacking = false;
 
             EnemyVisual.Death();
 
             EnemySpawner.Instance.RemoveEnemy(this);
+
+            foreach (var coll in AllColls)
+            {
+                coll.enabled = false;
+            }
+
+            this.enabled = false;
         }
         #endregion
     }

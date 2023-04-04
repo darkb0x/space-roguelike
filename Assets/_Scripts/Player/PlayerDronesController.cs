@@ -6,7 +6,7 @@ namespace Game.Player
 {
     using Drone;
     using Enemy;
-    using World;
+    using World.Generation.Ore;
 
     public class PlayerDronesController : MonoBehaviour
     {
