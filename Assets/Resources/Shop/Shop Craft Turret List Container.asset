@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584d931a7412b4d49abffda59c6755a3, type: 3}
+  m_Name: Shop Craft Turret List Container
+  m_EditorClassIdentifier: 
+  CategoryName: Turrets
+  CategoryIcon: {fileID: 21300000, guid: 33c5fdff70ab98046a20853f1a59c5bd, type: 3}
+  Crafts:
+  - Name: Laser Turret
+    Description: Laser is powerful..
+    Icon: {fileID: -1895180281693119143, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+    Cost: 100
+    Craft: {fileID: 11400000, guid: 7dd1643306a4bd641a706223f36f6e35, type: 2}

@@ -60,7 +60,11 @@ namespace Game
                 }
             }
 
-            panel.SetActive(enabled);
+            if(panel != null)
+            {
+                panel.SetActive(enabled);
+            }
+
             if (blurVolume != null)
                 blurVolume.weight = enabled ? 1 : 0;
             else
@@ -71,15 +75,13 @@ namespace Game
         {
             EnablePanel(panel, false);
 
-            //Time.timeScale = 1;
-
             GameInput.Instance.SetPlayerActionMap();
 
             Notify();
             StartCoroutine(SetCooldown());
         }
 
-        public bool OpenPanel(GameObject panel, bool stopTime = true)
+        public bool OpenPanel(GameObject panel)
         {
             if (!canOpen)
                 return false;
@@ -90,9 +92,6 @@ namespace Game
             GameInput.Instance.SetUIActionMap();
 
             Notify();
-
-            //if (stopTime)
-            //    Time.timeScale = 0;
 
             return true;
         }

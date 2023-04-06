@@ -28,8 +28,12 @@ namespace Game.SaveData
         {
             Instance = this;
 
+            #if UNITY_EDITOR
+            savePath = $"{Application.dataPath}/Editor/SaveData/";
+            #else
             savePath = $"{Application.dataPath}/";
-            
+            #endif
+
             CurrentSessionData = SaveDataUtility.LoadDataFromJson<SessionData>(savePath, SESSION_DATA_FILENAME, new SessionData(savePath, SESSION_DATA_FILENAME), true);
             CurrentSettingsData = SaveDataUtility.LoadDataFromJson<SettingsData>(savePath, SETTINGS_DATA_FILENAME, new SettingsData(savePath, SETTINGS_DATA_FILENAME));
         }
@@ -137,6 +141,7 @@ namespace Game.SaveData
             dataFileName = fileName;
 
             SaveDataUtility.SaveDataToJson(this, fileName, filePath, true);
+
         }
         public override void Save()
         {
@@ -148,43 +153,42 @@ namespace Game.SaveData
         [Serializable]
         public class Inventory
         {
-            [SerializedDictionary("Item path", "Item amount")]
-            public SerializedDictionary<string, int> Items;
+            public List<Item> Items;
 
             public Inventory()
             {
-                Items = new SerializedDictionary<string, int>();
+                Items = new List<Item>();
             }
 
             public void AddItem(ItemData data)
             {
                 foreach (var item in Items)
                 {
-                    if (item.Key == data.Item.AssetPath)
+                    if (item.Path == data.Item.AssetPath)
                         return;
                 }
-                Items.Add(data.Item.AssetPath, data.Amount);
+                Items.Add(new Item() { Path = data.Item.AssetPath, Amount = data.Amount } );
             }
             public void SetItem(ItemData data)
             {
-                foreach (var item in Items.Keys)
+                foreach (var item in Items)
                 {
-                    if (item == data.Item.AssetPath)
+                    if(item.Path == data.Item.AssetPath)
                     {
-                        Items[item] = data.Amount;
+                        item.Amount = data.Amount;
                         return;
                     }
                 }
-                Items.Add(data.Item.AssetPath, data.Amount);
+                Items.Add(new Item() { Path = data.Item.AssetPath, Amount = data.Amount });
             }
             public ItemData GetItem(string path)
             {
-                foreach (var item in Items.Keys)
+                foreach (var item in Items)
                 {
-                    if (item == path)
+                    if (item.Path == path)
                     {
-                        InventoryItem inventoryItem = Resources.Load<InventoryItem>(item);
-                        ItemData data = new ItemData(inventoryItem, Items[item]);
+                        InventoryItem inventoryItem = Resources.Load<InventoryItem>(item.Path);
+                        ItemData data = new ItemData(inventoryItem, item.Amount);
                         return data;
                     }
                 }
@@ -194,10 +198,10 @@ namespace Game.SaveData
             public List<ItemData> GetItemList()
             {
                 List<ItemData> itemDatas = new List<ItemData>();
-                foreach (var item in Items.Keys)
+                foreach (var item in Items)
                 {
-                    InventoryItem inventoryItem = Resources.Load<InventoryItem>(item);
-                    ItemData data = new ItemData(inventoryItem, Items[item]);
+                    InventoryItem inventoryItem = Resources.Load<InventoryItem>(item.Path);
+                    ItemData data = new ItemData(inventoryItem, item.Amount);
                     itemDatas.Add(data);
                 }
                 return itemDatas;
@@ -205,6 +209,13 @@ namespace Game.SaveData
             public void Clear()
             {
                 Items.Clear();
+            }
+
+            [Serializable]
+            public class Item
+            {
+                public string Path;
+                public int Amount;
             }
         }
     }

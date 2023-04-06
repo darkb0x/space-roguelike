@@ -11,6 +11,7 @@ namespace Game.Lobby.Shop
     using Inventory;
     using Player.Inventory;
     using SaveData;
+    using System;
 
     public class ShopManager : MonoBehaviour
     {
@@ -18,7 +19,7 @@ namespace Game.Lobby.Shop
         [SerializeField, Expandable] private List<ShopProductListContainer> BuyProductListContainers;
 
         [Header("Visual")]
-        [SerializeField] private ShopManagerVisual Visual;
+        public ShopManagerVisual Visual;
 
         private PlayerInventory mainInventory => PlayerInventory.Instance;
         private LobbyInventory lobbyInventory => LobbyInventory.Instance;
@@ -32,6 +33,11 @@ namespace Game.Lobby.Shop
             {
                 container.Initialize(this, Visual.AddProductContainerVisual(container));
             }
+
+            LobbyInventory.Instance.OnNewItem += (data) =>
+            {
+                Visual.AddSellProductVisual(data);
+            };
         }
 
         public void SellItem(InventoryItem item, int amount)

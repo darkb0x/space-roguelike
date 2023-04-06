@@ -11,10 +11,30 @@ namespace Game.MainMenu
     public class MainMenu : MonoBehaviour
     {
         [SerializeField, Scene] private int LobbySceneId;
+        [Space]
+        [SerializeField] private string YTChanelURL;
+        [SerializeField] private string DiscordURL;
+
+        private void Awake()
+        {
+            PlayerPrefs.SetInt("LoadingSceen_used", 1);
+            PlayerPrefs.SetInt("LoadingSceen_currentFrame", 0);
+
+            Time.timeScale = 1f;
+        }
 
         public void PlayButton()
         {
-            LoadSceneUtility.Instance.LoadScene(LobbySceneId);
+            StartCoroutine(LoadSceneUtility.Instance.LoadSceneAsyncVisualize(LobbySceneId));
+        }
+
+        public void OpenYoutubeChanel()
+        {
+            Application.OpenURL(YTChanelURL);
+        }
+        public void OpenDiscrordServer()
+        {
+            Application.OpenURL(DiscordURL);
         }
     }
 }

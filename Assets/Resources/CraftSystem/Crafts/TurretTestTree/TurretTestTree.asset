@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2984f8fd6410ca42b4abc3c134415d3, type: 3}
+  m_Name: TurretTestTree
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: TurretTestTree
+  <Nodes>k__BackingField:
+  - {fileID: 11400000, guid: eaf5411ce8b248642ba0e270ff6c0265, type: 2}
+  - {fileID: 11400000, guid: 88e7f53f930ab3c4cb502f9cf1b9b7eb, type: 2}
+  - {fileID: 11400000, guid: e842e916e9fdeba4f92c3358b7a6d65e, type: 2}
+  - {fileID: 11400000, guid: 104a108a608bddc40927f7b1a519faeb, type: 2}
+  - {fileID: 11400000, guid: dec78ada1e7513e4e968619b18537b85, type: 2}

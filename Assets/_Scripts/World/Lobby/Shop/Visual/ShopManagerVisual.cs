@@ -45,11 +45,16 @@ namespace Game.Lobby.Shop.Visual
         {
             foreach (var itemData in items)
             {
-                ShopSellProductVisual visual = Instantiate(SellProductVisual.gameObject, SellProductParent).GetComponent<ShopSellProductVisual>();
-                visual.Initialize(itemData.Item, itemData.Amount, manager);
-
-                sellProductVisuals.Add(visual);
+                AddSellProductVisual(itemData);
             }
+        }
+
+        public void AddSellProductVisual(ItemData itemData)
+        {
+            ShopSellProductVisual visual = Instantiate(SellProductVisual.gameObject, SellProductParent).GetComponent<ShopSellProductVisual>();
+            visual.Initialize(itemData.Item, itemData.Amount, manager);
+
+            sellProductVisuals.Add(visual);
         }
 
         public ShopProductListContainerVisual AddProductContainerVisual(ShopProductListContainer container)

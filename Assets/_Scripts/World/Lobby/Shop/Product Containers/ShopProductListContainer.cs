@@ -6,6 +6,7 @@ using NaughtyAttributes;
 namespace Game.Lobby.Shop.Container
 {
     using Visual;
+    using Player.Inventory;
 
     public abstract class Product
     {
@@ -31,9 +32,12 @@ namespace Game.Lobby.Shop.Container
             shopManager = manager;
             visual = containerVisual;
 
-            containerVisual.Initialize(this);
+            containerVisual.Initialize(this, manager.Visual);
         }
 
-        public abstract void Buy(Product product, ShopBuyProductVisual productVisual);
+        public virtual void Buy(Product product, ShopBuyProductVisual productVisual)
+        {
+            PlayerInventory.Instance.money -= product.Cost;
+        }
     }
 }

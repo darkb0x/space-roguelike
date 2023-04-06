@@ -8,6 +8,8 @@ namespace Game.Player.Visual
 {
     public class PlayerVisual : MonoBehaviour
     {
+        [SerializeField] private PlayerController Player;
+
         [Header("Oxygen")]
         [SerializeField] private Image OxygenBarUI;
         [SerializeField] private GameObject OxygenBarVisual;
@@ -20,10 +22,11 @@ namespace Game.Player.Visual
         [Header("Animator")]
         public Animator Anim;
         [Space]
-        [AnimatorParam("Anim"), SerializeField] string Anim_horizontal;
-        [AnimatorParam("Anim"), SerializeField] string Anim_vertical;
-        [AnimatorParam("Anim"), SerializeField] string Anim_isRunning;
-        [AnimatorParam("Anim"), SerializeField] string Anim_isCrafting;
+        [AnimatorParam("Anim"), SerializeField] string Anim_horizontalFloat;
+        [AnimatorParam("Anim"), SerializeField] string Anim_verticalFloat;
+        [AnimatorParam("Anim"), SerializeField] string Anim_isRunningBool;
+        [AnimatorParam("Anim"), SerializeField] string Anim_isCraftingBool;
+        [AnimatorParam("Anim"), SerializeField] string Anim_deadTrigger;
 
         private List<Image> HeartsImages = new List<Image>();
         private bool updateOxygenVisual = true;
@@ -66,16 +69,20 @@ namespace Game.Player.Visual
 
         public void PlayerLookDirection(Vector2 direction)
         {
-            Anim.SetFloat(Anim_horizontal, direction.x);
-            Anim.SetFloat(Anim_vertical, direction.y);
+            Anim.SetFloat(Anim_horizontalFloat, direction.x);
+            Anim.SetFloat(Anim_verticalFloat, direction.y);
         }
         public void PlayerIdleAnimation()
         {
-            Anim.SetBool(Anim_isRunning, false);
+            Anim.SetBool(Anim_isRunningBool, false);
         }
         public void PlayerRunAnimation()
         {
-            Anim.SetBool(Anim_isRunning, true);
+            Anim.SetBool(Anim_isRunningBool, true);
+        }
+        public void PlayerDead()
+        {
+            Anim.SetTrigger(Anim_deadTrigger);
         }
 
         public void EnableOxygenVisual(bool enabled)

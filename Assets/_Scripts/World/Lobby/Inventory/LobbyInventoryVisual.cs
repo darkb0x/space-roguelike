@@ -34,6 +34,10 @@ namespace Game.Lobby.Inventory.Visual
         {
             GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
         }
+        private void OnDisable()
+        {
+            GameInput.InputActions.UI.CloseWindow.performed -= ClosePanel;
+        }
 
         public void Initialize(List<ItemData> datas, LobbyInventory lobbyInventory)
         {

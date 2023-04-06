@@ -7,6 +7,7 @@ using TMPro;
 namespace Game.Lobby.Shop.Container.Visual
 {
     using Player.Inventory;
+    using Shop.Visual;
 
     public class ShopBuyProductVisual : MonoBehaviour
     {
@@ -21,6 +22,7 @@ namespace Game.Lobby.Shop.Container.Visual
 
         private PlayerInventory playerInventory => PlayerInventory.Instance;
         private ShopProductListContainer container;
+        private ShopManagerVisual managerVisual;
 
         private bool m_interactable;
         public bool Interactable
@@ -42,10 +44,11 @@ namespace Game.Lobby.Shop.Container.Visual
         private Color defaulrCostTextColor;
 
 
-        public void Initialize(Product product, ShopProductListContainer productListContainer)
+        public void Initialize(Product product, ShopProductListContainer productListContainer, ShopManagerVisual shopManagerVisual)
         {
             Product = product;
             container = productListContainer;
+            managerVisual = shopManagerVisual;
 
             defaulrCostTextColor = ProductCostText.color;
 
@@ -66,18 +69,20 @@ namespace Game.Lobby.Shop.Container.Visual
             if(playerInventory.money >= Product.Cost)
             {
                 ProductCostText.color = defaulrCostTextColor;
-                BuyButton.enabled = true;
+                BuyButton.interactable = true;
             }
             else
             {
                 ProductCostText.color = Color.red;
-                BuyButton.enabled = false;
+                BuyButton.interactable = false;
             }
         }
 
         public void Buy()
         {
             container.Buy(Product, this);
+
+            managerVisual.UpdateProductsVisual();
         }
     }
 }

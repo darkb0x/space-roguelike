@@ -8,10 +8,13 @@ namespace Game.Player.Pick
     using Turret;
     using Drill;
     using UnityEngine.InputSystem;
-    using System;
+    using Visual;
 
     public class PlayerPickObjects : MonoBehaviour
     {
+        [Header("Visual")]
+        [SerializeField] private PlayerVisual Visual;
+
         [Header("animator")]
         public Animator anim;
         [AnimatorParam("anim"), SerializeField] string anim_isPickSomethink;

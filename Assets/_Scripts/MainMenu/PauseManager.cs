@@ -25,7 +25,12 @@ namespace Game.MainMenu.Pause
         private void Start()
         {
             GameInput.InputActions.Player.Pause.performed += OpenClose;
-            GameInput.InputActions.UI.CloseWindow.performed += OpenClose;
+            GameInput.InputActions.UI.Pause.performed += OpenClose;
+        }
+        private void OnDisable()
+        {
+            GameInput.InputActions.Player.Pause.performed -= OpenClose;
+            GameInput.InputActions.UI.Pause.performed -= OpenClose;
         }
 
         private void OpenClose(InputAction.CallbackContext context)
@@ -52,11 +57,9 @@ namespace Game.MainMenu.Pause
 
         public void Pause()
         {
-            if(UIPanelManager.Instance.OpenPanel(MainPanel, false))
-            {
-                Time.timeScale = 0;
-                OnGamePaused?.Invoke(true);
-            }
+            UIPanelManager.Instance.OpenPanel(MainPanel);
+            Time.timeScale = 0;
+            OnGamePaused?.Invoke(true);
         }
 
         public void Resume()
@@ -69,17 +72,6 @@ namespace Game.MainMenu.Pause
 
             Time.timeScale = 1;
             OnGamePaused?.Invoke(false);
-        }
-
-        public void Exit()
-        {
-            Application.Quit();
-        }
-
-        private void OnDisable()
-        {
-            GameInput.InputActions.Player.Pause.performed -= OpenClose;
-            GameInput.InputActions.UI.CloseWindow.performed -= OpenClose;
         }
 
         private void OnApplicationFocus(bool focus)

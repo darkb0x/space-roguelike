@@ -29,11 +29,13 @@ namespace Game.Lobby.Shop.Visual
 
         public InventoryItem Item { get; private set; }
         private ShopManager shopManager;
+        private ShopManagerVisual managerVisual;
 
         public void Initialize(InventoryItem item, int amount, ShopManager manager)
         {
             Item = item;
             shopManager = manager;
+            managerVisual = manager.Visual;
 
             ItemIconImage.sprite = item.Icon;
             ItemCostText.text = item.Cost+"$";
@@ -70,7 +72,7 @@ namespace Game.Lobby.Shop.Visual
         {
             shopManager.SellItem(Item, amount);
 
-            UpdateVisual();
+            managerVisual.UpdateProductsVisual();
         }
     }
 }

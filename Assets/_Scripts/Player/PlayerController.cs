@@ -152,7 +152,14 @@ namespace Game.Player
         }
         private void Die()
         {
-            //GameData.Instance.ResetSessionData();
+            StopPlayerMove();
+            MainColl.enabled = false;
+            DoOxygenCycle = false;
+
+            GameData.Instance.ResetSessionData();
+            UIPanelManager.Instance.CloseAllPanel();
+
+            Visual.PlayerDead();
         }
 
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9594c05b51a55784fa8901a9a446099f, type: 3}
+  m_Name: DrillTreeGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: DrillTree
+  <Nodes>k__BackingField:
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: 0a7c3017-fb3f-4c0c-92e1-2781c432e53c
+    <Name>k__BackingField: M1
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 9949d725-2681-4db6-8908-a540ae906ac4
+    <ObjectPrefab>k__BackingField: {fileID: 2260988901494986822, guid: b4a9d44ddf5e66847b939080750c14b0, type: 3}
+    <Icon>k__BackingField: {fileID: -5918850961275349091, guid: 4b5a4ff3f2b7f60488b8e56def7b3fef, type: 3}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      Amount: 1
+    <Position>k__BackingField: {x: 0, y: 0}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: 9949d725-2681-4db6-8908-a540ae906ac4
+    <Name>k__BackingField: M2
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 
+    <ObjectPrefab>k__BackingField: {fileID: 425888126212871132, guid: 84ae8224564c2804b88a3e5abd13b1e3, type: 3}
+    <Icon>k__BackingField: {fileID: -8659348942692553925, guid: 56858579fd5d47340868aa94b8f97173, type: 3}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      Amount: 1
+    <Position>k__BackingField: {x: 433, y: 0}
+  <OldUngroupedNodeNames>k__BackingField:
+  - M1
+  - M2

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7935fdfcad53a9d41a6f6993242cb00c, type: 3}
+  m_Name: MinigunTurret
+  m_EditorClassIdentifier: 
+  <CraftName>k__BackingField: MinigunTurret
+  <ObjectPrefab>k__BackingField: {fileID: 7019874376984613498, guid: 7ddcde72848e2b64b88f0e0526cd523e, type: 3}
+  <IconSprite>k__BackingField: {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+  <CraftCost>k__BackingField: 100
+  <ObjectCraft>k__BackingField:
+  - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+    Amount: 1
+  <AssetPath>k__BackingField: CraftSystem/Crafts/TurretTestTree/Nodes/MinigunTurret
+  <Choices>k__BackingField:
+  - <NextCraft>k__BackingField: {fileID: 11400000, guid: 104a108a608bddc40927f7b1a519faeb, type: 2}
+  - <NextCraft>k__BackingField: {fileID: 11400000, guid: e842e916e9fdeba4f92c3358b7a6d65e, type: 2}
+  <IsStartingNode>k__BackingField: 0
+  <Position>k__BackingField: {x: 431, y: 0}

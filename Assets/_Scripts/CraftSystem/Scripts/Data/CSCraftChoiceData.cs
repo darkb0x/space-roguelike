@@ -10,6 +10,6 @@ namespace Game.CraftSystem.Editor.Data
     [Serializable]
     public class CSCraftChoiceData
     {
-        [field: SerializeField] public CSCraftSO NextCraft { get; set; }
+        [field: SerializeField] public CSCraftSOTree NextCraft { get; set; }
     }
 }

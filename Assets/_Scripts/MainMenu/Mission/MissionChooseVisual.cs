@@ -83,7 +83,7 @@ namespace Game.MainMenu.Mission.Visual
 
         public void OpenMenu()
         {
-            UIPanelManager.Instance.OpenPanel(MainPanel, false);
+            UIPanelManager.Instance.OpenPanel(MainPanel);
             isOpened = true;
         }
         public void CloseMenu()

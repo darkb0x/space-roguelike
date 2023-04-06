@@ -1,56 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 namespace Game.CraftSystem.Editor.ScriptableObjects
 {
-    using Data;
     using Player.Inventory;
 
+    [CreateAssetMenu(fileName = "Craft", menuName = "Game/new Craft")]
     public class CSCraftSO : ScriptableObject
     {
         [field: SerializeField] public string CraftName { get; set; }
-        [field: SerializeField] public List<CSCraftChoiceData> Choices { get; set; }
         [field: SerializeField] public GameObject ObjectPrefab { get; set; }
         [field: SerializeField] public Sprite IconSprite { get; set; }
         [field: SerializeField] public int CraftCost { get; set; }
         [field: SerializeField] public List<ItemData> ObjectCraft { get; set; }
-        [field: SerializeField] public bool IsStartingNode { get; set; }
-        [field: SerializeField] public Vector2 Position { get; set; }
         [field: SerializeField] public string AssetPath { get; set; }
 
-        public void Initialize(string craftName, List<CSCraftChoiceData> choices, GameObject obj, Sprite iconSprite, int craftCost, List<ItemData> objectCraft, bool isStartingDialogue, Vector2 pos, string path)
+        public void OnEnable()
         {
-            CraftName = craftName;
-            Choices = choices;
-            ObjectPrefab = obj;
-            IconSprite = iconSprite;
-            CraftCost = craftCost;
-            ObjectCraft = objectCraft;
-            IsStartingNode = isStartingDialogue;
-            Position = pos;
-            AssetPath = path;
+            if(string.IsNullOrEmpty(AssetPath))
+            {
+                UpdateAssetPath();
+            }
+        }
+
+        [NaughtyAttributes.Button]
+        private void UpdateAssetPath()
+        {
+            try
+            {
+                AssetPath = AssetDatabase.GetAssetPath(this);
+                AssetPath = AssetPath.Substring(7 + 10); // Assets/Resources/___
+                AssetPath = AssetPath.Substring(0, AssetPath.Length - 6); // ___.asset
+            }
+            catch (System.Exception)
+            {
+                return;
+            }
         }
     }
 }
-
-/*
-namespace Game.CraftSystem.Editor.ScriptableObjects.Serialized
-{
-    using Player.Inventory;
-    using Data;
-
-    public class SerializedCraft
-    {
-        public string CraftName;
-        public List<CSCraftChoiceData> Choices;
-        public GameObject ObjectPrefab;
-        public Sprite IconSprite;
-        public int CraftCost;
-        public List<ItemData> ObjectCraf;
-        public bool IsStartingNode;
-        public Vector2 Position;
-        public string AssetPath;
-    }
-}
-*/

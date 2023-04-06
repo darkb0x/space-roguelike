@@ -99,7 +99,7 @@ namespace Game.CraftSystem.Editor.Windows
 
         private void Load()
         {
-            string filePath = EditorUtility.OpenFilePanel("Craft Graphs", "Assets/Resources/CraftSystem/Graphs", "asset");
+            string filePath = EditorUtility.OpenFilePanel("Craft Graphs", "Assets/_Scripts/Editor/CraftSystem/Graphs", "asset");
 
             if (string.IsNullOrEmpty(filePath))
             {

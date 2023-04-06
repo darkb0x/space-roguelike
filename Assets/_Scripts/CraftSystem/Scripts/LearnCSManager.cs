@@ -36,7 +36,7 @@ namespace Game.CraftSystem
 
         [Header("Tech Tree")]
         [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
-        private List<CSCraftSO> unlockedCrafts = new List<CSCraftSO>();
+        private List<CSCraftSOTree> unlockedCrafts = new List<CSCraftSOTree>();
 
         [Header("Scale")]
         [SerializeField] private float currentScale = 1;
@@ -77,8 +77,11 @@ namespace Game.CraftSystem
             {
                 CSCraftSO craftSO = currentSessionData.GetCraft(craft);
 
-                if (!unlockedCrafts.Contains(craftSO))
-                    unlockedCrafts.Add(craftSO);
+                if (craftSO is CSCraftSOTree craftTree)
+                {
+                    if(!unlockedCrafts.Contains(craftTree))
+                        unlockedCrafts.Add(craftTree);
+                }
             }
 
             InitializeCraftSystem();
@@ -99,7 +102,7 @@ namespace Game.CraftSystem
             }
         }
 
-        public void LearnCraft(CSCraftSO craft)
+        public void LearnCraft(CSCraftSOTree craft, bool showNotify = true)
         {
             if (!unlockedCrafts.Contains(craft))
             {
@@ -107,12 +110,30 @@ namespace Game.CraftSystem
 
                 OnCraftLearned?.Invoke(craft);
 
-                NotificationManager.NewNotification(craft.IconSprite, "New craft!", true);
+                if(showNotify)
+                {
+                    NotificationManager.NewNotification(craft.IconSprite, "New craft!", true);
+                }
             }
             if (!currentSessionData.UnlockedCraftPaths.Contains(craft.AssetPath))
             {
                 currentSessionData.UnlockedCraftPaths.Add(craft.AssetPath);
                 currentSessionData.Save();
+            }
+        }
+        public void LearnCraft(CSCraftSO craft, bool showNotify = true)
+        {
+            if (!currentSessionData.UnlockedCraftPaths.Contains(craft.AssetPath))
+            {
+                OnCraftLearned?.Invoke(craft);
+
+                currentSessionData.UnlockedCraftPaths.Add(craft.AssetPath);
+                currentSessionData.Save();
+
+                if (showNotify)
+                {
+                    NotificationManager.NewNotification(craft.IconSprite, "New craft!", true);
+                }
             }
         }
 
@@ -142,7 +163,7 @@ namespace Game.CraftSystem
                 {
                     if(node.IsStartingNode)
                     {
-                        LearnCraft(node);
+                        LearnCraft(node, false);
                     }
                 }
             }
@@ -188,7 +209,7 @@ namespace Game.CraftSystem
                 tree.loadedLearnCraftPrefabs.Clear();
             }
 
-            foreach (CSCraftSO craftData in tree.techTree.Nodes)
+            foreach (CSCraftSOTree craftData in tree.techTree.Nodes)
             {
                 CSCraftUILearn obj = Instantiate(learnCraftPrefab.gameObject, tree.techTreeRenderTransform).GetComponent<CSCraftUILearn>();
                 obj.Initialize(craftData, new Vector2(craftData.Position.x, -craftData.Position.y), this);
@@ -226,7 +247,7 @@ namespace Game.CraftSystem
             }
         }
 
-        public CSCraftUILearn GetCraftObj(CSCraftSO so)
+        public CSCraftUILearn GetCraftObj(CSCraftSOTree so)
         {
             foreach (CSCraftUILearn uiObj in GetTechTreeByNode(so).loadedLearnCraftPrefabs)
             {
@@ -237,7 +258,7 @@ namespace Game.CraftSystem
             }
             return null;
         }
-        public List<CSCraftUILearn> GetCraftObjInChoices(CSCraftSO so)
+        public List<CSCraftUILearn> GetCraftObjInChoices(CSCraftSOTree so)
         {
             List<CSCraftUILearn> objectList = new List<CSCraftUILearn>();
 
@@ -260,7 +281,7 @@ namespace Game.CraftSystem
             else
                 return null;
         }
-        public TechTree GetTechTreeByNode(CSCraftSO nodeSO)
+        public TechTree GetTechTreeByNode(CSCraftSOTree nodeSO)
         {
             foreach (TechTree tree in techTrees)
             {
@@ -299,5 +320,10 @@ namespace Game.CraftSystem
             }
         }
         #endregion
+
+        private void OnDisable()
+        {
+            GameInput.InputActions.UI.CloseWindow.performed -= CloseMenu;
+        }
     }
 }

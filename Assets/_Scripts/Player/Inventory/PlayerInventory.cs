@@ -79,6 +79,10 @@ namespace Game.Player.Inventory
 
             UpdateVisual();
         }
+        private void OnDisable()
+        {
+            GameInput.InputActions.Player.Inventory.performed -= InventoryEnabled;
+        }
 
         private void Update()
         {
@@ -144,7 +148,7 @@ namespace Game.Player.Inventory
                     }
                 }
                 itemData.Amount += amount;
-                currentSessionData.MainInventory.Items[itemData.Item.AssetPath] = itemData.Amount;
+                currentSessionData.MainInventory.SetItem(itemData);
             }
 
             currentSessionData.Save();
@@ -170,7 +174,7 @@ namespace Game.Player.Inventory
                 if(itemData.Amount >= amount)
                 {
                     itemData.Amount -= amount;
-                    currentSessionData.MainInventory.Items[itemData.Item.AssetPath] = itemData.Amount;
+                    currentSessionData.MainInventory.SetItem(itemData);
                     currentSessionData.Save();
 
                     if(showNotify)
@@ -215,10 +219,6 @@ namespace Game.Player.Inventory
             return true;
         }
 
-        private void OnDisable()
-        {
-            GameInput.InputActions.Player.Inventory.performed -= InventoryEnabled;
-        }
 
         #region Visual
         private void UpdateVisual()

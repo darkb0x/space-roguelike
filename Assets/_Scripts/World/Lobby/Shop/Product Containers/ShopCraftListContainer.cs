@@ -36,6 +36,8 @@ namespace Game.Lobby.Shop.Container
         }
         public override void Buy(Product product, ShopBuyProductVisual productVisual)
         {
+            base.Buy(product, productVisual);
+
             CraftProduct craftProduct = product as CraftProduct;
 
             LearnCSManager.Instance.LearnCraft(craftProduct.Craft);

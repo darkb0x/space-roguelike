@@ -33,10 +33,11 @@ namespace Game.Lobby.Shop.Container
 
         public override void Buy(Product product, ShopBuyProductVisual productVisual)
         {
+            base.Buy(product, productVisual);
+
             ItemProduct itemProduct = product as ItemProduct;
 
             LobbyInventory.Instance.AddItem(new ItemData(itemProduct.Item, 1));
-            PlayerInventory.Instance.money -= product.Cost;
         }
     }
 }

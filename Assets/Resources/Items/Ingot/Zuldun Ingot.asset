@@ -19,5 +19,5 @@ MonoBehaviour:
   <CanTakeInMission>k__BackingField: 1
   <IsOre>k__BackingField: 0
   OreSprites: []
-  <AssetPath>k__BackingField: Items/Ingot/zuldun_ingot
-  AssetName: zuldun_ingot (default)
+  <AssetPath>k__BackingField: Items/Ingot/Zuldun Ingot
+  AssetName: Zuldun Ingot (default)

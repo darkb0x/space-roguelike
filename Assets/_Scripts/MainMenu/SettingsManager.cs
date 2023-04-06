@@ -19,8 +19,8 @@ namespace Game.MainMenu.Settings
         private const float MIN_VOLUME = -80f;
         private const float MAX_VOLUME = 0f;
 
+        [SerializeField] private GameObject[] PanelsToDisable;
         [SerializeField] private GameObject MainPanel;
-        [SerializeField] private GameObject PausePanel;
 
         [Header("Audio Mixer")]
         [SerializeField] private AudioMixerGroup Mixer;
@@ -67,12 +67,20 @@ namespace Game.MainMenu.Settings
         public void OpenPanel()
         {
             MainPanel.SetActive(true);
-            PausePanel.SetActive(false);
+
+            foreach (var panel in PanelsToDisable)
+            {
+                panel.SetActive(false);
+            }
         }
         public void ClosePanel()
         {
             MainPanel.SetActive(false);
-            PausePanel.SetActive(true);
+
+            foreach (var panel in PanelsToDisable)
+            {
+                panel.SetActive(true);
+            }
         }
 
         public void SetMasterVolume(float value)

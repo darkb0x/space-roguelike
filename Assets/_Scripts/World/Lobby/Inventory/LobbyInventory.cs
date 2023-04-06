@@ -22,6 +22,7 @@ namespace Game.Lobby.Inventory
         public int FreeItemsAmount { get; private set; }
 
         private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        public System.Action<ItemData> OnNewItem;
 
         private void Awake()
         {
@@ -67,8 +68,9 @@ namespace Game.Lobby.Inventory
             {
                 itemData.Amount += data.Amount;
                 currentSessionData.LobbyInventory.SetItem(itemData);
+                currentSessionData.Save();
 
-                if(updateVisual)
+                if (updateVisual)
                 {
                     Visual.UpdateItemsInInventory(LobbyItems);
                 }
@@ -78,15 +80,16 @@ namespace Game.Lobby.Inventory
                 itemData = new ItemData(data.Item, data.Amount);
                 LobbyItems.Add(itemData);
                 currentSessionData.LobbyInventory.AddItem(itemData);
+                currentSessionData.Save();
 
                 if (updateVisual)
                 {
                     Visual.UpdateItemsInInventory(LobbyItems);
                     Visual.UpdateTakenItems(LobbyItems);
                 }
-            }
 
-            currentSessionData.Save();
+                OnNewItem?.Invoke(itemData);
+            }
         }
         public bool TakeItem(InventoryItem item, int amount)
         {

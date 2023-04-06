@@ -9,7 +9,7 @@ namespace Game.Utilities.LoadScene
 
     public class LoadSceneUtility : MonoBehaviour
     {
-
+        [SerializeField] private LoadingScreenVisual Visual;
 
         public static LoadSceneUtility Instance;
 
@@ -18,6 +18,18 @@ namespace Game.Utilities.LoadScene
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void Start()
+        {
+            bool loadingScreenHasbeenUsed = PlayerPrefs.GetInt("LoadingSceen_used") == 1 ? false : true;
+
+            Visual.SetEnabled(loadingScreenHasbeenUsed);
+
+            if(loadingScreenHasbeenUsed)
+            {
+                Visual.UpdateProgress(1f);
+            }
         }
 
         public void LoadScene(int index)
@@ -46,7 +58,7 @@ namespace Game.Utilities.LoadScene
             asyncScene = SceneManager.LoadSceneAsync(index);
             asyncScene.allowSceneActivation = false;
         }  
-        public IEnumerator LoadSceneAsync(int index, int waitFrames)
+        public IEnumerator LoadSceneAsync(int index, int waitFrames = 0)
         {
             int currentFrame = 0;
             while (currentFrame < waitFrames)
@@ -56,6 +68,22 @@ namespace Game.Utilities.LoadScene
             }
 
             LoadSceneAsync(index);
+        }
+        public IEnumerator LoadSceneAsyncVisualize(int index)
+        {
+            Visual.SetEnabled(true);
+
+            yield return new WaitForSecondsRealtime(0.3f);
+
+            PlayerPrefs.SetInt("LoadingSceen_used", 1);
+
+            asyncScene = SceneManager.LoadSceneAsync(index);
+
+            while (!asyncScene.isDone)
+            {
+                Visual.UpdateProgress(asyncScene.progress);
+                yield return null;
+            }
         }
 
         public void UnloadSceneAsync(int index)

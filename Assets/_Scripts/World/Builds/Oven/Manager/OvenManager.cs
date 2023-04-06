@@ -83,5 +83,10 @@ namespace Game.Oven.Manager
             ClosePanel();
         }
         #endregion
+
+        private void OnDisable()
+        {
+            GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
+        }
     }
 }

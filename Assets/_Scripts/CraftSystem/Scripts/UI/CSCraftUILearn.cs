@@ -15,7 +15,7 @@ namespace Game.CraftSystem
     public class CSCraftUILearn : MonoBehaviour
     {
         [Header("Node Variable")]
-        [ReadOnly, Expandable] public CSCraftSO craft;
+        [ReadOnly, Expandable] public CSCraftSOTree craft;
 
         [Header("Variables")]
         public bool isUnlocked = false;
@@ -48,7 +48,7 @@ namespace Game.CraftSystem
         private Color startPriceTextColor;
         private Color noMoneyColor = Color.red;
 
-        public void Initialize(CSCraftSO data, Vector2 position, LearnCSManager manager)
+        public void Initialize(CSCraftSOTree data, Vector2 position, LearnCSManager manager)
         {
             rectTransform = GetComponent<RectTransform>();
 
@@ -90,7 +90,7 @@ namespace Game.CraftSystem
                 fullUnlock();
                 learnCraftSystem.LearnCraft(craft);
             }
-            if(isUnlocked)
+            if (isUnlocked)
             {
                 unlockForBuy();
             }

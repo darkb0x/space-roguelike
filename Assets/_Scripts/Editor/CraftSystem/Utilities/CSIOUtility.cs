@@ -23,7 +23,7 @@ namespace Game.CraftSystem.Editor.Utilities
 
         private static List<CSNode> nodes;
 
-        private static Dictionary<string, CSCraftSO> createdNodes;
+        private static Dictionary<string, CSCraftSOTree> createdNodes;
 
         private static Dictionary<string, CSNode> loadedNodes;
 
@@ -37,7 +37,7 @@ namespace Game.CraftSystem.Editor.Utilities
 
             nodes = new List<CSNode>();
 
-            createdNodes = new Dictionary<string, CSCraftSO>();
+            createdNodes = new Dictionary<string, CSCraftSOTree>();
 
             loadedNodes = new Dictionary<string, CSNode>();
         }
@@ -49,7 +49,7 @@ namespace Game.CraftSystem.Editor.Utilities
 
             GetElementsFromGraphView();
 
-            CSGraphSaveDataSO graphData = CreateAsset<CSGraphSaveDataSO>("Assets/Resources/CraftSystem/Graphs", $"{graphFileName}Graph");
+            CSGraphSaveDataSO graphData = CreateAsset<CSGraphSaveDataSO>("Assets/_Scripts/Editor/CraftSystem/Graphs", $"{graphFileName}Graph");
 
             graphData.Initialize(graphFileName);
 
@@ -77,7 +77,7 @@ namespace Game.CraftSystem.Editor.Utilities
             }
             foreach (CSNode node in nodes)
             {
-                CSCraftSO craft = createdNodes[node.ID];
+                CSCraftSOTree craft = createdNodes[node.ID];
 
                 foreach (var ChoiceSaveData in node.Choices)
                 {
@@ -114,9 +114,9 @@ namespace Game.CraftSystem.Editor.Utilities
 
         private static void SaveNodeToScriptableObject(CSNode node, CSCraftContainerSO dialogueContainer)
         {
-            CSCraftSO craft;
+            CSCraftSOTree craft;
 
-            craft = CreateAsset<CSCraftSO>($"{containerFolderPath}/Nodes", node.CraftName);
+            craft = CreateAsset<CSCraftSOTree>($"{containerFolderPath}/Nodes", node.CraftName);
 
             dialogueContainer.Nodes.Add(craft);
 
@@ -158,7 +158,7 @@ namespace Game.CraftSystem.Editor.Utilities
         {
             foreach (CSNode node in nodes)
             {
-                CSCraftSO dialogue = createdNodes[node.ID];
+                CSCraftSOTree dialogue = createdNodes[node.ID];
 
                 for (int choiceIndex = 0; choiceIndex < node.Choices.Count; choiceIndex++)
                 {
@@ -196,7 +196,7 @@ namespace Game.CraftSystem.Editor.Utilities
         #region Load methods 
         public static void Load()
         {
-            CSGraphSaveDataSO graphData = LoadAsset<CSGraphSaveDataSO>("Assets/Resources/CraftSystem/Graphs", graphFileName);
+            CSGraphSaveDataSO graphData = LoadAsset<CSGraphSaveDataSO>("Assets/_Scripts/Editor/CraftSystem/Graphs", graphFileName);
 
             if (graphData == null)
             {
@@ -270,8 +270,9 @@ namespace Game.CraftSystem.Editor.Utilities
         #region Creation methods
         private static void CreateStaticFolders()
         {
+            CreateFolder("Assets/_Scripts/Editor/CraftSystem", "Graphs");
+
             CreateFolder("Assets/Resources/CraftSystem", "Crafts");
-            CreateFolder("Assets/Resources/CraftSystem", "Graphs");
 
             CreateFolder("Assets/Resources/CraftSystem/Crafts", graphFileName);
             CreateFolder(containerFolderPath, "Nodes");
