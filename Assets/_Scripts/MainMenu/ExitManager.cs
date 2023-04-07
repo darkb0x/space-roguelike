@@ -36,7 +36,7 @@ namespace Game.MainMenu.Pause.Exit
 
         public void OpenMenu()
         {
-            StartCoroutine(LoadSceneUtility.Instance.LoadSceneAsyncVisualize(MenuSceneID));
+            LoadSceneUtility.Instance.LoadSceneAsyncVisualize(MenuSceneID);
         }
 
         public void Exit()

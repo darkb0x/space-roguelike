@@ -36,18 +36,20 @@ namespace Game.Player
         [SerializeField] private Collider2D MainColl;
         [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
-        Vector2 moveInput;
+        private Vector2 moveInput;
+        private Vector2 lookDir;
 
-        Rigidbody2D rb;
-        Camera cam;
-        new Transform transform;
+        private Rigidbody2D rb;
+        private Camera cam;
+        private Transform myTransform;
         [HideInInspector] public bool canMove = true;
+        [HideInInspector] public bool isDied = false;
         [HideInInspector] public bool canLookAround = true;
 
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
-            transform = GetComponent<Transform>();
+            myTransform = transform;
 
             inventory = FindObjectOfType<PlayerInventory>();
             cam = Camera.main;
@@ -71,6 +73,7 @@ namespace Game.Player
                 {
                     if(canLookAround)
                     {
+                        lookDir = moveInput;
                         Visual.PlayerLookDirection(moveInput);
                     }
                 }
@@ -80,11 +83,11 @@ namespace Game.Player
                 if (!UIPanelManager.Instance.SomethinkIsOpened())
                 {
                     Vector3 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
-                    Vector2 dir = -(transform.position - mousePos).normalized;
+                    lookDir = -(myTransform.position - mousePos).normalized;
 
                     if (canLookAround)
                     {
-                        Visual.PlayerLookDirection(dir);
+                        Visual.PlayerLookDirection(lookDir);
                     }
                 }
             }
@@ -133,7 +136,7 @@ namespace Game.Player
         #endregion
 
         #region Health
-        [Button]
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void TakeDamage()
         {
             TakeDamage(1);
@@ -141,6 +144,9 @@ namespace Game.Player
 
         public void TakeDamage(float value)
         {
+            if (!DoHealthCycle)
+                return;
+
             health -= Mathf.RoundToInt(value);
 
             Visual.UpdateHealthVisual((int)health);
@@ -152,6 +158,11 @@ namespace Game.Player
         }
         private void Die()
         {
+            if (!DoHealthCycle)
+                return;
+            if (isDied)
+                return;
+
             StopPlayerMove();
             MainColl.enabled = false;
             DoOxygenCycle = false;
@@ -159,21 +170,17 @@ namespace Game.Player
             GameData.Instance.ResetSessionData();
             UIPanelManager.Instance.CloseAllPanel();
 
-            Visual.PlayerDead();
+            Visual.PlayerDead(lookDir.x);
+
+            isDied = true;
         }
 
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
         {
-            if (!DoHealthCycle)
-                return;
-
             TakeDamage(dmg);
         }
         void IDamagable.Die()
         {
-            if (!DoHealthCycle)
-                return;
-
             Enemy.EnemySpawner.Instance.RemoveTarget(EnemyTarget);
             Die();
         }
@@ -211,7 +218,7 @@ namespace Game.Player
         public void StopPlayerMove(Transform posTransform)
         {
             canMove = false;
-            transform.position = posTransform.position;
+            myTransform.position = posTransform.position;
         }
         public void StopPlayerMove()
         {
@@ -225,13 +232,13 @@ namespace Game.Player
         public void LockPlayerPosition(Transform posPosition)
         {
             canMove = false;
-            transform.SetParent(posPosition);
-            transform.localPosition = Vector2.zero;
+            myTransform.SetParent(posPosition);
+            myTransform.localPosition = Vector2.zero;
             MainColl.enabled = false;
         }
         public void UnlockPlayerPosition()
         {
-            transform.SetParent(null);
+            myTransform.SetParent(null);
             canMove = true;
             MainColl.enabled = true;
         }

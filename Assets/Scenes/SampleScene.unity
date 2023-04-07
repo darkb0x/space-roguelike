@@ -84599,7 +84599,7 @@ MonoBehaviour:
   EnemyAmountFactor: 1
   SpawnScore: 0
   MaxSpawnScore: 100
-  EnemyMaxAmount: 0
+  EnemyMaxAmount: 30
 --- !u!1001 &1571698828
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -69,7 +69,12 @@ namespace Game.Utilities.LoadScene
 
             LoadSceneAsync(index);
         }
-        public IEnumerator LoadSceneAsyncVisualize(int index)
+
+        public void LoadSceneAsyncVisualize(int index)
+        {
+            StartCoroutine(LoadSceneAsyncVisualizeCoroutine(index));
+        }
+        private IEnumerator LoadSceneAsyncVisualizeCoroutine(int index)
         {
             Visual.SetEnabled(true);
 

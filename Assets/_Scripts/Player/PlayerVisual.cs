@@ -6,9 +6,12 @@ using NaughtyAttributes;
 
 namespace Game.Player.Visual
 {
+    using Utilities.LoadScene;
+
     public class PlayerVisual : MonoBehaviour
     {
         [SerializeField] private PlayerController Player;
+        [SerializeField] private SpriteRenderer SpriteVisual;
 
         [Header("Oxygen")]
         [SerializeField] private Image OxygenBarUI;
@@ -18,6 +21,9 @@ namespace Game.Player.Visual
         [SerializeField] private Sprite FullHeartSprite;
         [SerializeField] private Sprite DamagedHeartSprite;
         [SerializeField] private Transform HeartsTransform;
+        [Space]
+        [SerializeField] private GameObject DeathPanel;
+        [SerializeField, Scene] private int ManuSceneID;
 
         [Header("Animator")]
         public Animator Anim;
@@ -25,13 +31,18 @@ namespace Game.Player.Visual
         [AnimatorParam("Anim"), SerializeField] string Anim_horizontalFloat;
         [AnimatorParam("Anim"), SerializeField] string Anim_verticalFloat;
         [AnimatorParam("Anim"), SerializeField] string Anim_isRunningBool;
-        [AnimatorParam("Anim"), SerializeField] string Anim_isCraftingBool;
+        [AnimatorParam("Anim"), SerializeField] string Anim_isPickingSmthBool;
         [AnimatorParam("Anim"), SerializeField] string Anim_deadTrigger;
 
         private List<Image> HeartsImages = new List<Image>();
         private bool updateOxygenVisual = true;
         private Vector2 heartImageSize = new Vector2(50, 50);
         private Vector2 shadowEffectDistance = new Vector2(5, -5);
+
+        private void Start()
+        {
+            DeathPanel.SetActive(false);
+        }
 
         public void InitializeHealthVisual(int maxHealth)
         {
@@ -80,9 +91,24 @@ namespace Game.Player.Visual
         {
             Anim.SetBool(Anim_isRunningBool, true);
         }
-        public void PlayerDead()
+        public void PlayerPick(bool enabled)
         {
+            Anim.SetBool(Anim_isPickingSmthBool, enabled);
+        }
+        public void PlayerDead(float direction)
+        {
+            if(direction < 0)
+            {
+                SpriteVisual.flipX = true;
+            }
+            else
+            {
+                SpriteVisual.flipX = true;
+            }
+            SpriteVisual.sortingOrder = 5;
             Anim.SetTrigger(Anim_deadTrigger);
+
+            DeathPanel.SetActive(true);
         }
 
         public void EnableOxygenVisual(bool enabled)
@@ -111,6 +137,11 @@ namespace Game.Player.Visual
                     HeartsImages[i].sprite = DamagedHeartSprite;
                 }
             }
+        }
+
+        public void GoMenu()
+        {
+            LoadSceneUtility.Instance.LoadSceneAsyncVisualize(ManuSceneID);
         }
     }
 }

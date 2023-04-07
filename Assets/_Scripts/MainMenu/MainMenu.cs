@@ -25,7 +25,7 @@ namespace Game.MainMenu
 
         public void PlayButton()
         {
-            StartCoroutine(LoadSceneUtility.Instance.LoadSceneAsyncVisualize(LobbySceneId));
+            LoadSceneUtility.Instance.LoadSceneAsyncVisualize(LobbySceneId);
         }
 
         public void OpenYoutubeChanel()

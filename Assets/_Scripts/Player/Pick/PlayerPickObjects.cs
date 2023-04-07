@@ -15,10 +15,6 @@ namespace Game.Player.Pick
         [Header("Visual")]
         [SerializeField] private PlayerVisual Visual;
 
-        [Header("animator")]
-        public Animator anim;
-        [AnimatorParam("anim"), SerializeField] string anim_isPickSomethink;
-
         [Header("picked object")]
         [SerializeField] private float pickRadius = 1.5f;
         [Space]
@@ -65,7 +61,7 @@ namespace Game.Player.Pick
             pickedGameObject = obj;
             pickedGameObject_transform = obj.transform;
 
-            anim.SetBool(anim_isPickSomethink, true);
+            Visual.PlayerPick(true);
         }
         public void PutCurrentGameobj(bool instatiadeObj = true)
         {
@@ -95,7 +91,7 @@ namespace Game.Player.Pick
             pickedGameObject = null;
             pickedGameObject_transform = null;
 
-            anim.SetBool(anim_isPickSomethink, false);
+            Visual.PlayerPick(false);
         }
         private void PickGameObj()
         {
