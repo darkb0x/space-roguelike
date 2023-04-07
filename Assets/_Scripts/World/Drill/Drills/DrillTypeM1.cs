@@ -37,7 +37,6 @@ namespace Game.Drill
 
         public override void MiningEnded()
         {
-            CurrentOre.CanGiveOre = false;
             IsMining = false;
 
             Anim.SetTrigger(anim_DieTrigger);
@@ -48,9 +47,11 @@ namespace Game.Drill
 
         public override void Put()
         {
-            AmountOreFromPercent = (CurrentOre.MaxAmount / 100 * MaxExtractedPercentFromOre);
-
             base.Put();
+
+            Debug.Log($"{CurrentOre.MaxAmount}, {(float)CurrentOre.MaxAmount / 100}, {MaxExtractedPercentFromOre}, {(float)CurrentOre.MaxAmount / 100 * MaxExtractedPercentFromOre}");
+
+            AmountOreFromPercent = Mathf.RoundToInt((float)CurrentOre.MaxAmount / 100 * MaxExtractedPercentFromOre);
         }
     }
 }

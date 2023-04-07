@@ -5,7 +5,6 @@ using NaughtyAttributes;
 
 namespace Game.Player
 {
-    using Drone;
     using Inventory;
     using Pick;
     using Visual;
@@ -58,7 +57,6 @@ namespace Game.Player
             health = maxHealth;
             Visual.InitializeHealthVisual((int)health);
 
-            oxygen = maxOxygen;
             Visual.EnableOxygenVisual(DoOxygenCycle);
         }
 
@@ -197,21 +195,6 @@ namespace Game.Player
             }
         }
         */
-        #endregion
-
-        #region Collision triggers
-        DroneAI selectedDrone;
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.TryGetComponent<DroneAI>(out DroneAI drone))
-            {
-                if (!drone.isPicked) selectedDrone = drone;
-            }
-        }
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            selectedDrone = null;
-        }
         #endregion
 
         #region Animation Control

@@ -895,9 +895,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac32ce79632794243a6cbd5354811a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oxygen: 50
-  maxOxygen: 100
-  oxygenUseSpeed: 0.035
+  oxygen: 210
+  maxOxygen: 300
+  oxygenUseSpeed: 1
   DoOxygenCycle: 1
   health: 0
   maxHealth: 3
@@ -909,6 +909,7 @@ MonoBehaviour:
   MainColl: {fileID: 4447103223347090712}
   EnemyTarget: {fileID: 7655071616738455957}
   canMove: 1
+  isDied: 0
   canLookAround: 1
 --- !u!114 &5340520158696822646
 MonoBehaviour:
@@ -962,20 +963,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3514759272854996617}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec2fc857a757f6b42b43d3beea298fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miners: []
-  protectors: []
-  attackers: []
-  finderClickRadius: 0.3
-  layers:
-    serializedVersion: 2
-    m_Bits: 640
-  droneRotationSpeed: 50
-  distance: 2
+  MaxDroneAmountInOrbit: 4
+  DroneDistanceFromPlayer: 2.3
+  DroneRotationSpeed: 30
 --- !u!50 &3514759272854996623
 Rigidbody2D:
   serializedVersion: 4

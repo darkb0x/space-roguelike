@@ -6,15 +6,39 @@ namespace Game.World.Generation.Ore
 {
     using Player.Inventory;
     using Drill;
+    using Drone;
 
     public class Ore : MonoBehaviour
     {
-        [HideInInspector] public Drill currentDrill;
+        public Drill currentDrill { get; set; }
+        public DroneAI currentDrone { get; set; }
+
+        public bool CanGiveOre
+        {
+            get
+            {
+                bool used = false;
+
+                if (currentDrill)
+                    used = true;
+                if (Amount <= 0)
+                    used = true;
+                if (currentDrone)
+                    used = true;
+
+                m_CanGiveOre = used;
+                return m_CanGiveOre;
+            }
+            private set
+            {
+                m_CanGiveOre = value;
+            }
+        }
 
         public InventoryItem Item;
         public int MaxAmount;
         public int Amount;
-        public bool CanGiveOre = true;
+        [SerializeField, NaughtyAttributes.ReadOnly] private bool m_CanGiveOre;
         [Space]
         [SerializeField] private SpriteRenderer RockRenderer;
         [SerializeField] private SpriteRenderer OreRenderer;
@@ -25,7 +49,6 @@ namespace Game.World.Generation.Ore
 
         private void Start()
         {
-            name = $"Ore ({Item.name})";
 
             Amount = MaxAmount;
         }
@@ -38,6 +61,7 @@ namespace Game.World.Generation.Ore
             }
 
             Item = item;
+            name = $"Ore ({Item.name})";
 
             RockRenderer.sprite = RockSprites[Random.Range(0, RockSprites.Length)];
             OreRenderer.sprite = Item.OreSprites[Random.Range(0, Item.OreSprites.Count)];
@@ -51,7 +75,6 @@ namespace Game.World.Generation.Ore
 
             if (Amount <= 0)
             {
-                CanGiveOre = false;
                 OreRenderer.gameObject.SetActive(false);
             }
 

@@ -190,12 +190,15 @@ namespace Game.Drill
         {
             if(!CurrentOre.CanGiveOre)
             {
-                CurrentOre = null;
-                oreTransform = null;
+                if(CurrentOre.currentDrill != this)
+                {
+                    CurrentOre = null;
+                    oreTransform = null;
 
-                MiningEnded();
+                    MiningEnded();
 
-                return;
+                    return;
+                }
             }
 
             int oreAmount = MiningDamage;
@@ -310,9 +313,9 @@ namespace Game.Drill
             {
                 if (nearestOre == null)
                 {
-                    if (item.currentDrill)
+                    if (item.currentDrill != null)
                         continue;
-                    if (!item.CanGiveOre)
+                    if (item.Amount <= 0)
                         continue;
 
                     nearestOre = item;
@@ -330,10 +333,8 @@ namespace Game.Drill
                 }
             }
 
-            //DisSelectAllOres();
             if(nearestOre)
             {
-                //nearestOre.Select();
                 PreRenderPlaceObject.gameObject.SetActive(true);
 
                 oreTransform = nearestOre.transform;

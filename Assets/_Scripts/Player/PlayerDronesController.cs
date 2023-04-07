@@ -5,122 +5,79 @@ using UnityEngine;
 namespace Game.Player
 {
     using Drone;
-    using Enemy;
-    using World.Generation.Ore;
 
     public class PlayerDronesController : MonoBehaviour
     {
-        private List<DroneAI> rotateDrones = new List<DroneAI>();
-
-        [Header("miners")]
-        [SerializeField] private List<DroneAI> miners = new List<DroneAI>();
-
-        [Header("protectors")]
-        [SerializeField] private List<DroneAI> protectors = new List<DroneAI>();
-
-        [Header("attackers")]
-        [SerializeField] private List<DroneAI> attackers = new List<DroneAI>();
-
-        [Header("properties")]
-        [SerializeField] private float finderClickRadius = 0.3f;
-        [SerializeField] private LayerMask layers;
-        [Space]
-        public float droneRotationSpeed;
-        public float distance = 2.3f;
-
-        Camera cam;
-
-        private void OnDrawGizmos()
+        public class DroneOrbit
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, finderClickRadius);
+            public float Dir;
+            public int I;
+            public float Distance;
         }
+
+        private Dictionary<DroneOrbit, List<DroneAI>> Drones = new Dictionary<DroneOrbit, List<DroneAI>>();
+
+        [Header("Variables")]
+        [SerializeField] private int MaxDroneAmountInOrbit;
+        [SerializeField] private float DroneDistanceFromPlayer;
+        [SerializeField] private float DroneRotationSpeed;
+
+        private Transform myTransform;
 
         private void Start()
         {
-            cam = Camera.main;
-        }
+            myTransform = transform;
 
-        float dir = 0;
-        int i = 0;
-
-        public float GetDirValue()
-        {
-            float value = (i / (float)(rotateDrones.Count)) * 360f + dir;
-            return value;
+            Drones.Add(new DroneOrbit() { Dir = 0, I = 0, Distance = DroneDistanceFromPlayer }, new List<DroneAI>());
         }
 
         private void Update()
         {
-            dir += Time.deltaTime * droneRotationSpeed;
+            UpdateDroneRotation();
+        }
 
-            foreach (var rotator in rotateDrones)
+        private void UpdateDroneRotation()
+        {
+            foreach (var droneOrbit in Drones.Keys)
             {
-                rotator.RotationUpdate(transform, (i / (float)(rotateDrones.Count)) * 360f + dir, distance);
-                i++;
-            }
+                droneOrbit.Dir += Time.deltaTime * DroneRotationSpeed;
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-                Collider2D[] colls = Physics2D.OverlapCircleAll(mousePos, finderClickRadius, layers);
-                foreach (var item in colls)
+                foreach (var drone in Drones[droneOrbit])
                 {
-                    if (item.TryGetComponent<Ore>(out Ore ore))
-                    {
-                        foreach (var drone in miners)
-                        {
-                            drone.targetOre = ore;
-                        }
-                    }
-
-                    if (item.TryGetComponent<EnemyAI>(out EnemyAI enemy))
-                    {
-                        foreach (var drone in attackers)
-                        {
-                            drone.targetEnemy = enemy;
-                        }
-                    }
+                    drone.RotationUpdate(myTransform, (droneOrbit.I / (float)(Drones[droneOrbit].Count)) * 360f + droneOrbit.Dir, droneOrbit.Distance);
+                    droneOrbit.I++;
                 }
             }
         }
+        
 
-        public void AttachMinerDrone(DroneAI drone)
+        public void AttachDrone(DroneAI drone)
         {
-            if (!miners.Contains(drone))
-                miners.Add(drone);
+            foreach (var orbit in Drones.Keys)
+            {
+                if (Drones[orbit].Count >= MaxDroneAmountInOrbit)
+                    continue;
+
+                Drones[orbit].Add(drone);
+                return;
+            }
+
+            // If all orbits is full
+            Drones.Add(new DroneOrbit { Dir = 0, I = 0, Distance = Drones.Keys.Count+1 * DroneDistanceFromPlayer }, 
+                       new List<DroneAI> { drone }
+                       );
         }
-        public void AttachProtectorDrone(DroneAI drone)
-        {
-            if (!protectors.Contains(drone))
-                protectors.Add(drone);
-        }
-        public void AttachAttackerDrone(DroneAI drone)
-        {
-            if (!attackers.Contains(drone))
-                attackers.Add(drone);
-        }
+
         public void DetachDrone(DroneAI drone)
         {
-            if (miners.Contains(drone))
-                miners.Remove(drone);
-
-            if (protectors.Contains(drone))
-                protectors.Remove(drone);
-
-            if (attackers.Contains(drone))
-                attackers.Remove(drone);
-        }
-
-        public void AttachRotateDrones(DroneAI drone)
-        {
-            if (!rotateDrones.Contains(drone))
-                rotateDrones.Add(drone);
-        }
-        public void DetachRotateDrones(DroneAI drone)
-        {
-            if (rotateDrones.Contains(drone))
-                rotateDrones.Remove(drone);
+            foreach (var orbit in Drones.Keys)
+            {
+                if(Drones[orbit].Contains(drone))
+                {
+                    Drones[orbit].Remove(drone);
+                    return;
+                }
+            }
         }
     }
 }

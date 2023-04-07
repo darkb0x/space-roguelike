@@ -6,6 +6,7 @@ namespace Game.CraftSystem
 {
     using Player;
     using Turret;
+    using Drone;
 
     [RequireComponent(typeof(PlayerInteractObject))]
     public class Workbanch : MonoBehaviour
@@ -28,6 +29,10 @@ namespace Game.CraftSystem
             if(craftedObj.TryGetComponent<Turret>(out Turret turret))
             {
                 turret.Initialize(player);
+            }
+            else if(craftedObj.TryGetComponent<DroneAI>(out DroneAI drone))
+            {
+                drone.Initialize(player.GetComponent<PlayerDronesController>());
             }
 
             player.ContinuePlayerMove();

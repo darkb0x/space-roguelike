@@ -121,7 +121,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 5
+        y: 0
         width: 17
         height: 12
       alignment: 0
@@ -131,29 +131,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a914457550db8f4fa50da9a3c4fd319
+      spriteID: 50e20cd0dfcbb924cb495615adf9c623
       internalID: -2125092532
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: drone_miner_1_laser
+      name: drone_miner_1_shadow
       rect:
         serializedVersion: 2
-        x: 7
+        x: 19
         y: 0
-        width: 3
-        height: 4
+        width: 17
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 1, y: 2, z: 1, w: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a557177cdd9630f43b004858e9eeb38a
-      internalID: -1806944274
+      spriteID: bef206e95f072a94c871000ab21a3f6c
+      internalID: -365990163
       vertices: []
       indices: 
       edges: []
@@ -169,8 +169,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      drone_miner_1_shadow: -365990163
       drone_miner_1: -2125092532
-      drone_miner_1_laser: -1806944274
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

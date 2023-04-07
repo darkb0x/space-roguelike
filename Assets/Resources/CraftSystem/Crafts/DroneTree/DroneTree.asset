@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a237e229800ba044c975d4e915148245, type: 3}
-  m_Name: drone action mine
+  m_Script: {fileID: 11500000, guid: f2984f8fd6410ca42b4abc3c134415d3, type: 3}
+  m_Name: DroneTree
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  drone: {fileID: 0}
-  maxDistance: 5
-  moveSpeed: 4
-  mineSpeed: 1.3
-  itemPerTime: 1
+  <FileName>k__BackingField: DroneTree
+  <Nodes>k__BackingField:
+  - {fileID: 11400000, guid: f558a891f74542f4aa314ae03301be90, type: 2}

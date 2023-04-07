@@ -5,101 +5,44 @@ using NaughtyAttributes;
 
 namespace Game.Drone
 {
-    using Enemy;
     using Player;
-    using World.Generation.Ore;
 
-    public class DroneAI : MonoBehaviour
+    public abstract class DroneAI : MonoBehaviour
     {
-        [Header("States")]
-        [SerializeField, Expandable] private DroneAction action;
+        protected PlayerDronesController PlayerDronesController;
+        protected bool IsInitialized;
 
-        [Header("Render")]
-        public Transform spriteTransform;
-
-        [Header("Other")]
-        [ReadOnly] public PlayerDronesController playerDrCo;
-        [ReadOnly] public Ore targetOre;
-        [ReadOnly] public EnemyAI targetEnemy;
-        public bool isPicked = false;
-
-        DroneAction currentAction;
-        PlayerController player;
-        Transform playerTransform;
-        [HideInInspector] public Rigidbody2D rb;
-        new Transform transform;
-
-
-        private void Start()
+        public virtual void Initialize(PlayerDronesController pdc)
         {
-            player = FindObjectOfType<PlayerController>();
-            playerDrCo = FindObjectOfType<PlayerDronesController>();
-            transform = GetComponent<Transform>();
-            rb = GetComponent<Rigidbody2D>();
-            playerTransform = player.transform;
+            pdc.AttachDrone(this);
+
+            IsInitialized = true;
         }
-
-        public void Init()
+        public void Initialize()
         {
-            isPicked = true;
-            SetAction(action);
-        }
-
-        public void Update()
-        {
-            if (isPicked) currentAction.Run();
-        }
-        public void FixedUpdate()
-        {
-            if (isPicked) currentAction.FixedRun();
-        }
-
-        public void RotationUpdate(Transform point, float direction, float rangeFromPoint)
-        {
-            transform.position = (Vector2)point.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * rangeFromPoint;
-        }
-
-        public Vector2 GetReturnPos()
-        {
-            float direction = playerDrCo.GetDirValue();
-            Vector2 pos = (Vector2)playerDrCo.transform.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * playerDrCo.distance;
-            return pos;
-        }
-
-        public void SetAction(DroneAction d)
-        {
-            currentAction = Instantiate(d);
-            currentAction.player = player;
-            currentAction.drone = this;
-            currentAction.Init();
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.TryGetComponent<Ore>(out Ore o))
+            if(PlayerDronesController != null)
             {
-                targetOre = o;
+                Initialize(PlayerDronesController);
             }
+        }
 
-            if (collision.TryGetComponent<EnemyAI>(out EnemyAI e))
+        public virtual void RotationUpdate(Transform point, float direction, float rangeFromPoint)
+        {
+            Vector2 targetPos = (Vector2)point.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * rangeFromPoint;
+
+            transform.position = Vector2.Lerp(transform.position, targetPos, 3 * Time.deltaTime);
+        }
+
+        protected virtual void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(!IsInitialized)
             {
-                targetEnemy = e;
+                if (collision.TryGetComponent<PlayerDronesController>(out PlayerDronesController playerDronesController))
+                {
+                    PlayerDronesController = playerDronesController;
+                    Initialize();
+                }
             }
-
-            action.TriggerEnter(collision);
-        }
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            action.TriggerStay(collision);
-        }
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            action.TriggerExit(collision);
-        }
-
-        private void OnDestroy()
-        {
-            playerDrCo.DetachDrone(this);
         }
     }
 }
