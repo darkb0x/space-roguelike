@@ -7,6 +7,7 @@ using NaughtyAttributes;
 namespace Game.MainMenu
 {
     using Utilities.LoadScene;
+    using SaveData;
 
     public class MainMenu : MonoBehaviour
     {
@@ -17,6 +18,8 @@ namespace Game.MainMenu
 
         private void Awake()
         {
+            GameData.Instance.ResetSessionData();
+
             PlayerPrefs.SetInt("LoadingSceen_used", 1);
             PlayerPrefs.SetInt("LoadingSceen_currentFrame", 0);
 

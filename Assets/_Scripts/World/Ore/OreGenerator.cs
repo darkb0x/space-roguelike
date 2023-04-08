@@ -6,7 +6,6 @@ namespace Game.World.Generation.Ore
 {
     using SaveData;
     using MainMenu.Mission.Planet;
-    using Player.Inventory;
 
     public class OreGenerator : MonoBehaviour
     {
@@ -21,7 +20,7 @@ namespace Game.World.Generation.Ore
             if (LoadedPlanet == null)
                 LoadedPlanet = DefaultPlanet;
 
-            AllOres = FindObjectsOfType<Ore>();
+            AllOres = ShuffleList(FindObjectsOfType<Ore>());
 
             InitializeOres();
         }
@@ -56,6 +55,28 @@ namespace Game.World.Generation.Ore
                     initializedOreAmount++;
                 }
             }
+        }
+
+        public Ore[] ShuffleList(Ore[] inputArray)
+        {
+            List<Ore> inputList = new List<Ore>();
+
+            foreach (var item in inputArray)
+            {
+                inputList.Add(item);
+            }
+
+            List<Ore> randomList = new List<Ore>();
+            System.Random random = new System.Random();
+
+            while (inputList.Count > 0)
+            {
+                int index = random.Next(0, inputList.Count);
+                randomList.Add(inputList[index]);
+                inputList.RemoveAt(index);
+            }
+
+            return randomList.ToArray();
         }
     }
 }

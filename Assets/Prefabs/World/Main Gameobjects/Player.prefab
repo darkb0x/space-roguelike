@@ -902,7 +902,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 3
   DoHealthCycle: 1
-  speed: 4
+  speed: 5
   Visual: {fileID: 5340520158696822646}
   pickObjSystem: {fileID: 3514759272854996626}
   inventory: {fileID: 0}
@@ -968,9 +968,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2fc857a757f6b42b43d3beea298fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxDroneAmountInOrbit: 4
+  MaxDroneAmountInOrbit: 6
   DroneDistanceFromPlayer: 2.3
   DroneRotationSpeed: 30
+  OreLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  DroneMiners: []
 --- !u!50 &3514759272854996623
 Rigidbody2D:
   serializedVersion: 4

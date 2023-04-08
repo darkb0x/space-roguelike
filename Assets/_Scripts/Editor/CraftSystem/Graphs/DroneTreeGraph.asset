@@ -24,7 +24,9 @@ MonoBehaviour:
     <Cost>k__BackingField: 0
     <Craft>k__BackingField:
     - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      Amount: 1
+      Amount: 2
+    - Item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
+      Amount: 5
     <Position>k__BackingField: {x: 0, y: 0}
   <OldUngroupedNodeNames>k__BackingField:
   - Miner

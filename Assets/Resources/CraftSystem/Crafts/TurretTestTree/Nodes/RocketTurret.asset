@@ -18,8 +18,12 @@ MonoBehaviour:
   <CraftCost>k__BackingField: 100
   <ObjectCraft>k__BackingField:
   - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-    Amount: 1
+    Amount: 5
+  - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+    Amount: 10
+  - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+    Amount: 2
   <AssetPath>k__BackingField: CraftSystem/Crafts/TurretTestTree/Nodes/RocketTurret
   <Choices>k__BackingField: []
   <IsStartingNode>k__BackingField: 0
-  <Position>k__BackingField: {x: 1289, y: 0}
+  <Position>k__BackingField: {x: 399, y: 0}

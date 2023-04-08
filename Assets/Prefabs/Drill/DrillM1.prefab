@@ -308,6 +308,17 @@ CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 921638669018763057, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
   m_PrefabInstance: {fileID: 184393719949832936}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2164793081158935879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -7168047482258090065, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
+  m_PrefabInstance: {fileID: 184393719949832936}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2260988901494986822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16567ce842dc434e85c3593c04dcb3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2260988901494986819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2157149943185910443, guid: db87203b94827cd4e81ffb312a84142e, type: 3}
@@ -348,7 +359,7 @@ MonoBehaviour:
   PlayerDetectColl: {fileID: 1028307667183779289}
   DroppedItemsAfterBroke:
   - item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
-    amount: 5
+    amount: 2
   MaxHealth: 10
   CurrentHealth: 0
   EnemyTarget: {fileID: 3015701361895079464}
@@ -358,6 +369,7 @@ MonoBehaviour:
   PreRenderPlaceObject: {fileID: 5811179409195232548}
   BackLegsSR: {fileID: 2260988901933520660}
   WorldSortingLayer: World
+  BreakingBuildObject: {fileID: 2164793081158935879}
   MaxExtractedPercentFromOre: 50
   AmountOreFromPercent: 0
   anim_DieTrigger: Die

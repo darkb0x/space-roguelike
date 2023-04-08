@@ -15,12 +15,14 @@ MonoBehaviour:
   <CraftName>k__BackingField: GrenadeTurret
   <ObjectPrefab>k__BackingField: {fileID: 5034969440185020039, guid: dd34d4c9839ca3645bf55f110ca179bc, type: 3}
   <IconSprite>k__BackingField: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
-  <CraftCost>k__BackingField: 100
+  <CraftCost>k__BackingField: 0
   <ObjectCraft>k__BackingField:
   - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-    Amount: 1
+    Amount: 5
+  - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+    Amount: 5
   <AssetPath>k__BackingField: CraftSystem/Crafts/TurretTestTree/Nodes/GrenadeTurret
   <Choices>k__BackingField:
   - <NextCraft>k__BackingField: {fileID: 11400000, guid: dec78ada1e7513e4e968619b18537b85, type: 2}
-  <IsStartingNode>k__BackingField: 0
-  <Position>k__BackingField: {x: 891, y: 0}
+  <IsStartingNode>k__BackingField: 1
+  <Position>k__BackingField: {x: 0, y: 0}

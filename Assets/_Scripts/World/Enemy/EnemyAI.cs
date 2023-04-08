@@ -20,7 +20,6 @@ namespace Game.Enemy
         [SerializeField] private float m_ShieldTime = 0.7f;
         [Space]
         [ReadOnly] public float currentHp;
-        [SerializeField] protected GameObject DeathParticle;
         [Space]
         [ReadOnly] public float currentProtection;
         [Space]
@@ -81,6 +80,8 @@ namespace Game.Enemy
 
             shieldTime = m_ShieldTime;
             haveShield = true;
+
+            //Initialize(Data);
         }
 
         public virtual void Initialize(EnemyData data, float difficultFactor = 1)

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Sprite: {fileID: 1972106274, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -324910342, guid: 98e68d1e87eb1b64a875eee511c6726a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -211,7 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7349768826557607123}
   - component: {fileID: 7349768826557607121}
-  - component: {fileID: 7333089650831799718}
+  - component: {fileID: 1858506614437470092}
   m_Layer: 7
   m_Name: Ore
   m_TagString: Untagged
@@ -248,11 +248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa242cfca272cc4c9df8fd30bfb2a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDrill: {fileID: 0}
   Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-  MaxAmount: 20
+  MaxAmount: 15
   Amount: 0
-  CanGiveOre: 1
+  m_CanGiveOre: 0
   RockRenderer: {fileID: 20742296095150626}
   OreRenderer: {fileID: 7180990875355449852}
   RockSprites:
@@ -266,8 +265,8 @@ MonoBehaviour:
   - {fileID: -1386793218, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
   - {fileID: -2096096520, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
   - {fileID: 1269682446, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
---- !u!70 &7333089650831799718
-CapsuleCollider2D:
+--- !u!61 &1858506614437470092
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -279,9 +278,19 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000031935162, y: -0.2678916}
-  m_Size: {x: 1.0000004, y: 0.34616694}
-  m_Direction: 1
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1001 &265411468995893790
 PrefabInstance:
   m_ObjectHideFlags: 0

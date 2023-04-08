@@ -25,9 +25,9 @@ namespace Game.MainMenu.Mission.Planet
         [Scene] public int SceneId;
 
         [Header("Items")]
-        [OnValueChanged("UpdateItemsPercents")] public List<ItemGenerationData> DefaultItems = new List<ItemGenerationData>();
+        [OnValueChanged("UpdateItemsPercents"), ReorderableList] public List<ItemGenerationData> DefaultItems = new List<ItemGenerationData>();
         [ReadOnly, SerializeField] private string DefaultItemsAmount;
-        [OnValueChanged("UpdateItemsPercents")] public List<ItemGenerationData> UniqueItems = new List<ItemGenerationData>();
+        [OnValueChanged("UpdateItemsPercents"), ReorderableList] public List<ItemGenerationData> UniqueItems = new List<ItemGenerationData>();
         [ReadOnly, SerializeField] private string UniqueItemsAmount;
 
         [Header("Asset")]
@@ -75,8 +75,9 @@ namespace Game.MainMenu.Mission.Planet
         }
         private void UpdateItemsPercents()
         {
-            DefaultItemsAmount = SumPercent(DefaultItems).ToString();
-            UniqueItemsAmount = SumPercent(UniqueItems).ToString();
+            int percents = SumPercent(OresInPlanet);
+            DefaultItemsAmount = percents.ToString();
+            UniqueItemsAmount = percents.ToString();
         }
 
         private int SumPercent(List<ItemGenerationData> data)

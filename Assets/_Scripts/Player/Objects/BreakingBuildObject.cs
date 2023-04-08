@@ -19,6 +19,7 @@ namespace Game.Player
 
         private float currentBreakProgress;
         private bool playerInZone = false;
+        private bool canBeBreak = true;
 
         private void Start()
         {
@@ -29,8 +30,21 @@ namespace Game.Player
             BreakProgressGameObj.SetActive(false);
         }
 
+        public void DisableBreaking()
+        {
+            canBeBreak = false;
+
+            if (currentBreakProgress > 0)
+            {
+                StartCoroutine(EndBreaking());
+            }
+        }
+
         private void Update()
         {
+            if (!canBeBreak)
+                return;
+
             if (GameInput.InputActions.Player.Break.IsPressed())
                 Breaking();
         }

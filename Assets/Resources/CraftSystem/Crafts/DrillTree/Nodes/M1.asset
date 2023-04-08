@@ -17,10 +17,12 @@ MonoBehaviour:
   <IconSprite>k__BackingField: {fileID: -5918850961275349091, guid: 4b5a4ff3f2b7f60488b8e56def7b3fef, type: 3}
   <CraftCost>k__BackingField: 0
   <ObjectCraft>k__BackingField:
-  - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-    Amount: 1
+  - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+    Amount: 7
+  - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+    Amount: 2
   <AssetPath>k__BackingField: CraftSystem/Crafts/DrillTree/Nodes/M1
   <Choices>k__BackingField:
   - <NextCraft>k__BackingField: {fileID: 11400000, guid: 5fb5112a500d4014baa845dfd7635c43, type: 2}
   <IsStartingNode>k__BackingField: 1
-  <Position>k__BackingField: {x: 0, y: 0}
+  <Position>k__BackingField: {x: 1, y: 0}

@@ -18,13 +18,11 @@ namespace Game.Drone
         [SerializeField] private float m_TimeBtwMiningHits = 1f;
         [SerializeField] private int ItemsPerHit = 1;
         [Space]
-        [SerializeField] private Collider2D OreDetectionColl;
-        [Space]
         [SerializeField, ReadOnly] private bool InOrbit;
         [SerializeField] private float MaxDistanceBtwPlayerAndDrone = 4f;
         
         [Header("Visual")]
-        [SerializeField] private Vector2 OffsetOnore = new Vector2(0, 0.5f);
+        [SerializeField] private Vector2 OffsetOnOre = new Vector2(0, 0.6f);
         [Space]
         [SerializeField] private GameObject LaserVisual;
         [Space]
@@ -33,10 +31,8 @@ namespace Game.Drone
         [SerializeField] private Animator Anim;
         [SerializeField, AnimatorParam("Anim")] private string Anim_newItemTrigger;
 
-        private List<Ore> oreInVision = new List<Ore>();
-        private Ore currentOre;
+        public Ore currentOre;
         private Transform playerTransform;
-        private Transform oreDetectionOreTransform;
         private Vector2 targetPos;
         private float timeBtwMiningHits;
 
@@ -48,8 +44,6 @@ namespace Game.Drone
 
         private void Start()
         {
-            oreDetectionOreTransform = OreDetectionColl.transform;
-
             LaserVisual.SetActive(false);
             NewItemIcon.color = new Color(1, 1, 1, 0);
 
@@ -64,24 +58,35 @@ namespace Game.Drone
                 return;
             }
 
-            oreDetectionOreTransform.position = playerTransform.position;
-            LaserVisual.SetActive(currentOre != null);
 
-            if (Vector2.Distance(playerTransform.position, transform.position) > MaxDistanceBtwPlayerAndDrone)
+            if (Vector2.Distance(playerTransform.position, transform.position) <= MaxDistanceBtwPlayerAndDrone)
             {
-                InOrbit = true;
-                currentOre = null;
-            }
-            else
-            {
-                if (currentOre == null)
+                if(currentOre != null)
                 {
-                    currentOre = GetFreeOre();
+                    if(Vector2.Distance(currentOre.transform.position, transform.position) <= 1f)
+                    {
+                        LaserVisual.SetActive(true);
+                    }
+                    else
+                    {
+                        LaserVisual.SetActive(false);
+                    }
+
+                    InOrbit = false;
+                    Mine();
                 }
                 else
                 {
-                    Mine();
+                    LaserVisual.SetActive(false);
+
+                    SetFree();
                 }
+            }
+            else
+            {
+                LaserVisual.SetActive(false);
+
+                SetFree();
             }
         }
 
@@ -91,14 +96,12 @@ namespace Game.Drone
             {
                 if (currentOre.Amount <= 0)
                 {
-                    currentOre = null;
-                    InOrbit = true;
+                    SetFree();
                     return;
                 }
                 if (currentOre.currentDrill != null)
                 {
-                    currentOre = null;
-                    InOrbit = true;
+                    SetFree();
                     return;
                 }
 
@@ -115,7 +118,7 @@ namespace Game.Drone
 
                 Anim.SetTrigger(Anim_newItemTrigger);
 
-                targetPos = (Vector2)currentOre.transform.position + OffsetOnore;
+                targetPos = (Vector2)currentOre.transform.position + OffsetOnOre;
                 InOrbit = false;
 
                 timeBtwMiningHits = m_TimeBtwMiningHits;
@@ -141,55 +144,39 @@ namespace Game.Drone
                 targetPos = (Vector2)point.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * rangeFromPoint;
             }
 
-            transform.position = Vector2.Lerp(transform.position, targetPos, 3 * Time.deltaTime);
+            transform.position = Vector2.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime);
         }
 
-        protected override void OnTriggerEnter2D(Collider2D collision)
+        public bool SetOre(Ore ore)
         {
-            base.OnTriggerEnter2D(collision);
+            if (Vector2.Distance(ore.transform.position, playerTransform.position) > MaxDistanceBtwPlayerAndDrone)
+                return false;
 
-            if(collision.TryGetComponent<Ore>(out Ore ore))
-            {
-                oreInVision.Add(ore);
-            }
+            if (ore.currentDrill != null)
+                return false;
+            if (ore.currentDrone != null)
+                return false;
+            if (ore.Amount <= 0)
+                return false;
+
+            currentOre = ore;
+            currentOre.currentDrone = this;
+
+            CurrentItem = ore.Item;
+            NewItemIcon.sprite = CurrentItem.LowSizeIcon;
+
+            return true;
         }
-        private void OnTriggerExit2D(Collider2D collision)
+
+        public void SetFree()
         {
-            if (collision.TryGetComponent<Ore>(out Ore ore))
+            if (currentOre != null)
             {
-                if(ore.currentDrone == this)
-                {
-                    ore.currentDrone = null;
-                }
-
-                if(oreInVision.Contains(ore))
-                {
-                    oreInVision.Remove(ore);
-                }
+                currentOre.currentDrone = null;
+                currentOre = null;
             }
+
+            InOrbit = true;
         }
-
-        #region Utilities
-        private Ore GetFreeOre()
-        {
-            foreach (var ore in oreInVision)
-            {
-                if (ore.currentDrill != null)
-                    continue;
-                if (ore.currentDrone != null)
-                    continue;
-                if (ore.Amount <= 0)
-                    continue;
-
-                ore.currentDrone = this;
-
-                CurrentItem = ore.Item;
-                NewItemIcon.sprite = CurrentItem.LowSizeIcon;
-
-                return ore;
-            }
-            return null;
-        }
-        #endregion
     }
 }

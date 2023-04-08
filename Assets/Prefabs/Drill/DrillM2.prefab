@@ -171,7 +171,7 @@ MonoBehaviour:
   PlayerDetectColl: {fileID: 1498823411776927299}
   DroppedItemsAfterBroke:
   - item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
-    amount: 5
+    amount: 2
   MaxHealth: 10
   CurrentHealth: 0
   EnemyTarget: {fileID: 3697534435791926706}

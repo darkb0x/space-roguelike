@@ -266,11 +266,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1d8ccbae4e32e5409bec243308fa8e6, type: 3}
---- !u!58 &3115017061536718749 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 455887955788209152, guid: e1d8ccbae4e32e5409bec243308fa8e6, type: 3}
-  m_PrefabInstance: {fileID: 3272252351725945757}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3153604348830746905 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 480401227958504068, guid: e1d8ccbae4e32e5409bec243308fa8e6, type: 3}
@@ -292,14 +287,14 @@ MonoBehaviour:
   MaxItemAmount: 0
   m_TimeBtwMiningHits: 1
   ItemsPerHit: 1
-  OreDetectionColl: {fileID: 3115017061536718749}
   InOrbit: 0
-  MaxDistanceBtwPlayerAndDrone: 8
-  OffsetOnore: {x: 0, y: 0.15}
+  MaxDistanceBtwPlayerAndDrone: 6
+  OffsetOnore: {x: 0, y: 0.6}
   LaserVisual: {fileID: 585866172289580745}
   NewItemIcon: {fileID: 3259282635986490073}
   Anim: {fileID: 5179170422952451056}
   Anim_newItemTrigger: NewItem
+  currentOre: {fileID: 0}
 --- !u!1 &3153604348929681010 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 480401228058813935, guid: e1d8ccbae4e32e5409bec243308fa8e6, type: 3}

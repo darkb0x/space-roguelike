@@ -83,7 +83,20 @@ namespace Game.Enemy
                     break;
                 }
 
-                EnemyData enemyData = EnemyList[Random.Range(0, EnemyList.Length)];
+                List<EnemyData> enemyDatas = new List<EnemyData>();
+                foreach (var data in EnemyList)
+                {
+                    if(currentSpawnScore >= data.Cost)
+                    {
+                        enemyDatas.Add(data);
+                    }
+                }
+                if(enemyDatas.Count == 0)
+                {
+                    break;
+                }
+
+                EnemyData enemyData = enemyDatas[Random.Range(0, enemyDatas.Count)];
                 Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
                 float directionAccuracy = SpawnRadius;
                 Vector2 direction = new Vector2(Random.Range(-directionAccuracy, directionAccuracy), Random.Range(-directionAccuracy, directionAccuracy));

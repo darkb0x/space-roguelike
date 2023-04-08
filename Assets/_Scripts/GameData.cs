@@ -38,11 +38,13 @@ namespace Game.SaveData
             CurrentSettingsData = SaveDataUtility.LoadDataFromJson<SettingsData>(savePath, SETTINGS_DATA_FILENAME, new SettingsData(savePath, SETTINGS_DATA_FILENAME));
         }
 
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void ResetSessionData()
         {
             CurrentSessionData = new SessionData(savePath, SESSION_DATA_FILENAME);
             CurrentSessionData.Save();
         }
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void ResetSettingsData()
         {
             CurrentSettingsData = new SettingsData(savePath, SETTINGS_DATA_FILENAME);

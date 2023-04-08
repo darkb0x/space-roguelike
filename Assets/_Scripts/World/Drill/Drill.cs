@@ -59,7 +59,7 @@ namespace Game.Drill
         [Header("Health")]
         public float MaxHealth = 10;
         [ReadOnly] public float CurrentHealth;
-        [SerializeField] private EnemyTarget EnemyTarget;
+        [SerializeField] protected EnemyTarget EnemyTarget;
 
         // renderrer
         [Header("Animation")]

@@ -15,54 +15,45 @@ MonoBehaviour:
   <FileName>k__BackingField: TurretTestTree
   <Nodes>k__BackingField:
   - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 641c81fe-ddd9-4aee-8e44-0cb6cafc1945
-    <Name>k__BackingField: StandartTurret
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: a53a11fa-5625-4b75-b843-0d9517675278
-    <ObjectPrefab>k__BackingField: {fileID: 1015198258546676979, guid: ddf97bd134cc8294fbd2f50a86b1d53d, type: 3}
-    <Icon>k__BackingField: {fileID: 6504606697198498462, guid: 5b16f33e95f9b1a4cbd2828366bfcb2c, type: 3}
-    <Cost>k__BackingField: 0
-    <Craft>k__BackingField:
-    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      Amount: 1
-    <Position>k__BackingField: {x: 0, y: 0}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: a53a11fa-5625-4b75-b843-0d9517675278
-    <Name>k__BackingField: MinigunTurret
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: ec9bd11a-817d-46bf-b843-a733993d777e
-    - <NodeID>k__BackingField: 491d0114-7dc7-48f3-9874-24b1fd047808
-    <ObjectPrefab>k__BackingField: {fileID: 7019874376984613498, guid: 7ddcde72848e2b64b88f0e0526cd523e, type: 3}
-    <Icon>k__BackingField: {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
-    <Cost>k__BackingField: 100
-    <Craft>k__BackingField:
-    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      Amount: 1
-    <Position>k__BackingField: {x: 431, y: 0}
-  - <NodeID>k__BackingField: 
-    <ID>k__BackingField: 491d0114-7dc7-48f3-9874-24b1fd047808
-    <Name>k__BackingField: FireTurret
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 
-    <ObjectPrefab>k__BackingField: {fileID: 7672746000741777773, guid: 3ad694691941cec409a179f9a177f07c, type: 3}
-    <Icon>k__BackingField: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
-    <Cost>k__BackingField: 100
-    <Craft>k__BackingField:
-    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      Amount: 1
-    <Position>k__BackingField: {x: 891, y: 328}
-  - <NodeID>k__BackingField: 
     <ID>k__BackingField: ec9bd11a-817d-46bf-b843-a733993d777e
     <Name>k__BackingField: GrenadeTurret
     <Choices>k__BackingField:
     - <NodeID>k__BackingField: c4228687-2a42-4067-a39a-b0b9d6ad830f
     <ObjectPrefab>k__BackingField: {fileID: 5034969440185020039, guid: dd34d4c9839ca3645bf55f110ca179bc, type: 3}
     <Icon>k__BackingField: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
-    <Cost>k__BackingField: 100
+    <Cost>k__BackingField: 0
     <Craft>k__BackingField:
     - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      Amount: 1
-    <Position>k__BackingField: {x: 891, y: 0}
+      Amount: 5
+    - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+      Amount: 5
+    <Position>k__BackingField: {x: 0, y: 0}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: a53a11fa-5625-4b75-b843-0d9517675278
+    <Name>k__BackingField: MinigunTurret
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 
+    <ObjectPrefab>k__BackingField: {fileID: 7019874376984613498, guid: 7ddcde72848e2b64b88f0e0526cd523e, type: 3}
+    <Icon>k__BackingField: {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      Amount: 5
+    <Position>k__BackingField: {x: 0, y: -197}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: d4b98166-6050-403c-8d79-03ee891b3ebc
+    <Name>k__BackingField: LaserTurret
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 
+    <ObjectPrefab>k__BackingField: {fileID: 8243757421391822110, guid: bc24ed00d7c3e6a45abd489650a8012e, type: 3}
+    <Icon>k__BackingField: {fileID: -1895180281693119143, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+      Amount: 5
+    - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+      Amount: 10
+    <Position>k__BackingField: {x: 0, y: 197}
   - <NodeID>k__BackingField: 
     <ID>k__BackingField: c4228687-2a42-4067-a39a-b0b9d6ad830f
     <Name>k__BackingField: RocketTurret
@@ -73,11 +64,14 @@ MonoBehaviour:
     <Cost>k__BackingField: 100
     <Craft>k__BackingField:
     - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      Amount: 1
-    <Position>k__BackingField: {x: 1289, y: 0}
+      Amount: 5
+    - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+      Amount: 10
+    - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+      Amount: 2
+    <Position>k__BackingField: {x: 399, y: 0}
   <OldUngroupedNodeNames>k__BackingField:
-  - StandartTurret
-  - MinigunTurret
-  - FireTurret
   - GrenadeTurret
+  - MinigunTurret
+  - LaserTurret
   - RocketTurret
