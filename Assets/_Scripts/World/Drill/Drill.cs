@@ -188,35 +188,19 @@ namespace Game.Drill
         }
         public virtual void Mine()
         {
-            if(!CurrentOre.CanGiveOre)
-            {
-                if(CurrentOre.currentDrill != this)
-                {
-                    CurrentOre = null;
-                    oreTransform = null;
-
-                    MiningEnded();
-
-                    return;
-                }
-            }
-
-            int oreAmount = MiningDamage;
-            CurrentOre.Take(MiningDamage);
-
-            if(CurrentOre.Amount < 0)
-            {
-                oreAmount += CurrentOre.Amount;
-
-                if (oreAmount <= 0)
-                {
-                    return;
-                }
-            }
+            int oreAmount = CurrentOre.Take(MiningDamage);
 
             ItemAmount += oreAmount;
             allExtractedOre += oreAmount;
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
+
+            if (CurrentOre.Amount < 0)
+            {
+                CurrentOre = null;
+                oreTransform = null;
+
+                MiningEnded();
+            }
         }
         public virtual void MiningEnded()
         {
@@ -326,7 +310,7 @@ namespace Game.Drill
                 {
                     if (item.currentDrill)
                         continue;
-                    if (!item.CanGiveOre)
+                    if (item.Amount <= 0)
                         continue;
 
                     nearestOre = item;

@@ -283,13 +283,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175b5a7651f0bcc4686a1661560081a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 4
+  m_Health: 10
+  DestoryParticle: {fileID: 4550200863518524, guid: 57a5b17d8e8d0d04b84708a9ddc7c585, type: 3}
   CurrentItem: {fileID: 0}
   MaxItemAmount: 0
   m_TimeBtwMiningHits: 1
   ItemsPerHit: 1
   InOrbit: 0
   MaxDistanceBtwPlayerAndDrone: 6
-  OffsetOnore: {x: 0, y: 0.6}
+  OffsetOnOre: {x: 0, y: 0.6}
   LaserVisual: {fileID: 585866172289580745}
   NewItemIcon: {fileID: 3259282635986490073}
   Anim: {fileID: 5179170422952451056}

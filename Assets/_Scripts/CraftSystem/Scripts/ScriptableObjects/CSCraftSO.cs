@@ -25,6 +25,7 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
             }
         }
 
+        #if UNITY_EDITOR
         [NaughtyAttributes.Button]
         private void UpdateAssetPath()
         {
@@ -39,5 +40,6 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
                 return;
             }
         }
+        #endif
     }
 }

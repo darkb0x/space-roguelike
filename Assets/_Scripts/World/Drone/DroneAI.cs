@@ -9,12 +9,19 @@ namespace Game.Drone
 
     public abstract class DroneAI : MonoBehaviour
     {
+        [SerializeField] protected float MoveSpeed = 4f;
+        [Space]
+        [SerializeField] protected float m_Health = 6f;
+        [SerializeField] protected GameObject DestoryParticle;
+
         protected PlayerDronesController PlayerDronesController;
         protected bool IsInitialized;
-        protected float moveSpeed = 4f;
+        protected float currentHealth;
 
         public virtual void Initialize(PlayerDronesController pdc)
         {
+            currentHealth = m_Health;
+
             pdc.AttachDrone(this);
 
             IsInitialized = true;
@@ -31,7 +38,7 @@ namespace Game.Drone
         {
             Vector2 targetPos = (Vector2)point.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * rangeFromPoint;
 
-            transform.position = Vector2.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            transform.position = Vector2.Lerp(transform.position, targetPos, MoveSpeed * Time.deltaTime);
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -44,6 +51,24 @@ namespace Game.Drone
                     Initialize();
                 }
             }
+        }
+
+        public virtual void Hurt(float value)
+        {
+            currentHealth -= value;
+
+            if(currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+        public virtual void Die()
+        {
+            PlayerDronesController.DetachDrone(this);
+
+            Instantiate(DestoryParticle, transform.position, Quaternion.identity);
+
+            Destroy(gameObject);
         }
     }
 }

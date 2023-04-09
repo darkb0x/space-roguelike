@@ -168,7 +168,7 @@ namespace Game.Player
             GameData.Instance.ResetSessionData();
             UIPanelManager.Instance.CloseAllPanel();
 
-            Visual.PlayerDead(lookDir.x);
+            Visual.PlayerDead();
 
             isDied = true;
         }

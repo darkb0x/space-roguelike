@@ -34,6 +34,7 @@ namespace Game.Player.Inventory
             }
         }
 
+        #if UNITY_EDITOR
         private void OnEnable()
         {
             UpdateAssetPath();
@@ -65,5 +66,6 @@ namespace Game.Player.Inventory
                 AssetName = ItemName + " (custom)";
             }
         }
+        #endif
     }
 }

@@ -95,15 +95,17 @@ namespace Game.Player.Visual
         {
             Anim.SetBool(Anim_isPickingSmthBool, enabled);
         }
-        public void PlayerDead(float direction)
+        public void PlayerDead()
         {
-            if(direction < 0)
+            float direction = Anim.GetFloat(Anim_horizontalFloat);
+
+            if (direction < 0)
             {
                 SpriteVisual.flipX = true;
             }
             else
             {
-                SpriteVisual.flipX = true;
+                SpriteVisual.flipX = false;
             }
             SpriteVisual.sortingOrder = 5;
             Anim.SetTrigger(Anim_deadTrigger);

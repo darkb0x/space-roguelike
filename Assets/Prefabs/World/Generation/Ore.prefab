@@ -194,7 +194,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 20742296095150685}
   - {fileID: 882331187366421638}
@@ -251,9 +251,51 @@ MonoBehaviour:
   Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
   MaxAmount: 15
   Amount: 0
-  m_CanGiveOre: 0
   RockRenderer: {fileID: 20742296095150626}
   OreRenderer: {fileID: 7180990875355449852}
+  Visual: {fileID: 8363647705658555153}
+  RockHurtAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.55261505
+      outSlope: -0.55261505
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.17298791
+      value: 0.9044043
+      inSlope: -0.19598961
+      outSlope: -0.19598961
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7680962
+      value: 1
+      inSlope: 0.22480738
+      outSlope: 0
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   RockSprites:
   - {fileID: 1972106274, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
   - {fileID: -964996181, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}

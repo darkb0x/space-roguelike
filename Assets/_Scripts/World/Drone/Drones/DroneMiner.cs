@@ -72,6 +72,7 @@ namespace Game.Drone
                         LaserVisual.SetActive(false);
                     }
 
+                    targetPos = (Vector2)currentOre.transform.position + OffsetOnOre;
                     InOrbit = false;
                     Mine();
                 }
@@ -105,23 +106,14 @@ namespace Game.Drone
                     return;
                 }
 
-                if(currentOre.Amount >= ItemsPerHit)
-                {
-                    currentOre.Take(ItemsPerHit);
-                    PlayerInventory.Instance.AddItem(CurrentItem, ItemsPerHit, false);
-                }
-                else
-                {
-                    currentOre.Take(currentOre.Amount);
-                    PlayerInventory.Instance.AddItem(CurrentItem, currentOre.Amount, false);
-                }
+                PlayerInventory.Instance.AddItem(CurrentItem, currentOre.Take(ItemsPerHit), false);
 
                 Anim.SetTrigger(Anim_newItemTrigger);
 
-                targetPos = (Vector2)currentOre.transform.position + OffsetOnOre;
                 InOrbit = false;
 
                 timeBtwMiningHits = m_TimeBtwMiningHits;
+                //Hurt(1);
             }
             else
             {
@@ -144,7 +136,7 @@ namespace Game.Drone
                 targetPos = (Vector2)point.position + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * rangeFromPoint;
             }
 
-            transform.position = Vector2.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            transform.position = Vector2.Lerp(transform.position, targetPos, MoveSpeed * Time.deltaTime);
         }
 
         public bool SetOre(Ore ore)

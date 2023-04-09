@@ -54,6 +54,7 @@ namespace Game.MainMenu.Mission.Planet
             }
         }
 
+        #if UNITY_EDITOR
         private void OnEnable()
         {
             UpdateAssetPath();
@@ -89,5 +90,6 @@ namespace Game.MainMenu.Mission.Planet
             }
             return sum;
         }
+    #endif
     }
 }
