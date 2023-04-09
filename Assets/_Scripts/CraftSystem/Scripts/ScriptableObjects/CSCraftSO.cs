@@ -17,6 +17,7 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
         [field: SerializeField] public List<ItemData> ObjectCraft { get; set; }
         [field: SerializeField] public string AssetPath { get; set; }
 
+        #if UNITY_EDITOR
         public void OnEnable()
         {
             if(string.IsNullOrEmpty(AssetPath))
@@ -25,7 +26,6 @@ namespace Game.CraftSystem.Editor.ScriptableObjects
             }
         }
 
-        #if UNITY_EDITOR
         [NaughtyAttributes.Button]
         private void UpdateAssetPath()
         {

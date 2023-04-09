@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Builds_atlas
+  m_Name: builds_atlas
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -47,18 +47,82 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 41c6182689739244288c6be7df8a4683, type: 3}
     - {fileID: 2800000, guid: a807ddb69d2a5ce4da735bb80df86336, type: 3}
     - {fileID: 2800000, guid: 6fa6807a353d8ec4fba6794dcf95f877, type: 3}
+    - {fileID: 2800000, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
+    - {fileID: 2800000, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
+    - {fileID: 2800000, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
+    - {fileID: 2800000, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 970259415, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
+  - {fileID: -1593062640, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
+  - {fileID: 1624615346, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
+  - {fileID: 2066928728, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
+  - {fileID: -1347918296, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
+  - {fileID: -1705006119, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
+  - {fileID: 1801285222, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: -100296501, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: -1449433278, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: -472389822, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: -846506894, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: 986099976, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: -497529150, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: 2034272540, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: 670661160, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: -414839133, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: 398368263, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: 24864987, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: -1820793942, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: -1773560668, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+  - {fileID: -737881116, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
   - {fileID: 21300000, guid: 41c6182689739244288c6be7df8a4683, type: 3}
+  - {fileID: 1702462084, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
+  - {fileID: 1845563188, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
+  - {fileID: -1180259902, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
+  - {fileID: -1326786483, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
+  - {fileID: -710457699, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
+  - {fileID: -808169047, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
+  - {fileID: 505562434, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
   - {fileID: 21300000, guid: a807ddb69d2a5ce4da735bb80df86336, type: 3}
+  - {fileID: -1003880061, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
+  - {fileID: -134836039, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
   - {fileID: 21300000, guid: 6fa6807a353d8ec4fba6794dcf95f877, type: 3}
   m_PackedSpriteNamesToIndex:
+  - mission_table_3
+  - mission_table_2
+  - mission_table_1
+  - mission_table_0
+  - mission_table_5
+  - mission_table_4
+  - oven_animations_end_2
+  - oven_animations_end_3
+  - oven_animations_end_0
+  - oven_animations_end_1
+  - oven_animations_end_4
+  - oven_animations_start_4
+  - oven_animations_start_1
+  - oven_animations_start_0
+  - oven_animations_start_3
+  - oven_animations_start_2
+  - oven_animations_4
+  - oven_animations_0
+  - oven_animations_1
+  - oven_animations_2
+  - oven_animations_3
   - computer
+  - chest_3
+  - chest_2
+  - chest_1
+  - chest_0
+  - chest_6
+  - chest_5
+  - chest_4
   - oven
+  - oxygen_ballon_1
+  - oxygen_ballon_0
   - workbanch
   m_RenderDataMap: {}
-  m_Tag: Builds_atlas
+  m_Tag: builds_atlas
   m_IsVariant: 0

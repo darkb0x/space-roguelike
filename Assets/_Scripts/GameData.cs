@@ -71,6 +71,9 @@ namespace Game.SaveData
     [Serializable]
     public class SessionData : Data
     {
+        // Camera
+        public float CameraZoom;
+
         // Crafts
         public List<string> UnlockedCraftPaths;
 
@@ -86,7 +89,9 @@ namespace Game.SaveData
         {
             dataSavePath = savePath;
             dataFileName = fileName;
- 
+
+            CameraZoom = 6f;
+
             UnlockedCraftPaths = new List<string>();
 
             MainInventory = new Inventory();
@@ -225,6 +230,8 @@ namespace Game.SaveData
     [Serializable]
     public class SettingsData : Data
     {
+        public bool EnableLogs;
+
         public float MasterVolume;
         public float MusicVolume;
         public float EffectsVolume;
@@ -233,6 +240,8 @@ namespace Game.SaveData
         {
             dataSavePath = savePath;
             dataFileName = fileName;
+
+            EnableLogs = false;
 
             MasterVolume = 0f;
             MusicVolume = 0f;

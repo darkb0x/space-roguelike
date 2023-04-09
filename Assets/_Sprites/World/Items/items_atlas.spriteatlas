@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: _Items_atlas
+  m_Name: items_atlas
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -45,24 +45,14 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
-    - {fileID: -2753837133825085448, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
-    - {fileID: -31291522549906435, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
-    - {fileID: 2800000, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
-    - {fileID: -203749126781165649, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
-    - {fileID: 1093264017326094163, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
-    - {fileID: 2800000, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
-    - {fileID: -4360650958587565854, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
-    - {fileID: 1106232271658436647, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
-    - {fileID: 2800000, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
-    - {fileID: 2800000, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
-    - {fileID: 1497946694, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
-    - {fileID: 2126256010, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
-    - {fileID: 2800000, guid: d61ef88880779684283f1b3b346c3643, type: 3}
-    - {fileID: -249963922, guid: d61ef88880779684283f1b3b346c3643, type: 3}
-    - {fileID: 1373220078, guid: d61ef88880779684283f1b3b346c3643, type: 3}
     - {fileID: 2800000, guid: 48797e3736e8fed48abcebae51e46dcc, type: 3}
-    - {fileID: 2023303692, guid: 48797e3736e8fed48abcebae51e46dcc, type: 3}
-    - {fileID: -1895329992, guid: 48797e3736e8fed48abcebae51e46dcc, type: 3}
+    - {fileID: 2800000, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
+    - {fileID: 2800000, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
+    - {fileID: 2800000, guid: d61ef88880779684283f1b3b346c3643, type: 3}
+    - {fileID: 2800000, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
+    - {fileID: 2800000, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
+    - {fileID: 2800000, guid: 0e2b068d51399f543b9fe623093a97ef, type: 3}
+    - {fileID: 2800000, guid: 9df15bbe115a60347a59b9be740161bc, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -82,12 +72,16 @@ SpriteAtlas:
   - {fileID: 2023303692, guid: 48797e3736e8fed48abcebae51e46dcc, type: 3}
   - {fileID: -249963922, guid: d61ef88880779684283f1b3b346c3643, type: 3}
   - {fileID: 1373220078, guid: d61ef88880779684283f1b3b346c3643, type: 3}
+  - {fileID: -1054330026, guid: 0e2b068d51399f543b9fe623093a97ef, type: 3}
+  - {fileID: -81004577, guid: 0e2b068d51399f543b9fe623093a97ef, type: 3}
   - {fileID: 246653284, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   - {fileID: -1083282776, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   - {fileID: 1093264017326094163, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   - {fileID: -203749126781165649, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
   - {fileID: 1952006705, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
   - {fileID: -1174898945, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
+  - {fileID: -327722897, guid: 9df15bbe115a60347a59b9be740161bc, type: 3}
+  - {fileID: -621761667, guid: 9df15bbe115a60347a59b9be740161bc, type: 3}
   m_PackedSpriteNamesToIndex:
   - zuldun_icon_2
   - zuldun_icon_3
@@ -103,12 +97,16 @@ SpriteAtlas:
   - water_icon_0
   - oil_icon_0
   - oil_icon_1
+  - kopoloh_icon_0
+  - kopoloh_icon_1
   - selbit_icon_3
   - selbit_icon_2
   - selbit_icon_1
   - selbit_icon_0
   - scrap_1
   - scrap_0
+  - artefact_icon_0
+  - artefact_icon_1
   m_RenderDataMap: {}
-  m_Tag: _Items_atlas
+  m_Tag: items_atlas
   m_IsVariant: 0

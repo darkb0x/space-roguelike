@@ -19,5 +19,5 @@ MonoBehaviour:
   <CanTakeInMission>k__BackingField: 1
   <IsOre>k__BackingField: 0
   OreSprites: []
-  <AssetPath>k__BackingField: Items/Liquids/acid_liquid
-  AssetName: acid_liquid (default)
+  <AssetPath>k__BackingField: Items/Liquids/Acid Liquid
+  AssetName: Acid Liquid (default)

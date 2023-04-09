@@ -32,6 +32,8 @@ namespace Game.Turret
         private PlayerController player;
         private Transform myTransform;
 
+        [SerializeField] private bool InitializeOnStart = false;
+
         [Header("Turret variables")]
         [SerializeField] protected GameObject BulletPrefab;
         [SerializeField] protected float Damage = 1;
@@ -104,6 +106,14 @@ namespace Game.Turret
             }
 
             EnemyTarget.Initialize(this);
+
+            if (InitializeOnStart) 
+            {
+                currentTimeBtwAttacks = TimeBtwAttack;
+                currentHealth = Health;
+
+                PreRenderPlaceObject.gameObject.SetActive(false);
+            }
         }
 
         public virtual void Initialize(PlayerController p)
@@ -276,7 +286,7 @@ namespace Game.Turret
             float curDistance = 1000f;
             if (enemy != null)
                 Vector2.Distance(myTransform.position, enemy.transform.position);
-            int errorIndex = 0;
+            int errorIndex = -1;
             for (int i = 1; i < targets.Count; i++)
             {
                 if(targets[i] != null)
@@ -287,11 +297,12 @@ namespace Game.Turret
                 }
                 else
                 {
-                    errorIndex = 0;
+                    errorIndex = i;
                     break;
                 }
             }
-            targets.RemoveAt(errorIndex);
+            if(errorIndex != -1)
+                targets.RemoveAt(errorIndex);
             if (enemy != null)
             {
                 currentEnemy = enemy.GetComponent<EnemyAI>();

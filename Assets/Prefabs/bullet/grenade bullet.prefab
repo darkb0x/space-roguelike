@@ -56,7 +56,7 @@ MonoBehaviour:
     m_Bits: 520
   destroyEffect: {fileID: 0}
   speed_rotation: 500
-  radius: 1
+  radius: 1.5
   exploisonGameObj: {fileID: 5147313020445424880, guid: 9134c2530246a52459c4a6ddfedc5721, type: 3}
   exploisonAmount: 1
 --- !u!50 &105337205602081556

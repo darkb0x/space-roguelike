@@ -7,6 +7,7 @@ using NaughtyAttributes;
 namespace Game.MainMenu
 {
     using Utilities.LoadScene;
+    using Utilities;
     using SaveData;
 
     public class MainMenu : MonoBehaviour
@@ -18,16 +19,26 @@ namespace Game.MainMenu
 
         private void Awake()
         {
-            GameData.Instance.ResetSessionData();
-
             PlayerPrefs.SetInt("LoadingSceen_used", 1);
             PlayerPrefs.SetInt("LoadingSceen_currentFrame", 0);
 
             Time.timeScale = 1f;
         }
 
+        private void Start()
+        {
+            LogUtility.StopLogging();
+
+            GameData.Instance.ResetSessionData();
+        }
+
         public void PlayButton()
         {
+            if(GameData.Instance.CurrentSettingsData.EnableLogs)
+            {
+                LogUtility.StartLogging("session");
+            }
+
             LoadSceneUtility.Instance.LoadSceneAsyncVisualize(LobbySceneId);
         }
 

@@ -896,18 +896,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oxygen: 210
+  LowOxygenValue: 30
   maxOxygen: 300
   oxygenUseSpeed: 1
   DoOxygenCycle: 1
   health: 0
   maxHealth: 3
   DoHealthCycle: 1
+  InvulnerabilityTime: 0.7
   speed: 5
   Visual: {fileID: 5340520158696822646}
   pickObjSystem: {fileID: 3514759272854996626}
   inventory: {fileID: 0}
   MainColl: {fileID: 4447103223347090712}
   EnemyTarget: {fileID: 7655071616738455957}
+  invulnerability: 0
   canMove: 1
   isDied: 0
   canLookAround: 1
@@ -923,6 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7b6a01607fe6248b9288c9e6dcb0cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainVolume: {fileID: 0}
   Player: {fileID: 3514759272854996621}
   SpriteVisual: {fileID: 3514759271766561354}
   OxygenBarUI: {fileID: 4721302827806350594}

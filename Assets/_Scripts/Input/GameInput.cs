@@ -55,7 +55,7 @@ namespace Game
         }
         public Vector2 GetMousePosition()
         {
-            return InputActions.Player.MousePosition.ReadValue<Vector2>();
+            return Mouse.current.position.ReadValue();
         }
 
         #region UI action map

@@ -129,8 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b76b5c75faf4e824fb4b16d38e05f77e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitializeOnStart: 0
   BulletPrefab: {fileID: 4042063460428676577, guid: 9c80ed06451c41e46adc5863f66ae8dc, type: 3}
-  Damage: 1
+  Damage: 7
   TimeBtwAttack: 1.3
   Recoil: 0
   DroppedItems:

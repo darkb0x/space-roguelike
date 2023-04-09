@@ -14,6 +14,7 @@ namespace Game.Player
     {
         [Header("Oxygen")]
         [SerializeField] private float oxygen = 50;
+        [SerializeField] private float LowOxygenValue;
         [SerializeField] private float maxOxygen = 100f;
         [SerializeField] private float oxygenUseSpeed = 1.3f;
         [SerializeField] private bool DoOxygenCycle = true;
@@ -22,6 +23,8 @@ namespace Game.Player
         [SerializeField] private float health = 10;
         [SerializeField] private float maxHealth;
         [SerializeField] private bool DoHealthCycle = true;
+        [Space]
+        [SerializeField] private float InvulnerabilityTime = 0.2f;
 
         [Header("Movement")]
         [SerializeField] private float speed;
@@ -41,6 +44,7 @@ namespace Game.Player
         private Rigidbody2D rb;
         private Camera cam;
         private Transform myTransform;
+        public bool invulnerability = false;
         [HideInInspector] public bool canMove = true;
         [HideInInspector] public bool isDied = false;
         [HideInInspector] public bool canLookAround = true;
@@ -123,6 +127,15 @@ namespace Game.Player
                 Die();
             }
 
+            if(oxygen < LowOxygenValue)
+            {
+                Visual.PlayerLowOxygen(true);
+            }
+            else
+            {
+                Visual.PlayerLowOxygen(false);
+            }
+
             oxygen -= (Time.deltaTime * oxygenUseSpeed);
             Visual.UpdateOxygenVisual(oxygen, maxOxygen);
         }
@@ -144,6 +157,8 @@ namespace Game.Player
         {
             if (!DoHealthCycle)
                 return;
+            if (invulnerability)
+                return;
 
             health -= Mathf.RoundToInt(value);
 
@@ -153,6 +168,8 @@ namespace Game.Player
             {
                 Die();
             }
+
+            StartCoroutine(SetInvulnerability());
         }
         private void Die()
         {
@@ -171,6 +188,14 @@ namespace Game.Player
             Visual.PlayerDead();
 
             isDied = true;
+        }
+
+        private IEnumerator SetInvulnerability()
+        {
+            invulnerability = true;
+            StartCoroutine(Visual.PlayerHurt(InvulnerabilityTime));
+            yield return new WaitForSeconds(InvulnerabilityTime);
+            invulnerability = false;
         }
 
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)

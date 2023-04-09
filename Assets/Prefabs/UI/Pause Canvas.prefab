@@ -917,8 +917,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e14c01b97c9ab64dbf9281231a332cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PanelsToDisable: []
   MainPanel: {fileID: 795349905792135513}
-  PausePanel: {fileID: 4172831536875243439}
   Mixer: {fileID: 24300002, guid: 76fae5f4bac2f1e48a732f9acb2d6ddf, type: 2}
   MasterSlider: {fileID: 2450184652205901640}
   MasterVolumeText: {fileID: 8576032219010978942}
@@ -926,6 +926,7 @@ MonoBehaviour:
   MusicVolumeText: {fileID: 1710646638973910949}
   EffectsSlider: {fileID: 4517827785790831916}
   EffectsVolumeText: {fileID: 3088091565752748684}
+  EnableLoggingToggle: {fileID: 5917341936507416870}
 --- !u!1 &3317511988693960789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2556,6 +2557,26 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4160113531147813162}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4160113531147813162}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EnableLogs
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Game.MainMenu.Settings.SettingsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3806318067783149524, guid: f80958137b335d641a4540607ed20605, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2705,6 +2726,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5917341936507416870 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+  m_PrefabInstance: {fileID: 7145752932709493802}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &6338836761099586558 stripped

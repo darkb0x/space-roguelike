@@ -5,6 +5,8 @@ using UnityEngine.Rendering;
 
 namespace Game
 {
+    using Utilities;
+
     public interface IUIPanelManagerObserver
     {
         public void PanelStateIsChanged(GameObject panel);
@@ -73,6 +75,8 @@ namespace Game
 
         public void ClosePanel(GameObject panel)
         {
+            LogUtility.WriteLog($"Closed panel: {panel.name}");
+
             EnablePanel(panel, false);
 
             GameInput.Instance.SetPlayerActionMap();
@@ -85,6 +89,8 @@ namespace Game
         {
             if (!canOpen)
                 return false;
+
+            LogUtility.WriteLog($"Closed panel: {panel.name}");
 
             currentOpenedPanel = panel;
             EnablePanel(panel, true);

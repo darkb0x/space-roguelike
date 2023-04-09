@@ -16,7 +16,7 @@ MonoBehaviour:
   <LowSizeIcon>k__BackingField: {fileID: 1400391229, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
   m_ItemName: 
   <Cost>k__BackingField: 20
-  <CanTakeInMission>k__BackingField: 1
+  <CanTakeInMission>k__BackingField: 0
   <IsOre>k__BackingField: 0
   OreSprites: []
   <AssetPath>k__BackingField: Items/Ingot/Zuldun Ingot

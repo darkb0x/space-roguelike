@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using NaughtyAttributes;
 
 namespace Game.Player.Visual
@@ -10,6 +12,9 @@ namespace Game.Player.Visual
 
     public class PlayerVisual : MonoBehaviour
     {
+        [SerializeField] private Volume MainVolume;
+
+        [Space]
         [SerializeField] private PlayerController Player;
         [SerializeField] private SpriteRenderer SpriteVisual;
 
@@ -36,12 +41,46 @@ namespace Game.Player.Visual
 
         private List<Image> HeartsImages = new List<Image>();
         private bool updateOxygenVisual = true;
+        private bool oxygenIsLow = false;
         private Vector2 heartImageSize = new Vector2(50, 50);
         private Vector2 shadowEffectDistance = new Vector2(5, -5);
+
+        private Vignette vignettePostProcessing;
 
         private void Start()
         {
             DeathPanel.SetActive(false);
+
+            if(MainVolume.profile.TryGet<Vignette>(out Vignette vignette))
+            {
+                vignettePostProcessing = vignette;
+            }
+        }
+
+        float lowOxygenMinIdensity = 0f;
+        float lowOxygenMaxIdensity = 0.5f;
+        float lowOxygenSpeed = 0.3f;
+        float lowOxygenTargetIdensity;
+        private void Update()
+        {
+            if (oxygenIsLow)
+            {
+                if (vignettePostProcessing.intensity == lowOxygenMinIdensity)
+                {
+                    lowOxygenTargetIdensity = lowOxygenMaxIdensity;
+                }
+                if (vignettePostProcessing.intensity == lowOxygenMaxIdensity)
+                {
+                    lowOxygenTargetIdensity = lowOxygenMinIdensity;
+                }
+
+                vignettePostProcessing.intensity.value = Mathf.MoveTowards(vignettePostProcessing.intensity.value, lowOxygenTargetIdensity, lowOxygenSpeed * Time.deltaTime);
+
+            }
+            else
+            {
+                vignettePostProcessing.intensity.value = Mathf.MoveTowards(vignettePostProcessing.intensity.value, lowOxygenMinIdensity, lowOxygenSpeed * Time.deltaTime);
+            }
         }
 
         public void InitializeHealthVisual(int maxHealth)
@@ -95,6 +134,38 @@ namespace Game.Player.Visual
         {
             Anim.SetBool(Anim_isPickingSmthBool, enabled);
         }
+        public IEnumerator PlayerHurt(float time)
+        {
+            float minAlpha = 0.2f;
+            float targetAlpha = minAlpha;
+            float speed = 4.5f;
+            float endTime = Time.time + time;
+
+            while(Time.time < endTime)
+            {
+                if (SpriteVisual.color.a == 1)
+                    targetAlpha = minAlpha;
+                if (SpriteVisual.color.a == minAlpha)
+                    targetAlpha = 1f;
+
+                while(SpriteVisual.color.a != targetAlpha)
+                {
+                    Color targetColor = new Color(1, 1, 1, Mathf.MoveTowards(SpriteVisual.color.a, targetAlpha, speed * Time.deltaTime));
+
+                    SpriteVisual.color = targetColor;
+                    yield return null;
+                }
+            }
+            targetAlpha = 1f;
+
+            while (SpriteVisual.color.a != targetAlpha)
+            {
+                Color targetColor = new Color(1, 1, 1, Mathf.MoveTowards(SpriteVisual.color.a, targetAlpha, speed * Time.deltaTime));
+
+                SpriteVisual.color = targetColor;
+                yield return null;
+            }
+        }
         public void PlayerDead()
         {
             float direction = Anim.GetFloat(Anim_horizontalFloat);
@@ -112,7 +183,10 @@ namespace Game.Player.Visual
 
             DeathPanel.SetActive(true);
         }
-
+        public void PlayerLowOxygen(bool isLow)
+        {
+            oxygenIsLow = isLow;
+        }
         public void EnableOxygenVisual(bool enabled)
         {
             updateOxygenVisual = enabled;

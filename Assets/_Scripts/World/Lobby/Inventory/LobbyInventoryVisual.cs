@@ -9,7 +9,7 @@ namespace Game.Lobby.Inventory.Visual
     using Player.Inventory.Visual;
     using Player.Inventory;
 
-    public class LobbyInventoryVisual : MonoBehaviour
+    public class LobbyInventoryVisual : MonoBehaviour, IUIPanelManagerObserver
     {
         [Header("Panel")]
         [SerializeField] private GameObject MainPanel;
@@ -33,6 +33,7 @@ namespace Game.Lobby.Inventory.Visual
         private void Start()
         {
             GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
+            UIPanelManager.Instance.Attach(this);
         }
         private void OnDisable()
         {
@@ -64,6 +65,9 @@ namespace Game.Lobby.Inventory.Visual
         }
         public void ClosePanel()
         {
+            if (!isOpened)
+                return;
+
             if(currentChestAnimator != null)
             {
                 currentChestAnimator.SetBool("isOpened", false);
@@ -148,5 +152,17 @@ namespace Game.Lobby.Inventory.Visual
             return null;
         }
         #endregion
+
+
+        public void PanelStateIsChanged(GameObject panel)
+        {
+            if(panel != MainPanel)
+            {
+                if(isOpened)
+                {
+                    isOpened = false;
+                }
+            }
+        }
     }
 }

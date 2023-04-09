@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 70dac36f608d2d242939c45436f8fcc4, type: 2}
+  InitializeOnStart: 0
   m_ShieldTime: 0.7
   currentHp: 0
   currentProtection: 0

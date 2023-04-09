@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a2148ebe7e6e824e93a4780138b6a1d, type: 3}
-  m_Name: Firegun Turret
+  m_Name: Rocket Turret
   m_EditorClassIdentifier: 
-  <CraftName>k__BackingField: Laser Turret
-  <ObjectPrefab>k__BackingField: {fileID: 7672746000741777773, guid: 3ad694691941cec409a179f9a177f07c, type: 3}
-  <IconSprite>k__BackingField: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+  <CraftName>k__BackingField: Rocket Turret
+  <ObjectPrefab>k__BackingField: {fileID: 2757904308861421873, guid: e2b12354cbb132844a55aa18d776cdff, type: 3}
+  <IconSprite>k__BackingField: {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
   <CraftCost>k__BackingField: 0
   <ObjectCraft>k__BackingField:
   - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-    Amount: 5
-  - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
     Amount: 2
   - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
-    Amount: 1
-  <AssetPath>k__BackingField: CraftSystem/Crafts/UniqueCrafts/Firegun Turret
+    Amount: 2
+  - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+    Amount: 2
+  <AssetPath>k__BackingField: CraftSystem/Crafts/UniqueCrafts/Rocket Turret

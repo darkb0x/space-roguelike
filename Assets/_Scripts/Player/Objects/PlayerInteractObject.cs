@@ -8,6 +8,8 @@ using System;
 
 namespace Game.Player
 {
+    using Pick;
+
     public delegate void CollisionEnter(Collider2D coll);
 
     public class PlayerInteractObject : MonoBehaviour
@@ -23,6 +25,8 @@ namespace Game.Player
         public CollisionEnter OnPlayerStay;
         public CollisionEnter OnPlayerExit;
 
+        private PlayerPickObjects playerPick;
+
         private void Start()
         {
             GameInput.InputActions.Player.Interact.performed += Interact;
@@ -34,6 +38,8 @@ namespace Game.Player
                 return;
             if (UIPanelManager.Instance.SomethinkIsOpened())
                 return;
+            if (playerPick.HaveObject)
+                return;
 
             action.Invoke();
         }
@@ -42,6 +48,9 @@ namespace Game.Player
         {
             if (collision.CompareTag(playerTag))
             {
+                if (collision.TryGetComponent<PlayerPickObjects>(out PlayerPickObjects pickObjects))
+                    playerPick = pickObjects;
+
                 OnPlayerEnter?.Invoke(collision);
                 playerInZone = true;
             }
@@ -58,6 +67,9 @@ namespace Game.Player
         {
             if (collision.CompareTag(playerTag))
             {
+                if (collision.TryGetComponent<PlayerPickObjects>(out PlayerPickObjects pickObjects))
+                    playerPick = null;
+
                 OnPlayerExit?.Invoke(collision);
                 playerInZone = false;
             }

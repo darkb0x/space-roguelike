@@ -12,6 +12,8 @@ namespace Game.Drone
     public class DroneMiner : DroneAI
     {
         [Header("DroneMiner")]
+        [SerializeField] private bool InitializeOnStart = false;
+        [Space]
         [SerializeField] private InventoryItem CurrentItem;
         [SerializeField] private int MaxItemAmount;
         [Space]
@@ -44,6 +46,11 @@ namespace Game.Drone
 
         private void Start()
         {
+            if(InitializeOnStart)
+            {
+                Initialize(FindObjectOfType<PlayerController>().GetComponent<PlayerDronesController>());
+            }
+
             LaserVisual.SetActive(false);
             NewItemIcon.color = new Color(1, 1, 1, 0);
 

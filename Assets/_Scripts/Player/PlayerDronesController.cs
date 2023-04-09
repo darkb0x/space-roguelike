@@ -52,7 +52,7 @@ namespace Game.Player
         {
             if(Mouse.current.leftButton.isPressed)
             {
-                Vector2 mousePos = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                Vector2 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
 
                 if(DroneMiners.Count > 0)
                 {
@@ -65,7 +65,7 @@ namespace Game.Player
 
         private void SetOreTarget(Vector2 mousePos)
         {
-            float oreFinderRadius = 1f;
+            float oreFinderRadius = 0.5f;
             DroneMiner freeDrone = null;
 
             foreach (var drone in DroneMiners)
@@ -86,9 +86,20 @@ namespace Game.Player
             foreach (var oreColl in oreColls)
             {
                 if(oreColl.TryGetComponent<Ore>(out Ore ore))
-                {
+                {                    
                     if(freeDrone.SetOre(ore))
                     {
+                        break;
+                    }
+
+                    
+                    if (ore.currentDrone != null)
+                    {
+                        DroneMiner droneMiner = ore.currentDrone as DroneMiner;
+                        droneMiner.SetFree();
+
+                        ore.currentDrone = null;
+
                         break;
                     }
                 }

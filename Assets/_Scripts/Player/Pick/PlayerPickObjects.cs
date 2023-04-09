@@ -24,7 +24,9 @@ namespace Game.Player.Pick
         [ReadOnly] public GameObject pickedGameObject;
         [SerializeField] private Transform pickedGameObject_renderPosition; // where gameobject is be visible
 
-        Transform pickedGameObject_transform;
+        private Transform pickedGameObject_transform;
+
+        public bool HaveObject { get; private set; }
 
         private void OnDrawGizmosSelected()
         {
@@ -62,6 +64,8 @@ namespace Game.Player.Pick
             pickedGameObject_transform = obj.transform;
 
             Visual.PlayerPick(true);
+
+            HaveObject = true;
         }
         public void PutCurrentGameobj(bool instatiadeObj = true)
         {
@@ -72,8 +76,7 @@ namespace Game.Player.Pick
                     if(!turret.Put())
                     {
                         return;
-                    }
-                    
+                    }               
                 }
                 if (pickedGameObject.TryGetComponent<Drill>(out Drill drill))
                 {
@@ -92,6 +95,9 @@ namespace Game.Player.Pick
             pickedGameObject_transform = null;
 
             Visual.PlayerPick(false);
+
+            HaveObject = false;
+
         }
         private void PickGameObj()
         {

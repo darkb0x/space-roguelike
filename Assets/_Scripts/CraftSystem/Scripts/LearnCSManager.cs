@@ -71,6 +71,7 @@ namespace Game.CraftSystem
         private void Start()
         {
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
+            UIPanelManager.Instance.Attach(this);
 
             AddStartingCrafts();
             foreach (var craft in currentSessionData.UnlockedCraftPaths)
@@ -87,9 +88,13 @@ namespace Game.CraftSystem
             InitializeCraftSystem();
 
             categoryButtons.Initialize(techTrees, this);
-
-            UIPanelManager.Instance.Attach(this);
         }
+
+        private void OnDisable()
+        {
+            GameInput.InputActions.UI.CloseWindow.performed -= CloseMenu;
+        }
+
         private void Update()
         {
             if (isOpened)
@@ -140,11 +145,16 @@ namespace Game.CraftSystem
         #region UI Actions
         public void OpenMenu()
         {
+            content.localPosition = Vector3.zero;
+
             UIPanelManager.Instance.OpenPanel(techTreePanel);
             isOpened = true;
         }
         public void CloseMenu()
         {
+            if (!isOpened)
+                return;
+
             UIPanelManager.Instance.ClosePanel(techTreePanel);
             isOpened = false;
         }
@@ -311,19 +321,14 @@ namespace Game.CraftSystem
 
         public void PanelStateIsChanged(GameObject panel)
         {
-            if(panel == techTreePanel)
+            if(panel != techTreePanel)
             {
-                if (!techTreePanel.activeSelf)
-                    return;
-
-                content.localPosition = Vector3.zero;
+                if (isOpened)
+                {
+                    isOpened = false;
+                }
             }
         }
         #endregion
-
-        private void OnDisable()
-        {
-            GameInput.InputActions.UI.CloseWindow.performed -= CloseMenu;
-        }
     }
 }

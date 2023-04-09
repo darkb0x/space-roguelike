@@ -9,16 +9,9 @@ namespace Game.CraftSystem
     [RequireComponent(typeof(PlayerInteractObject))]
     public class LearnWorkbanch : MonoBehaviour
     {
-        LearnCSManager learnSystem;
-
-        private void Start()
-        {
-            learnSystem = FindObjectOfType<LearnCSManager>();
-        }
-
         public void OpenMenu()
         {
-            learnSystem.OpenMenu();
+            LearnCSManager.Instance.OpenMenu();
         }
     }
 }

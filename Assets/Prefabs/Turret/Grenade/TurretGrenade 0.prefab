@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 105337205602081558, guid: 448802a1ce4fe674da7515a9d57edf5e, type: 3}
-  Damage: 10
-  TimeBtwAttack: 0.3
+  Damage: 4
+  TimeBtwAttack: 1
   Recoil: 0
   DroppedItems:
   - Item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}

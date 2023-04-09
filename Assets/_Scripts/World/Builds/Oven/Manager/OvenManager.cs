@@ -8,7 +8,7 @@ namespace Game.Oven.Manager
 {
     using Player.Inventory;
 
-    public class OvenManager : MonoBehaviour
+    public class OvenManager : MonoBehaviour, IUIPanelManagerObserver
     {
         [SerializeField, Expandable] private OvenCraftList craftList;
 
@@ -25,6 +25,7 @@ namespace Game.Oven.Manager
         private void Start()
         {
             GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
+            UIPanelManager.Instance.Attach(this);
 
             foreach (var item in craftList.Items)
             {
@@ -33,6 +34,10 @@ namespace Game.Oven.Manager
 
                 craftsVisuals.Add(element);
             }
+        }
+        private void OnDisable()
+        {
+            GameInput.InputActions.UI.CloseWindow.performed -= ClosePanel;
         }
 
         public void RemeltingItem(OvenCraftList.craft craft)
@@ -74,6 +79,9 @@ namespace Game.Oven.Manager
         }
         public void ClosePanel()
         {
+            if (!isOpened)
+                return;
+
             isOpened = false;
 
             UIPanelManager.Instance.ClosePanel(panel);
@@ -84,9 +92,15 @@ namespace Game.Oven.Manager
         }
         #endregion
 
-        private void OnDisable()
+        public void PanelStateIsChanged(GameObject panel)
         {
-            GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
+            if(panel != this.panel)
+            {
+                if(isOpened)
+                {
+                    isOpened = false;
+                }
+            }
         }
     }
 }

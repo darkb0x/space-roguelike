@@ -83,11 +83,16 @@ namespace Game.MainMenu.Mission.Visual
 
         public void OpenMenu()
         {
+            Content.position = defaultContentPosition;
+
             UIPanelManager.Instance.OpenPanel(MainPanel);
             isOpened = true;
         }
         public void CloseMenu()
         {
+            if (!isOpened)
+                return;
+
             UIPanelManager.Instance.ClosePanel(MainPanel);
             isOpened = false;
         }
@@ -102,14 +107,12 @@ namespace Game.MainMenu.Mission.Visual
 
         public void PanelStateIsChanged(GameObject panel)
         {
-            if (panel == MainPanel)
+            if(panel != MainPanel)
             {
-                if (!MainPanel.activeSelf)
+                if(isOpened)
                 {
-                    return;
+                    isOpened = false;
                 }
-
-                Content.position = defaultContentPosition;
             }
         }
     }

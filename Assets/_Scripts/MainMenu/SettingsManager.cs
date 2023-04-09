@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using TMPro;
 
 namespace Game.MainMenu.Settings
@@ -25,7 +24,7 @@ namespace Game.MainMenu.Settings
         [Header("Audio Mixer")]
         [SerializeField] private AudioMixerGroup Mixer;
        
-        [Header("Volume Sldiers")]
+        [Header("Volume Sliders")]
         [SerializeField] private Slider MasterSlider;
         [SerializeField] private TextMeshProUGUI MasterVolumeText;
         [Space]
@@ -35,33 +34,30 @@ namespace Game.MainMenu.Settings
         [SerializeField] private Slider EffectsSlider;
         [SerializeField] private TextMeshProUGUI EffectsVolumeText;
 
+        [Header("Logging Toggle")]
+        [SerializeField] private Toggle EnableLoggingToggle;
+
         private SettingsData settingsData => GameData.Instance.CurrentSettingsData;
 
         private void Start()
         {
+            // Volume
             MasterSlider.minValue = MIN_VOLUME;
             MusicSlider.minValue = MIN_VOLUME;
             EffectsSlider.minValue = MIN_VOLUME;
+
+            MasterSlider.maxValue = MAX_VOLUME;
+            MusicSlider.maxValue = MAX_VOLUME;
+            EffectsSlider.maxValue = MAX_VOLUME;
 
             MasterSlider.value = settingsData.MasterVolume;
             MusicSlider.value = settingsData.MusicVolume;
             EffectsSlider.value = settingsData.EffectsVolume;
 
+            // Logs
+            EnableLoggingToggle.isOn = settingsData.EnableLogs;
+
             UpdateVolumeVisual();
-        }
-
-        private void UpdateVolumeVisual()
-        {
-            MasterVolumeText.text = GetVolumeInPercent(MasterSlider.value).ToString("F0") + "%";
-            MusicVolumeText.text = GetVolumeInPercent(MusicSlider.value).ToString("F0") + "%";
-            EffectsVolumeText.text = GetVolumeInPercent(EffectsSlider.value).ToString("F0") + "%";
-
-            settingsData.Save();
-        }
-
-        private float GetVolumeInPercent(float volume)
-        {
-            return Mathf.InverseLerp(MIN_VOLUME, MAX_VOLUME, volume) * 100f;
         }
 
         public void OpenPanel()
@@ -83,11 +79,25 @@ namespace Game.MainMenu.Settings
             }
         }
 
+        #region Volume
+        private void UpdateVolumeVisual()
+        {
+            MasterVolumeText.text = GetVolumeInPercent(MasterSlider.value).ToString("F0") + "%";
+            MusicVolumeText.text = GetVolumeInPercent(MusicSlider.value).ToString("F0") + "%";
+            EffectsVolumeText.text = GetVolumeInPercent(EffectsSlider.value).ToString("F0") + "%";
+        }
+
+        private float GetVolumeInPercent(float volume)
+        {
+            return Mathf.InverseLerp(MIN_VOLUME, MAX_VOLUME, volume) * 100f;
+        }
+
         public void SetMasterVolume(float value)
         {
             settingsData.MasterVolume = value;
             Mixer.audioMixer.SetFloat(MASTER_VOLUME_KEY, value);
 
+            settingsData.Save();
             UpdateVolumeVisual();
         }
         public void SetMusicVolume(float value)
@@ -95,6 +105,7 @@ namespace Game.MainMenu.Settings
             settingsData.MusicVolume = value;
             Mixer.audioMixer.SetFloat(MUSIC_VOLUME_KEY, value);
 
+            settingsData.Save();
             UpdateVolumeVisual();
         }
         public void SetEffectsVolume(float value)
@@ -102,7 +113,17 @@ namespace Game.MainMenu.Settings
             settingsData.EffectsVolume = value;
             Mixer.audioMixer.SetFloat(EFFECTS_VOLUME_KEY, value);
 
+            settingsData.Save();
             UpdateVolumeVisual();
         }
+        #endregion
+
+        #region Logging
+        public void EnableLogs(bool enabled)
+        {
+            settingsData.EnableLogs = enabled;
+            settingsData.Save();
+        }
+        #endregion
     }
 }

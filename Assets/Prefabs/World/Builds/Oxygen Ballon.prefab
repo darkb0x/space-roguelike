@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5777383818706422624}
   - component: {fileID: 5777383818706422627}
-  - component: {fileID: 5777383818706422626}
   - component: {fileID: 5777383818706422625}
   m_Layer: 0
   m_Name: Oxygen Ballon
@@ -47,39 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1164755a20b9a48860e6a79cb5cc61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OxygenAmount: 30
+  m_OxygenAmount: 30
+  UseSpeed: 10
   BallonVisual: {fileID: 5777383820150945426}
   BallonNormal: {fileID: -134836039, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
   BallonUsed: {fileID: -1003880061, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
---- !u!114 &5777383818706422626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5777383818706422631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26539094db143564d8d2228b57109b19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  action:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5777383818706422627}
-        m_TargetAssemblyTypeName: Game.World.OxygenBallon, Assembly-CSharp
-        m_MethodName: UseOxygenBallon
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  playerTag: Player
-  playerInZone: 0
 --- !u!58 &5777383818706422625
 CircleCollider2D:
   m_ObjectHideFlags: 0

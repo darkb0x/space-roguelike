@@ -151,7 +151,6 @@ namespace Game.Player.Inventory
                 currentSessionData.MainInventory.SetItem(itemData);
             }
 
-            currentSessionData.Save();
             UpdateVisual();
         }
 
@@ -175,7 +174,6 @@ namespace Game.Player.Inventory
                 {
                     itemData.Amount -= amount;
                     currentSessionData.MainInventory.SetItem(itemData);
-                    currentSessionData.Save();
 
                     if(showNotify)
                     {

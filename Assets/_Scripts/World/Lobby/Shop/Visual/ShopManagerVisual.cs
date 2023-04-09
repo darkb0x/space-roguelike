@@ -11,7 +11,7 @@ namespace Game.Lobby.Shop.Visual
     using Container;
     using Container.Visual;
 
-    public class ShopManagerVisual : MonoBehaviour
+    public class ShopManagerVisual : MonoBehaviour, IUIPanelManagerObserver
     {
         [SerializeField] private GameObject MainPanel;
 
@@ -39,6 +39,7 @@ namespace Game.Lobby.Shop.Visual
             manager = GetComponent<ShopManager>();
 
             GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
+            UIPanelManager.Instance.Attach(this);
         }
 
         public void Initialize(List<ItemData> items)
@@ -114,6 +115,9 @@ namespace Game.Lobby.Shop.Visual
 
         public void ClosePanel()
         {
+            if (!isOpened)
+                return;
+
             UIPanelManager.Instance.ClosePanel(MainPanel);
             isOpened = false;
         }
@@ -125,6 +129,17 @@ namespace Game.Lobby.Shop.Visual
         private void OnDisable()
         {
             GameInput.InputActions.UI.CloseWindow.performed -= ClosePanel;
+        }
+
+        public void PanelStateIsChanged(GameObject panel)
+        {
+            if(panel != MainPanel)
+            {
+                if(isOpened)
+                {
+                    isOpened = false;
+                }
+            }
         }
     }
 }

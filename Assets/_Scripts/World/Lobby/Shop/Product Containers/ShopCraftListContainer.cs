@@ -13,14 +13,14 @@ namespace Game.Lobby.Shop.Container
     public class CraftProduct : Product
     {
         [Space]
-        public CSCraftSO Craft;
+        [NaughtyAttributes.Expandable] public CSCraftSO Craft;
     }
 
     [CreateAssetMenu(fileName = "Shop Craft List Container", menuName = "Game/Shop/new Craft List Container")]
     public class ShopCraftListContainer : ShopProductListContainer
     {
         [Header("Data")]
-        [SerializeField] private List<CraftProduct> Crafts = new List<CraftProduct>();
+        [SerializeField, NaughtyAttributes.ReorderableList] private List<CraftProduct> Crafts = new List<CraftProduct>();
 
         public override void Initialize(ShopManager manager, ShopProductListContainerVisual containerVisual)
         {

@@ -506,6 +506,26 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2083917348}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EnableLogs
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Game.MainMenu.Settings.SettingsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3806318067783149524, guid: f80958137b335d641a4540607ed20605, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -657,6 +677,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3806318067783149524, guid: f80958137b335d641a4540607ed20605, type: 3}
   m_PrefabInstance: {fileID: 284625933}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &284625935 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3545546000839023884, guid: f80958137b335d641a4540607ed20605, type: 3}
+  m_PrefabInstance: {fileID: 284625933}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &284625936 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6744241605624549638, guid: f80958137b335d641a4540607ed20605, type: 3}
@@ -1281,6 +1312,7 @@ MonoBehaviour:
   CurrentSessionData:
     dataSavePath: 
     dataFileName: 
+    CameraZoom: 0
     UnlockedCraftPaths: []
     MainInventory:
       Items:
@@ -1295,6 +1327,7 @@ MonoBehaviour:
   CurrentSettingsData:
     dataSavePath: 
     dataFileName: 
+    EnableLogs: 0
     MasterVolume: 0
     MusicVolume: 0
     EffectsVolume: 0
@@ -3127,6 +3160,7 @@ MonoBehaviour:
   MusicVolumeText: {fileID: 1325551511}
   EffectsSlider: {fileID: 284625936}
   EffectsVolumeText: {fileID: 1629720252}
+  EnableLoggingToggle: {fileID: 284625935}
 --- !u!4 &2083917349
 Transform:
   m_ObjectHideFlags: 0

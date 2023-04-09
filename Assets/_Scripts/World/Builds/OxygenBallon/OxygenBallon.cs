@@ -6,10 +6,10 @@ namespace Game.World
 {
     using Player;
 
-    [RequireComponent(typeof(PlayerInteractObject))]
     public class OxygenBallon : MonoBehaviour
     {
-        [SerializeField] private float OxygenAmount;
+        [SerializeField] private float m_OxygenAmount;
+        [SerializeField] private float UseSpeed = 3f;
 
         [Header("Visual")]
         [SerializeField] private SpriteRenderer BallonVisual;
@@ -17,6 +17,7 @@ namespace Game.World
         [SerializeField] private Sprite BallonUsed;
 
         public bool isUsed { get; private set; }
+        private float oxygenAmount;
         private PlayerInteractObject interactObject;
         private PlayerController currentPlayer;
 
@@ -24,38 +25,60 @@ namespace Game.World
         {
             interactObject = GetComponent<PlayerInteractObject>();
 
+            oxygenAmount = m_OxygenAmount;
+
             isUsed = false;
             BallonVisual.sprite = BallonNormal;
-
-            interactObject.OnPlayerEnter += OnPlayerEnter;
-            interactObject.OnPlayerExit += OnPlayerExit;
         }
 
-        public void UseOxygenBallon()
+        private void Update()
         {
             if (isUsed)
                 return;
             if (currentPlayer == null)
-                currentPlayer = FindObjectOfType<PlayerController>();
-
-            currentPlayer.AddOxygen(OxygenAmount);
-            BallonVisual.sprite = BallonUsed;
-            isUsed = true;
+                return;
+            
+            if(GameInput.InputActions.Player.Interact.IsPressed())
+            {
+                UseOxygenBallon();
+            }
         }
 
-        private void OnPlayerEnter(Collider2D coll)
+        public void UseOxygenBallon()
         {
-            currentPlayer = coll.GetComponent<PlayerController>();
-        }
-        private void OnPlayerExit(Collider2D coll)
-        {
-            currentPlayer = null;
+            float value = Time.deltaTime * UseSpeed;
+
+            currentPlayer.AddOxygen(value);
+            oxygenAmount -= value;
+
+            if(oxygenAmount <= 0)
+            {
+                isUsed = true;
+
+                BallonVisual.sprite = BallonUsed;
+                isUsed = true;
+            }
         }
 
-        private void OnDisable()
+        private void OnTriggerEnter2D(Collider2D coll)
         {
-            interactObject.OnPlayerEnter -= OnPlayerEnter;
-            interactObject.OnPlayerExit -= OnPlayerExit;
+            if (isUsed)
+                return;
+
+            if(coll.TryGetComponent<PlayerController>(out PlayerController player))
+            {
+                currentPlayer = player;
+            }
+        }
+        private void OnTriggerExit2D(Collider2D coll)
+        {
+            if (isUsed)
+                return;
+
+            if (coll.TryGetComponent<PlayerController>(out PlayerController player))
+            {
+                currentPlayer = null;
+            }
         }
     }
 }

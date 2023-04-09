@@ -40,11 +40,8 @@ namespace Game.CraftSystem
 
         public void OpenCraftMenu()
         {
-            if (!player.pickObjSystem.pickedGameObject)
-            {
-                player.StopPlayerMove();
-                craftSystem.OpenMenu(this);
-            }
+            player.StopPlayerMove();
+            craftSystem.OpenMenu(this);
         }
     }
 }

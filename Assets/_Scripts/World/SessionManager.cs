@@ -12,6 +12,7 @@ namespace Game
     using MainMenu.Pause;
     using SaveData;
     using Utilities.LoadScene;
+    using Utilities;
 
     public enum SessionEventType
     {
@@ -19,9 +20,13 @@ namespace Game
         StartWave
     }
 
-    public class SessionEvents : MonoBehaviour
+    public class SessionManager : MonoBehaviour
     {
-        public static SessionEvents Instance;
+        public static SessionManager Instance;
+
+        [Header("Rocket")]
+        [SerializeField] private Transform Rocket;
+        [SerializeField] private Transform[] RocketPositions;
 
         [Header("Session Theme")]
         [SerializeField, Expandable] private SessionTimingsSO SessionTimings;
@@ -50,6 +55,8 @@ namespace Game
 
             eventsCount = SessionTimings.EventsList.Count;
             currentEvent = 0;
+
+            Rocket.position = RocketPositions[Random.Range(0, RocketPositions.Length)].position;
         }
 
         private void Start()
@@ -123,6 +130,8 @@ namespace Game
         }
         public void EnableLobbyScene()
         {
+            GameData.Instance.CurrentSessionData.Save();
+
             LoadSceneUtility.Instance.EnableLoadedAsyncScene();
         }
 

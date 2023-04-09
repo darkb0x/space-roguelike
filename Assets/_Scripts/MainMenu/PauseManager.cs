@@ -81,6 +81,7 @@ namespace Game.MainMenu.Pause
                 if (Application.isEditor)
                     return;
 
+                pauseEnabled = true;
                 UIPanelManager.Instance.CloseAllPanel();
                 Pause();
             }

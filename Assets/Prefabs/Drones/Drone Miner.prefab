@@ -200,6 +200,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -365990163, guid: 368c38354b04bf84fbb65387152f86a8, type: 3}
+    - target: {fileID: 480401227541731689, guid: e1d8ccbae4e32e5409bec243308fa8e6, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 480401227958504068, guid: e1d8ccbae4e32e5409bec243308fa8e6, type: 3}
       propertyPath: m_Name
       value: Drone Miner
@@ -260,6 +264,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -2125092532, guid: 368c38354b04bf84fbb65387152f86a8, type: 3}
+    - target: {fileID: 480401228058813933, guid: e1d8ccbae4e32e5409bec243308fa8e6, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 480401228058813934, guid: e1d8ccbae4e32e5409bec243308fa8e6, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -286,9 +294,10 @@ MonoBehaviour:
   MoveSpeed: 4
   m_Health: 10
   DestoryParticle: {fileID: 4550200863518524, guid: 57a5b17d8e8d0d04b84708a9ddc7c585, type: 3}
+  InitializeOnStart: 0
   CurrentItem: {fileID: 0}
   MaxItemAmount: 0
-  m_TimeBtwMiningHits: 1
+  m_TimeBtwMiningHits: 2.3
   ItemsPerHit: 1
   InOrbit: 0
   MaxDistanceBtwPlayerAndDrone: 6

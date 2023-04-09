@@ -194,7 +194,7 @@ namespace Game.Drill
             allExtractedOre += oreAmount;
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
 
-            if (CurrentOre.Amount < 0)
+            if (CurrentOre.Amount <= 0)
             {
                 CurrentOre = null;
                 oreTransform = null;

@@ -60,15 +60,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "MousePosition",
-                    "type": "Value",
-                    "id": "1edf0e81-f840-454d-8ca4-ae23ca3b6a63",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Inventory",
                     "type": "Button",
                     "id": "a992c368-f553-4eaf-a4e7-ed13c982c772",
@@ -203,7 +194,7 @@
                 {
                     "name": "",
                     "id": "bf9e4a53-ef28-4a30-a60a-2519fe6d70f3",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -230,17 +221,6 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c3bc6447-3d20-48fe-b2d9-8bf86bc028f7",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -304,6 +284,17 @@
                 {
                     "name": "",
                     "id": "94d49b2d-f685-4cad-a989-eae823c1badb",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "CloseWindow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b7698a2-18f1-446f-8fb6-56da0ba08c13",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",

@@ -12,7 +12,7 @@ namespace Game.CraftSystem
     using SaveData;
     using Utilities.Notifications;
 
-    public class CSManager : MonoBehaviour
+    public class CSManager : MonoBehaviour, IUIPanelManagerObserver
     {
         [System.Serializable]
         public class CraftTechTree
@@ -67,6 +67,7 @@ namespace Game.CraftSystem
         private void Start()
         {
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
+            UIPanelManager.Instance.Attach(this);
 
             player = FindObjectOfType<PlayerController>();
 
@@ -121,6 +122,9 @@ namespace Game.CraftSystem
         }
         private void CloseMenu()
         {
+            if (!isOpened)
+                return;
+
             UIPanelManager.Instance.ClosePanel(craftTreePanel);
             isOpened = false;
 
@@ -271,6 +275,17 @@ namespace Game.CraftSystem
         private void OnDisable()
         {
             GameInput.InputActions.UI.CloseWindow.performed -= CloseMenu;
+        }
+
+        public void PanelStateIsChanged(GameObject panel)
+        {
+            if(panel != craftTreePanel)
+            {
+                if(isOpened)
+                {
+                    isOpened = false;
+                }
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Game.Enemy
 
         [Header("Data")]
         [SerializeField, Expandable] protected EnemyData Data;
+        [SerializeField] private bool InitializeOnStart = false;
 
         [Header("Health")]
         [SerializeField] private float m_ShieldTime = 0.7f;
@@ -81,7 +82,8 @@ namespace Game.Enemy
             shieldTime = m_ShieldTime;
             haveShield = true;
 
-            //Initialize(Data);
+            if(InitializeOnStart)
+                Initialize(Data);
         }
 
         public virtual void Initialize(EnemyData data, float difficultFactor = 1)
@@ -106,10 +108,6 @@ namespace Game.Enemy
                 Die();
             #endif
 
-            
-            if (!IsAttacking)
-                return;
-
             if(shieldTime > 0)
             {
                 shieldTime -= Time.deltaTime;
@@ -129,15 +127,18 @@ namespace Game.Enemy
 
             if (reachedEndOfPath)
             {
-                if(currentTimeBtwAttack <= 0)
+                if(IsAttacking)
                 {
-                    currentTimeBtwAttack = TimeBtwAttacks;
+                    if (currentTimeBtwAttack <= 0)
+                    {
+                        currentTimeBtwAttack = TimeBtwAttacks;
 
-                    StartAttacking();
-                }
-                else
-                {
-                    currentTimeBtwAttack -= Time.deltaTime;
+                        StartAttacking();
+                    }
+                    else
+                    {
+                        currentTimeBtwAttack -= Time.deltaTime;
+                    }
                 }
             }
         }

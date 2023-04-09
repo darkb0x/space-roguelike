@@ -3,6 +3,7 @@ using UnityEngine;
 namespace Game
 {
     using Player;
+    using SaveData;
 
     public class CameraController : MonoBehaviour
     {
@@ -19,7 +20,7 @@ namespace Game
         private Transform myTransform;
         private float currentZoom;
 
-        private float defaultZoom;
+        private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
 
         private void Start()
         {
@@ -28,8 +29,7 @@ namespace Game
             player = FindObjectOfType<PlayerController>();
 
             target = player.transform;
-            currentZoom = cam.orthographicSize;
-            defaultZoom = cam.orthographicSize;
+            currentZoom = currentSessionData.CameraZoom;
         }
 
         private void Update()
@@ -38,6 +38,8 @@ namespace Game
             {
                 currentZoom = Mathf.Clamp(currentZoom + -GameInput.Instance.GetMouseScrollDeltaY() * scrollSensivity, minCamViewScale, maxCamViewScale);
                 cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
+
+                currentSessionData.CameraZoom = currentZoom;
             }
 
             myTransform.position = target.position - new Vector3(0, 0, Mathf.Abs(myTransform.position.z)); 

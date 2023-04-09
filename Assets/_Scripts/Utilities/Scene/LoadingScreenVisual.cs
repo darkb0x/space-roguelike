@@ -35,7 +35,7 @@ namespace Game.Utilities.LoadScene.Visual
 
         public void UpdateProgress(float progress)
         {
-            LoadingProgress.text = ((progress / 0.9f) * 100f) + "%";
+            LoadingProgress.text = (progress / 0.9f * 100f).ToString("F0") + "%";
         }
 
         float frameTime = 0.08f;

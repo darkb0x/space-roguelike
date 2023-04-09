@@ -1456,6 +1456,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &356495165 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2157460713615913334, guid: 984b0a0b1c1707a478aaa8f07a4764b1, type: 3}
+  m_PrefabInstance: {fileID: 356495163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!223 &371225994 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 2483677705205861331, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
@@ -5898,6 +5909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 865795915}
+  - component: {fileID: 865795918}
   - component: {fileID: 865795916}
   - component: {fileID: 865795917}
   m_Layer: 0
@@ -5995,6 +6007,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &865795918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865795914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921e9fe19dd77fe488caca5f7e1c0da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Anim: {fileID: 865795917}
+  Anim_playerNearBool: PlayerNear
+  NearDistance: 4
 --- !u!1 &889376649
 GameObject:
   m_ObjectHideFlags: 0
@@ -6469,6 +6496,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 68.000046
       objectReference: {fileID: 0}
+    - target: {fileID: 5340520158696822646, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
+      propertyPath: MainVolume
+      value: 
+      objectReference: {fileID: 356495165}
     - target: {fileID: 6307312605338543953, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -12027,6 +12058,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 836240410020727932, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 836240410020727932, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 836240410020727932, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1556462507870319358, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -12159,6 +12202,26 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5497932826949786956, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497932826949786956, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7082863923374285656, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7082863923374285656, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7082863923374285656, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8556449581978334293, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -12174,6 +12237,14 @@ PrefabInstance:
     - target: {fileID: 8711301266446397145, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
       propertyPath: m_Name
       value: Pause Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820155920153296326, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820155920153296326, guid: 474a9d3771ed80c4090973d802905a36, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000052452087
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 474a9d3771ed80c4090973d802905a36, type: 3}

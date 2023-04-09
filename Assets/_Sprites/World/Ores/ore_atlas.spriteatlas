@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ore_atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 1a439f8890c32da4fb0775e9cc601f6b, type: 3}
+    - {fileID: 2800000, guid: 8a03172a63e2f0f4e9dc1a71bbdcfd5b, type: 3}
+    - {fileID: 2800000, guid: 98e68d1e87eb1b64a875eee511c6726a, type: 3}
+    - {fileID: 2800000, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
+    - {fileID: 2800000, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+    - {fileID: 2800000, guid: c90772d18c364a243961005f080e18d6, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -1885851282, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: -873471448, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: 454877507, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: -1719605711, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: -1453161823, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: -839839633, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: 1953919744, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: 1467370179, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: 246066989, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: -1539777216, guid: c90772d18c364a243961005f080e18d6, type: 3}
+  - {fileID: -964996181, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: 1972106274, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: -650112594, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: 2141983319, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: -1083360444, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: 1783792321, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: -1386793218, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: -936538585, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: 1269682446, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: -2096096520, guid: d972c1f1ed4eb3c4385534992ecf73bb, type: 3}
+  - {fileID: 1466868097, guid: 1a439f8890c32da4fb0775e9cc601f6b, type: 3}
+  - {fileID: 147493148, guid: 1a439f8890c32da4fb0775e9cc601f6b, type: 3}
+  - {fileID: -681721102, guid: 1a439f8890c32da4fb0775e9cc601f6b, type: 3}
+  - {fileID: 256505823, guid: 8a03172a63e2f0f4e9dc1a71bbdcfd5b, type: 3}
+  - {fileID: -951259498, guid: 8a03172a63e2f0f4e9dc1a71bbdcfd5b, type: 3}
+  - {fileID: -523915332, guid: 8a03172a63e2f0f4e9dc1a71bbdcfd5b, type: 3}
+  - {fileID: -309373149, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
+  - {fileID: -1706949282, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
+  - {fileID: 770929105, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
+  - {fileID: -2123161284, guid: 98e68d1e87eb1b64a875eee511c6726a, type: 3}
+  - {fileID: -324910342, guid: 98e68d1e87eb1b64a875eee511c6726a, type: 3}
+  - {fileID: -1632018833, guid: 98e68d1e87eb1b64a875eee511c6726a, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - rock_desert_5
+  - rock_desert_4
+  - rock_desert_7
+  - rock_desert_6
+  - rock_desert_1
+  - rock_desert_0
+  - rock_desert_3
+  - rock_desert_2
+  - rock_desert_9
+  - rock_desert_8
+  - rock_1
+  - rock_0
+  - rock_3
+  - rock_2
+  - rock_5
+  - rock_4
+  - rock_7
+  - rock_6
+  - rock_9
+  - rock_8
+  - kopoloh_ore_2
+  - kopoloh_ore_1
+  - kopoloh_ore_0
+  - marbet_ore_2
+  - marbet_ore_0
+  - marbet_ore_1
+  - zuldun_ore_1
+  - zuldun_ore_0
+  - zuldun_ore_2
+  - selbit_ore_2
+  - selbit_ore_0
+  - selbit_ore_1
+  m_RenderDataMap: {}
+  m_Tag: ore_atlas
+  m_IsVariant: 0
