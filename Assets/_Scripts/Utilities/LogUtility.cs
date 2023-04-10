@@ -25,21 +25,21 @@ namespace Game
 
             writer = new StreamWriter(filePath, true);
             Application.logMessageReceived += HandleLog;
-            WriteLog($"({System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}) Start logging..");
+            WriteLog($"{System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} : Start logging..");
         }
         public static void StopLogging()
         {
             if (writer == null)
                 return;
 
-            WriteLog($"({System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}) End logging..");
+            WriteLog($"{System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} : End logging..");
             Application.logMessageReceived -= HandleLog;
             writer.Close();
         }
 
         private static void HandleLog(string logString, string stackTrace, LogType type)
         {
-            writer.WriteLine($"{System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}: {logString} ({type})");
+            writer.WriteLine($"{System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} : {logString} ({type})");
             if (type == LogType.Error || type == LogType.Exception)
             {
                 writer.WriteLine($"StackTrace: {stackTrace}");
@@ -51,7 +51,7 @@ namespace Game
             if (writer == null)
                 return;
 
-            writer.WriteLine(logData);
+            writer.WriteLine($"{System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} : {logData}");
         }
     }
 }

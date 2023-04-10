@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6017197773101789543}
   - component: {fileID: 1919633350629462414}
   - component: {fileID: 8740799799362526667}
+  - component: {fileID: 8240125498256316280}
   - component: {fileID: 1454632451978491089}
   - component: {fileID: 6244823118490864838}
   m_Layer: 9
@@ -65,7 +66,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   Speed: 6
-  NextWaypointDistance: 1.3
+  NextWaypointDistance: 0.3
   AllColls:
   - {fileID: 6244823118490864838}
   EnemyVisual: {fileID: 1842241882805333569}
@@ -86,8 +87,8 @@ MonoBehaviour:
   detailedGizmos: 0
   startEndModifier:
     addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
+    exactStartPoint: 4
+    exactEndPoint: 0
     useRaycasting: 0
     mask:
       serializedVersion: 2
@@ -97,6 +98,28 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &8240125498256316280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6017197773101789547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  smoothType: 0
+  subdivisions: 2
+  iterations: 2
+  strength: 0.5
+  uniformLength: 1
+  maxSegmentLength: 2
+  bezierTangentLength: 0.4
+  offset: 0.2
+  factor: 0.1
 --- !u!50 &1454632451978491089
 Rigidbody2D:
   serializedVersion: 4
@@ -110,7 +133,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

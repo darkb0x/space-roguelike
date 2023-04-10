@@ -208,19 +208,6 @@ namespace Game.Player
             Die();
         }
         #endregion
-        
-        #region Drone
-        /*
-        private void AddDrone(object sender, EventArgs e)
-        {
-            Debug.Log("Drone used");
-            if (selectedDrone)
-            {
-                if (!selectedDrone.isPicked) selectedDrone.Init();
-            }
-        }
-        */
-        #endregion
 
         #region Animation Control
         public void StopPlayerMove(Transform posTransform)

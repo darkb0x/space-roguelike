@@ -10,7 +10,7 @@ namespace Game.Enemy
 {
     public abstract class EnemyAI : MonoBehaviour
     {
-        private const float UPDATE_PATH_TIME = 1f;
+        private const float UPDATE_PATH_TIME = 0.3f;
         private const float CHECK_TARGET_IN_VISION_TIME = 0.7f;
 
         [Header("Data")]
@@ -67,7 +67,7 @@ namespace Game.Enemy
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, VisionRadius);
 
-            Gizmos.color = Color.magenta;
+            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, AttackRadius);
         }
 
@@ -166,11 +166,14 @@ namespace Game.Enemy
                 reachedEndOfPath = false;
             }
 
+
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+
             float speedFactor = 50f;
             Vector2 force = direction * (Speed * speedFactor) * Time.deltaTime;
-
             rb.AddForce(force);
+
+            //rb.MovePosition(rb.position + direction * Speed * Time.fixedDeltaTime);
 
             if(EnemyVisual)
                 EnemyVisual.FlipSprite(rb.velocity.x < 0.2f);
