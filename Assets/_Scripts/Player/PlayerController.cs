@@ -17,12 +17,12 @@ namespace Game.Player
         [SerializeField] private float LowOxygenValue;
         [SerializeField] private float maxOxygen = 100f;
         [SerializeField] private float oxygenUseSpeed = 1.3f;
-        [SerializeField] private bool DoOxygenCycle = true;
+        public bool DoOxygenCycle = true;
 
         [Header("Health")]
         [SerializeField] private float health = 10;
         [SerializeField] private float maxHealth;
-        [SerializeField] private bool DoHealthCycle = true;
+        public bool DoHealthCycle = true;
         [Space]
         [SerializeField] private float InvulnerabilityTime = 0.2f;
 
@@ -171,6 +171,13 @@ namespace Game.Player
 
             StartCoroutine(SetInvulnerability());
         }
+        public void RegenerateHealth()
+        {
+            health = maxHealth;
+
+            Visual.UpdateHealthVisual((int)health);
+        }
+
         private void Die()
         {
             if (!DoHealthCycle)

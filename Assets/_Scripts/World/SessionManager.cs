@@ -57,6 +57,8 @@ namespace Game
             currentEvent = 0;
 
             Rocket.position = RocketPositions[Random.Range(0, RocketPositions.Length)].position;
+
+            LogUtility.StartLogging("session");
         }
 
         private void Start()
@@ -137,6 +139,7 @@ namespace Game
 
         private void OnDisable()
         {
+            LogUtility.StopLogging();
             PauseManager.Instance.OnGamePaused += OnGamePaused;
         }
     }

@@ -119,13 +119,13 @@ namespace Game.CraftSystem
                 {
                     NotificationManager.NewNotification(craft.IconSprite, "New craft!", true);
                 }
-
-                LogUtility.WriteLog($"Learned new craft. Craft: {craft.CraftName} {craft.AssetPath}.");
             }
             if (!currentSessionData.UnlockedCraftPaths.Contains(craft.AssetPath))
             {
                 currentSessionData.UnlockedCraftPaths.Add(craft.AssetPath);
                 currentSessionData.Save();
+
+                LogUtility.WriteLog($"Learned new craft. Craft: {craft.CraftName} {craft.AssetPath}.");
             }
         }
         public void LearnCraft(CSCraftSO craft, bool showNotify = true)
