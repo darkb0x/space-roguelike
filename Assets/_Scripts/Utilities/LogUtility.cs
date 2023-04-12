@@ -41,10 +41,14 @@ namespace Game
 
         private static void HandleLog(string logString, string stackTrace, LogType type)
         {
-            writer.WriteLine($"{System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} | {logString} ({type})");
             if (type == LogType.Error || type == LogType.Exception)
             {
+                writer.WriteLine($"\n{System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} | {logString} ({type})");
                 writer.WriteLine($"StackTrace: {stackTrace}");
+            }
+            else
+            {
+                writer.WriteLine($"{System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} | {logString} ({type})");
             }
         }
 

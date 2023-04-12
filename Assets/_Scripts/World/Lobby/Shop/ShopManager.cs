@@ -7,11 +7,9 @@ namespace Game.Lobby.Shop
 {
     using Visual;
     using Container;
-    using Container.Visual;
     using Inventory;
     using Player.Inventory;
     using SaveData;
-    using System;
 
     public class ShopManager : MonoBehaviour
     {

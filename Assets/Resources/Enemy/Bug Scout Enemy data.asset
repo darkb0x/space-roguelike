@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a42f747fd904542bacbd6f86b89d9b, type: 3}
   m_Name: Bug Scout Enemy data
   m_EditorClassIdentifier: 
-  <EnemyPrefab>k__BackingField: {fileID: 6017197773101789547, guid: 9a735bc9f7392974685d405538c226f8, type: 3}
+  <EnemyPrefab>k__BackingField: {fileID: 6359194835018740924, guid: 4d50d6be73f65da47858802506f72f1d, type: 3}
+  EnemyIcon: {fileID: -207176043, guid: de98575745053fb459066034609687d8, type: 3}
   <Health>k__BackingField: 5
   <Protection>k__BackingField: 0
   <Damage>k__BackingField: 1

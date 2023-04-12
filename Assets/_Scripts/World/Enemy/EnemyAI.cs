@@ -21,6 +21,7 @@ namespace Game.Enemy
         [SerializeField] private float m_ShieldTime = 0.7f;
         [Space]
         [ReadOnly] public float currentHp;
+        [ReadOnly] public float maxHp;
         [Space]
         [ReadOnly] public float currentProtection;
         [Space]
@@ -91,9 +92,24 @@ namespace Game.Enemy
             Data = data;
 
             currentHp = Data.Health * difficultFactor;
+            maxHp = Data.Health;
             currentProtection = Data.Protection * difficultFactor;
             Damage = Data.Damage;
             currentTimeBtwAttack = TimeBtwAttacks;
+
+            currentTarget = GetRandomTarget();
+
+            InvokeRepeating("UpdatePath", 0f, UPDATE_PATH_TIME);
+            InvokeRepeating("CheckTargetsInVision", 0, CHECK_TARGET_IN_VISION_TIME);
+        }
+        public virtual void Initialize(float health, float protection, float damage, bool isAttacking, float difficultFactor = 1)
+        {
+            currentHp = health * difficultFactor;
+            maxHp = currentHp;
+            currentProtection = protection * difficultFactor;
+            Damage = damage;
+            currentTimeBtwAttack = TimeBtwAttacks;
+            this.IsAttacking = isAttacking;
 
             currentTarget = GetRandomTarget();
 
@@ -266,7 +282,7 @@ namespace Game.Enemy
         }
         protected virtual EnemyTarget GetRandomTarget()
         {
-            EnemyTarget[] targets = EnemySpawner.Instance.GetTargetList().ToArray();
+            EnemyTarget[] targets = EnemySpawner.Instance.GetTargetList();
 
             if (targets.Length <= 0)
                 return null;
@@ -282,7 +298,6 @@ namespace Game.Enemy
                 return;
 
             float dmg = value - currentProtection;
-            float maxHp = Data.Health;
 
             if (dmg <= 0)
             {
@@ -307,9 +322,9 @@ namespace Game.Enemy
                 Die();
         }
 
-        public virtual void Die()
+        public virtual void Die(bool immediate = false)
         {
-            if (haveShield)
+            if (haveShield && !immediate)
                 return;
 
             IsAttacking = false;

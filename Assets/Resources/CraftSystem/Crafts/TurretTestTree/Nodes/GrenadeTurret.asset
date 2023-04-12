@@ -22,7 +22,6 @@ MonoBehaviour:
   - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
     Amount: 5
   <AssetPath>k__BackingField: CraftSystem/Crafts/TurretTestTree/Nodes/GrenadeTurret
-  <Choices>k__BackingField:
-  - <NextCraft>k__BackingField: {fileID: 11400000, guid: dec78ada1e7513e4e968619b18537b85, type: 2}
+  <Choices>k__BackingField: []
   <IsStartingNode>k__BackingField: 1
   <Position>k__BackingField: {x: 0, y: 0}

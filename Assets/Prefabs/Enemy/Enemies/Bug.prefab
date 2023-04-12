@@ -54,6 +54,7 @@ MonoBehaviour:
   InitializeOnStart: 0
   m_ShieldTime: 0.7
   currentHp: 0
+  maxHp: 0
   currentProtection: 0
   HealthBarObject: {fileID: 6017197774826470315}
   HealthBarImage: {fileID: 6017197774923744358}
@@ -133,7 +134,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

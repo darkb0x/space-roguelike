@@ -89,6 +89,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CheatPanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""3e99decf-179c-47e4-86f6-3cd50742e4ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -267,6 +276,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b9367e6-6972-4099-b631-278fca7f4a1a"",
+                    ""path"": ""<Keyboard>/slash"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""CheatPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -296,6 +316,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""e9980068-ae06-4fa4-9819-3fb20df803bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CheatPanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c81d74d-fbc4-47f1-8ad6-127d699d3a05"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -346,6 +375,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4dedc6c8-0ba4-4fd1-ad71-505425752c1d"",
+                    ""path"": ""<Keyboard>/slash"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""CheatPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -367,11 +407,13 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_CheatPanel = m_Player.FindAction("CheatPanel", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_CloseWindow = m_UI.FindAction("CloseWindow", throwIfNotFound: true);
         m_UI_Zoom = m_UI.FindAction("Zoom", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
+        m_UI_CheatPanel = m_UI.FindAction("CheatPanel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -438,6 +480,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Zoom;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_CheatPanel;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -449,6 +492,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @CheatPanel => m_Wrapper.m_Player_CheatPanel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -479,6 +523,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @CheatPanel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheatPanel;
+                @CheatPanel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheatPanel;
+                @CheatPanel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCheatPanel;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -504,6 +551,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @CheatPanel.started += instance.OnCheatPanel;
+                @CheatPanel.performed += instance.OnCheatPanel;
+                @CheatPanel.canceled += instance.OnCheatPanel;
             }
         }
     }
@@ -515,6 +565,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_CloseWindow;
     private readonly InputAction m_UI_Zoom;
     private readonly InputAction m_UI_Pause;
+    private readonly InputAction m_UI_CheatPanel;
     public struct UIActions
     {
         private @InputActions m_Wrapper;
@@ -522,6 +573,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @CloseWindow => m_Wrapper.m_UI_CloseWindow;
         public InputAction @Zoom => m_Wrapper.m_UI_Zoom;
         public InputAction @Pause => m_Wrapper.m_UI_Pause;
+        public InputAction @CheatPanel => m_Wrapper.m_UI_CheatPanel;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -540,6 +592,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
+                @CheatPanel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCheatPanel;
+                @CheatPanel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCheatPanel;
+                @CheatPanel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCheatPanel;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -553,6 +608,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @CheatPanel.started += instance.OnCheatPanel;
+                @CheatPanel.performed += instance.OnCheatPanel;
+                @CheatPanel.canceled += instance.OnCheatPanel;
             }
         }
     }
@@ -575,11 +633,13 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnCheatPanel(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
         void OnCloseWindow(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnCheatPanel(InputAction.CallbackContext context);
     }
 }

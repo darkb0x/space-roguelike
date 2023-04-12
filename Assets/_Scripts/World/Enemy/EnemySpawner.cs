@@ -6,16 +6,16 @@ using UnityEngine.InputSystem;
 
 namespace Game.Enemy
 {
-    using Enemy;
+    using SaveData;
 
     public class EnemySpawner : MonoBehaviour
     {
         public static EnemySpawner Instance;
         public void Awake() => Instance = this;
 
-        private List<EnemyAI> AllEnemies = new List<EnemyAI>();
+        [HideInInspector] public List<EnemyAI> AllEnemies = new List<EnemyAI>();
 
-        [SerializeField, ReadOnly] private List<EnemyTarget> AllTargets;
+        [SerializeField, ReadOnly] public List<EnemyTarget> AllTargets;
         [Space]
         [SerializeField] private EnemyData[] EnemyList;
 
@@ -25,11 +25,11 @@ namespace Game.Enemy
         [SerializeField] private Transform[] SpawnPoints;
 
         [Header("Difficult")]
-        [SerializeField] private float DifficultFactor = 1f;
-        [SerializeField] private float EnemyAmountFactor = 1f;
+        public float DifficultFactor = 1f;
+        //public float EnemyAmountFactor = 1f;
         [SerializeField, ReadOnly] private float SpawnScore;
         [SerializeField] private int MaxSpawnScore = 70;
-        [SerializeField] private int EnemyMaxAmount = 40;
+        public int EnemyMaxAmount = 40;
 
         private void OnDrawGizmos()
         {
@@ -42,7 +42,7 @@ namespace Game.Enemy
 
         private void Start()
         {
-            SpawnScore = Mathf.RoundToInt(MaxSpawnScore * EnemyAmountFactor);
+            SpawnScore = Mathf.RoundToInt(MaxSpawnScore * DifficultFactor);
         }
 
         #if UNITY_EDITOR
@@ -112,11 +112,29 @@ namespace Game.Enemy
         }
         public void RemoveEnemy(EnemyAI enemyAI)
         {
-            AllEnemies.Remove(enemyAI);
+            if(AllEnemies.Contains(enemyAI))
+            {
+                AllEnemies.Remove(enemyAI);
+            }
 
             if (AllEnemies.Count < EnemyMaxAmount && MaxSpawnScore > 0)
             {
-                StartCoroutine(SpawnEnemies(currentSpawnScore));
+                if(currentSpawnScore > 0)
+                {
+                    StartCoroutine(SpawnEnemies(currentSpawnScore));
+                }
+            }
+        }
+
+        public void ClearEnemies()
+        {
+            currentSpawnScore = 0;
+
+            EnemyAI[] enemiesToClear = AllEnemies.ToArray();
+
+            foreach (var enemy in enemiesToClear)
+            {
+                enemy.Die(true);
             }
         }
 
@@ -135,9 +153,9 @@ namespace Game.Enemy
                 AllTargets.Remove(enemyTarget);
             }
         }
-        public List<EnemyTarget> GetTargetList()
+        public EnemyTarget[] GetTargetList()
         {
-            return AllTargets;
+            return AllTargets.ToArray();
         }
         #endregion
     }

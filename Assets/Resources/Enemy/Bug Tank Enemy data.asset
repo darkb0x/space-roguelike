@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bug Tank Enemy data
   m_EditorClassIdentifier: 
   <EnemyPrefab>k__BackingField: {fileID: 6359194835018740924, guid: 1d93bbcdfc7a20f45aaec6044d0c9bfd, type: 3}
+  EnemyIcon: {fileID: -1379364437, guid: 2d1f8577375d5544b8595b0431c72d20, type: 3}
   <Health>k__BackingField: 5
   <Protection>k__BackingField: 5
   <Damage>k__BackingField: 2

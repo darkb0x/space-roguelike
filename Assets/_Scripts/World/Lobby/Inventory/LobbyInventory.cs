@@ -40,6 +40,9 @@ namespace Game.Lobby.Inventory
                 AddItem(item, false);
             }
 
+            PlayerInventory.Instance.Items.Clear();
+            currentSessionData.MainInventory.Clear();
+
             currentSessionData.Save();
 
             Visual.Initialize(LobbyItems, this);
@@ -68,7 +71,6 @@ namespace Game.Lobby.Inventory
             {
                 itemData.Amount += data.Amount;
                 currentSessionData.LobbyInventory.SetItem(itemData);
-                currentSessionData.Save();
 
                 if (updateVisual)
                 {
@@ -80,7 +82,6 @@ namespace Game.Lobby.Inventory
                 itemData = new ItemData(data.Item, data.Amount);
                 LobbyItems.Add(itemData);
                 currentSessionData.LobbyInventory.AddItem(itemData);
-                currentSessionData.Save();
 
                 if (updateVisual)
                 {
@@ -101,8 +102,6 @@ namespace Game.Lobby.Inventory
                     itemData.Amount -= amount;
                     currentSessionData.LobbyInventory.SetItem(itemData);
                     Visual.UpdateItemsInInventory(LobbyItems);
-
-                    currentSessionData.Save();
                     return true;
                 }
                 return false;

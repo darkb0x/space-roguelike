@@ -25,6 +25,9 @@ namespace Game.Lobby.Shop.Container
         {
             foreach (var item in Items)
             {
+                if (products.Contains(item))
+                    continue;
+
                 products.Add(item);
             }
 

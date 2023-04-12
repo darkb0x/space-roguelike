@@ -155,11 +155,6 @@ namespace Game.Player
 
         public void TakeDamage(float value)
         {
-            if (!DoHealthCycle)
-                return;
-            if (invulnerability)
-                return;
-
             health -= Mathf.RoundToInt(value);
 
             Visual.UpdateHealthVisual((int)health);
@@ -180,11 +175,6 @@ namespace Game.Player
 
         private void Die()
         {
-            if (!DoHealthCycle)
-                return;
-            if (isDied)
-                return;
-
             StopPlayerMove();
             MainColl.enabled = false;
             DoOxygenCycle = false;
@@ -207,10 +197,20 @@ namespace Game.Player
 
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
         {
+            if (!DoHealthCycle)
+                return;
+            if (invulnerability)
+                return;
+
             TakeDamage(dmg);
         }
         void IDamagable.Die()
         {
+            if (!DoHealthCycle)
+                return;
+            if (invulnerability)
+                return;
+
             Enemy.EnemySpawner.Instance.RemoveTarget(EnemyTarget);
             Die();
         }

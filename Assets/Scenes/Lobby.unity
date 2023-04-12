@@ -599,6 +599,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 711477339}
+          m_TargetAssemblyTypeName: Game.SaveData.GameData, Assembly-CSharp
+          m_MethodName: SaveAllData
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1947506308}
@@ -3170,6 +3182,17 @@ PrefabInstance:
       objectReference: {fileID: 2030542981}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
+--- !u!114 &711477339 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7295520195962688068, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
+  m_PrefabInstance: {fileID: 711477338}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f8d42c537cfd6449208dd711101238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &713965949
 GameObject:
   m_ObjectHideFlags: 0
@@ -6388,6 +6411,14 @@ PrefabInstance:
       propertyPath: money_texts.Array.data[3]
       value: 
       objectReference: {fileID: 238973508}
+    - target: {fileID: 1783996366417015384, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070223128820547455, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2763246632918487641, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6492,6 +6523,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4583953068162442726, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5138592370601071054, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 68.000046
@@ -6500,6 +6535,10 @@ PrefabInstance:
       propertyPath: MainVolume
       value: 
       objectReference: {fileID: 356495165}
+    - target: {fileID: 5421327723082473015, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6307312605338543953, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -6526,6 +6565,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655071616738455957, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
       propertyPath: AddObjectToListAtStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046253816043144918, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
+      propertyPath: InitializeCraftCheats
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046253816043144918, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
+      propertyPath: InitializeEnemyCheats
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8557103307819843071, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}

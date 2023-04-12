@@ -8,6 +8,7 @@ namespace Game.Enemy
     public class EnemyData : ScriptableObject
     {
         [field: SerializeField, NaughtyAttributes.ShowAssetPreview] public GameObject EnemyPrefab { get; private set; }
+        [field: SerializeField] public Sprite EnemyIcon;
         [field: Space]
         [field: SerializeField] public float Health { get; private set; }
         [field: SerializeField] public float Protection { get; private set; }

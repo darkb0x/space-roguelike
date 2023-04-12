@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: TurretTestTree
   <Nodes>k__BackingField:
-  - {fileID: 11400000, guid: dec78ada1e7513e4e968619b18537b85, type: 2}
   - {fileID: 11400000, guid: 88e7f53f930ab3c4cb502f9cf1b9b7eb, type: 2}
   - {fileID: 11400000, guid: 104a108a608bddc40927f7b1a519faeb, type: 2}
   - {fileID: 11400000, guid: 81e38154db22ad5478b73bffa8a0bd59, type: 2}

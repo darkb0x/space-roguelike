@@ -26,6 +26,9 @@ namespace Game.Lobby.Shop.Container
         {
             foreach (var craft in Crafts)
             {
+                if (products.Contains(craft))
+                    continue;
+
                 if(!GameData.Instance.CurrentSessionData.HaveCraft(craft.Craft)) 
                 {
                     products.Add(craft);

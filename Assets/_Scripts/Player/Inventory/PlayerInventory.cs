@@ -47,7 +47,7 @@ namespace Game.Player.Inventory
                 m_money = value;
 
                 currentSessionData.Money = m_money;
-                currentSessionData.Save();
+                //currentSessionData.Save();
 
                 foreach (var text in money_texts)
                 {
