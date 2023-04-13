@@ -25,7 +25,7 @@ MonoBehaviour:
     TimeSecond: 8.57
     m_StartTime: 1:08,57 (68,57)
   - EventType: 0
-    PercentFromScore: 10
+    PercentFromScore: 5
     TimeMinute: 2
     TimeSecond: 3.42
     m_StartTime: 2:03,42 (123,42)

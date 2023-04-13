@@ -30,6 +30,7 @@ namespace Game
 
             target = player.transform;
             currentZoom = currentSessionData.CameraZoom;
+            cam.orthographicSize = currentZoom;
         }
 
         private void Update()

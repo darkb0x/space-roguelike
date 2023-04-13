@@ -59,6 +59,10 @@ namespace Game
             Rocket.position = RocketPositions[Random.Range(0, RocketPositions.Length)].position;
 
             LogUtility.StartLogging("session");
+
+            #if !UNITY_EDITOR
+            DebugText.gameObject.SetActive(false);
+            #endif
         }
 
         private void Start()
@@ -100,7 +104,7 @@ namespace Game
 
         public void ActivateEvent(SessionEvent eventData)
         {
-            Debug.Log("Event Activated " + currentEvent);
+            Debug.Log($"Event Activated {currentEvent} - {eventData.EventType}");
             switch (eventData.EventType)
             {
                 case SessionEventType.StartWave:

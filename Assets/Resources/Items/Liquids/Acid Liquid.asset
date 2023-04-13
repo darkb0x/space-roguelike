@@ -15,7 +15,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 1497946694, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
   <LowSizeIcon>k__BackingField: {fileID: 2126256010, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
   m_ItemName: 
-  <Cost>k__BackingField: 1
+  <Cost>k__BackingField: 20
   <CanTakeInMission>k__BackingField: 1
   <IsOre>k__BackingField: 0
   OreSprites: []

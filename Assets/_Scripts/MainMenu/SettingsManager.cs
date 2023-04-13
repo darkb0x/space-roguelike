@@ -122,6 +122,7 @@ namespace Game.MainMenu.Settings
         public void EnableLogs(bool enabled)
         {
             settingsData.EnableLogs = enabled;
+
             settingsData.Save();
         }
         #endregion

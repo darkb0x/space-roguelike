@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Game.MainMenu.Pause.Exit
 {
     using Utilities.LoadScene;
+    using SaveData;
 
     public class ExitManager : MonoBehaviour
     {
@@ -36,11 +37,13 @@ namespace Game.MainMenu.Pause.Exit
 
         public void OpenMenu()
         {
+            GameData.Instance.ResetSessionData();
             LoadSceneUtility.Instance.LoadSceneAsyncVisualize(MenuSceneID);
         }
 
         public void Exit()
         {
+            GameData.Instance.ResetSessionData();
             Application.Quit();
         }
     }

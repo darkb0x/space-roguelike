@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -42,7 +41,7 @@ namespace Game.Player.Inventory
         }
 
         [Button]
-        private void UpdateAssetPath()
+        public void UpdateAssetPath()
         {
             try
             {
@@ -55,7 +54,7 @@ namespace Game.Player.Inventory
                 return;
             }
         }
-        private void UpdateAssetName()
+        public void UpdateAssetName()
         {
             if(ItemName == name)
             {

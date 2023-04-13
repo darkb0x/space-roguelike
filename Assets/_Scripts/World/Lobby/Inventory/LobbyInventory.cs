@@ -60,6 +60,8 @@ namespace Game.Lobby.Inventory
             {
                 ItemData itemData = new ItemData(item, Items[item]);
                 currentSessionData.MainInventory.AddItem(itemData);
+
+                LogUtility.WriteLog($"Taken item: {Items[item]} {item.ItemName}");
             }
             currentSessionData.Save();
         }

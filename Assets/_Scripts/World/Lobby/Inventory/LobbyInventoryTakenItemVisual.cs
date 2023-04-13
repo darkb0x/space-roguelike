@@ -60,6 +60,7 @@ namespace Game.Lobby.Inventory.Visual
             }
 
             TakenItemAmountText.text = $"({ItemData.Amount}/{Mathf.Clamp(freeSpace, 0, maxTakenItemAmount)})";
+            ItemSlider.maxValue = maxTakenItemAmount;
         }
 
         private void Update()

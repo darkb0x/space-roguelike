@@ -125,7 +125,7 @@ namespace Game.CraftSystem
                 currentSessionData.UnlockedCraftPaths.Add(craft.AssetPath);
                 currentSessionData.Save();
 
-                LogUtility.WriteLog($"Learned new craft. Craft: {craft.CraftName} {craft.AssetPath}.");
+                LogUtility.WriteLog($"Learned new craft. Craft: {craft.CraftName}(path: {craft.AssetPath})");
             }
         }
         public void LearnCraft(CSCraftSO craft, bool showNotify = true)

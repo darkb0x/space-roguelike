@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using NaughtyAttributes;
-using UnityEngine.InputSystem;
 
 namespace Game.Player.Inventory
 {
     using SaveData;
     using Utilities.Notifications;
+    using Utilities;
 
     public interface IInventoryObserver
     {
@@ -44,10 +44,24 @@ namespace Game.Player.Inventory
             }
             set
             {
+                int currentMoney = m_money;
                 m_money = value;
 
+                int difference = Mathf.Abs(m_money - currentMoney);
+                if (m_money < currentMoney)
+                {
+                    MoneyChangedText.text = "-" + difference;
+                    MoneyChangedText.color = redColor;
+                    MoneyChangedAnim.SetTrigger("moneyChanged");
+                }
+                else if(m_money > currentMoney)
+                {
+                    MoneyChangedText.text = "+" + difference;
+                    MoneyChangedText.color = greenColor;
+                    MoneyChangedAnim.SetTrigger("moneyChanged");
+                }
+
                 currentSessionData.Money = m_money;
-                //currentSessionData.Save();
 
                 foreach (var text in money_texts)
                 {
@@ -56,9 +70,12 @@ namespace Game.Player.Inventory
             }
         }
         [SerializeField] private int m_money;
-        [SerializeField] private TextMeshProUGUI[] money_texts;
 
         [Header("Visual")]
+        [SerializeField] private TextMeshProUGUI[] money_texts;
+        [SerializeField] private Animator MoneyChangedAnim;
+        [SerializeField] private TextMeshProUGUI MoneyChangedText;
+        [Space]
         [SerializeField] private TextMeshProUGUI AllItemsAmountText;
         [Space]
         [SerializeField] private Animator InventoryAnim;
@@ -68,6 +85,9 @@ namespace Game.Player.Inventory
         public List<IInventoryObserver> observers = new List<IInventoryObserver>();
         private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
         private GameObject inventoryVisualGameObj;
+
+        private Color greenColor = new Color(0.254902f, 0.8196079f, 0.5372549f, 1);
+        private Color redColor = new Color(0.6901961f, 0.1098039f, 0.282353f, 1f);
 
         private void Start()
         {
@@ -151,6 +171,8 @@ namespace Game.Player.Inventory
                 currentSessionData.MainInventory.SetItem(itemData);
             }
 
+            LogUtility.WriteLog($"Player got {amount} {item.ItemName}");
+
             UpdateVisual();
         }
 
@@ -179,6 +201,8 @@ namespace Game.Player.Inventory
                     {
                         NotificationManager.NewNotification(item.Icon, $"{item.ItemName} <color={NotificationManager.RedColor}>-{amount}</color>", false);
                     }
+
+                    LogUtility.WriteLog($"Player lost {amount} {item.ItemName}");
 
                     UpdateVisual();
 

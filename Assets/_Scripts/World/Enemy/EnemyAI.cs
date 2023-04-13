@@ -74,6 +74,8 @@ namespace Game.Enemy
 
         public virtual void Start()
         {
+            EnemySpawner.Instance.OnTargetRemoved += OnTargetRemoved;
+
             seecker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
             myTransform = transform;
@@ -85,6 +87,11 @@ namespace Game.Enemy
 
             if(InitializeOnStart)
                 Initialize(Data);
+        }
+
+        private void OnDisable()
+        {
+            EnemySpawner.Instance.OnTargetRemoved -= OnTargetRemoved;
         }
 
         public virtual void Initialize(EnemyData data, float difficultFactor = 1)
@@ -252,6 +259,11 @@ namespace Game.Enemy
             {
                 if(enemyTarget.TryGetComponent<EnemyTarget>(out EnemyTarget target))
                 {
+                    if(!EnemySpawner.Instance.GetTargetList().Contains(target))
+                    {
+                        continue;
+                    }
+
                     targetInVision = true;
 
                     if (currentTarget == null)
@@ -282,12 +294,20 @@ namespace Game.Enemy
         }
         protected virtual EnemyTarget GetRandomTarget()
         {
-            EnemyTarget[] targets = EnemySpawner.Instance.GetTargetList();
+            EnemyTarget[] targets = EnemySpawner.Instance.GetTargetList().ToArray();
 
             if (targets.Length <= 0)
                 return null;
 
             return targets[Random.Range(0, targets.Length)];
+        }
+
+        private void OnTargetRemoved(EnemyTarget target)
+        {
+            if(currentTarget == target)
+            {
+                currentTarget = null;
+            }
         }
         #endregion
 

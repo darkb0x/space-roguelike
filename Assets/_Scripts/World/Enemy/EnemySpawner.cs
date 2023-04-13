@@ -15,7 +15,7 @@ namespace Game.Enemy
 
         [HideInInspector] public List<EnemyAI> AllEnemies = new List<EnemyAI>();
 
-        [SerializeField, ReadOnly] public List<EnemyTarget> AllTargets;
+        [SerializeField, ReadOnly] private List<EnemyTarget> AllTargets;
         [Space]
         [SerializeField] private EnemyData[] EnemyList;
 
@@ -31,6 +31,9 @@ namespace Game.Enemy
         [SerializeField] private int MaxSpawnScore = 70;
         public int EnemyMaxAmount = 40;
 
+        public System.Action<EnemyTarget> OnTargetAdded;
+        public System.Action<EnemyTarget> OnTargetRemoved;
+
         private void OnDrawGizmos()
         {
             foreach (var spawnPoint in SpawnPoints)
@@ -44,18 +47,6 @@ namespace Game.Enemy
         {
             SpawnScore = Mathf.RoundToInt(MaxSpawnScore * DifficultFactor);
         }
-
-        #if UNITY_EDITOR
-        private void Update()
-        {
-            if(Keyboard.current.gKey.isPressed)
-            {
-                SpawnScore = MaxSpawnScore;
-
-                StartSpawning();
-            }
-        }
-        #endif
 
         [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void StartSpawning()
@@ -76,6 +67,7 @@ namespace Game.Enemy
         IEnumerator SpawnEnemies(float spawnScore)
         {
             currentSpawnScore = Mathf.RoundToInt(spawnScore);
+            LogUtility.WriteLog($"Start spawn enemy. Spawn score: {currentSpawnScore}");
             while(currentSpawnScore > 0)
             {
                 if (AllEnemies.Count >= EnemyMaxAmount)
@@ -106,6 +98,8 @@ namespace Game.Enemy
 
                 currentSpawnScore -= enemyData.Cost;
                 AllEnemies.Add(enemy);
+
+                LogUtility.WriteLog($"Enemy spawned! Data: enemy_data={enemyData.name}, cost={enemyData.Cost}. Current score: {currentSpawnScore}");
 
                 yield return new WaitForSeconds(TimeBtwSpawnEnemy);
             }
@@ -144,6 +138,7 @@ namespace Game.Enemy
             if(!AllTargets.Contains(enemyTarget))
             {
                 AllTargets.Add(enemyTarget);
+                OnTargetAdded?.Invoke(enemyTarget);
             }
         }
         public void RemoveTarget(EnemyTarget enemyTarget)
@@ -151,11 +146,12 @@ namespace Game.Enemy
             if (AllTargets.Contains(enemyTarget))
             {
                 AllTargets.Remove(enemyTarget);
+                OnTargetRemoved?.Invoke(enemyTarget);
             }
         }
-        public EnemyTarget[] GetTargetList()
+        public List<EnemyTarget> GetTargetList()
         {
-            return AllTargets.ToArray();
+            return AllTargets;
         }
         #endregion
     }

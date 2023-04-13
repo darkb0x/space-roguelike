@@ -4,7 +4,6 @@ using UnityEngine;
 using NaughtyAttributes;
 using System;
 using System.IO;
-using AYellowpaper.SerializedCollections;
 
 namespace Game.SaveData
 {
@@ -31,8 +30,13 @@ namespace Game.SaveData
             #if UNITY_EDITOR
             savePath = $"{Application.dataPath}/Editor/SaveData/";
             #else
-            savePath = $"{Application.dataPath}/";
+            savePath = $"{Application.dataPath}/Save/";
             #endif
+
+            if(!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
 
             CurrentSessionData = SaveDataUtility.LoadDataFromJson<SessionData>(savePath, SESSION_DATA_FILENAME, new SessionData(savePath, SESSION_DATA_FILENAME), true);
             CurrentSettingsData = SaveDataUtility.LoadDataFromJson<SettingsData>(savePath, SETTINGS_DATA_FILENAME, new SettingsData(savePath, SETTINGS_DATA_FILENAME));
@@ -241,7 +245,7 @@ namespace Game.SaveData
             dataSavePath = savePath;
             dataFileName = fileName;
 
-            EnableLogs = false;
+            EnableLogs = true;
 
             MasterVolume = 0f;
             MusicVolume = 0f;

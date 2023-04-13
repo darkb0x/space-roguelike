@@ -129,11 +129,11 @@ namespace Game.Player
 
             if(oxygen < LowOxygenValue)
             {
-                Visual.PlayerLowOxygen(true);
+                Visual.PlayerLowOxygen(true, oxygen, LowOxygenValue);
             }
             else
             {
-                Visual.PlayerLowOxygen(false);
+                Visual.PlayerLowOxygen(false, oxygen, LowOxygenValue);
             }
 
             oxygen -= (Time.deltaTime * oxygenUseSpeed);
@@ -155,9 +155,11 @@ namespace Game.Player
 
         public void TakeDamage(float value)
         {
-            health -= Mathf.RoundToInt(value);
+            health = Mathf.Clamp(health - Mathf.RoundToInt(value), 0, maxHealth);
 
             Visual.UpdateHealthVisual((int)health);
+
+            LogUtility.WriteLog($"Player got damage, {health}/{maxHealth}");
 
             if (health <= 0)
             {
@@ -175,6 +177,9 @@ namespace Game.Player
 
         private void Die()
         {
+            if (isDied)
+                return;
+
             StopPlayerMove();
             MainColl.enabled = false;
             DoOxygenCycle = false;
@@ -185,6 +190,8 @@ namespace Game.Player
             Visual.PlayerDead();
 
             isDied = true;
+
+            LogUtility.WriteLog("Player died");
         }
 
         private IEnumerator SetInvulnerability()

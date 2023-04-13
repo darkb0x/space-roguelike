@@ -40,6 +40,11 @@ namespace Game.Enemy
         {
             bool hit = Enemy.Attack();
 
+            if(Enemy.currentTarget == null)
+            {
+                return;
+            }
+
             if(hit)
             {
                 // Attack visual

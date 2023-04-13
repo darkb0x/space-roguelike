@@ -7,6 +7,7 @@ using NaughtyAttributes;
 namespace Game.MainMenu.Mission
 {
     using Utilities.LoadScene;
+    using Utilities;
     using Planet;
     using Planet.Visual;
     using Visual;
@@ -134,6 +135,8 @@ namespace Game.MainMenu.Mission
         }
         public void StartMission()
         {
+            LogUtility.WriteLog($"Start mission: {selectedMission.MissionName}");
+
             LoadSceneUtility.Instance.EnableLoadedAsyncScene();
         }
         public void StartMissionTimer()

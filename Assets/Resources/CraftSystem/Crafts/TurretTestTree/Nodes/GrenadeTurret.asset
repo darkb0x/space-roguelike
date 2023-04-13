@@ -17,7 +17,7 @@ MonoBehaviour:
   <IconSprite>k__BackingField: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
   <CraftCost>k__BackingField: 0
   <ObjectCraft>k__BackingField:
-  - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
+  - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
     Amount: 5
   - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
     Amount: 5

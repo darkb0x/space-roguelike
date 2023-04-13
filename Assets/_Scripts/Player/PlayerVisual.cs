@@ -41,11 +41,13 @@ namespace Game.Player.Visual
 
         private List<Image> HeartsImages = new List<Image>();
         private bool updateOxygenVisual = true;
-        private bool oxygenIsLow = false;
         private Vector2 heartImageSize = new Vector2(50, 50);
         private Vector2 shadowEffectDistance = new Vector2(5, -5);
 
         private Vignette vignettePostProcessing;
+
+        private float lowOxygenSpeed = 0.3f;
+        private float lowOxygenTargetIdensity;
 
         private void Start()
         {
@@ -57,30 +59,9 @@ namespace Game.Player.Visual
             }
         }
 
-        float lowOxygenMinIdensity = 0f;
-        float lowOxygenMaxIdensity = 0.5f;
-        float lowOxygenSpeed = 0.3f;
-        float lowOxygenTargetIdensity;
         private void Update()
         {
-            if (oxygenIsLow)
-            {
-                if (vignettePostProcessing.intensity == lowOxygenMinIdensity)
-                {
-                    lowOxygenTargetIdensity = lowOxygenMaxIdensity;
-                }
-                if (vignettePostProcessing.intensity == lowOxygenMaxIdensity)
-                {
-                    lowOxygenTargetIdensity = lowOxygenMinIdensity;
-                }
-
-                vignettePostProcessing.intensity.value = Mathf.MoveTowards(vignettePostProcessing.intensity.value, lowOxygenTargetIdensity, lowOxygenSpeed * Time.deltaTime);
-
-            }
-            else
-            {
-                vignettePostProcessing.intensity.value = Mathf.MoveTowards(vignettePostProcessing.intensity.value, lowOxygenMinIdensity, lowOxygenSpeed * Time.deltaTime);
-            }
+            vignettePostProcessing.intensity.Override(Mathf.MoveTowards(vignettePostProcessing.intensity.value, lowOxygenTargetIdensity, lowOxygenSpeed * Time.deltaTime));
         }
 
         public void InitializeHealthVisual(int maxHealth)
@@ -183,9 +164,16 @@ namespace Game.Player.Visual
 
             DeathPanel.SetActive(true);
         }
-        public void PlayerLowOxygen(bool isLow)
+        public void PlayerLowOxygen(bool isLow, float currentOxygen, float lowValue)
         {
-            oxygenIsLow = isLow;
+            if(!isLow)
+            {
+                lowOxygenTargetIdensity = 0;
+            }
+            else
+            {
+                lowOxygenTargetIdensity = Mathf.InverseLerp(lowValue, 0, currentOxygen);
+            }
         }
         public void EnableOxygenVisual(bool enabled)
         {

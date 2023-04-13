@@ -27,20 +27,6 @@ MonoBehaviour:
       Amount: 5
     <Position>k__BackingField: {x: 0, y: -197}
   - <NodeID>k__BackingField: 
-    <ID>k__BackingField: ec9bd11a-817d-46bf-b843-a733993d777e
-    <Name>k__BackingField: GrenadeTurret
-    <Choices>k__BackingField:
-    - <NodeID>k__BackingField: 
-    <ObjectPrefab>k__BackingField: {fileID: 5034969440185020039, guid: dd34d4c9839ca3645bf55f110ca179bc, type: 3}
-    <Icon>k__BackingField: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
-    <Cost>k__BackingField: 0
-    <Craft>k__BackingField:
-    - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
-      Amount: 5
-    - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
-      Amount: 5
-    <Position>k__BackingField: {x: 0, y: 0}
-  - <NodeID>k__BackingField: 
     <ID>k__BackingField: d4b98166-6050-403c-8d79-03ee891b3ebc
     <Name>k__BackingField: LaserTurret
     <Choices>k__BackingField:
@@ -54,7 +40,21 @@ MonoBehaviour:
     - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
       Amount: 3
     <Position>k__BackingField: {x: 0, y: 197}
+  - <NodeID>k__BackingField: 
+    <ID>k__BackingField: ec9bd11a-817d-46bf-b843-a733993d777e
+    <Name>k__BackingField: GrenadeTurret
+    <Choices>k__BackingField:
+    - <NodeID>k__BackingField: 
+    <ObjectPrefab>k__BackingField: {fileID: 5034969440185020039, guid: dd34d4c9839ca3645bf55f110ca179bc, type: 3}
+    <Icon>k__BackingField: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+    <Cost>k__BackingField: 0
+    <Craft>k__BackingField:
+    - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+      Amount: 5
+    - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+      Amount: 5
+    <Position>k__BackingField: {x: 0, y: 0}
   <OldUngroupedNodeNames>k__BackingField:
   - MinigunTurret
-  - GrenadeTurret
   - LaserTurret
+  - GrenadeTurret
