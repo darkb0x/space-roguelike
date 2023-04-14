@@ -141,6 +141,11 @@ namespace Game
             LoadSceneUtility.Instance.EnableLoadedAsyncScene();
         }
 
+        public void SetPlayerIntoRocket(Transform parent)
+        {
+            FindObjectOfType<Player.PlayerController>().LockPlayerPosition(parent);
+        }
+
         private void OnDisable()
         {
             LogUtility.StopLogging();

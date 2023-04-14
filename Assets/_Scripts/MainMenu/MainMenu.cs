@@ -28,10 +28,7 @@ namespace Game.MainMenu
 
         public void PlayButton()
         {
-            if(GameData.Instance.CurrentSettingsData.EnableLogs)
-            {
-                LogUtility.StartLogging("session");
-            }
+            LogUtility.StartLogging("session");
 
             LoadSceneUtility.Instance.LoadSceneAsyncVisualize(LobbySceneId);
         }
