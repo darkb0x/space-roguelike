@@ -53,12 +53,16 @@ namespace Game.Player.Inventory
                     MoneyChangedText.text = "-" + difference;
                     MoneyChangedText.color = redColor;
                     MoneyChangedAnim.SetTrigger("moneyChanged");
+
+                    LogUtility.WriteLog($"Player money = {currentMoney} - {difference}");
                 }
                 else if(m_money > currentMoney)
                 {
                     MoneyChangedText.text = "+" + difference;
                     MoneyChangedText.color = greenColor;
                     MoneyChangedAnim.SetTrigger("moneyChanged");
+
+                    LogUtility.WriteLog($"Player money = {currentMoney} + {difference}");
                 }
 
                 currentSessionData.Money = m_money;

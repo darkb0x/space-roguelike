@@ -213,6 +213,17 @@
                 },
                 {
                     "name": "",
+                    "id": "80ba6044-b375-4a64-af1c-976b92a013b0",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Build",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d81e0d1d-b930-488e-b4e5-34acb91fa6c0",
                     "path": "<Keyboard>/r",
                     "interactions": "",

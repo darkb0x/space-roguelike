@@ -13,7 +13,7 @@ namespace Game.CraftSystem
     public class CSCraftUICraft : MonoBehaviour
     {
         private CSManager craftSystem;
-        private float currentProgress = 0f;
+        //private float currentProgress = 0f;
         List<TextMeshProUGUI> amountsText = new List<TextMeshProUGUI>();
 
         [Header("Variables")]
@@ -39,7 +39,7 @@ namespace Game.CraftSystem
             // Variables
             craft = craftSO;
 
-            craftButtonImage.fillAmount = currentProgress / maxProgress;
+            //craftButtonImage.fillAmount = currentProgress / maxProgress;
 
             craftSystem = manager;
 
