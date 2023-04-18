@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233f0ed4ff45f544f894de27dfcb6d1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitializeOnStart: 0
   BulletPrefab: {fileID: 1517687151197537117, guid: c71b9ef1dffaa2b40a3c97ee448087c6, type: 3}
   Damage: 1
   TimeBtwAttack: 0.3
@@ -128,7 +129,7 @@ MonoBehaviour:
   - Item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
     Amount: 5
   EnemyTarget: {fileID: 2107079657244115085}
-  <Health>k__BackingField: 15
+  <Health>k__BackingField: 7
   currentHealth: 0
   DestroyParticle: {fileID: 4550200863518524, guid: 57a5b17d8e8d0d04b84708a9ddc7c585, type: 3}
   ChangeRotationTime: 0

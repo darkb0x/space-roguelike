@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Game.CraftSystem
 {
     using Player;
+    using Drill;
     using Turret;
     using Drone;
 
@@ -26,13 +27,17 @@ namespace Game.CraftSystem
         {
             GameObject craftedObj = Instantiate(objPrefab, myTransform.position, Quaternion.identity);
 
-            if(craftedObj.TryGetComponent<Turret>(out Turret turret))
+            if(craftedObj.TryGetComponent(out Turret turret))
             {
                 turret.Initialize(player);
             }
-            else if(craftedObj.TryGetComponent<DroneAI>(out DroneAI drone))
+            else if(craftedObj.TryGetComponent(out DroneAI drone))
             {
                 drone.Initialize(player.GetComponent<PlayerDronesController>());
+            }
+            else if(craftedObj.TryGetComponent(out Drill drill))
+            {
+                drill.Initialize();
             }
 
             player.ContinuePlayerMove();

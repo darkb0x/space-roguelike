@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MiningDamage: 1
-  TimeBtwMining: 0.7
+  TimeBtwMining: 1.15
   IsMining: 0
   PlayerTag: Player
   CurrentItem: {fileID: 0}
@@ -360,7 +360,7 @@ MonoBehaviour:
   DroppedItemsAfterBroke:
   - item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
     amount: 2
-  MaxHealth: 10
+  MaxHealth: 7
   CurrentHealth: 0
   EnemyTarget: {fileID: 3015701361895079464}
   Anim: {fileID: 2260988901494986823}
@@ -370,7 +370,7 @@ MonoBehaviour:
   BackLegsSR: {fileID: 2260988901933520660}
   WorldSortingLayer: World
   BreakingBuildObject: {fileID: 2164793081158935879}
-  MaxExtractedPercentFromOre: 50
+  MaxExtractedPercentFromOre: 100
   AmountOreFromPercent: 0
   anim_DieTrigger: Die
   exploisonGameObj: {fileID: 6878124755267461527}

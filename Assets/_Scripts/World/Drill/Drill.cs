@@ -26,11 +26,13 @@ namespace Game.Drill
         protected DrillInventoryVisual inventoryVisual;
 
         protected Transform myTransform;
-        protected bool isPicked = true;
+        protected bool isPicked = false;
         protected Transform oreTransform;
         protected PlayerController player;
         protected bool playerInZone = false;
         protected PlayerInteractObject playerInteractObject;
+
+        protected bool isInitialized;
 
         [Header("Variables")]
         [SerializeField] protected int MiningDamage;
@@ -74,33 +76,44 @@ namespace Game.Drill
 
         public virtual void Start()
         {
-            player = FindObjectOfType<PlayerController>();
             inventoryVisual = GetComponent<DrillInventoryVisual>();
-            myTransform = transform;
-            oreDetectColl_transform = OreDetectColl.transform;
-            playerTransform = player.transform;
 
             currentTimeBtwMining = TimeBtwMining;
             CurrentHealth = MaxHealth;
-
-            inventoryVisual.EnableVisual(false);
-            EnemyTarget.Initialize(this);
-            Initialize();
-        }
-
-        public virtual void Initialize()
-        {
-            isPicked = true;
 
             MainColl.enabled = false;
             OreDetectColl.enabled = true;
             PlayerDetectColl.enabled = false;
 
+            inventoryVisual.EnableVisual(false);
+            EnemyTarget.Initialize(this);
+            //Initialize();
+        }
+
+        public virtual void Initialize()
+        {
+            if (isInitialized)
+                return;
+
+            player = FindObjectOfType<PlayerController>();
+            playerTransform = player.transform;
+            oreDetectColl_transform = OreDetectColl.transform;
+            myTransform = transform;
+
+            myTransform.SetParent(null);
+
+            isPicked = true;
+
             player.pickObjSystem.SetPickedGameobj(gameObject);
+
+            isInitialized = true;
         }
 
         private void Update()
         {
+            if (!isInitialized)
+                return;
+
             if (isPicked)
             {
                 oreDetectColl_transform.position = playerTransform.position;
@@ -167,6 +180,8 @@ namespace Game.Drill
         #region Mining
         public virtual void PlayerTakeItems()
         {
+            if (!isInitialized)
+                return;
             if (CurrentItem == null | isPicked)
                 return;
 
@@ -250,7 +265,10 @@ namespace Game.Drill
             }
             if (collision.tag == PlayerTag && PlayerDetectColl.enabled)
             {
-                EnableVisual(true);
+                if(isInitialized)
+                {
+                    EnableVisual(true);
+                }
             }
         }
         protected virtual void OnTriggerStay2D(Collider2D collision)
@@ -341,7 +359,7 @@ namespace Game.Drill
                 PlayerTakeItems();
             }
 
-            if(isPicked)
+            if(isPicked && isInitialized)
             {
                 player.pickObjSystem.PutCurrentGameobj(false);
             }
@@ -352,6 +370,7 @@ namespace Game.Drill
             }
 
             EnemySpawner.Instance.RemoveTarget(EnemyTarget);
+            Destroy(PreRenderPlaceObject.gameObject);
             Destroy(gameObject);
         }
         #endregion

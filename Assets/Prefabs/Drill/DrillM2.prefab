@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MiningDamage: 1
-  TimeBtwMining: 0.7
+  TimeBtwMining: 1
   IsMining: 0
   PlayerTag: Player
   CurrentItem: {fileID: 0}
@@ -172,7 +172,7 @@ MonoBehaviour:
   DroppedItemsAfterBroke:
   - item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
     amount: 2
-  MaxHealth: 10
+  MaxHealth: 7
   CurrentHealth: 0
   EnemyTarget: {fileID: 3697534435791926706}
   Anim: {fileID: 425888126212871133}

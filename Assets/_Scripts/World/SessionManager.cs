@@ -36,7 +36,7 @@ namespace Game
 
         [Header("Debug")]
         [SerializeField] private TextMeshProUGUI DebugText;
-        [ReadOnly] private float currentTime;
+        [ReadOnly] public float currentTime;
         [SerializeField] private float speed = 1;
 
         [Header("End")]
@@ -109,7 +109,9 @@ namespace Game
             {
                 case SessionEventType.StartWave:
                     {
-                        EnemySpawner.Instance.StartSpawning();
+                        SessionEvent.WaveDuration waveData = eventData.WaveTime;
+
+                        EnemySpawner.Instance.StartWave(waveData.StartTime, waveData.EndTime);
                         break;
                     }
                 case SessionEventType.StartMicroWave:

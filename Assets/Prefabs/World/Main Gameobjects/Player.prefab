@@ -5650,7 +5650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxDroneAmountInOrbit: 6
-  DroneDistanceFromPlayer: 2.3
+  DroneDistanceFromPlayer: 2.6
   DroneRotationSpeed: 30
   OreLayer:
     serializedVersion: 2

@@ -247,9 +247,9 @@ namespace Game.SaveData
 
             EnableLogs = true;
 
-            MasterVolume = 0f;
-            MusicVolume = 0f;
-            EffectsVolume = 0f;
+            MasterVolume = 0.5f;
+            MusicVolume = 1f;
+            EffectsVolume = 1f;
         }
 
         public override void Save(string filePath, string fileName)

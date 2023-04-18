@@ -16,6 +16,7 @@ namespace Game.Utilities.CheatPanel
     using Turret;
     using Drone;
     using Enemy;
+    using Drill;
 
     public class CheatPanel : MonoBehaviour
     {
@@ -319,6 +320,10 @@ namespace Game.Utilities.CheatPanel
             else if (craftedObj.TryGetComponent(out DroneAI drone))
             {
                 drone.Initialize(PlayerPickObjects.GetComponent<PlayerDronesController>());
+            }
+            else if(craftedObj.TryGetComponent(out Drill drill))
+            {
+                drill.Initialize();
             }
 
             LogUtility.WriteLog($"Cheats. Given a build '{buildPrefab.name}', for player");

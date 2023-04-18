@@ -2006,7 +2006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Visual: {fileID: 464613720}
-  MaxTakenItemsAmount: 20
+  MaxTakenItemsAmount: 10
   LobbyItems: []
 --- !u!114 &464613720
 MonoBehaviour:

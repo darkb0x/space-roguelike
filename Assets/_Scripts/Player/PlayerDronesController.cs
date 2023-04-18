@@ -59,7 +59,11 @@ namespace Game.Player
                     SetOreTarget(mousePos);
                 }
             }
+        }
 
+
+        private void FixedUpdate()
+        {
             UpdateDroneRotation();
         }
 
@@ -112,7 +116,7 @@ namespace Game.Player
             {
                 int rotationSide = droneOrbit.Index % 2 == 0 ? 1 : -1;
  
-                droneOrbit.Dir += Time.deltaTime * DroneRotationSpeed * rotationSide;
+                droneOrbit.Dir += Time.fixedDeltaTime * DroneRotationSpeed * rotationSide;
 
                 foreach (var drone in drones[droneOrbit])
                 {

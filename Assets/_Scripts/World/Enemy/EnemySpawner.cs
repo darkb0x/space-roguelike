@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using UnityEngine.InputSystem;
 
 namespace Game.Enemy
 {
-    using SaveData;
-
     public class EnemySpawner : MonoBehaviour
     {
         public static EnemySpawner Instance;
@@ -21,15 +18,17 @@ namespace Game.Enemy
 
         [Header("Spawn parameters")]
         [SerializeField] private float TimeBtwSpawnEnemy = 0.2f;
+        [SerializeField] private float TimeBtwSpawnEnemyInWave = 1f;
         [SerializeField] private float SpawnRadius = 1.2f;
         [SerializeField] private Transform[] SpawnPoints;
 
         [Header("Difficult")]
         public float DifficultFactor = 1f;
-        //public float EnemyAmountFactor = 1f;
         [SerializeField, ReadOnly] private float SpawnScore;
         [SerializeField] private int MaxSpawnScore = 70;
         public int EnemyMaxAmount = 40;
+
+        private bool inWave = false;
 
         public System.Action<EnemyTarget> OnTargetAdded;
         public System.Action<EnemyTarget> OnTargetRemoved;
@@ -48,6 +47,16 @@ namespace Game.Enemy
             SpawnScore = Mathf.RoundToInt(MaxSpawnScore * DifficultFactor);
         }
 
+        public void StartWave(float start, float end)
+        {
+            if (!inWave)
+            {
+                StartCoroutine(SpawnEnemiesWave(start, end));
+
+                inWave = true;
+            }
+        }
+
         [Button(enabledMode: EButtonEnableMode.Playmode)]
         public void StartSpawning()
         {
@@ -63,8 +72,41 @@ namespace Game.Enemy
             }
         }
 
+        private IEnumerator SpawnEnemiesWave(float startTime, float endTime)
+        {
+            LogUtility.WriteLog($"Start wave. Ends on: {endTime}");
+
+            while (SessionManager.Instance.currentTime < startTime)
+            {
+                yield return null;
+            }
+            while(SessionManager.Instance.currentTime < endTime)
+            {
+                yield return new WaitForSeconds(TimeBtwSpawnEnemyInWave);
+
+                if (AllEnemies.Count >= EnemyMaxAmount)
+                {
+                    continue;
+                }
+
+                EnemyData enemyData = EnemyList[Random.Range(0, EnemyList.Length)];
+                Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
+                float directionAccuracy = SpawnRadius;
+                Vector2 direction = new Vector2(Random.Range(-directionAccuracy, directionAccuracy), Random.Range(-directionAccuracy, directionAccuracy));
+
+                EnemyAI enemy = Instantiate(enemyData.EnemyPrefab, (Vector2)spawnPoint.position + direction, Quaternion.identity).GetComponent<EnemyAI>();
+                enemy.Initialize(enemyData, DifficultFactor);
+
+                AllEnemies.Add(enemy);
+
+                LogUtility.WriteLog($"Enemy spawned! Data: enemy_data='{enemyData.EnemyPrefab.name}'. Time: {SessionManager.Instance.currentTime}");
+            }
+
+            inWave = false;
+        }
+
         int currentSpawnScore = 0;
-        IEnumerator SpawnEnemies(float spawnScore)
+        private IEnumerator SpawnEnemies(float spawnScore)
         {
             currentSpawnScore = Mathf.RoundToInt(spawnScore);
             LogUtility.WriteLog($"Start spawn enemy. Spawn score: {currentSpawnScore}");
@@ -99,11 +141,12 @@ namespace Game.Enemy
                 currentSpawnScore -= enemyData.Cost;
                 AllEnemies.Add(enemy);
 
-                LogUtility.WriteLog($"Enemy spawned! Data: enemy_data={enemyData.name}, cost={enemyData.Cost}. Current score: {currentSpawnScore}");
+                LogUtility.WriteLog($"Enemy spawned! Data: enemy_data='{enemyData.EnemyPrefab.name}', cost={enemyData.Cost}. Current score: {currentSpawnScore}");
 
                 yield return new WaitForSeconds(TimeBtwSpawnEnemy);
             }
         }
+
         public void RemoveEnemy(EnemyAI enemyAI)
         {
             if(AllEnemies.Contains(enemyAI))
@@ -119,7 +162,6 @@ namespace Game.Enemy
                 }
             }
         }
-
         public void ClearEnemies()
         {
             currentSpawnScore = 0;

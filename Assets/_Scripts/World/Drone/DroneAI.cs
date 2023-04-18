@@ -45,7 +45,7 @@ namespace Game.Drone
         {
             if(!IsInitialized)
             {
-                if (collision.TryGetComponent<PlayerDronesController>(out PlayerDronesController playerDronesController))
+                if (collision.TryGetComponent(out PlayerDronesController playerDronesController))
                 {
                     PlayerDronesController = playerDronesController;
                     Initialize();

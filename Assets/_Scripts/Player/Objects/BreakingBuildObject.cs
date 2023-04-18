@@ -58,7 +58,7 @@ namespace Game.Player
             if (currentBreakProgress <= 0)
             {
                 GameInput.InputActions.Player.Break.canceled -= EndBreaking;
-                Break.Invoke();
+                Break?.Invoke();
             }
             else
             {
