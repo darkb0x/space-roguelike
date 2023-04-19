@@ -1,5 +1,4 @@
 using Game.Lobby.Shop.Container.Visual;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

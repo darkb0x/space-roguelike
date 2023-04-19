@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using NaughtyAttributes;
@@ -12,7 +10,6 @@ namespace Game
     using MainMenu.Pause;
     using SaveData;
     using Utilities.LoadScene;
-    using Utilities;
 
     public enum SessionEventType
     {

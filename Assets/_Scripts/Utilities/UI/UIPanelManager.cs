@@ -5,8 +5,6 @@ using UnityEngine.Rendering;
 
 namespace Game
 {
-    using Utilities;
-
     public interface IUIPanelManagerObserver
     {
         public void PanelStateIsChanged(GameObject panel);

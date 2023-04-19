@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using NaughtyAttributes;
 using TMPro;
 
 namespace Game.MainMenu.Mission.Visual

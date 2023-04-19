@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
@@ -11,7 +9,6 @@ namespace Game.Drill
      * Cant be moved after extracting.
     */
 
-    using Player.Inventory;
 
     public class DrillTypeM1 : Drill
     {

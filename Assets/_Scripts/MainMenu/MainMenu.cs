@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
@@ -7,7 +5,6 @@ using NaughtyAttributes;
 namespace Game.MainMenu
 {
     using Utilities.LoadScene;
-    using SaveData;
 
     public class MainMenu : MonoBehaviour
     {

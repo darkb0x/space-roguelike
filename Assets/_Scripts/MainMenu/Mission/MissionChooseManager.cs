@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -7,7 +6,6 @@ using NaughtyAttributes;
 namespace Game.MainMenu.Mission
 {
     using Utilities.LoadScene;
-    using Utilities;
     using Planet;
     using Planet.Visual;
     using Visual;

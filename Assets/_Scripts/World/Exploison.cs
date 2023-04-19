@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
 {
     using Enemy;
-    using Player;
 
     public class Exploison : MonoBehaviour
     {

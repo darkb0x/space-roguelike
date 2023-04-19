@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -8,7 +7,6 @@ namespace Game.Player.Inventory
 {
     using SaveData;
     using Utilities.Notifications;
-    using Utilities;
 
     public interface IInventoryObserver
     {
