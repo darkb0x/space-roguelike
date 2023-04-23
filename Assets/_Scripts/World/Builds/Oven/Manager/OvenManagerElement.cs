@@ -19,10 +19,14 @@ namespace Game.Oven.Manager
         [Space]
         [SerializeField] private GameObject itemPrefab;
 
-        List<TextMeshProUGUI> amountsText = new List<TextMeshProUGUI>();
+        private List<TextMeshProUGUI> amountsText = new List<TextMeshProUGUI>();
+
+        private PlayerInventory PlayerInventory;
 
         public void Initialize(OvenCraftList.craft craft, OvenManager m)
         {
+            PlayerInventory = Singleton.Get<PlayerInventory>();
+
             currentCraft = craft;
             manager = m;
 
@@ -57,7 +61,7 @@ namespace Game.Oven.Manager
             for (int i = 0; i < amountsText.Count; i++)
             {
                 OvenCraftList.craft.s_item item = currentCraft.firstItems[i];
-                ItemData data = PlayerInventory.Instance.GetItem(item.item);
+                ItemData data = PlayerInventory.GetItem(item.item);
                 if(data != null)
                 {
                     amountsText[i].color = data.Amount >= item.amount ? Color.white : Color.red;

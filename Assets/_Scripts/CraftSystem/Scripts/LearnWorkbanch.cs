@@ -7,9 +7,15 @@ namespace Game.CraftSystem
     [RequireComponent(typeof(PlayerInteractObject))]
     public class LearnWorkbanch : MonoBehaviour
     {
+        private LearnCSManager LearnCSManager;
         public void OpenMenu()
         {
-            LearnCSManager.Instance.OpenMenu();
+            if(LearnCSManager == null)
+            {
+                LearnCSManager = Singleton.Get<LearnCSManager>();
+            }
+
+            LearnCSManager.OpenMenu();
         }
     }
 }

@@ -11,10 +11,8 @@ namespace Game.MainMenu.Mission
     using Visual;
     using SaveData;
 
-    public class MissionChooseManager : MonoBehaviour
+    public class MissionChooseManager : MonoBehaviour, ISingleton
     {
-        public static MissionChooseManager Instance;
-
         [Header("Visual")]
         [SerializeField] private MissionChooseVisual Visual;
         [SerializeField] private PlanetUIVisual PlanetVisualPrefab;
@@ -41,7 +39,7 @@ namespace Game.MainMenu.Mission
 
         private void Awake()
         {
-            Instance = this;
+            Singleton.Add(this);
 
             startMissionTimer = m_StartMissionTimer;
         }
@@ -123,11 +121,11 @@ namespace Game.MainMenu.Mission
 
         public void StartCutscene()
         {
-            UIPanelManager.Instance.CloseAllPanel(false);
+            Singleton.Get<UIPanelManager>().CloseAllPanel(false);
 
             Cutscene.Play();
             currentSessionData.SetPlanet(selectedMission.AssetPath);
-            StartCoroutine(LoadSceneUtility.Instance.LoadSceneAsync(selectedMission.SceneId, 20));
+            LoadSceneUtility.LoadSceneAsync(selectedMission.SceneId, 20);
 
             currentSessionData.Save();
         }
@@ -135,7 +133,7 @@ namespace Game.MainMenu.Mission
         {
             LogUtility.WriteLog($"Start mission: {selectedMission.MissionName}");
 
-            LoadSceneUtility.Instance.EnableLoadedAsyncScene();
+            LoadSceneUtility.EnableLoadedAsyncScene();
         }
         public void StartMissionTimer()
         {

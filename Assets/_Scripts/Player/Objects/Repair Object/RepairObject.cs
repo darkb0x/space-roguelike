@@ -20,8 +20,12 @@ namespace Game.Player
         private PlayerInteractObject playerInteract;
         public bool isRepaired { get; private set; }
 
+        private PlayerInventory PlayerInventory;
+
         private void Start()
         {
+            PlayerInventory = Singleton.Get<PlayerInventory>();
+
             ItemsForRepairInUI = new List<RepairObjectItemUIVisual>();
 
             foreach (var item in ItemsForRepair)
@@ -61,10 +65,10 @@ namespace Game.Player
         {
             if (isRepaired)
                 return;
-            if (!PlayerInventory.Instance.CanTakeItems(ItemsForRepair))
+            if (!PlayerInventory.CanTakeItems(ItemsForRepair))
                 return;
 
-            PlayerInventory.Instance.TakeItem(ItemsForRepair);
+            PlayerInventory.TakeItem(ItemsForRepair);
 
             AfterRepair.Invoke();
             isRepaired = true;
@@ -84,9 +88,9 @@ namespace Game.Player
                     repairItem = itemForRepair;
             }
 
-            if(PlayerInventory.Instance.GetItem(repairItem.Item) != null)
+            if(PlayerInventory.GetItem(repairItem.Item) != null)
             {
-                if (PlayerInventory.Instance.GetItem(repairItem.Item).Amount < repairItem.Amount)
+                if (PlayerInventory.GetItem(repairItem.Item).Amount < repairItem.Amount)
                 {
                     return Color.red;
                 }

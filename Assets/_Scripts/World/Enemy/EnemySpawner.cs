@@ -5,11 +5,8 @@ using NaughtyAttributes;
 
 namespace Game.Enemy
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour, ISingleton
     {
-        public static EnemySpawner Instance;
-        public void Awake() => Instance = this;
-
         [HideInInspector] public List<EnemyAI> AllEnemies = new List<EnemyAI>();
 
         [SerializeField, ReadOnly] private List<EnemyTarget> AllTargets;
@@ -33,6 +30,8 @@ namespace Game.Enemy
         public System.Action<EnemyTarget> OnTargetAdded;
         public System.Action<EnemyTarget> OnTargetRemoved;
 
+        private SessionManager SessionManager;
+
         private void OnDrawGizmos()
         {
             foreach (var spawnPoint in SpawnPoints)
@@ -42,8 +41,14 @@ namespace Game.Enemy
             }
         }
 
+        private void Awake()
+        {
+            Singleton.Add(this);
+        }
         private void Start()
         {
+            SessionManager = Singleton.Get<SessionManager>();
+
             SpawnScore = Mathf.RoundToInt(MaxSpawnScore * DifficultFactor);
         }
 
@@ -76,11 +81,11 @@ namespace Game.Enemy
         {
             LogUtility.WriteLog($"Start wave. Ends on: {endTime}");
 
-            while (SessionManager.Instance.currentTime < startTime)
+            while (SessionManager.currentTime < startTime)
             {
                 yield return null;
             }
-            while(SessionManager.Instance.currentTime < endTime)
+            while(SessionManager.currentTime < endTime)
             {
                 yield return new WaitForSeconds(TimeBtwSpawnEnemyInWave);
 
@@ -99,7 +104,7 @@ namespace Game.Enemy
 
                 AllEnemies.Add(enemy);
 
-                LogUtility.WriteLog($"Enemy spawned! Data: enemy_data='{enemyData.EnemyPrefab.name}'. Time: {SessionManager.Instance.currentTime}");
+                LogUtility.WriteLog($"Enemy spawned! Data: enemy_data='{enemyData.EnemyPrefab.name}'. Time: {SessionManager.currentTime}");
             }
 
             inWave = false;

@@ -36,7 +36,7 @@ namespace Game.Lobby.Shop.Container
 
         public virtual void Buy(Product product, ShopBuyProductVisual productVisual)
         {
-            PlayerInventory.Instance.money -= product.Cost;
+            Singleton.Get<PlayerInventory>().money -= product.Cost;
         }
     }
 }

@@ -12,13 +12,10 @@ namespace Game.CraftSystem
     public class CSCraftUICraft : MonoBehaviour
     {
         private CSManager craftSystem;
-        //private float currentProgress = 0f;
         List<TextMeshProUGUI> amountsText = new List<TextMeshProUGUI>();
 
         [Header("Variables")]
         [ReadOnly, Expandable] public CSCraftSO craft;
-        [Space]
-        [SerializeField] private float maxProgress = 3f;
         [Space]
         [SerializeField] private Animator anim;
         [SerializeField, AnimatorParam("anim")] private string animValue_enabled;
@@ -33,14 +30,15 @@ namespace Game.CraftSystem
         [SerializeField] private Transform itemListTransform;
         [SerializeField] private GameObject itemListComponent;
 
+        private PlayerInventory PlayerInventory;
+
         public void Initialize(CSCraftSO craftSO, CSManager manager)
         {
+            PlayerInventory = Singleton.Get<PlayerInventory>();
+            craftSystem = manager;
+
             // Variables
             craft = craftSO;
-
-            //craftButtonImage.fillAmount = currentProgress / maxProgress;
-
-            craftSystem = manager;
 
             //UI
             craft_name.text = craft.CraftName;
@@ -74,7 +72,7 @@ namespace Game.CraftSystem
             for (int i = 0; i < craft.ObjectCraft.Count; i++)
             {
                 ItemData curCraft = craft.ObjectCraft[i];
-                ItemData inventoryItem = PlayerInventory.Instance.GetItem(curCraft.Item);
+                ItemData inventoryItem = PlayerInventory.GetItem(curCraft.Item);
                 if(inventoryItem != null)
                 {
                     amountsText[i].color = inventoryItem.Amount < curCraft.Amount ? Color.red : Color.white;

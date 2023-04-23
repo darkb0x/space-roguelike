@@ -42,7 +42,7 @@ namespace Game.Lobby.Shop.Container
 
             CraftProduct craftProduct = product as CraftProduct;
 
-            LearnCSManager.Instance.LearnCraft(craftProduct.Craft);
+            Singleton.Get<LearnCSManager>().LearnCraft(craftProduct.Craft);
 
             productVisual.Interactable = false;
         }

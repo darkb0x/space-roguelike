@@ -341,7 +341,7 @@ namespace Game.Turret
             isPicked = false;
             EnemyDetectionCollider.enabled = true;
 
-            EnemySpawner.Instance.AddTarget(EnemyTarget);
+            Singleton.Get<EnemySpawner>().AddTarget(EnemyTarget);
 
             return true;
         }
@@ -355,12 +355,13 @@ namespace Game.Turret
                 player.pickObjSystem.PutCurrentGameobj(false);
             }
 
+            PlayerInventory inventory = Singleton.Get<PlayerInventory>();
             foreach (var item in DroppedItems)
             {
-                PlayerInventory.Instance.AddItem(item.Item, item.Amount);
+                inventory.AddItem(item.Item, item.Amount);
             }
 
-            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
+            Singleton.Get<EnemySpawner>().RemoveTarget(EnemyTarget);
             Destroy(gameObject);
         }
         #endregion
@@ -397,7 +398,7 @@ namespace Game.Turret
         }
         void IDamagable.Die()
         {
-            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
+            Singleton.Get<EnemySpawner>().RemoveTarget(EnemyTarget);
             Die();
         }
         #endregion

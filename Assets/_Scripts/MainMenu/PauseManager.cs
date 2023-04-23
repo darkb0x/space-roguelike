@@ -5,10 +5,8 @@ namespace Game.MainMenu.Pause
 {
     public delegate void OnGamePaused(bool enabled);
 
-    public class PauseManager : MonoBehaviour
+    public class PauseManager : MonoBehaviour, ISingleton
     {
-
-        public static PauseManager Instance;
 
         [SerializeField, Tooltip("Canvas/Pause")] private GameObject MainPanel;
         [SerializeField] private GameObject[] PauseChildPanels;
@@ -17,13 +15,17 @@ namespace Game.MainMenu.Pause
 
         public event OnGamePaused OnGamePaused;
 
+        private UIPanelManager UIPanelManager;
+
         private void Awake()
         {
-            Instance = this;
+            Singleton.Add(this);
         }
 
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+
             GameInput.InputActions.Player.Pause.performed += OpenClose;
             GameInput.InputActions.UI.Pause.performed += OpenClose;
         }
@@ -35,9 +37,9 @@ namespace Game.MainMenu.Pause
 
         private void OpenClose(InputAction.CallbackContext context)
         {
-            if (UIPanelManager.Instance.SomethinkIsOpened())
+            if (UIPanelManager.SomethinkIsOpened())
             {
-                if(UIPanelManager.Instance.currentOpenedPanel != MainPanel)
+                if(UIPanelManager.currentOpenedPanel != MainPanel)
                 {
                     return;
                 }
@@ -57,7 +59,7 @@ namespace Game.MainMenu.Pause
 
         public void Pause()
         {
-            UIPanelManager.Instance.OpenPanel(MainPanel);
+            UIPanelManager.OpenPanel(MainPanel);
             Time.timeScale = 0;
             OnGamePaused?.Invoke(true);
         }
@@ -68,7 +70,7 @@ namespace Game.MainMenu.Pause
             {
                 panel.SetActive(false);
             }
-            UIPanelManager.Instance.CloseAllPanel();
+            UIPanelManager.CloseAllPanel();
 
             Time.timeScale = 1;
             OnGamePaused?.Invoke(false);
@@ -82,7 +84,7 @@ namespace Game.MainMenu.Pause
                     return;
 
                 pauseEnabled = true;
-                UIPanelManager.Instance.CloseAllPanel();
+                UIPanelManager.CloseAllPanel();
                 Pause();
             }
         }

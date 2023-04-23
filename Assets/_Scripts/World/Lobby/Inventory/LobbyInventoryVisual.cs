@@ -29,10 +29,14 @@ namespace Game.Lobby.Inventory.Visual
         public bool isOpened { get; private set; }
         private Animator currentChestAnimator;
 
+        private UIPanelManager UIPanelManager;
+
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+
             GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
-            UIPanelManager.Instance.Attach(this);
+            UIPanelManager.Attach(this);
         }
         private void OnDisable()
         {
@@ -59,7 +63,7 @@ namespace Game.Lobby.Inventory.Visual
             currentChestAnimator = chestAnim;
             currentChestAnimator.SetBool("isOpened", true);
 
-            UIPanelManager.Instance.OpenPanel(MainPanel);
+            UIPanelManager.OpenPanel(MainPanel);
             isOpened = true;
         }
         public void ClosePanel()
@@ -73,7 +77,7 @@ namespace Game.Lobby.Inventory.Visual
                 currentChestAnimator = null;
             }
 
-            UIPanelManager.Instance.ClosePanel(MainPanel);
+            UIPanelManager.ClosePanel(MainPanel);
             inventory.SetItemsToInventory();
             isOpened = true;
         }

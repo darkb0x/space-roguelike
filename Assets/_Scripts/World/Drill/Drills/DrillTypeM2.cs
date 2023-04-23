@@ -73,7 +73,7 @@ namespace Game.Drill
 
         public override void Die()
         {
-            Enemy.EnemySpawner.Instance.RemoveTarget(EnemyTarget);
+            Singleton.Get<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
 
             Instantiate(ExploisonEffect, myTransform.position, Quaternion.identity);
 

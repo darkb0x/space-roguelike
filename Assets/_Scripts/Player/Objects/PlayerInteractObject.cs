@@ -23,9 +23,12 @@ namespace Game.Player
         public CollisionEnter OnPlayerExit;
 
         private PlayerPickObjects playerPick;
+        private UIPanelManager UIPanelManager;
 
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+
             GameInput.InputActions.Player.Interact.performed += Interact;
         }
 
@@ -33,7 +36,7 @@ namespace Game.Player
         {
             if (!playerInZone)
                 return;
-            if (UIPanelManager.Instance.SomethinkIsOpened())
+            if (UIPanelManager.SomethinkIsOpened())
                 return;
             if (playerPick.HaveObject)
                 return;
@@ -45,7 +48,7 @@ namespace Game.Player
         {
             if (collision.CompareTag(playerTag))
             {
-                if (collision.TryGetComponent<PlayerPickObjects>(out PlayerPickObjects pickObjects))
+                if (collision.TryGetComponent(out PlayerPickObjects pickObjects))
                     playerPick = pickObjects;
 
                 OnPlayerEnter?.Invoke(collision);

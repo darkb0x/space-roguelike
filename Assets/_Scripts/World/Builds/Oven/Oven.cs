@@ -37,8 +37,12 @@ namespace Game.Oven
         float currentTime;
         bool canTakeItem = false;
 
+        private PlayerInventory PlayerInventory;
+
         private void Start()
         {
+            PlayerInventory = Singleton.Get<PlayerInventory>();
+
             manager = FindObjectOfType<OvenManager>();
 
             SmokeParticle.gameObject.SetActive(false);
@@ -100,7 +104,7 @@ namespace Game.Oven
             {
                 if(canTakeItem)
                 {
-                    PlayerInventory.Instance.AddItem(currentItem.finalItem.item, currentItem.finalItem.amount);
+                    PlayerInventory.AddItem(currentItem.finalItem.item, currentItem.finalItem.amount);
                     currentItem = null;
                     canTakeItem = false;
 

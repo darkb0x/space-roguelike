@@ -57,6 +57,8 @@ namespace Game.CraftSystem
         private PlayerController player;
         private CraftTechTree openedTechTree;
         private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private UIPanelManager UIPanelManager;
+        private PlayerInventory PlayerInventory;
 
         private void Awake()
         {
@@ -65,8 +67,11 @@ namespace Game.CraftSystem
 
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+            PlayerInventory = Singleton.Get<PlayerInventory>();
+
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
-            UIPanelManager.Instance.Attach(this);
+            UIPanelManager.Attach(this);
 
             player = FindObjectOfType<PlayerController>();
 
@@ -83,18 +88,19 @@ namespace Game.CraftSystem
 
             InitializeCraftSystem();
 
-            if(LearnCSManager.Instance != null)
+            LearnCSManager learnCSManager = Singleton.Get<LearnCSManager>();
+            if (learnCSManager != null)
             {
-                LearnCSManager.Instance.OnCraftLearned += GotNewCraft;
+                learnCSManager.OnCraftLearned += GotNewCraft;
             }
         }
 
         public void Craft(CSCraftSO craft)
         {
-            if (!PlayerInventory.Instance.CanTakeItems(craft.ObjectCraft))
+            if (!PlayerInventory.CanTakeItems(craft.ObjectCraft))
                 return;
 
-            PlayerInventory.Instance.TakeItem(craft.ObjectCraft);
+            PlayerInventory.TakeItem(craft.ObjectCraft);
 
             currentWorkbanch.Craft(craft.ObjectPrefab);
 
@@ -114,7 +120,7 @@ namespace Game.CraftSystem
                 uiElement.UpdateUI();
             }
 
-            UIPanelManager.Instance.OpenPanel(craftTreePanel);
+            UIPanelManager.OpenPanel(craftTreePanel);
 
             isOpened = true;
 
@@ -125,7 +131,7 @@ namespace Game.CraftSystem
             if (!isOpened)
                 return;
 
-            UIPanelManager.Instance.ClosePanel(craftTreePanel);
+            UIPanelManager.ClosePanel(craftTreePanel);
             isOpened = false;
 
             player.ContinuePlayerMove();

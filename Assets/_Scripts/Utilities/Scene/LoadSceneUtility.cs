@@ -31,33 +31,37 @@ namespace Game.Utilities.LoadScene
             }
         }
 
-        public void LoadScene(int index)
+        public static void LoadScene(int index)
         {
             SceneManager.LoadScene(index);
         }
-        public void LoadScene(string name)
+        public static void LoadScene(string name)
         {
             SceneManager.LoadScene(name);
         }
 
         #region Async
-        public void EnableLoadedAsyncScene()
+        public static void EnableLoadedAsyncScene()
         {
-            asyncScene.allowSceneActivation = true;
+            Instance.asyncScene.allowSceneActivation = true;
         }
 
-        public void LoadSceneAsync(int index)
+        public static void LoadSceneAsync(int index)
         {
-            if(asyncScene != null)
+            if (Instance.asyncScene != null)
             {
-                if (!asyncScene.isDone)
+                if (!Instance.asyncScene.isDone)
                     return;
             }
 
-            asyncScene = SceneManager.LoadSceneAsync(index);
-            asyncScene.allowSceneActivation = false;
+            Instance.asyncScene = SceneManager.LoadSceneAsync(index);
+            Instance.asyncScene.allowSceneActivation = false;
         }  
-        public IEnumerator LoadSceneAsync(int index, int waitFrames = 0)
+        public static void LoadSceneAsync(int index, int waitFrames)
+        {
+            Instance.StartCoroutine(LoadSceneAsyncCoroutine(index, waitFrames));
+        }
+        private static IEnumerator LoadSceneAsyncCoroutine(int index, int waitFrames = 1)
         {
             int currentFrame = 0;
             while (currentFrame < waitFrames)
@@ -69,23 +73,23 @@ namespace Game.Utilities.LoadScene
             LoadSceneAsync(index);
         }
 
-        public void LoadSceneAsyncVisualize(int index)
+        public static void LoadSceneAsyncVisualize(int index)
         {
-            StartCoroutine(LoadSceneAsyncVisualizeCoroutine(index));
+            Instance.StartCoroutine(LoadSceneAsyncVisualizeCoroutine(index));
         }
-        private IEnumerator LoadSceneAsyncVisualizeCoroutine(int index)
+        private static IEnumerator LoadSceneAsyncVisualizeCoroutine(int index)
         {
-            Visual.SetEnabled(true);
+            Instance.Visual.SetEnabled(true);
 
             yield return new WaitForSecondsRealtime(0.3f);
 
             PlayerPrefs.SetInt("LoadingSceen_used", 1);
 
-            asyncScene = SceneManager.LoadSceneAsync(index);
+            Instance.asyncScene = SceneManager.LoadSceneAsync(index);
 
-            while (!asyncScene.isDone)
+            while (!Instance.asyncScene.isDone)
             {
-                Visual.UpdateProgress(asyncScene.progress);
+                Instance.Visual.UpdateProgress(Instance.asyncScene.progress);
                 yield return null;
             }
         }

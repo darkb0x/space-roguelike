@@ -32,12 +32,16 @@ namespace Game.Lobby.Shop.Visual
         private List<ShopProductListContainerVisual> productContainerVisuals = new List<ShopProductListContainerVisual>();
         private List<Image> categoryButtonVisuals = new List<Image>();
 
+        private UIPanelManager UIPanelManager;
+
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+
             manager = GetComponent<ShopManager>();
 
             GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
-            UIPanelManager.Instance.Attach(this);
+            UIPanelManager.Attach(this);
         }
 
         public void Initialize(List<ItemData> items)
@@ -107,7 +111,7 @@ namespace Game.Lobby.Shop.Visual
 
             OpenProductContainer(productContainerVisuals[0], categoryButtonVisuals[0]);
 
-            UIPanelManager.Instance.OpenPanel(MainPanel);
+            UIPanelManager.OpenPanel(MainPanel);
             isOpened = true;
         }
 
@@ -116,7 +120,7 @@ namespace Game.Lobby.Shop.Visual
             if (!isOpened)
                 return;
 
-            UIPanelManager.Instance.ClosePanel(MainPanel);
+            UIPanelManager.ClosePanel(MainPanel);
             isOpened = false;
         }
         public void ClosePanel(InputAction.CallbackContext callback)

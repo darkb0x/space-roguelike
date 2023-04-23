@@ -9,19 +9,23 @@ namespace Game.MainMenu.Mission
     {
         [SerializeField] private PlayerInteractObject InteractComponent;
 
+        private MissionChooseManager MissionChooseManager;
+
         private void Start()
         {
+            MissionChooseManager = Singleton.Get<MissionChooseManager>();
+
             InteractComponent.OnPlayerEnter += PlayerEnter;
             InteractComponent.OnPlayerExit += PlayerExit;
         }
 
         private void PlayerEnter(Collider2D coll)
         {
-            MissionChooseManager.Instance.StartMissionTimer();
+            MissionChooseManager.StartMissionTimer();
         }
         private void PlayerExit(Collider2D coll)
         {
-            MissionChooseManager.Instance.StopMissionTimer();
+            MissionChooseManager.StopMissionTimer();
         }
 
         private void OnDisable()

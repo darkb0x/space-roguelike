@@ -25,11 +25,12 @@ namespace Game.Drill
         protected DrillInventoryVisual inventoryVisual;
 
         protected Transform myTransform;
-        protected bool isPicked = false;
         protected Transform oreTransform;
         protected PlayerController player;
-        protected bool playerInZone = false;
         protected PlayerInteractObject playerInteractObject;
+        protected PlayerInventory playerInventory;
+        protected bool playerInZone = false;
+        protected bool isPicked = false;
 
         protected bool isInitialized;
 
@@ -75,6 +76,8 @@ namespace Game.Drill
 
         public virtual void Start()
         {
+            playerInventory = Singleton.Get<PlayerInventory>();
+
             inventoryVisual = GetComponent<DrillInventoryVisual>();
 
             currentTimeBtwMining = TimeBtwMining;
@@ -86,7 +89,7 @@ namespace Game.Drill
 
             inventoryVisual.EnableVisual(false);
             EnemyTarget.Initialize(this);
-            //Initialize();
+            PreRenderPlaceObject.gameObject.SetActive(false);
         }
 
         public virtual void Initialize()
@@ -184,7 +187,7 @@ namespace Game.Drill
             if (CurrentItem == null | isPicked)
                 return;
 
-            PlayerInventory.Instance.AddItem(CurrentItem, ItemAmount);
+            playerInventory.AddItem(CurrentItem, ItemAmount);
             ItemAmount = 0;
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
 
@@ -246,7 +249,7 @@ namespace Game.Drill
 
         void IDamagable.Die()
         {
-            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
+            Singleton.Get<EnemySpawner>().RemoveTarget(EnemyTarget);
             Die();
         }
         #endregion
@@ -365,10 +368,10 @@ namespace Game.Drill
 
             foreach (var item in DroppedItemsAfterBroke)
             {
-                PlayerInventory.Instance.AddItem(item.item, item.amount);
+                playerInventory.AddItem(item.item, item.amount);
             }
 
-            EnemySpawner.Instance.RemoveTarget(EnemyTarget);
+            Singleton.Get<EnemySpawner>().RemoveTarget(EnemyTarget);
             Destroy(PreRenderPlaceObject.gameObject);
             Destroy(gameObject);
         }

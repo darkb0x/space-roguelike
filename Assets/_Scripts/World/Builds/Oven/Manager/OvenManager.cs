@@ -21,10 +21,16 @@ namespace Game.Oven.Manager
         public bool isOpened { get; private set; }
         private List<OvenManagerElement> craftsVisuals = new List<OvenManagerElement>();
 
+        private UIPanelManager UIPanelManager;
+        private PlayerInventory PlayerInventory;
+
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+            PlayerInventory = Singleton.Get<PlayerInventory>();
+
             GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
-            UIPanelManager.Instance.Attach(this);
+            UIPanelManager.Attach(this);
 
             foreach (var item in craftList.Items)
             {
@@ -43,9 +49,9 @@ namespace Game.Oven.Manager
         {
             List<ItemData> itemsData = ConvertOvenCraftToItemData(craft);
 
-            if (PlayerInventory.Instance.CanTakeItems(itemsData))
+            if (PlayerInventory.CanTakeItems(itemsData))
             {
-                PlayerInventory.Instance.TakeItem(itemsData);
+                PlayerInventory.TakeItem(itemsData);
                 currentOven.StartRemelting(craft);
                 ClosePanel();
             }
@@ -74,7 +80,7 @@ namespace Game.Oven.Manager
 
             isOpened = true;
 
-            UIPanelManager.Instance.OpenPanel(panel);
+            UIPanelManager.OpenPanel(panel);
         }
         public void ClosePanel()
         {
@@ -83,7 +89,7 @@ namespace Game.Oven.Manager
 
             isOpened = false;
 
-            UIPanelManager.Instance.ClosePanel(panel);
+            UIPanelManager.ClosePanel(panel);
         }
         public void ClosePanel(InputAction.CallbackContext context)
         {

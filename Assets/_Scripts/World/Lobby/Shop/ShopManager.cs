@@ -18,11 +18,14 @@ namespace Game.Lobby.Shop
         [Header("Visual")]
         public ShopManagerVisual Visual;
 
-        private PlayerInventory mainInventory => PlayerInventory.Instance;
-        private LobbyInventory lobbyInventory => LobbyInventory.Instance;
+        private PlayerInventory mainInventory;
+        private LobbyInventory lobbyInventory;
 
         private void Start()
         {
+            mainInventory = Singleton.Get<PlayerInventory>();
+            lobbyInventory = Singleton.Get<LobbyInventory>();
+
             List<ItemData> items = GameData.Instance.CurrentSessionData.LobbyInventory.GetItemList();
             Visual.Initialize(items);
 
@@ -31,7 +34,7 @@ namespace Game.Lobby.Shop
                 container.Initialize(this, Visual.AddProductContainerVisual(container));
             }
 
-            LobbyInventory.Instance.OnNewItem += (data) =>
+            lobbyInventory.OnNewItem += (data) =>
             {
                 Visual.AddSellProductVisual(data);
             };

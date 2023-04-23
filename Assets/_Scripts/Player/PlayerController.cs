@@ -48,8 +48,12 @@ namespace Game.Player
         [HideInInspector] public bool isDied = false;
         [HideInInspector] public bool canLookAround = true;
 
+        private UIPanelManager UIPanelManager;
+
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+
             rb = GetComponent<Rigidbody2D>();
             myTransform = transform;
 
@@ -70,7 +74,7 @@ namespace Game.Player
             //animation
             if(moveInput.magnitude > 0)
             {
-                if (!UIPanelManager.Instance.SomethinkIsOpened())
+                if (!UIPanelManager.SomethinkIsOpened())
                 {
                     if(canLookAround)
                     {
@@ -81,7 +85,7 @@ namespace Game.Player
             }
             else
             {
-                if (!UIPanelManager.Instance.SomethinkIsOpened())
+                if (!UIPanelManager.SomethinkIsOpened())
                 {
                     Vector3 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
                     lookDir = -(myTransform.position - mousePos).normalized;
@@ -184,7 +188,7 @@ namespace Game.Player
             DoOxygenCycle = false;
 
             GameData.Instance.ResetSessionData();
-            UIPanelManager.Instance.CloseAllPanel();
+            UIPanelManager.CloseAllPanel();
 
             Visual.PlayerDead();
 
@@ -217,7 +221,7 @@ namespace Game.Player
             if (invulnerability)
                 return;
 
-            Enemy.EnemySpawner.Instance.RemoveTarget(EnemyTarget);
+            Singleton.Get<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
             Die();
         }
         #endregion

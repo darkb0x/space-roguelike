@@ -11,8 +11,12 @@ namespace Game.MainMenu.Mission.Planet.Visual
         public PlanetSO planetData { get; private set; }
         private Transform myTransform;
 
+        private MissionChooseManager MissionChooseManager;
+
         public void Initialize(PlanetSO so)
         {
+            MissionChooseManager = Singleton.Get<MissionChooseManager>();
+
             myTransform = transform;
 
             planetData = so;
@@ -22,7 +26,7 @@ namespace Game.MainMenu.Mission.Planet.Visual
 
         public void SelectPlanet()
         {
-            MissionChooseManager.Instance.SelectMission(planetData); 
+            MissionChooseManager.SelectMission(planetData); 
         }
 
         public void Rotate(Transform point, float direction, float rangeFromPoint)

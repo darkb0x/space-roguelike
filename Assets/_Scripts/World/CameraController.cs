@@ -21,9 +21,12 @@ namespace Game
         private float currentZoom;
 
         private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private UIPanelManager UIPanelManager;
 
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+
             myTransform = GetComponent<Transform>();
             cam = GetComponent<Camera>();
             player = FindObjectOfType<PlayerController>();
@@ -35,7 +38,7 @@ namespace Game
 
         private void Update()
         {
-            if (!UIPanelManager.Instance.SomethinkIsOpened())
+            if (!UIPanelManager.SomethinkIsOpened())
             {
                 currentZoom = Mathf.Clamp(currentZoom + -GameInput.Instance.GetMouseScrollDeltaY() * scrollSensivity, minCamViewScale, maxCamViewScale);
                 cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);

@@ -13,7 +13,7 @@ namespace Game.Player.Inventory.Visual
 
         private void Start()
         {
-            PlayerInventory.Instance.Attach(this, true);
+            Singleton.Get<PlayerInventory>().Attach(this, true);
         }
 
         #region Item Visuals

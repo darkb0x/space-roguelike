@@ -7,10 +7,8 @@ namespace Game.Lobby.Inventory
     using Player.Inventory;
     using SaveData;
 
-    public class LobbyInventory : MonoBehaviour
+    public class LobbyInventory : MonoBehaviour, ISingleton
     {
-        public static LobbyInventory Instance;
-
         [SerializeField] private LobbyInventoryVisual Visual;
 
         [Space]
@@ -25,7 +23,7 @@ namespace Game.Lobby.Inventory
 
         private void Awake()
         {
-            Instance = this;
+            Singleton.Add(this);
         }
 
         void Start()
@@ -39,7 +37,7 @@ namespace Game.Lobby.Inventory
                 AddItem(item, false);
             }
 
-            PlayerInventory.Instance.Items.Clear();
+            Singleton.Get<PlayerInventory>().Items.Clear();
             currentSessionData.MainInventory.Clear();
 
             currentSessionData.Save();

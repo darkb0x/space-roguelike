@@ -27,9 +27,12 @@ namespace Game.Lobby.Shop.Visual
         public InventoryItem Item { get; private set; }
         private ShopManager shopManager;
         private ShopManagerVisual managerVisual;
+        private LobbyInventory LobbyInventory;
 
         public void Initialize(InventoryItem item, int amount, ShopManager manager)
         {
+            LobbyInventory = Singleton.Get<LobbyInventory>();
+
             Item = item;
             shopManager = manager;
             managerVisual = manager.Visual;
@@ -50,7 +53,7 @@ namespace Game.Lobby.Shop.Visual
 
         public void UpdateVisual()
         {
-            ItemData data = LobbyInventory.Instance.GetItem(Item);
+            ItemData data = LobbyInventory.GetItem(Item);
 
             ItemAmountText.text = data.Amount.ToString();
 

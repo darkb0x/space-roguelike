@@ -205,7 +205,7 @@ namespace Game.Player.Visual
 
         public void GoMenu()
         {
-            LoadSceneUtility.Instance.LoadSceneAsyncVisualize(ManuSceneID);
+            LoadSceneUtility.LoadSceneAsyncVisualize(ManuSceneID);
         }
     }
 }

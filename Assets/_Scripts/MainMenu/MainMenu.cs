@@ -27,7 +27,7 @@ namespace Game.MainMenu
         {
             LogUtility.StartLogging("session");
 
-            LoadSceneUtility.Instance.LoadSceneAsyncVisualize(LobbySceneId);
+            LoadSceneUtility.LoadSceneAsyncVisualize(LobbySceneId);
         }
 
         public void OpenYoutubeChanel()

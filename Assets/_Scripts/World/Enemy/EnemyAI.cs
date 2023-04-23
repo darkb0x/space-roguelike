@@ -61,6 +61,8 @@ namespace Game.Enemy
         protected Seeker seecker;
         public Rigidbody2D rb { get; private set; }
 
+        private EnemySpawner EnemySpawner;
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
@@ -72,7 +74,9 @@ namespace Game.Enemy
 
         public virtual void Start()
         {
-            EnemySpawner.Instance.OnTargetRemoved += OnTargetRemoved;
+            EnemySpawner = Singleton.Get<EnemySpawner>();
+
+            EnemySpawner.OnTargetRemoved += OnTargetRemoved;
 
             seecker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
@@ -89,7 +93,7 @@ namespace Game.Enemy
 
         private void OnDisable()
         {
-            EnemySpawner.Instance.OnTargetRemoved -= OnTargetRemoved;
+            EnemySpawner.OnTargetRemoved -= OnTargetRemoved;
         }
 
         public virtual void Initialize(EnemyData data, float difficultFactor = 1)
@@ -257,7 +261,7 @@ namespace Game.Enemy
             {
                 if(enemyTarget.TryGetComponent<EnemyTarget>(out EnemyTarget target))
                 {
-                    if(!EnemySpawner.Instance.GetTargetList().Contains(target))
+                    if(!EnemySpawner.GetTargetList().Contains(target))
                     {
                         continue;
                     }
@@ -292,7 +296,7 @@ namespace Game.Enemy
         }
         protected virtual EnemyTarget GetRandomTarget()
         {
-            EnemyTarget[] targets = EnemySpawner.Instance.GetTargetList().ToArray();
+            EnemyTarget[] targets = EnemySpawner.GetTargetList().ToArray();
 
             if (targets.Length <= 0)
                 return null;
@@ -349,7 +353,7 @@ namespace Game.Enemy
 
             EnemyVisual.Death();
 
-            EnemySpawner.Instance.RemoveEnemy(this);
+            EnemySpawner.RemoveEnemy(this);
 
             foreach (var coll in AllColls)
             {

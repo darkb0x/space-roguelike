@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Playables;
 using TMPro;
 using NaughtyAttributes;
 
@@ -17,16 +18,15 @@ namespace Game
         StartWave
     }
 
-    public class SessionManager : MonoBehaviour
+    public class SessionManager : MonoBehaviour, ISingleton
     {
-        public static SessionManager Instance;
-
         [Header("Rocket")]
-        [SerializeField] private Transform Rocket;
+        [SerializeField] private Transform StartRocket;
         [SerializeField] private Transform[] RocketPositions;
 
-        [Header("Session Theme")]
+        [Header("Session")]
         [SerializeField, Expandable] private SessionTimingsSO SessionTimings;
+        [SerializeField] private PlayableDirector EndCutscene;
 
         [Header("Audio")]
         [SerializeField] private AudioSource MusicAudioSource;
@@ -46,14 +46,16 @@ namespace Game
 
         public PlanetSO planetData { get; private set; }
 
+        private EnemySpawner EnemySpawner;
+
         private void Awake()
         {
-            Instance = this;
+            Singleton.Add(this);
 
             eventsCount = SessionTimings.EventsList.Count;
             currentEvent = 0;
 
-            Rocket.position = RocketPositions[Random.Range(0, RocketPositions.Length)].position;
+            StartRocket.position = RocketPositions[Random.Range(0, RocketPositions.Length)].position;
 
             LogUtility.StartLogging("session");
 
@@ -64,7 +66,8 @@ namespace Game
 
         private void Start()
         {
-            PauseManager.Instance.OnGamePaused += OnGamePaused;
+            EnemySpawner = Singleton.Get<EnemySpawner>();
+            Singleton.Get<PauseManager>().OnGamePaused += OnGamePaused;
 
             planetData = GameData.Instance.CurrentSessionData.GetPlanet();
         }
@@ -101,19 +104,19 @@ namespace Game
 
         public void ActivateEvent(SessionEvent eventData)
         {
-            Debug.Log($"Event Activated {currentEvent} - {eventData.EventType}");
+            Debug.Log($"Event Activated {currentEvent} - {eventData.EventType}. Time: {currentTime}");
             switch (eventData.EventType)
             {
                 case SessionEventType.StartWave:
                     {
                         SessionEvent.WaveDuration waveData = eventData.WaveTime;
 
-                        EnemySpawner.Instance.StartWave(waveData.StartTime, waveData.EndTime);
+                        EnemySpawner.StartWave(waveData.StartTime, waveData.EndTime);
                         break;
                     }
                 case SessionEventType.StartMicroWave:
                     {
-                        EnemySpawner.Instance.StartSpawning(eventData.PercentFromScore);
+                        EnemySpawner.StartSpawning(eventData.PercentFromScore);
                         break;
                     }
                 default:
@@ -131,13 +134,14 @@ namespace Game
 
         public void StartLoadingLobby()
         {
-            LoadSceneUtility.Instance.LoadSceneAsync(LobbySceneID);
+            LoadSceneUtility.LoadSceneAsync(LobbySceneID);
+            EndCutscene.Play();
         }
         public void EnableLobbyScene()
         {
             GameData.Instance.CurrentSessionData.Save();
 
-            LoadSceneUtility.Instance.EnableLoadedAsyncScene();
+            LoadSceneUtility.EnableLoadedAsyncScene();
         }
 
         public void SetPlayerIntoRocket(Transform parent)
@@ -148,7 +152,7 @@ namespace Game
         private void OnDisable()
         {
             LogUtility.StopLogging();
-            PauseManager.Instance.OnGamePaused += OnGamePaused;
+            Singleton.Get<PauseManager>().OnGamePaused -= OnGamePaused;
         }
     }
 }

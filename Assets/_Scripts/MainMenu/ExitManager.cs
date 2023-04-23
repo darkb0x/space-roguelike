@@ -36,7 +36,7 @@ namespace Game.MainMenu.Pause.Exit
         public void OpenMenu()
         {
             GameData.Instance.ResetSessionData();
-            LoadSceneUtility.Instance.LoadSceneAsyncVisualize(MenuSceneID);
+            LoadSceneUtility.LoadSceneAsyncVisualize(MenuSceneID);
         }
 
         public void Exit()

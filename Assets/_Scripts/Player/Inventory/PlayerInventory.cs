@@ -26,12 +26,8 @@ namespace Game.Player.Inventory
         }
     }
 
-    public class PlayerInventory : MonoBehaviour
+    public class PlayerInventory : MonoBehaviour, ISingleton
     {
-        // singletone
-        public static PlayerInventory Instance;
-        private void Awake() => Instance = this;
-
         [Header("Inventory")]
         [ReadOnly] public List<ItemData> Items = new List<ItemData>();
         public int money
@@ -91,6 +87,10 @@ namespace Game.Player.Inventory
         private Color greenColor = new Color(0.254902f, 0.8196079f, 0.5372549f, 1);
         private Color redColor = new Color(0.6901961f, 0.1098039f, 0.282353f, 1f);
 
+        private void Awake()
+        {
+            Singleton.Add(this);
+        }
         private void Start()
         {
             inventoryVisualGameObj = InventoryAnim.gameObject;

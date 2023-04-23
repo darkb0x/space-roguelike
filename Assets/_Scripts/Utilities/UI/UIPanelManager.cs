@@ -10,10 +10,8 @@ namespace Game
         public void PanelStateIsChanged(GameObject panel);
     }
 
-    public class UIPanelManager : MonoBehaviour
+    public class UIPanelManager : MonoBehaviour, ISingleton
     {
-        public static UIPanelManager Instance;
-
         List<IUIPanelManagerObserver> observers = new List<IUIPanelManagerObserver>();
         [NaughtyAttributes.ReadOnly] public GameObject currentOpenedPanel;
 
@@ -32,7 +30,10 @@ namespace Game
 
         private bool canOpen = true;
 
-        private void Awake() => Instance = this;
+        private void Awake()
+        {
+            Singleton.Add(this);
+        }
 
         private void EnablePanel(GameObject panel, bool enabled)
         {

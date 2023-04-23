@@ -28,12 +28,16 @@ namespace Game.MainMenu.Mission.Visual
         public bool isOpened { get; private set; }
         private Vector2 defaultContentPosition;
 
+        private UIPanelManager UIPanelManager;
+
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
 
             defaultContentPosition = Content.position;
-            UIPanelManager.Instance.Attach(this);
+            UIPanelManager.Attach(this);
         }
 
         public void ShowMissionTab(Sprite missionIcon, string missionName, List<Planet.PlanetSO.ItemGenerationData> items)
@@ -83,7 +87,7 @@ namespace Game.MainMenu.Mission.Visual
         {
             Content.position = defaultContentPosition;
 
-            UIPanelManager.Instance.OpenPanel(MainPanel);
+            UIPanelManager.OpenPanel(MainPanel);
             isOpened = true;
         }
         public void CloseMenu()
@@ -91,7 +95,7 @@ namespace Game.MainMenu.Mission.Visual
             if (!isOpened)
                 return;
 
-            UIPanelManager.Instance.ClosePanel(MainPanel);
+            UIPanelManager.ClosePanel(MainPanel);
             isOpened = false;
         }
         public void CloseMenu(InputAction.CallbackContext context)

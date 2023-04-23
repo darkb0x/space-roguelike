@@ -36,6 +36,8 @@ namespace Game.Drone
         private Vector2 targetPos;
         private float timeBtwMiningHits;
 
+        private PlayerInventory PlayerInventory;
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.magenta;
@@ -44,6 +46,8 @@ namespace Game.Drone
 
         private void Start()
         {
+            PlayerInventory = Singleton.Get<PlayerInventory>();
+
             if(InitializeOnStart)
             {
                 Initialize(FindObjectOfType<PlayerController>().GetComponent<PlayerDronesController>());
@@ -111,7 +115,7 @@ namespace Game.Drone
                     return;
                 }
 
-                PlayerInventory.Instance.AddItem(CurrentItem, currentOre.Take(ItemsPerHit), false);
+                PlayerInventory.AddItem(CurrentItem, currentOre.Take(ItemsPerHit), false);
 
                 Anim.SetTrigger(Anim_newItemTrigger);
 

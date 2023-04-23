@@ -56,6 +56,7 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 1930650909, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
   - {fileID: 970259415, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
   - {fileID: -1593062640, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
   - {fileID: 1624615346, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
@@ -77,7 +78,8 @@ SpriteAtlas:
   - {fileID: -1820793942, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
   - {fileID: -1773560668, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
   - {fileID: -737881116, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
-  - {fileID: 21300000, guid: 41c6182689739244288c6be7df8a4683, type: 3}
+  - {fileID: -6682465662091931926, guid: 41c6182689739244288c6be7df8a4683, type: 3}
+  - {fileID: 1152356169552002576, guid: 41c6182689739244288c6be7df8a4683, type: 3}
   - {fileID: 1702462084, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
   - {fileID: 1845563188, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
   - {fileID: -1180259902, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
@@ -88,8 +90,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a807ddb69d2a5ce4da735bb80df86336, type: 3}
   - {fileID: -1003880061, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
   - {fileID: -134836039, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
-  - {fileID: 21300000, guid: 6fa6807a353d8ec4fba6794dcf95f877, type: 3}
+  - {fileID: 16113137, guid: 6fa6807a353d8ec4fba6794dcf95f877, type: 3}
+  - {fileID: -12247513, guid: 6fa6807a353d8ec4fba6794dcf95f877, type: 3}
   m_PackedSpriteNamesToIndex:
+  - mission_table_shadow
   - mission_table_3
   - mission_table_2
   - mission_table_1
@@ -111,7 +115,8 @@ SpriteAtlas:
   - oven_animations_1
   - oven_animations_2
   - oven_animations_3
-  - computer
+  - computer_shadow
+  - computer_main
   - chest_3
   - chest_2
   - chest_1
@@ -122,6 +127,7 @@ SpriteAtlas:
   - oven
   - oxygen_ballon_1
   - oxygen_ballon_0
+  - workbanch_shadow
   - workbanch
   m_RenderDataMap: {}
   m_Tag: builds_atlas

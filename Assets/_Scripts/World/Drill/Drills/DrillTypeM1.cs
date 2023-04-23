@@ -3,13 +3,6 @@ using NaughtyAttributes;
 
 namespace Game.Drill
 {
-    /*
-     * What the M1 type?
-     * The M1 is mining faster than M2 version but, it mines a 50% of all ore and saves extracted resources.
-     * Cant be moved after extracting.
-    */
-
-
     public class DrillTypeM1 : Drill
     {
         [Header("DrillTypeM1")]
@@ -41,7 +34,7 @@ namespace Game.Drill
 
             Anim.SetTrigger(anim_DieTrigger);
 
-            Enemy.EnemySpawner.Instance.RemoveTarget(EnemyTarget);
+            Singleton.Get<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
             exploisonGameObj.SetActive(true);
             BreakingBuildObject.DisableBreaking();
 

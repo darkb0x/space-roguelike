@@ -48,8 +48,13 @@ namespace Game.CraftSystem
         private Color startPriceTextColor;
         private Color noMoneyColor = Color.red;
 
+        private PlayerInventory PlayerInventory;
+
         public void Initialize(CSCraftSOTree data, Vector2 position, LearnCSManager manager)
         {
+            PlayerInventory = Singleton.Get<PlayerInventory>();
+            learnCraftSystem = manager;
+
             rectTransform = GetComponent<RectTransform>();
 
             craft = data;
@@ -77,8 +82,6 @@ namespace Game.CraftSystem
             //Variables
             isUnlocked = craft.IsStartingNode;
             isPursached = craft.IsStartingNode;
-
-            learnCraftSystem = manager;
         }
 
         public void InitializeOnStart()
@@ -131,7 +134,7 @@ namespace Game.CraftSystem
 
         public virtual void Buy()
         {
-            if (PlayerInventory.Instance.money < craft.CraftCost)
+            if (PlayerInventory.money < craft.CraftCost)
             {
                 StartCoroutine(NoMoneyAnimation());
                 return;
@@ -159,7 +162,7 @@ namespace Game.CraftSystem
             if(canBuy)
             {
                 isPursached = true;
-                PlayerInventory.Instance.money -= craft.CraftCost;
+                PlayerInventory.money -= craft.CraftCost;
                 fullUnlock();
                 OnEnterPointer();
                 learnCraftSystem.LearnCraft(craft);

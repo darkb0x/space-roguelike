@@ -126,8 +126,12 @@ namespace Game.Utilities.CheatPanel
         private PlayerController player;
         private bool itemSelectionPanelIsOpened;
 
+        private PlayerInventory PlayerInventory;
+
         public void Initialize(PlayerController player)
         {
+            PlayerInventory = Singleton.Get<PlayerInventory>();
+
             this.player = player;
             itemSelectionPanelIsOpened = false;
 
@@ -197,7 +201,7 @@ namespace Game.Utilities.CheatPanel
             }
             amount = int.Parse(amountTextField);
 
-            PlayerInventory.Instance.money += amount;
+            PlayerInventory.money += amount;
             LogUtility.WriteLog($"Cheats. PlayerInventory.money + {amount}");
         }
         private void GiveItem(string amountTextField)
@@ -219,7 +223,7 @@ namespace Game.Utilities.CheatPanel
             }
             amount = int.Parse(amountTextField);
 
-            PlayerInventory.Instance.AddItem(choosedItem, amount);
+            PlayerInventory.AddItem(choosedItem, amount);
             LogUtility.WriteLog($"Cheats. PlayerInventory.AddItem({choosedItem.ItemName}, {amount})");
         }
     }
@@ -351,16 +355,20 @@ namespace Game.Utilities.CheatPanel
         private string enemyDataPath = "Enemy/";
         private bool enemyEditPanelIsOpned;
 
+        private EnemySpawner EnemySpawner;
+
         public void Initialize(PlayerController player)
         {
+            EnemySpawner = Singleton.Get<EnemySpawner>();
+
             this.player = player;
-            defaultEnemyMaxAmount = EnemySpawner.Instance.EnemyMaxAmount;
+            defaultEnemyMaxAmount = EnemySpawner.EnemyMaxAmount;
             enemyEditPanelIsOpned = false;
             EnemyEditPanel.SetActive(false);
 
             CurrentEnemySpawnData.Initialize(DefaultEnemyData, false, Resources.LoadAll<EnemyData>(enemyDataPath));
 
-            DoSpawnEnemiesToogle.isOn = !(EnemySpawner.Instance.EnemyMaxAmount == 0);
+            DoSpawnEnemiesToogle.isOn = !(EnemySpawner.EnemyMaxAmount == 0);
             DoSpawnEnemiesToogle.onValueChanged.AddListener(value => 
             {
                 EnableEnemySpawn(value);
@@ -377,11 +385,11 @@ namespace Game.Utilities.CheatPanel
 
             StartWaveButton.onClick.AddListener(() => 
             {
-                EnemySpawner.Instance.StartSpawning();
+                EnemySpawner.StartSpawning();
             });
             KillAllEnemiesButton.onClick.AddListener(() =>
             {
-                EnemySpawner.Instance.ClearEnemies();
+                EnemySpawner.ClearEnemies();
             });
         }
 
@@ -399,7 +407,7 @@ namespace Game.Utilities.CheatPanel
             EnemyAI enemy = Object.Instantiate(CurrentEnemySpawnData.EnemyData.EnemyPrefab, player.transform.position, Quaternion.identity).GetComponent<EnemyAI>();
             enemy.Initialize(CurrentEnemySpawnData.EnemyHp, CurrentEnemySpawnData.EnemyProtection, CurrentEnemySpawnData.EnemyData.Damage, CurrentEnemySpawnData.IsAttacking);
 
-            EnemySpawner.Instance.AllEnemies.Add(enemy);
+            EnemySpawner.AllEnemies.Add(enemy);
 
             LogUtility.WriteLog($"Cheats. Enemy have been spawned. Parameters: " +
                 $"EnemyData='{CurrentEnemySpawnData.EnemyData.EnemyPrefab.name}', " +
@@ -409,7 +417,7 @@ namespace Game.Utilities.CheatPanel
 
         private void EnableEnemySpawn(bool enabled)
         {
-            EnemySpawner.Instance.EnemyMaxAmount = enabled ? defaultEnemyMaxAmount : 0;
+            EnemySpawner.EnemyMaxAmount = enabled ? defaultEnemyMaxAmount : 0;
 
             LogUtility.WriteLog($"Cheats. Natural enemy spawn = {enabled}");
         }
@@ -503,8 +511,9 @@ namespace Game.Utilities.CheatPanel
             {
                 EnemyData = data;
 
-                EnemyHp = EnemyData.Health * EnemySpawner.Instance.DifficultFactor;
-                EnemyProtection = EnemyData.Protection * EnemySpawner.Instance.DifficultFactor;
+                EnemySpawner enemySpawner = Singleton.Get<EnemySpawner>();
+                EnemyHp = EnemyData.Health * enemySpawner.DifficultFactor;
+                EnemyProtection = EnemyData.Protection * enemySpawner.DifficultFactor;
 
                 EnemyHealthInputField.text = EnemyHp.ToString();
                 EnemyProtectionInputField.text = EnemyProtection.ToString();

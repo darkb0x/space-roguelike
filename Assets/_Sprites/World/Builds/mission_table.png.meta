@@ -120,12 +120,12 @@ TextureImporter:
       name: mission_table_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 2
+        y: 11
         width: 43
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -141,12 +141,12 @@ TextureImporter:
       name: mission_table_1
       rect:
         serializedVersion: 2
-        x: 1
-        y: 23
+        x: 3
+        y: 34
         width: 2
         height: 2
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: mission_table_2
       rect:
         serializedVersion: 2
-        x: 6
-        y: 23
+        x: 8
+        y: 34
         width: 2
         height: 2
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5420065, y: 0.75204086}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -183,12 +183,12 @@ TextureImporter:
       name: mission_table_3
       rect:
         serializedVersion: 2
-        x: 11
-        y: 21
+        x: 13
+        y: 32
         width: 6
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,12 +204,12 @@ TextureImporter:
       name: mission_table_4
       rect:
         serializedVersion: 2
-        x: 20
-        y: 23
+        x: 22
+        y: 34
         width: 2
         height: 2
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -225,12 +225,12 @@ TextureImporter:
       name: mission_table_5
       rect:
         serializedVersion: 2
-        x: 25
-        y: 23
+        x: 27
+        y: 34
         width: 2
         height: 2
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -238,6 +238,27 @@ TextureImporter:
       bones: []
       spriteID: f59521bb461d3364ca1f904631349a99
       internalID: -1347918296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mission_table_shadow
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 45
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eddf41266afa1ae45bb1625dc499ef2c
+      internalID: 1930650909
       vertices: []
       indices: 
       edges: []
@@ -256,6 +277,7 @@ TextureImporter:
       mission_table_4: -1705006119
       mission_table_0: 2066928728
       mission_table_2: -1593062640
+      mission_table_shadow: 1930650909
       mission_table_5: -1347918296
       mission_table_3: 970259415
       mission_table_1: 1624615346

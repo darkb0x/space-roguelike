@@ -29,10 +29,8 @@ namespace Game.CraftSystem
         public Sprite categoryIcon;
     }
 
-    public class LearnCSManager : MonoBehaviour, ICategoryButtonsChecker, IUIPanelManagerObserver
+    public class LearnCSManager : MonoBehaviour, ICategoryButtonsChecker, IUIPanelManagerObserver, ISingleton
     {
-        public static LearnCSManager Instance;
-
         [Header("Tech Tree")]
         [SerializeField] private List<TechTree> techTrees = new List<TechTree>();
         private List<CSCraftSOTree> unlockedCrafts = new List<CSCraftSOTree>();
@@ -61,16 +59,19 @@ namespace Game.CraftSystem
 
         public OnNewCraftLearned OnCraftLearned;
         private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private UIPanelManager UIPanelManager;
 
         private void Awake()
         {
-            Instance = this;
+            Singleton.Add(this);
         }
 
         private void Start()
         {
+            UIPanelManager = Singleton.Get<UIPanelManager>();
+
             GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
-            UIPanelManager.Instance.Attach(this);
+            UIPanelManager.Attach(this);
 
             AddStartingCrafts();
             foreach (var craft in currentSessionData.UnlockedCraftPaths)
@@ -148,7 +149,7 @@ namespace Game.CraftSystem
         {
             content.localPosition = Vector3.zero;
 
-            UIPanelManager.Instance.OpenPanel(techTreePanel);
+            UIPanelManager.OpenPanel(techTreePanel);
             isOpened = true;
         }
         public void CloseMenu()
@@ -156,7 +157,7 @@ namespace Game.CraftSystem
             if (!isOpened)
                 return;
 
-            UIPanelManager.Instance.ClosePanel(techTreePanel);
+            UIPanelManager.ClosePanel(techTreePanel);
             isOpened = false;
         }
         public void CloseMenu(InputAction.CallbackContext context)

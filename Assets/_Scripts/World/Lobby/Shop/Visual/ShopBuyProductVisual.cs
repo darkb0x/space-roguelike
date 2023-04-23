@@ -18,7 +18,7 @@ namespace Game.Lobby.Shop.Container.Visual
         [SerializeField] private CanvasGroup CanvasGroup;
         [SerializeField] private GameObject PurchasedText;
 
-        private PlayerInventory playerInventory => PlayerInventory.Instance;
+        private PlayerInventory playerInventory;
         private ShopProductListContainer container;
         private ShopManagerVisual managerVisual;
 
@@ -44,6 +44,8 @@ namespace Game.Lobby.Shop.Container.Visual
 
         public void Initialize(Product product, ShopProductListContainer productListContainer, ShopManagerVisual shopManagerVisual)
         {
+            playerInventory = Singleton.Get<PlayerInventory>();
+
             Product = product;
             container = productListContainer;
             managerVisual = shopManagerVisual;
