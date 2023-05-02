@@ -15,21 +15,21 @@ MonoBehaviour:
   <Music>k__BackingField: {fileID: 8300000, guid: 6a09e6297b0645d4686181e86eaf39e9, type: 3}
   EventsList:
   - EventType: 0
-    PercentFromScore: 0
+    PercentFromScore: 5
     WaveTimeStart: 
     WaveTimeEnd: 
     TimeMinute: 0
     TimeSecond: 41.14
     m_StartTime: 0:41,14 (41,14)
   - EventType: 0
-    PercentFromScore: 0
+    PercentFromScore: 5
     WaveTimeStart: 
     WaveTimeEnd: 
     TimeMinute: 1
     TimeSecond: 8.57
     m_StartTime: 1:08,57 (68,57)
   - EventType: 0
-    PercentFromScore: 0
+    PercentFromScore: 5
     WaveTimeStart: 
     WaveTimeEnd: 
     TimeMinute: 2
@@ -51,8 +51,8 @@ MonoBehaviour:
     m_StartTime: 4:06,85 (246,85)
   - EventType: 1
     PercentFromScore: 5
-    WaveTimeStart: 
-    WaveTimeEnd: 
-    TimeMinute: 4
-    TimeSecond: 48
-    m_StartTime: 4:48 (288)
+    WaveTimeStart: 5:08
+    WaveTimeEnd: 6:06
+    TimeMinute: 5
+    TimeSecond: 8
+    m_StartTime: 5:08 (308)

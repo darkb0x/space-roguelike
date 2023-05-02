@@ -55,6 +55,13 @@ namespace Game.Player.Pick
 
         public void SetPickedGameobj(GameObject obj)
         {
+            if(obj == null)
+            {
+                if (pickedGameObject && pickedGameObject_transform)
+                    PutCurrentGameobj();
+
+                return;
+            }
             if (pickedGameObject && pickedGameObject_transform)
                 PutCurrentGameobj();
 

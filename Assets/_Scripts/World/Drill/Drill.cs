@@ -88,7 +88,6 @@ namespace Game.Drill
             PlayerDetectColl.enabled = false;
 
             inventoryVisual.EnableVisual(false);
-            EnemyTarget.Initialize(this);
             PreRenderPlaceObject.gameObject.SetActive(false);
         }
 
@@ -107,6 +106,7 @@ namespace Game.Drill
             isPicked = true;
 
             player.pickObjSystem.SetPickedGameobj(gameObject);
+            EnemyTarget.Initialize(this);
 
             isInitialized = true;
         }
@@ -240,6 +240,7 @@ namespace Game.Drill
         public virtual void Die()
         {
             MiningEnded();
+            player.pickObjSystem.SetPickedGameobj(null);
         }
 
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)

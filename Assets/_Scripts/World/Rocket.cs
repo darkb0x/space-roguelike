@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game
+namespace Game.Session
 {
     public class Rocket : MonoBehaviour
     {

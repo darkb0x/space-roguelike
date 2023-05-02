@@ -258,6 +258,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""33119d3f-6fbe-4835-9110-c1635c1ddbe1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce7490dd-8c5a-4f82-bb98-1d48865dddcc"",
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -379,6 +390,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0a7ca815-52e6-4941-a3d2-9c74103a1b03"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a912c29-463b-410a-b72b-1efc1b6dd183"",
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",

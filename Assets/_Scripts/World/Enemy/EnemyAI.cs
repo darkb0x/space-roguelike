@@ -296,7 +296,7 @@ namespace Game.Enemy
         }
         protected virtual EnemyTarget GetRandomTarget()
         {
-            EnemyTarget[] targets = EnemySpawner.GetTargetList().ToArray();
+            EnemyTarget[] targets = Singleton.Get<EnemySpawner>().GetTargetList().ToArray();
 
             if (targets.Length <= 0)
                 return null;

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Game
 {
@@ -21,12 +23,9 @@ namespace Game
         private float currentZoom;
 
         private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
-        private UIPanelManager UIPanelManager;
 
         private void Start()
         {
-            UIPanelManager = Singleton.Get<UIPanelManager>();
-
             myTransform = GetComponent<Transform>();
             cam = GetComponent<Camera>();
             player = FindObjectOfType<PlayerController>();
@@ -38,15 +37,28 @@ namespace Game
 
         private void Update()
         {
-            if (!UIPanelManager.SomethinkIsOpened())
+            float scrollDelta = -GameInput.Instance.GetMouseScrollDeltaY();
+            if (scrollDelta != 0)
             {
-                currentZoom = Mathf.Clamp(currentZoom + -GameInput.Instance.GetMouseScrollDeltaY() * scrollSensivity, minCamViewScale, maxCamViewScale);
-                cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
-
-                currentSessionData.CameraZoom = currentZoom;
+                if(!IsPointerOverUIObject())
+                {
+                    currentZoom = Mathf.Clamp(currentZoom + scrollDelta * scrollSensivity, minCamViewScale, maxCamViewScale);
+                }
             }
 
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
+            currentSessionData.CameraZoom = currentZoom;
+
             myTransform.position = target.position - new Vector3(0, 0, Mathf.Abs(myTransform.position.z)); 
+        }
+
+        private bool IsPointerOverUIObject()
+        {
+            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+            eventDataCurrentPosition.position = GameInput.Instance.GetMousePosition();
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+            return results.Count > 0;
         }
     }
 }

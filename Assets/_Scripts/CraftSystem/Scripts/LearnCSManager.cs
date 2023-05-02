@@ -198,7 +198,10 @@ namespace Game.CraftSystem
         {
             if(tree.techTreeRenderTransform == null)
             {
+                Vector3 nodeRenderOffset = new Vector3(-50f, 50f);
+
                 GameObject nodeRender = Instantiate(nullObjPrefab.gameObject, content);
+                nodeRender.GetComponent<RectTransform>().localPosition += nodeRenderOffset;
                 nodeRender.name = tree.techTree.name;
                 tree.techTreeRenderTransform = nodeRender.transform;
             }

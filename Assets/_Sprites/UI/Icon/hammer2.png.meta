@@ -127,11 +127,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 1
         width: 7
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: hammer2_1
       rect:
         serializedVersion: 2
-        x: 7
+        x: 6
         y: 0
-        width: 7
-        height: 7
+        width: 9
+        height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,6 +160,27 @@ TextureImporter:
       bones: []
       spriteID: 64f0e059312984b50800000000000000
       internalID: 6577667868577369926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer2_2
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 0
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b883b73ae27e814a86d753f37478e1c
+      internalID: -707667777
       vertices: []
       indices: 
       edges: []
@@ -175,6 +196,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      hammer2_2: -707667777
       hammer2_1: 6577667868577369926
       hammer2_0: 279268925818795677
   spritePackingTag: 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace Game.World.Generation.Ore
 {
@@ -8,10 +9,34 @@ namespace Game.World.Generation.Ore
 
     public class OreGenerator : MonoBehaviour
     {
-        [SerializeField, NaughtyAttributes.Expandable] private PlanetSO DefaultPlanet;
+        //[SerializeField, ReadOnly] private int OreZones;
+        //[SerializeField] private float OreRadius;
+        //[SerializeField] private Vector2 ZonesOffset = Vector2.zero;
+        //[Space]
+        [SerializeField, Expandable] private PlanetSO DefaultPlanet;
 
         private Ore[] AllOres;
         private PlanetSO LoadedPlanet;
+
+        /*
+        private void OnPlanetChanged()
+        {
+            OreZones = DefaultPlanet.OresInPlanet.Count;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (DefaultPlanet == null)
+                return;
+
+            for (int i = 0; i < DefaultPlanet.OresInPlanet.Count; i++)
+            {
+                float direction = ((float)i / DefaultPlanet.OresInPlanet.Count) * 360f;
+                Vector2 pos = (Vector2)transform.position - ZonesOffset + new Vector2(Mathf.Sin(direction * Mathf.Deg2Rad), Mathf.Cos(direction * Mathf.Deg2Rad)) * OreRadius;
+                Debug.DrawLine(transform.position - (Vector3)ZonesOffset, pos, Color.green);
+            }
+        }
+        */
 
         private void Start()
         {
