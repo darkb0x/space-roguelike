@@ -11,24 +11,12 @@ namespace Game.Session
             public Image Visual;
             public float Time;
 
-            private bool enabled
-            {
-                get
-                {
-                    return Visual.color.a == 1;
-                }
-                set
-                {
-                    float disabledAlpha = 0.7f;
-                    float enabledAlpha = 1f;
-
-                    Visual.color = new Color(Visual.color.r, Visual.color.g, Visual.color.b, value ? enabledAlpha : disabledAlpha);
-                }
-            }
-
             public void Enabled(bool value)
             {
-                enabled = value;
+                float disabledAlpha = 0.7f;
+                float enabledAlpha = 1f;
+
+                Visual.color = new Color(Visual.color.r, Visual.color.g, Visual.color.b, value ? enabledAlpha : disabledAlpha);
             }
         }
 

@@ -25,7 +25,7 @@ namespace Game.Player.Visual
         [Header("Health")]
         [SerializeField] private Sprite FullHeartSprite;
         [SerializeField] private Sprite DamagedHeartSprite;
-        [SerializeField] private Transform HeartsTransform;
+        [SerializeField] private List<Image> HeartsImages = new List<Image>();
         [Space]
         [SerializeField] private GameObject DeathPanel;
         [SerializeField, Scene] private int ManuSceneID;
@@ -39,10 +39,7 @@ namespace Game.Player.Visual
         [AnimatorParam("Anim"), SerializeField] string Anim_isPickingSmthBool;
         [AnimatorParam("Anim"), SerializeField] string Anim_deadTrigger;
 
-        private List<Image> HeartsImages = new List<Image>();
         private bool updateOxygenVisual = true;
-        private Vector2 heartImageSize = new Vector2(50, 50);
-        private Vector2 shadowEffectDistance = new Vector2(5, -5);
 
         private Vignette vignettePostProcessing;
 
@@ -64,37 +61,11 @@ namespace Game.Player.Visual
             vignettePostProcessing.intensity.Override(Mathf.MoveTowards(vignettePostProcessing.intensity.value, lowOxygenTargetIdensity, lowOxygenSpeed * Time.deltaTime));
         }
 
-        public void InitializeHealthVisual(int maxHealth)
+        public void InitializeHealthVisual()
         {
-            ClearHeartsVisual();
-
-            for (int i = 0; i < maxHealth; i++)
+            foreach (var img in HeartsImages)
             {
-                GameObject gameObject = new GameObject();
-                gameObject.name = $"Heart ({i})";
-
-                Image heartImage = gameObject.AddComponent<Image>();
-                heartImage.sprite = FullHeartSprite;
-                heartImage.rectTransform.sizeDelta = heartImageSize;
-
-                Shadow heartShadow = gameObject.AddComponent<Shadow>();
-                heartShadow.effectDistance = shadowEffectDistance;
-
-                HeartsImages.Add(heartImage);
-
-                gameObject.transform.SetParent(HeartsTransform);
-                gameObject.transform.localScale = Vector3.one;
-            }
-        }
-        private void ClearHeartsVisual()
-        {
-            if (HeartsTransform.childCount == 0)
-                return;
-
-            int childCount = HeartsTransform.childCount;
-            for (int i = childCount - 1; i >= 0; i--)
-            {
-                DestroyImmediate(HeartsTransform.GetChild(i).gameObject);
+                img.sprite = FullHeartSprite;
             }
         }
 

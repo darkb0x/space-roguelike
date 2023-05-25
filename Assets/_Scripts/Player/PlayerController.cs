@@ -62,9 +62,13 @@ namespace Game.Player
             EnemyTarget.Initialize(this);
 
             health = maxHealth;
-            Visual.InitializeHealthVisual((int)health);
+            Visual.InitializeHealthVisual();
 
-            Visual.EnableOxygenVisual(DoOxygenCycle);
+            if(!DoOxygenCycle)
+            {
+                oxygen = maxOxygen;
+                Visual.UpdateOxygenVisual(oxygen, maxOxygen);
+            }
         }
 
         private void Update()

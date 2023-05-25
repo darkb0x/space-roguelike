@@ -6555,10 +6555,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 55182026192187754, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 372487496412347438, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
       propertyPath: AllItemsAtStart
       value: 1
@@ -6695,10 +6691,6 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5138592370601071054, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 68.000046
-      objectReference: {fileID: 0}
     - target: {fileID: 5340520158696822646, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
       propertyPath: MainVolume
       value: 
@@ -6742,10 +6734,6 @@ PrefabInstance:
     - target: {fileID: 8046253816043144918, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
       propertyPath: InitializeEnemyCheats
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8557103307819843071, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 68
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b0f00d197ce66042808e43ff5f4bcd0, type: 3}
