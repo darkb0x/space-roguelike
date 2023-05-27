@@ -35,7 +35,7 @@ namespace Game.MainMenu.Settings
         [Header("Logging Toggle")]
         [SerializeField] private Toggle EnableLoggingToggle;
 
-        private SettingsData settingsData => GameData.Instance.CurrentSettingsData;
+        private SettingsData settingsData => SaveDataManager.Instance.CurrentSettingsData;
 
         private void Start()
         {

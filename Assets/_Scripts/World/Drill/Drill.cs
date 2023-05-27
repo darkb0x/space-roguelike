@@ -106,7 +106,7 @@ namespace Game.Drill
             isPicked = true;
 
             player.pickObjSystem.SetPickedGameobj(gameObject);
-            EnemyTarget.Initialize(this);
+            EnemyTarget.Initialize(this, null);
 
             isInitialized = true;
         }

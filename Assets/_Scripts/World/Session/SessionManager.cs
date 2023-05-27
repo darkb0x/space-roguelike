@@ -69,7 +69,7 @@ namespace Game.Session
             EnemySpawner = Singleton.Get<EnemySpawner>();
             Singleton.Get<PauseManager>().OnGamePaused += OnGamePaused;
 
-            planetData = GameData.Instance.CurrentSessionData.GetPlanet();
+            planetData = SaveDataManager.Instance.CurrentSessionData.GetPlanet();
         }
 
         public void Initialize()
@@ -139,7 +139,7 @@ namespace Game.Session
         }
         public void EnableLobbyScene()
         {
-            GameData.Instance.CurrentSessionData.Save();
+            SaveDataManager.Instance.CurrentSessionData.Save();
 
             LoadSceneUtility.EnableLoadedAsyncScene();
         }

@@ -18,6 +18,10 @@ namespace Game
         }
         public void Die();
     }
+    public interface IMovableTarget
+    {
+        public Vector3 GetMoveDirection();
+    }
 }
 
 namespace Game.Enemy
@@ -38,12 +42,14 @@ namespace Game.Enemy
         [SerializeField] private bool AddObjectToListAtStart = true;
 
         private IDamagable damagableObject;
+        private IMovableTarget movableObject;
 
-        public void Initialize(IDamagable obj)
+        public void Initialize(IDamagable damagableObj, IMovableTarget movableObj)
         {
-            damagableObject = obj;
+            damagableObject = damagableObj;
+            movableObject = movableObj;
 
-            if(AddObjectToListAtStart)
+            if (AddObjectToListAtStart)
                 Singleton.Get<EnemySpawner>().AddTarget(this);
         }
 
@@ -53,6 +59,13 @@ namespace Game.Enemy
                 damagableObject.Damage(dmg, this);
             else
                 Debug.LogWarning($"{transform.parent.name} > {gameObject.name}/EnemyTarget.cs/damagableObject is null (Maybe you didn't initialized it.)");
+        }
+        public Vector3 GetMoveDirection()
+        {
+            if (movableObject == null)
+                return Vector3.zero;
+            else
+                return movableObject.GetMoveDirection();
         }
     }
 }

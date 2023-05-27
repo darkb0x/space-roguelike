@@ -35,13 +35,13 @@ namespace Game.MainMenu.Pause.Exit
 
         public void OpenMenu()
         {
-            GameData.Instance.ResetSessionData();
+            SaveDataManager.Instance.CurrentSessionData.Reset();
             LoadSceneUtility.LoadSceneAsyncVisualize(MenuSceneID);
         }
 
         public void Exit()
         {
-            GameData.Instance.ResetSessionData();
+            SaveDataManager.Instance.CurrentSessionData.Reset();
             Application.Quit();
         }
     }

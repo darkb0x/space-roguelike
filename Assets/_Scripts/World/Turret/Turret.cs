@@ -103,7 +103,7 @@ namespace Game.Turret
                 TurretBackRotateTime = STANDART_ROTATION_TIME;
             }
 
-            EnemyTarget.Initialize(this);
+            EnemyTarget.Initialize(this, null);
 
             if (InitializeOnStart) 
             {

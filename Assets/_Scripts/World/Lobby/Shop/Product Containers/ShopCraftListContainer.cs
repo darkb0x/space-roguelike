@@ -28,7 +28,7 @@ namespace Game.Lobby.Shop.Container
                 if (products.Contains(craft))
                     continue;
 
-                if(!GameData.Instance.CurrentSessionData.HaveCraft(craft.Craft)) 
+                if(!SaveDataManager.Instance.CurrentSessionData.HaveCraft(craft.Craft)) 
                 {
                     products.Add(craft);
                 }

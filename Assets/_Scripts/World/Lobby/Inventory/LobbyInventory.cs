@@ -18,7 +18,7 @@ namespace Game.Lobby.Inventory
         public Dictionary<InventoryItem, int> Items = new Dictionary<InventoryItem, int>();
         public int FreeItemsAmount { get; private set; }
 
-        private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
         public System.Action<ItemData> OnNewItem;
 
         private void Awake()
@@ -37,7 +37,9 @@ namespace Game.Lobby.Inventory
                 AddItem(item, false);
             }
 
-            Singleton.Get<PlayerInventory>().Items.Clear();
+            PlayerInventory playerInventory = Singleton.Get<PlayerInventory>();
+            playerInventory.Items.Clear();
+            playerInventory.IsActive = false;
             currentSessionData.MainInventory.Clear();
 
             currentSessionData.Save();

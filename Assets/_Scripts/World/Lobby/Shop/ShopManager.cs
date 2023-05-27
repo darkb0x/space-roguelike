@@ -26,7 +26,7 @@ namespace Game.Lobby.Shop
             mainInventory = Singleton.Get<PlayerInventory>();
             lobbyInventory = Singleton.Get<LobbyInventory>();
 
-            List<ItemData> items = GameData.Instance.CurrentSessionData.LobbyInventory.GetItemList();
+            List<ItemData> items = SaveDataManager.Instance.CurrentSessionData.LobbyInventory.GetItemList();
             Visual.Initialize(items);
 
             foreach (var container in BuyProductListContainers)

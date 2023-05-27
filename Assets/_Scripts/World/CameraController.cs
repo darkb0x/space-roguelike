@@ -22,7 +22,7 @@ namespace Game
         private Transform myTransform;
         private float currentZoom;
 
-        private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
 
         private void Start()
         {

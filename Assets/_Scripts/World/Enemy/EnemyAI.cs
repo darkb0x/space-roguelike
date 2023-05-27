@@ -123,15 +123,11 @@ namespace Game.Enemy
             currentTarget = GetRandomTarget();
 
             InvokeRepeating("UpdatePath", 0f, UPDATE_PATH_TIME);
-            InvokeRepeating("CheckTargetsInVision", 0, CHECK_TARGET_IN_VISION_TIME);
+            InvokeRepeating("CheckTargetsInVision", 0f, CHECK_TARGET_IN_VISION_TIME);
         }
 
         public virtual void Update()
         {
-            #if UNITY_EDITOR
-            if (Keyboard.current.kKey.isPressed)
-                Die();
-            #endif
 
             if(shieldTime > 0)
             {
@@ -150,7 +146,8 @@ namespace Game.Enemy
                 }
             }
 
-            if (reachedEndOfPath)
+            float minDistanceForAttack = 2f;
+            if (Vector2.Distance(myTransform.position, currentTarget.transform.position) <= minDistanceForAttack)
             {
                 if(IsAttacking)
                 {
@@ -193,9 +190,23 @@ namespace Game.Enemy
 
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+            float forceFactor = 1;
+            float minDistance = 5f;
+
+            if (Vector2.Distance(myTransform.position, currentTarget.transform.position) <= minDistance)
+            {
+                float dotProduct = Vector2.Dot(currentTarget.GetMoveDirection(), rb.velocity.normalized);
+
+                if(dotProduct < 0)
+                {
+                    forceFactor = 2f;
+                    direction = (((Vector2)currentTarget.transform.position + (Vector2)currentTarget.GetMoveDirection()) - rb.position).normalized;
+                }
+            }
 
             float speedFactor = 50f;
-            Vector2 force = direction * (Speed * speedFactor) * Time.deltaTime;
+            Vector2 force = direction * (Speed * speedFactor) * forceFactor * Time.fixedDeltaTime;
+
             rb.AddForce(force);
 
             //rb.MovePosition(rb.position + direction * Speed * Time.fixedDeltaTime);

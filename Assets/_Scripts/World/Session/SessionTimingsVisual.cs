@@ -20,20 +20,28 @@ namespace Game.Session
             }
         }
 
+        [SerializeField] private Slider m_Slider;
         [SerializeField] private GameObject MarkPrefab;
+        [Space]
+        [SerializeField] private Button VidgetButton;
+        [SerializeField] private Image VidgetVisual;
 
         private SessionManager SessionManager;
 
         private List<MarkData> markList;
-        private Slider slider;
 
         private void Start()
         {
-            slider = GetComponent<Slider>();
+            Enable(false);
+            if (!VidgetButton.interactable)
+            {
+                return;
+            }
+
             SessionManager = Singleton.Get<SessionManager>();
 
-            slider.minValue = 0;
-            slider.maxValue = SessionManager.SessionTimings.Music.length;
+            m_Slider.minValue = 0;
+            m_Slider.maxValue = SessionManager.SessionTimings.Music.length;
 
             SessionManager.OnEventReached += EventReached;
 
@@ -42,16 +50,16 @@ namespace Game.Session
 
         private void Update()
         {
-            slider.value = Mathf.Clamp(SessionManager.currentTime, slider.minValue, slider.maxValue);
+            m_Slider.value = Mathf.Clamp(SessionManager.currentTime, m_Slider.minValue, m_Slider.maxValue);
         }
 
         private void InitializeMarks()
         {
             markList = new List<MarkData>();
 
-            float minValue = slider.minValue;
-            float maxValue = slider.maxValue;
-            float sliderWidth = slider.GetComponent<RectTransform>().rect.width;
+            float minValue = m_Slider.minValue;
+            float maxValue = m_Slider.maxValue;
+            float sliderWidth = m_Slider.GetComponent<RectTransform>().rect.width;
 
             foreach (var timing in SessionManager.SessionTimings.EventsList)
             {
@@ -81,6 +89,15 @@ namespace Game.Session
                     mark.Enabled(true);
                 }
             }
+        }
+
+        public void Enable(bool enabled)
+        {
+            gameObject.SetActive(enabled);
+        }
+        public void Enable()
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Game.MainMenu.Mission
         private bool startMission = false;
         private float startMissionTimer;
 
-        private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
 
         private void Awake()
         {

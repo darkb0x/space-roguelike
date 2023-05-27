@@ -5,6 +5,7 @@ using NaughtyAttributes;
 
 namespace Game.Player.Inventory
 {
+    using Visual;
     using SaveData;
     using Utilities.Notifications;
 
@@ -70,31 +71,27 @@ namespace Game.Player.Inventory
         [SerializeField] private int m_money;
 
         [Header("Visual")]
+        [SerializeField] private InventoryWindow InventoryWindow;
+        [Space]
         [SerializeField] private TextMeshProUGUI[] money_texts;
         [SerializeField] private Animator MoneyChangedAnim;
         [SerializeField] private TextMeshProUGUI MoneyChangedText;
-        [Space]
-        [SerializeField] private TextMeshProUGUI AllItemsAmountText;
-        [Space]
-        [SerializeField] private Animator InventoryAnim;
-        [SerializeField, AnimatorParam("InventoryAnim")] private string InventoryAnim_OpenBool;
 
-        private bool isOpened = false;
         public List<IInventoryObserver> observers = new List<IInventoryObserver>();
-        private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
-        private GameObject inventoryVisualGameObj;
+        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
 
         private Color greenColor = new Color(0.254902f, 0.8196079f, 0.5372549f, 1);
         private Color redColor = new Color(0.6901961f, 0.1098039f, 0.282353f, 1f);
 
+        public bool IsActive { get; set; }
+
         private void Awake()
         {
             Singleton.Add(this);
+            IsActive = true;
         }
         private void Start()
         {
-            inventoryVisualGameObj = InventoryAnim.gameObject;
-
             GameInput.InputActions.Player.Inventory.performed += InventoryEnabled;
 
             Load();
@@ -104,14 +101,6 @@ namespace Game.Player.Inventory
         private void OnDisable()
         {
             GameInput.InputActions.Player.Inventory.performed -= InventoryEnabled;
-        }
-
-        private void Update()
-        {
-            if(inventoryVisualGameObj.activeInHierarchy)
-            {
-                InventoryAnim.SetBool(InventoryAnim_OpenBool, isOpened);
-            }
         }
 
         private void Load()
@@ -247,14 +236,8 @@ namespace Game.Player.Inventory
         #region Visual
         private void UpdateVisual()
         {
-            int allItemsAmount = 0;
-
-            // main
-            foreach (var itemData in Items)
-            {
-                allItemsAmount += itemData.Amount;
-            }
-            AllItemsAmountText.text = allItemsAmount.ToString();
+            if (!IsActive)
+                return;
 
             // observers data
             foreach (var observer in observers)
@@ -265,7 +248,10 @@ namespace Game.Player.Inventory
 
         public void InventoryEnabled(UnityEngine.InputSystem.InputAction.CallbackContext callback)
         {
-            isOpened = !isOpened;
+            if (!IsActive)
+                return;
+
+            InventoryWindow.Open();
         }
         #endregion
 

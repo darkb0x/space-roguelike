@@ -67,7 +67,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   Speed: 10
-  NextWaypointDistance: 0.3
+  NextWaypointDistance: 1
   AllColls:
   - {fileID: 6244823118490864838}
   EnemyVisual: {fileID: 1842241882805333569}
@@ -134,7 +134,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 2
+  m_LinearDrag: 2.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

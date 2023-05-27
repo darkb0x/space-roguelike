@@ -40,7 +40,7 @@ namespace Game.World.Generation.Ore
 
         private void Start()
         {
-            LoadedPlanet = GameData.Instance.CurrentSessionData.GetPlanet();
+            LoadedPlanet = SaveDataManager.Instance.CurrentSessionData.GetPlanet();
             if (LoadedPlanet == null)
                 LoadedPlanet = DefaultPlanet;
 

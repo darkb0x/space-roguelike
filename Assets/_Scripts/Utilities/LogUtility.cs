@@ -7,7 +7,7 @@ namespace Game
 
     public static class LogUtility
     {
-        private static SettingsData currentSettingsData => GameData.Instance.CurrentSettingsData;
+        private static SettingsData currentSettingsData => SaveDataManager.Instance.CurrentSettingsData;
         private static StreamWriter writer;
 
         public static void StartLogging(string logName = "log")

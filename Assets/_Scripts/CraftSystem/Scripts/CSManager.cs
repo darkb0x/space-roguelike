@@ -56,7 +56,7 @@ namespace Game.CraftSystem
         private Workbanch currentWorkbanch;
         private PlayerController player;
         private CraftTechTree openedTechTree;
-        private SessionData currentSessionData => GameData.Instance.CurrentSessionData;
+        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
         private UIPanelManager UIPanelManager;
         private PlayerInventory PlayerInventory;
 

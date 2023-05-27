@@ -9,7 +9,7 @@ namespace Game.Player
     using Visual;
     using SaveData;
 
-    public class PlayerController : MonoBehaviour, IDamagable
+    public class PlayerController : MonoBehaviour, IDamagable, IMovableTarget
     {
         [Header("Oxygen")]
         [SerializeField] private float oxygen = 50;
@@ -59,7 +59,7 @@ namespace Game.Player
 
             inventory = FindObjectOfType<PlayerInventory>();
             cam = Camera.main;
-            EnemyTarget.Initialize(this);
+            EnemyTarget.Initialize(this, this);
 
             health = maxHealth;
             Visual.InitializeHealthVisual();
@@ -124,6 +124,17 @@ namespace Game.Player
         {
             if(canMove)
                 rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
+        }
+        public Vector3 GetMoveDirection()
+        {
+            if(canMove)
+            {
+                return moveInput;
+            } 
+            else
+            {
+                return Vector3.zero;
+            }
         }
 
         #region Oxygen
@@ -191,7 +202,7 @@ namespace Game.Player
             MainColl.enabled = false;
             DoOxygenCycle = false;
 
-            GameData.Instance.ResetSessionData();
+            SaveDataManager.Instance.CurrentSessionData.Reset();
             UIPanelManager.CloseAllPanel();
 
             Visual.PlayerDead();
