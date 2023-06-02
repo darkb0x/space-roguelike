@@ -174,6 +174,10 @@ namespace Game.Enemy
             {
                 reachedEndOfPath = false;
             }
+            if(currentTarget == null)
+            {
+                return;
+            }
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
             float forceFactor = 1;

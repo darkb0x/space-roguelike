@@ -8,20 +8,32 @@ namespace Game.Player
 {
     public class BreakingBuildObject : MonoBehaviour
     {
-        [SerializeField, NaughtyAttributes.Tag] private string PlayerTag = "Player";
-        [Space]
+        [Header("Break Visual")]
         [SerializeField] private GameObject BreakProgressGameObj;
         [SerializeField] private Image BreakProgressImage;
-        [SerializeField] protected float BreakTime = 5;
+        [SerializeField] private float BreakTime = 2.5f;
+
+        [Header("Break Interaction")]
+        [SerializeField, Tooltip("Radius in which player have to stay for break build.")] private float Radius = 1.3f;
+        [SerializeField] private LayerMask PlayerLayer;
+
         [Space]
         [SerializeField] private UnityEvent Break;
 
+        private Coroutine endBreakingCoroutine;
         private float currentBreakProgress;
         private bool playerInZone = false;
         private bool canBeBreak = true;
 
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(transform.position, Radius);
+        }
+
         private void Start()
         {
+            GameInput.InputActions.Player.Break.performed += StartBreaking;
             GameInput.InputActions.Player.Break.canceled += EndBreaking;
 
             currentBreakProgress = BreakTime;
@@ -35,7 +47,7 @@ namespace Game.Player
 
             if (currentBreakProgress > 0)
             {
-                StartCoroutine(EndBreaking());
+                EndBreaking();
             }
         }
 
@@ -48,10 +60,23 @@ namespace Game.Player
                 Breaking();
         }
 
+        private void StartBreaking(InputAction.CallbackContext obj)
+        {
+            playerInZone = Physics2D.OverlapCircleAll(transform.position, Radius, PlayerLayer).Length > 0;
+        }
+
         private void Breaking()
         {
             if (!playerInZone)
+            {
+                if(endBreakingCoroutine == null)
+                {
+                    EndBreaking();
+                }
                 return;
+            }
+
+            playerInZone = Physics2D.OverlapCircleAll(transform.position, Radius, PlayerLayer).Length > 0;
 
             BreakProgressGameObj.SetActive(true);
             if (currentBreakProgress <= 0)
@@ -65,11 +90,15 @@ namespace Game.Player
                 BreakProgressImage.fillAmount = Mathf.Abs((currentBreakProgress / BreakTime) - 1);
             }
         }
+        private void EndBreaking()
+        {
+            endBreakingCoroutine = StartCoroutine(EndBreakingCoroutine());
+        }
         private void EndBreaking(InputAction.CallbackContext context)
         {
-            StartCoroutine(EndBreaking());
+            EndBreaking();
         }
-        private IEnumerator EndBreaking()
+        private IEnumerator EndBreakingCoroutine()
         {
             while (BreakProgressImage.fillAmount >= 0.01f)
             {
@@ -82,21 +111,12 @@ namespace Game.Player
 
             currentBreakProgress = BreakTime;
             BreakProgressGameObj.SetActive(false);
-        }
-
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            if (collision.CompareTag(PlayerTag))
-                playerInZone = true;
-        }
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.CompareTag(PlayerTag))
-                playerInZone = false;
+            endBreakingCoroutine = null;
         }
 
         private void OnDisable()
         {
+            GameInput.InputActions.Player.Break.performed -= StartBreaking;
             GameInput.InputActions.Player.Break.canceled -= EndBreaking;
         }
     }

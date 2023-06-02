@@ -23,7 +23,7 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: DefaultTexturePlatform
-      m_MaxTextureSize: 2048
+      m_MaxTextureSize: 512
       m_ResizeAlgorithm: 0
       m_TextureFormat: -1
       m_TextureCompression: 0
@@ -51,6 +51,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
     - {fileID: 2800000, guid: 8bb85e36e694177468943192f5b640c9, type: 3}
     - {fileID: 2800000, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
+    - {fileID: 2800000, guid: 6ea184d368056a340a1e851da3b633ed, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -63,6 +64,8 @@ SpriteAtlas:
   - {fileID: 2066928728, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
   - {fileID: -1347918296, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
   - {fileID: -1705006119, guid: 0e1ba9117b7c1374eb8b802267f4a658, type: 3}
+  - {fileID: 422911860, guid: 6ea184d368056a340a1e851da3b633ed, type: 3}
+  - {fileID: -2050011583, guid: 6ea184d368056a340a1e851da3b633ed, type: 3}
   - {fileID: 1801285222, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
   - {fileID: -100296501, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
   - {fileID: -1449433278, guid: ad2a3c642d650a74d85b763bc2f49513, type: 3}
@@ -100,6 +103,8 @@ SpriteAtlas:
   - mission_table_0
   - mission_table_5
   - mission_table_4
+  - resource_automat_0
+  - resource_automat_1
   - oven_animations_end_2
   - oven_animations_end_3
   - oven_animations_end_0

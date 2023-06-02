@@ -13,7 +13,6 @@ namespace Game.CraftSystem.Editor.Elements
     using Windows;
     using Data.Save;
     using Player.Inventory;
-    using ScriptableObjects;
 
     public class CSNode : Node
     {

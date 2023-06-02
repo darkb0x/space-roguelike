@@ -120,10 +120,10 @@ TextureImporter:
       name: mission_table_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 11
-        width: 43
-        height: 20
+        x: 0
+        y: 17
+        width: 49
+        height: 25
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,7 +142,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3
-        y: 34
+        y: 46
         width: 2
         height: 2
       alignment: 0
@@ -163,7 +163,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 8
-        y: 34
+        y: 46
         width: 2
         height: 2
       alignment: 9
@@ -184,7 +184,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 13
-        y: 32
+        y: 44
         width: 6
         height: 6
       alignment: 0
@@ -205,7 +205,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 22
-        y: 34
+        y: 46
         width: 2
         height: 2
       alignment: 0
@@ -226,7 +226,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 27
-        y: 34
+        y: 46
         width: 2
         height: 2
       alignment: 0
@@ -246,12 +246,12 @@ TextureImporter:
       name: mission_table_shadow
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 45
-        height: 9
+        x: 0
+        y: 1
+        width: 49
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -21,6 +21,7 @@ namespace Game.Turret
             public int Amount;
         }
         private bool isFacingRight = true;
+        protected bool isRotating = false;
         protected bool playerInZone { get; private set; }
         protected bool enemyInZone { get; private set; }
 
@@ -28,7 +29,6 @@ namespace Game.Turret
         private Vector3 targetPlacePosition;
 
         private PlayerController player;
-        private Transform myTransform;
 
         [SerializeField] private bool InitializeOnStart = false;
 
@@ -60,7 +60,6 @@ namespace Game.Turret
         [Tag, SerializeField] protected string EnemyTag = "Enemy";
         [SerializeField] protected bool UseEnemyTrajectory = false;
         [Space]
-        [ReadOnly] public Transform currentEnemyTransform;
         protected EnemyAI currentEnemy;
         protected Vector2 enemyTrajectory;
         [ReadOnly] public List<GameObject> targets = new List<GameObject>();
@@ -83,20 +82,18 @@ namespace Game.Turret
             Gizmos.color = Color.grey;
             Gizmos.DrawWireSphere(transform.position, MendatoryFreeRadius);
 
-            if (currentEnemyTransform != null)
+            if (currentEnemy != null)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(myTransform.position, currentEnemyTransform.transform.position);
+                Gizmos.DrawLine(transform.position, currentEnemy.transform.position);
 
                 Gizmos.color = Color.green;
-                Gizmos.DrawLine(currentEnemyTransform.position, currentEnemyTransform.position + (Vector3)currentEnemy.rb.velocity / 2);
+                Gizmos.DrawLine(currentEnemy.transform.position, currentEnemy.transform.position + (Vector3)currentEnemy.rb.velocity / 2);
             }
         }
 
         protected virtual void Start()
         {
-            myTransform = GetComponent<Transform>();
-
             if(!ChangeRotationTime)
             {
                 TurretRotateTime = STANDART_ROTATION_TIME;
@@ -142,9 +139,9 @@ namespace Game.Turret
             }
 
             #region rotation
-            if (currentEnemyTransform != null)
+            if (currentEnemy != null)
             {
-                RotateToTarget(currentEnemyTransform);
+                RotateToTarget(currentEnemy.transform);
             }
             else
             {
@@ -191,14 +188,14 @@ namespace Game.Turret
 
             if (enemyInZone)
             {
-                if (currentEnemyTransform == null)
-                    currentEnemyTransform = GetNearestEnemy();
+                if (currentEnemy == null)
+                    currentEnemy = GetNearestEnemy();
 
                 if (currentTimeBtwAttacks <= 0)
                 {
-                    if (!isPicked)
+                    if (!isPicked && !isRotating)
                         Attack();
-                    currentEnemyTransform = GetNearestEnemy();
+                    currentEnemy = GetNearestEnemy();
                     currentTimeBtwAttacks = TimeBtwAttack;
                 }
                 else
@@ -240,7 +237,7 @@ namespace Game.Turret
         #region Utilties
         private void RotateToTarget(Transform target)
         {
-            if (currentEnemyTransform != null)
+            if (currentEnemy != null)
             {
                 Vector3 dir = Vector3.zero;
                 if (UseEnemyTrajectory)
@@ -256,6 +253,15 @@ namespace Game.Turret
                 Quaternion a = TurretCanon.rotation;
                 Quaternion b = Quaternion.Euler(0, TurretCanon.rotation.y, angle);
                 TurretCanon.rotation = Quaternion.Lerp(a, b, TurretRotateTime * Time.deltaTime);
+
+                if(Quaternion.Dot(a, b) >= 0f) // angles are very similar
+                {
+                    isRotating = false;
+                }
+                else
+                {
+                    isRotating = true;
+                }
             }
             else
             {
@@ -275,7 +281,7 @@ namespace Game.Turret
             scaler.y *= -1;
             TurretCanon.localScale = scaler;
         }
-        protected virtual Transform GetNearestEnemy()
+        protected EnemyAI GetNearestEnemy()
         {
             if (targets == null | targets.Count <= 0)
                 return null;
@@ -283,13 +289,13 @@ namespace Game.Turret
             GameObject enemy = targets[0];
             float curDistance = 1000f;
             if (enemy != null)
-                Vector2.Distance(myTransform.position, enemy.transform.position);
+                Vector2.Distance(transform.position, enemy.transform.position);
             int errorIndex = -1;
             for (int i = 1; i < targets.Count; i++)
             {
                 if(targets[i] != null)
                 {
-                    float targetDistance = Vector2.Distance(myTransform.position, targets[i].transform.position);
+                    float targetDistance = Vector2.Distance(transform.position, targets[i].transform.position);
                     if (targetDistance < curDistance)
                         enemy = targets[i];
                 }
@@ -303,9 +309,9 @@ namespace Game.Turret
                 targets.RemoveAt(errorIndex);
             if (enemy != null)
             {
-                currentEnemy = enemy.GetComponent<EnemyAI>();
-                enemyTrajectory = enemy.transform.position + (Vector3)currentEnemy.rb.velocity / 2;
-                return enemy.transform;
+                EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+                enemyTrajectory = enemy.transform.position + (Vector3)enemyAI.rb.velocity / 2;
+                return enemyAI;
             }
             else
             {
@@ -335,7 +341,7 @@ namespace Game.Turret
                 }
             }
 
-            myTransform.position = targetPlacePosition;
+            transform.position = targetPlacePosition;
             PreRenderPlaceObject.gameObject.SetActive(false);
 
             isPicked = false;
@@ -386,13 +392,13 @@ namespace Game.Turret
             if(isPicked)
                 player.pickObjSystem.PutCurrentGameobj(false);
 
-            GameObject particle = Instantiate(DestroyParticle, myTransform.position, Quaternion.identity);
+            GameObject particle = Instantiate(DestroyParticle, transform.position, Quaternion.identity);
             particle.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 360));
 
             Destroy(gameObject);
         }
 
-        void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
+        void IDamagable.Damage(float dmg, EnemyTarget enemyTarget)
         {
             TakeDamage(dmg);
         }

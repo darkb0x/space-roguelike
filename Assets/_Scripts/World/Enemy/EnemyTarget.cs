@@ -1,38 +1,7 @@
 using UnityEngine;
 
-namespace Game
-{
-    public interface IDamagable
-    {
-        public void Damage(float dmg, Enemy.EnemyTarget enemyTarget)
-        {
-            if(enemyTarget.IsDamaging)
-            {
-                enemyTarget.Health -= dmg;
-
-                if (enemyTarget.Health <= 0)
-                {
-                    Die();
-                }
-            }
-        }
-        public void Die();
-    }
-    public interface IMovableTarget
-    {
-        public Vector3 GetMoveDirection();
-    }
-}
-
 namespace Game.Enemy
 {
-    public enum EnemyTargetPriority
-    {
-        Player = 0,
-        Turret = 1,
-        Drill = 2
-    }
-
     public class EnemyTarget : MonoBehaviour
     {
         public EnemyTargetPriority Priority;

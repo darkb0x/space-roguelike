@@ -418,10 +418,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16567ce842dc434e85c3593c04dcb3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerTag: Player
   BreakProgressGameObj: {fileID: 5554090812940603688}
   BreakProgressImage: {fileID: 2758667749132380039}
-  BreakTime: 5
+  BreakTime: 2.5
+  Radius: 1.3
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 256
   Break:
     m_PersistentCalls:
       m_Calls:
@@ -877,7 +880,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 0.3}
+  m_SizeDelta: {x: 1, y: 0.6963}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5647347987690654642
 GameObject:
@@ -906,7 +909,7 @@ RectTransform:
   m_GameObject: {fileID: 5647347987690654642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3054165, y: 0.3054165, z: 0.3054165}
+  m_LocalScale: {x: 1, y: 1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6829633997319158872}
@@ -915,7 +918,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 0.6875, y: 0.6875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2352470803142718470
 CanvasRenderer:
@@ -1117,7 +1120,7 @@ RectTransform:
   m_GameObject: {fileID: 8123024232726498363}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3054165, y: 0.3054165, z: 0.3054165}
+  m_LocalScale: {x: 1, y: 1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6829633997319158872}
@@ -1126,7 +1129,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 0.6875, y: 0.6875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9131780800956542457
 CanvasRenderer:

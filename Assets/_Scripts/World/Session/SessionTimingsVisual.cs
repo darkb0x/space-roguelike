@@ -13,7 +13,7 @@ namespace Game.Session
             public Image Visual;
             public float Time;
 
-            public void Enabled(bool value)
+            public void SetEnabled(bool value)
             {
                 float disabledAlpha = 0.7f;
                 float enabledAlpha = 1f;
@@ -75,7 +75,7 @@ namespace Game.Session
                 markRect.anchoredPosition = new Vector2(markPosX, 0);
 
                 MarkData mark = new MarkData() { Visual = markRect.GetComponent<Image>(), Time = timing.StartTime };
-                mark.Enabled(true);
+                mark.SetEnabled(true);
                 markList.Add(mark);
             }
         }
@@ -86,11 +86,11 @@ namespace Game.Session
             {
                 if(mark.Time <= sessionEvent.StartTime)
                 {
-                    mark.Enabled(false);
+                    mark.SetEnabled(false);
                 }
                 else
                 {
-                    mark.Enabled(true);
+                    mark.SetEnabled(true);
                 }
             }
         }
