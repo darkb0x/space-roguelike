@@ -12,8 +12,6 @@ namespace Game.SaveData
     [Serializable]
     public class SessionData : Data
     {
-        // Camera
-        public float CameraZoom;
 
         // Crafts
         public List<string> UnlockedCraftPaths;
@@ -22,6 +20,9 @@ namespace Game.SaveData
         public Inventory MainInventory;
         public Inventory LobbyInventory;
         public int Money;
+
+        // Resource Automat Uses Amount
+        public int ResourceAutomatCurrentInteract;
 
         // Planet
         public string PlanetPath;
@@ -86,14 +87,13 @@ namespace Game.SaveData
         }
         public override void Reset()
         {
-            CameraZoom = 6f;
-
             UnlockedCraftPaths = new List<string>();
 
             MainInventory = new Inventory();
             LobbyInventory = new Inventory();
 
             Money = 0;
+            ResourceAutomatCurrentInteract = 0;
 
             PlanetPath = "";
 

@@ -51,6 +51,8 @@ namespace Game.Drill
 
         public void Pick()
         {
+            base.PlayerTakeItems();
+
             BackLegsSR.sortingLayerName = PickSortingLayer;
 
             isPicked = true;

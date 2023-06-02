@@ -128,7 +128,7 @@ namespace Game.Enemy
 
         public virtual void Update()
         {
-
+            // Start shield
             if(shieldTime > 0)
             {
                 shieldTime -= Time.deltaTime;
@@ -138,6 +138,7 @@ namespace Game.Enemy
                 haveShield = false;
             }
 
+            // Target selection
             if (currentTarget == null)
             {
                 if(!targetInVision)
@@ -146,26 +147,12 @@ namespace Game.Enemy
                 }
             }
 
-            float minDistanceForAttack = 2f;
-            if (Vector2.Distance(myTransform.position, currentTarget.transform.position) <= minDistanceForAttack)
-            {
-                if(IsAttacking)
-                {
-                    if (currentTimeBtwAttack <= 0)
-                    {
-                        currentTimeBtwAttack = TimeBtwAttacks;
-
-                        StartAttacking();
-                    }
-                    else
-                    {
-                        currentTimeBtwAttack -= Time.deltaTime;
-                    }
-                }
-            }
+            // Attacking
+            TryAttack();
         }
         public virtual void FixedUpdate()
         {
+            // Movement
             if (IsAttacking && !reachedEndOfPath)
                 Movement();
         }
@@ -187,7 +174,6 @@ namespace Game.Enemy
             {
                 reachedEndOfPath = false;
             }
-
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
             float forceFactor = 1;
@@ -244,9 +230,27 @@ namespace Game.Enemy
         #endregion
 
         #region Attack
-        private void StartAttacking()
+        private void TryAttack()
         {
-            EnemyVisual.StartAttacking();
+            if (!IsAttacking)
+                return;
+            if (currentTarget == null)
+                return;
+
+            float minDistanceForAttack = 2f;
+            if (Vector2.Distance(myTransform.position, currentTarget.transform.position) <= minDistanceForAttack)
+            {
+                if (currentTimeBtwAttack <= 0)
+                {
+                    currentTimeBtwAttack = TimeBtwAttacks;
+
+                    EnemyVisual.StartAttacking();
+                }
+                else
+                {
+                    currentTimeBtwAttack -= Time.deltaTime;
+                }
+            }
         }
         public virtual bool Attack()
         {

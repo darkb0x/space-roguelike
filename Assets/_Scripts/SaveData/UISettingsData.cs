@@ -6,6 +6,9 @@ namespace Game.SaveData
 
     public class UISettingsData : Data
     {
+        public float CameraZoom;
+        public bool EnableTimeline;
+
         public UISettingsData(string savePath, string fileName)
         {
             dataSavePath = savePath;
@@ -27,6 +30,9 @@ namespace Game.SaveData
         }
         public override void Reset()
         {
+            CameraZoom = 6f;
+            EnableTimeline = true;
+
             base.Reset();
         }
     }

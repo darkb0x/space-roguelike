@@ -1,8 +1,8 @@
 {
     "dataSavePath": "C:/Unity/space-roguelike/Assets/Editor/SaveData/",
     "dataFileName": "SettingsData",
-    "EnableLogs": true,
-    "MasterVolume": 0.5,
+    "EnableLogs": false,
+    "MasterVolume": 0.00009999999747378752,
     "MusicVolume": 1.0,
     "EffectsVolume": 1.0
 }

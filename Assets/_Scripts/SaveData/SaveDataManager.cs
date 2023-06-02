@@ -35,9 +35,25 @@ namespace Game.SaveData
                 Directory.CreateDirectory(savePath);
             }
 
-            CurrentSessionData = SaveDataUtility.LoadDataFromJson<SessionData>(savePath, SESSION_DATA_FILENAME, new SessionData(savePath, SESSION_DATA_FILENAME), true);
-            CurrentSettingsData = SaveDataUtility.LoadDataFromJson<SettingsData>(savePath, SETTINGS_DATA_FILENAME, new SettingsData(savePath, SETTINGS_DATA_FILENAME));
-            CurrentUISettingsData = SaveDataUtility.LoadDataFromJson<UISettingsData>(savePath, UI_SETTINGS_DATA_FILENAME, new UISettingsData(savePath, SETTINGS_DATA_FILENAME));
+            CurrentSessionData = SaveDataUtility.LoadDataFromJson<SessionData>(savePath, SESSION_DATA_FILENAME, true);
+            CurrentSettingsData = SaveDataUtility.LoadDataFromJson<SettingsData>(savePath, SETTINGS_DATA_FILENAME);
+            CurrentUISettingsData = SaveDataUtility.LoadDataFromJson<UISettingsData>(savePath, UI_SETTINGS_DATA_FILENAME);
+
+            if(CurrentSessionData == null)
+            {
+                CurrentSessionData = new SessionData(savePath, SESSION_DATA_FILENAME);
+                SaveDataUtility.SaveDataToJson(CurrentSessionData, SESSION_DATA_FILENAME, savePath, true);
+            }
+            if (CurrentSettingsData == null)
+            {
+                CurrentSettingsData = new SettingsData(savePath, SETTINGS_DATA_FILENAME);
+                SaveDataUtility.SaveDataToJson(CurrentSettingsData, SETTINGS_DATA_FILENAME, savePath);
+            }
+            if (CurrentUISettingsData == null)
+            {
+                CurrentUISettingsData = new UISettingsData(savePath, UI_SETTINGS_DATA_FILENAME);
+                SaveDataUtility.SaveDataToJson(CurrentUISettingsData, UI_SETTINGS_DATA_FILENAME, savePath);
+            }
         }
     }
 }

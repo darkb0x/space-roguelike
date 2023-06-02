@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 namespace Game.Session
 {
+    using SaveData;
+
     public class SessionTimingsVisual : MonoBehaviour
     {
         private struct MarkData
@@ -27,16 +29,18 @@ namespace Game.Session
         [SerializeField] private Image VidgetVisual;
 
         private SessionManager SessionManager;
+        private UISettingsData currentUISettingsData => SaveDataManager.Instance.CurrentUISettingsData;
 
         private List<MarkData> markList;
 
         private void Start()
         {
-            Enable(false);
             if (!VidgetButton.interactable)
             {
+                Enable(false);
                 return;
             }
+            Enable(currentUISettingsData.EnableTimeline);
 
             SessionManager = Singleton.Get<SessionManager>();
 
@@ -94,10 +98,13 @@ namespace Game.Session
         public void Enable(bool enabled)
         {
             gameObject.SetActive(enabled);
+
+            currentUISettingsData.EnableTimeline = enabled;
+            currentUISettingsData.Save();
         }
         public void Enable()
         {
-            gameObject.SetActive(!gameObject.activeSelf);
+            Enable(!gameObject.activeSelf);
         }
     }
 }

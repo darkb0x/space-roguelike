@@ -22,7 +22,7 @@ namespace Game
         private Transform myTransform;
         private float currentZoom;
 
-        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
+        private UISettingsData currentUISettingsData => SaveDataManager.Instance.CurrentUISettingsData;
 
         private void Start()
         {
@@ -31,7 +31,7 @@ namespace Game
             player = FindObjectOfType<PlayerController>();
 
             target = player.transform;
-            currentZoom = currentSessionData.CameraZoom;
+            currentZoom = currentUISettingsData.CameraZoom;
             cam.orthographicSize = currentZoom;
         }
 
@@ -47,7 +47,7 @@ namespace Game
             }
 
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
-            currentSessionData.CameraZoom = currentZoom;
+            currentUISettingsData.CameraZoom = currentZoom;
 
             myTransform.position = target.position - new Vector3(0, 0, Mathf.Abs(myTransform.position.z)); 
         }

@@ -262,12 +262,14 @@ namespace Game.Player
             myTransform.SetParent(posPosition);
             myTransform.localPosition = Vector2.zero;
             MainColl.enabled = false;
+            invulnerability = true;
         }
         public void UnlockPlayerPosition()
         {
             myTransform.SetParent(null);
             canMove = true;
             MainColl.enabled = true;
+            invulnerability = false;
         }
 
         public void LockPlayerLook(bool enabled)
