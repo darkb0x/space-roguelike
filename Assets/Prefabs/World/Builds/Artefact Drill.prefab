@@ -49,7 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Drill: {fileID: 7191712465005832305}
   MiningProgress: {fileID: 0}
-  DrillIsMiningText: {fileID: 0}
   Anim: {fileID: 7191712464550114863}
   Anim_miningTrigger: mining
   MiningParticles: {fileID: 7191712466067482024}
@@ -327,6 +326,8 @@ MonoBehaviour:
     Amount: 5
   - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
     Amount: 5
+  - Item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
+    Amount: 2
   ItemForRepairVisual: {fileID: 797279623620626977, guid: 5aff6f9f184662e4e9a0a40d610cf783, type: 3}
   ItemsVisualParent: {fileID: 7191712464552855393}
   AfterRepair:

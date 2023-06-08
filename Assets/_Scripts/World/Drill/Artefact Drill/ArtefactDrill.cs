@@ -67,7 +67,8 @@ namespace Game.Drill.SpecialDrill
         public void EndMining()
         {
             Singleton.Get<PlayerInventory>().AddItem(Artefact, artefactsAmount);
-            Visual.UpdateMiningProgress(artefactHealth, m_ArtefactHealth, "Mining is ended!");
+            Visual.UpdateMiningProgress(artefactHealth, m_ArtefactHealth);
+            Visual.EnableMiningProgressVisual(false);
             isMining = false;
         }
     }

@@ -42,7 +42,6 @@ namespace Game.Player
 
         private Rigidbody2D rb;
         private Camera cam;
-        private Transform myTransform;
         public bool invulnerability = false;
         [HideInInspector] public bool canMove = true;
         [HideInInspector] public bool isDied = false;
@@ -55,7 +54,6 @@ namespace Game.Player
             UIPanelManager = Singleton.Get<UIPanelManager>();
 
             rb = GetComponent<Rigidbody2D>();
-            myTransform = transform;
 
             inventory = FindObjectOfType<PlayerInventory>();
             cam = Camera.main;
@@ -92,7 +90,7 @@ namespace Game.Player
                 if (!UIPanelManager.SomethinkIsOpened())
                 {
                     Vector3 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
-                    lookDir = -(myTransform.position - mousePos).normalized;
+                    lookDir = -(transform.position - mousePos).normalized;
 
                     if (canLookAround)
                     {
@@ -245,7 +243,7 @@ namespace Game.Player
         public void StopPlayerMove(Transform posTransform)
         {
             canMove = false;
-            myTransform.position = posTransform.position;
+            transform.position = posTransform.position;
         }
         public void StopPlayerMove()
         {
@@ -259,14 +257,14 @@ namespace Game.Player
         public void LockPlayerPosition(Transform posPosition)
         {
             canMove = false;
-            myTransform.SetParent(posPosition);
-            myTransform.localPosition = Vector2.zero;
+            transform.SetParent(posPosition);
+            transform.localPosition = Vector2.zero;
             MainColl.enabled = false;
             invulnerability = true;
         }
         public void UnlockPlayerPosition()
         {
-            myTransform.SetParent(null);
+            transform.SetParent(null);
             canMove = true;
             MainColl.enabled = true;
             invulnerability = false;

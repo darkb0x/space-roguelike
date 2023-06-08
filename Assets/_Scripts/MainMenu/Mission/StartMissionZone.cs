@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.MainMenu.Mission
+namespace Game.MainMenu.MissionChoose
 {
     using Player;
 

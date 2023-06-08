@@ -6,10 +6,11 @@ using NaughtyAttributes;
 namespace Game.Session
 {
     using Enemy;
-    using MainMenu.Mission.Planet;
+    using MainMenu.MissionChoose.Planet;
     using MainMenu.Pause;
     using SaveData;
     using Utilities.LoadScene;
+    using Audio;
 
     public enum SessionEventType
     {
@@ -28,7 +29,7 @@ namespace Game.Session
         [SerializeField] private PlayableDirector EndCutscene;
 
         [Header("Audio")]
-        [SerializeField] private AudioSource MusicAudioSource;
+        [SerializeField] private AudioClip Music;
 
         [Header("Debug")]
         [SerializeField] private TextMeshProUGUI DebugText;
@@ -74,8 +75,7 @@ namespace Game.Session
 
         public void Initialize()
         {
-            MusicAudioSource.clip = SessionTimings.Music;
-            MusicAudioSource.Play();
+            MusicManager.Instance.SetMusic(Music, false);
 
             isPlaying = true;
         }
@@ -127,9 +127,9 @@ namespace Game.Session
         private void OnGamePaused(bool enabled)
         {
             if (enabled)
-                MusicAudioSource.Pause();
+                MusicManager.Instance.AudioSource.Pause();
             else
-                MusicAudioSource.UnPause();
+                MusicManager.Instance.AudioSource.UnPause();
         }
 
         public void StartLoadingLobby()

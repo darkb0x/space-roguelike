@@ -1777,18 +1777,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savePath: 
-  CurrentSessionData:
+  <CurrentSessionData>k__BackingField:
     dataSavePath: 
     dataFileName: 
-    CameraZoom: 0
     UnlockedCraftPaths: []
     MainInventory:
       Items: []
     LobbyInventory:
       Items: []
     Money: 0
+    ResourceAutomatCurrentInteract: 0
     PlanetPath: 
-  CurrentSettingsData:
+  <CurrentSettingsData>k__BackingField:
     dataSavePath: 
     dataFileName: 
     EnableLogs: 0

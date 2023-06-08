@@ -6,7 +6,7 @@ namespace Game.SaveData
 {
     using Player.Inventory;
     using Utilities;
-    using MainMenu.Mission.Planet;
+    using MainMenu.MissionChoose.Planet;
     using CraftSystem.Editor.ScriptableObjects;
 
     [Serializable]

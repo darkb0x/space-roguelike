@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 
-namespace Game.MainMenu.Mission.Visual
+namespace Game.MainMenu.MissionChoose.Visual
 {
     public class MissionChooseVisual : MonoBehaviour, IUIPanelManagerObserver
     {
@@ -21,9 +21,6 @@ namespace Game.MainMenu.Mission.Visual
         [Space]
         [SerializeField] private Transform SelectedMissionUniqueItemsContent;
         [SerializeField] private Vector2 UniqueItemsSize = new Vector2(100, 100);
-
-        [Header("Start Mission Timer")]
-        [SerializeField] private TextMeshProUGUI StartMissionTimerText;
 
         public bool isOpened { get; private set; }
         private Vector2 defaultContentPosition;
@@ -71,16 +68,6 @@ namespace Game.MainMenu.Mission.Visual
         public void HideMissionTab()
         {
             SelectedMissionPanel.SetActive(false);
-        }
-
-        public void ShowStartMissionTimer(float time)
-        {
-            StartMissionTimerText.text = "Mission starts in " + time.ToString("F1") + " seconds!";
-            StartMissionTimerText.gameObject.SetActive(true);
-        }
-        public void HideStartMissionTimer()
-        {
-            StartMissionTimerText.gameObject.SetActive(false);
         }
 
         public void OpenMenu()

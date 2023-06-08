@@ -3,7 +3,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using UnityEditor;
 
-namespace Game.MainMenu.Mission.Planet
+namespace Game.MainMenu.MissionChoose.Planet
 {
     using Player.Inventory;
 

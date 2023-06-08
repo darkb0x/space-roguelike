@@ -15,14 +15,14 @@ MonoBehaviour:
   <Music>k__BackingField: {fileID: 8300000, guid: 6a09e6297b0645d4686181e86eaf39e9, type: 3}
   EventsList:
   - EventType: 0
-    PercentFromScore: 5
+    PercentFromScore: 1
     WaveTimeStart: 
     WaveTimeEnd: 
     TimeMinute: 0
     TimeSecond: 41.14
     m_StartTime: 0:41,14 (41,14)
   - EventType: 0
-    PercentFromScore: 5
+    PercentFromScore: 2
     WaveTimeStart: 
     WaveTimeEnd: 
     TimeMinute: 1

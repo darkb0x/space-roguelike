@@ -9,24 +9,6 @@ namespace Game.Player.Inventory
     using SaveData;
     using Utilities.Notifications;
 
-    public interface IInventoryObserver
-    {
-        public void UpdateData(PlayerInventory inventory);
-    }
-
-    [System.Serializable]
-    public class ItemData
-    {
-        [Expandable] public InventoryItem Item;
-        public int Amount;
-
-        public ItemData(InventoryItem item, int amount = 0)
-        {
-            Item = item;
-            Amount = amount;
-        }
-    }
-
     public class PlayerInventory : MonoBehaviour, ISingleton
     {
         [Header("Inventory")]

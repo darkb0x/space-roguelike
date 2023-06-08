@@ -37,7 +37,7 @@ namespace Game.Session
         {
             if (!VidgetButton.interactable)
             {
-                Enable(false);
+                gameObject.SetActive(false);
                 return;
             }
             Enable(currentUISettingsData.EnableTimeline);

@@ -8,7 +8,9 @@ namespace Game
 {
     public class BossProgressBar : MonoBehaviour
     {
-        [SerializeField] private GameObject Visual;
+        public GameObject Visual;
+        [SerializeField] private Animator VisualAnim;
+        [SerializeField, AnimatorParam("VisualAnim"), Label("Anim: 'Show' bool")] private string Anim_showBool;
         [Space]
         [SerializeField] private Image FillImage;
         [SerializeField] private Image ImpactFillImage;
@@ -25,6 +27,7 @@ namespace Game
         [Space]
         [SerializeField, Range(0, 1), OnValueChanged("OnDebugProgressChanged")] private float DebugProgress;
 
+        private bool barEnabled;
         #region Inspector Events
         private void OnColorInInspectorChanged()
         {
@@ -48,7 +51,13 @@ namespace Game
 
         public void EnableProgressBar(bool enabled)
         {
-            Visual.SetActive(enabled);
+            if(!Visual.activeSelf)
+            {
+                Visual.SetActive(true);
+            }
+            barEnabled = enabled;
+
+            VisualAnim.SetBool(Anim_showBool, enabled);
         }
 
         public void UpdateProgressBar(float current, float max)
@@ -84,6 +93,12 @@ namespace Game
             }
 
             ImpactFillImage.fillAmount = FillImage.fillAmount;
+        }
+
+        private void OnEnable()
+        {
+            if(barEnabled)
+                EnableProgressBar(barEnabled);
         }
     }
 }

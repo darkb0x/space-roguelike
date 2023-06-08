@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.MainMenu.Mission.Planet.Visual
+namespace Game.MainMenu.MissionChoose.Planet.Visual
 {
 
     public class PlanetUIVisual : MonoBehaviour

@@ -3,13 +3,15 @@ using UnityEngine;
 using UnityEngine.Playables;
 using NaughtyAttributes;
 
-namespace Game.MainMenu.Mission
+namespace Game.MainMenu.MissionChoose
 {
     using Utilities.LoadScene;
+    using Utilities.Notifications;
     using Planet;
     using Planet.Visual;
     using Visual;
     using SaveData;
+    using Audio;
 
     public class MissionChooseManager : MonoBehaviour, ISingleton
     {
@@ -66,7 +68,6 @@ namespace Game.MainMenu.Mission
             }
 
             Visual.HideMissionTab();
-            Visual.HideStartMissionTimer();
         }
 
         private void Update()
@@ -94,14 +95,10 @@ namespace Game.MainMenu.Mission
             {
                 startMissionTimer = m_StartMissionTimer;
 
-                Visual.HideStartMissionTimer();
-
                 return;
             }
 
             startMissionTimer = Mathf.Clamp(startMissionTimer - Time.deltaTime, 0, m_StartMissionTimer);
-
-            Visual.ShowStartMissionTimer(startMissionTimer);
 
             if (startMissionTimer <= 0)
                 StartCutscene();
@@ -134,6 +131,8 @@ namespace Game.MainMenu.Mission
             LogUtility.WriteLog($"Start mission: {selectedMission.MissionName}");
 
             LoadSceneUtility.EnableLoadedAsyncScene();
+
+            MusicManager.Instance.SetMusic(null, false);
         }
         public void StartMissionTimer()
         {
@@ -141,10 +140,17 @@ namespace Game.MainMenu.Mission
                 return;
 
             startMission = true;
+
+            NotificationManager.NewNotification(selectedMission.MissionIcon, $"Mission <color={NotificationManager.GreenColor}>start in {m_StartMissionTimer} sec</color>", false);
         }
         public void StopMissionTimer()
         {
+            if (startMissionTimer <= 0)
+                return;
+
             startMission = false;
+
+            NotificationManager.NewNotification(selectedMission.MissionIcon, $"Mission <color={NotificationManager.RedColor}>canceled</color>", false);
         }
     }
 }

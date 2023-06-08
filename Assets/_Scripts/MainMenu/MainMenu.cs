@@ -5,9 +5,12 @@ using NaughtyAttributes;
 namespace Game.MainMenu
 {
     using Utilities.LoadScene;
+    using Audio;
 
     public class MainMenu : MonoBehaviour
     {
+        [SerializeField] private AudioClip Music;
+        [Space]
         [SerializeField, Scene] private int LobbySceneId;
         [Space]
         [SerializeField] private string YTChanelURL;
@@ -23,9 +26,16 @@ namespace Game.MainMenu
             LogUtility.StopLogging();
         }
 
+        private void Start()
+        {
+            MusicManager.Instance.SetMusic(Music, true);
+        }
+
         public void PlayButton()
         {
             LogUtility.StartLogging("session");
+
+            SaveData.SaveDataManager.Instance.CurrentSessionData.Reset();
 
             LoadSceneUtility.LoadSceneAsyncVisualize(LobbySceneId);
         }

@@ -11,8 +11,6 @@ namespace Game.Drill.SpecialDrill
 
         [Header("UI Mining progress")]
         [SerializeField] private BossProgressBar MiningProgress;
-        [Space]
-        [SerializeField] private TextMeshProUGUI DrillIsMiningText;
 
         [Header("Animation")]
         [SerializeField] private Animator Anim;
@@ -23,7 +21,7 @@ namespace Game.Drill.SpecialDrill
 
         private void Start()
         {
-            EnableMiningProgressVisual(false);
+            MiningProgress.Visual.SetActive(false);
         }
 
         public void EnableMiningProgressVisual(bool enabled)
@@ -31,11 +29,9 @@ namespace Game.Drill.SpecialDrill
             MiningProgress.EnableProgressBar(enabled);
         }
 
-        public void UpdateMiningProgress(float current, float max, string titleText = "Drill is mining!")
+        public void UpdateMiningProgress(float current, float max)
         {
             MiningProgress.UpdateProgressBar(current, max);
-
-            DrillIsMiningText.text = titleText;
         }
 
         public void MiningAnimation()

@@ -37,11 +37,9 @@ namespace Game.Player
         [SerializeField] private List<DroneMiner> DroneMiners = new List<DroneMiner>();
 
         private Camera cam;
-        private Transform myTransform;
 
         private void Start()
         {
-            myTransform = transform;
             cam = Camera.main;
 
             drones.Add(new DroneOrbit(DroneDistanceFromPlayer, 1), new List<DroneAI>());
@@ -119,7 +117,7 @@ namespace Game.Player
 
                 foreach (var drone in drones[droneOrbit])
                 {
-                    drone.RotationUpdate(myTransform, (droneOrbit.I / (float)(drones[droneOrbit].Count)) * 360f + droneOrbit.Dir, droneOrbit.Distance);
+                    drone.RotationUpdate(transform, (droneOrbit.I / (float)(drones[droneOrbit].Count)) * 360f + droneOrbit.Dir, droneOrbit.Distance);
                     droneOrbit.I++;
                 }
             }

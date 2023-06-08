@@ -21,7 +21,7 @@ namespace Game.Turret
             public int Amount;
         }
         private bool isFacingRight = true;
-        protected bool isRotating = false;
+        //protected bool isRotating = false;
         protected bool playerInZone { get; private set; }
         protected bool enemyInZone { get; private set; }
 
@@ -193,10 +193,11 @@ namespace Game.Turret
 
                 if (currentTimeBtwAttacks <= 0)
                 {
-                    if (!isPicked && !isRotating)
+                    if (!isPicked)
                         Attack();
-                    currentEnemy = GetNearestEnemy();
+
                     currentTimeBtwAttacks = TimeBtwAttack;
+                    currentEnemy = GetNearestEnemy();
                 }
                 else
                 {
@@ -239,7 +240,8 @@ namespace Game.Turret
         {
             if (currentEnemy != null)
             {
-                Vector3 dir = Vector3.zero;
+                Vector3 dir;
+
                 if (UseEnemyTrajectory)
                 {
                     dir = (Vector3)enemyTrajectory - TurretCanon.position;
@@ -253,15 +255,6 @@ namespace Game.Turret
                 Quaternion a = TurretCanon.rotation;
                 Quaternion b = Quaternion.Euler(0, TurretCanon.rotation.y, angle);
                 TurretCanon.rotation = Quaternion.Lerp(a, b, TurretRotateTime * Time.deltaTime);
-
-                if(Quaternion.Dot(a, b) >= 0f) // angles are very similar
-                {
-                    isRotating = false;
-                }
-                else
-                {
-                    isRotating = true;
-                }
             }
             else
             {
@@ -286,39 +279,61 @@ namespace Game.Turret
             if (targets == null | targets.Count <= 0)
                 return null;
 
-            GameObject enemy = targets[0];
+            // creating variables
+            List<EnemyAI> enemyList = ConvertTargetsToEnemyList();
+            EnemyAI enemy = enemyList[0];
             float curDistance = 1000f;
-            if (enemy != null)
-                Vector2.Distance(transform.position, enemy.transform.position);
-            int errorIndex = -1;
-            for (int i = 1; i < targets.Count; i++)
+
+            // choose nearest enemy
+            for (int i = 1; i < enemyList.Count; i++)
             {
-                if(targets[i] != null)
+                float targetDistance = Vector2.Distance(transform.position, enemyList[i].transform.position);
+                if (targetDistance < curDistance)
                 {
-                    float targetDistance = Vector2.Distance(transform.position, targets[i].transform.position);
-                    if (targetDistance < curDistance)
-                        enemy = targets[i];
-                }
-                else
-                {
-                    errorIndex = i;
-                    break;
+                    enemy = enemyList[i];
+                    curDistance = targetDistance;
                 }
             }
-            if(errorIndex != -1)
-                targets.RemoveAt(errorIndex);
-            if (enemy != null)
+
+            if (enemy != null) // return founded enemy
             {
-                EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
-                enemyTrajectory = enemy.transform.position + (Vector3)enemyAI.rb.velocity / 2;
-                return enemyAI;
+                enemyTrajectory = enemy.transform.position + (Vector3)enemy.rb.velocity / 2;
+                return enemy;
             }
-            else
+            else // any enemy wasn't found
             {
                 currentEnemy = null;
                 enemyTrajectory = Vector2.zero;
                 return null;
             }
+        }
+
+        private List<EnemyAI> ConvertTargetsToEnemyList()
+        {
+            List<EnemyAI> enemyList = new List<EnemyAI>();
+            List<int> errorIndex = new List<int>();
+
+            for (int i = 0; i < targets.Count; i++)
+            {
+                if (targets[i].TryGetComponent(out EnemyAI enemyAi))
+                {
+                    enemyList.Add(enemyAi);
+                }
+                else
+                {
+                    errorIndex.Add(i);
+                }
+            }
+
+            if (errorIndex.Count > 0)
+            {
+                foreach (var i in errorIndex)
+                {
+                    targets.RemoveAt(i);
+                }
+            }
+
+            return enemyList;
         }
         #endregion
 

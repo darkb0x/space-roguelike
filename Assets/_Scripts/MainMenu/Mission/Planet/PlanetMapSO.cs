@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.MainMenu.Mission.Planet
+namespace Game.MainMenu.MissionChoose.Planet
 {
     [System.Serializable]
     public class Orbit
