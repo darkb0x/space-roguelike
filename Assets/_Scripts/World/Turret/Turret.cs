@@ -21,7 +21,6 @@ namespace Game.Turret
             public int Amount;
         }
         private bool isFacingRight = true;
-        //protected bool isRotating = false;
         protected bool playerInZone { get; private set; }
         protected bool enemyInZone { get; private set; }
 
@@ -279,12 +278,10 @@ namespace Game.Turret
             if (targets == null | targets.Count <= 0)
                 return null;
 
-            // creating variables
             List<EnemyAI> enemyList = ConvertTargetsToEnemyList();
             EnemyAI enemy = enemyList[0];
             float curDistance = 1000f;
 
-            // choose nearest enemy
             for (int i = 1; i < enemyList.Count; i++)
             {
                 float targetDistance = Vector2.Distance(transform.position, enemyList[i].transform.position);
@@ -295,12 +292,12 @@ namespace Game.Turret
                 }
             }
 
-            if (enemy != null) // return founded enemy
+            if (enemy != null)
             {
                 enemyTrajectory = enemy.transform.position + (Vector3)enemy.rb.velocity / 2;
                 return enemy;
             }
-            else // any enemy wasn't found
+            else
             {
                 currentEnemy = null;
                 enemyTrajectory = Vector2.zero;
@@ -315,6 +312,12 @@ namespace Game.Turret
 
             for (int i = 0; i < targets.Count; i++)
             {
+                if(targets[i] == null)
+                {
+                    errorIndex.Add(i);
+                    continue;
+                }
+
                 if (targets[i].TryGetComponent(out EnemyAI enemyAi))
                 {
                     enemyList.Add(enemyAi);

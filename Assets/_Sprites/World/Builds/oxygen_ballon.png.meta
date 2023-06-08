@@ -158,6 +158,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: oxygen_ballon_ui_oxygen_bar_outline
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 13
+        width: 11
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70558533917c1634f864fc5e94fc5d67
+      internalID: -1233123688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: oxygen_ballon_ui_oxygen_bar_bg
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 9
+        width: 9
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 699425138822a39489e881480e6feaf2
+      internalID: -1537861586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: oxygen_ballon_ui_oxygen_bar_fill
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 6
+        width: 9
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c03b7887c4aabcb459ccfe3cdf23230f
+      internalID: -124102084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -169,8 +232,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      oxygen_ballon_ui_oxygen_bar_bg: -1537861586
+      oxygen_ballon_ui_oxygen_bar_outline: -1233123688
       oxygen_ballon_1: -1003880061
       oxygen_ballon_0: -134836039
+      oxygen_ballon_ui_oxygen_bar_fill: -124102084
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -12,7 +12,6 @@ namespace Game.SaveData
     [Serializable]
     public class SessionData : Data
     {
-
         // Crafts
         public List<string> UnlockedCraftPaths;
 
@@ -26,6 +25,9 @@ namespace Game.SaveData
 
         // Planet
         public string PlanetPath;
+
+        // Difficult
+        public float CurrentDifficultFactor;
 
         public SessionData(string savePath, string fileName)
         {
@@ -96,6 +98,7 @@ namespace Game.SaveData
             ResourceAutomatCurrentInteract = 0;
 
             PlanetPath = "";
+            CurrentDifficultFactor = 1;
 
             base.Reset();
         }

@@ -16,6 +16,9 @@ namespace Game
         [SerializeField] private float scrollSensivity = 1.2f;
         [SerializeField] private float scaleSpeed = 2.2f;
 
+        [Header("Sacefield Visual")]
+        [SerializeField] private SpacefieldVisual SpacefieldVisual;
+
         private Camera cam;
         private PlayerController player;
         private Transform target;
@@ -49,7 +52,10 @@ namespace Game
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
             currentUISettingsData.CameraZoom = currentZoom;
 
-            myTransform.position = target.position - new Vector3(0, 0, Mathf.Abs(myTransform.position.z)); 
+            myTransform.position = target.position - new Vector3(0, 0, Mathf.Abs(myTransform.position.z));
+
+            if (SpacefieldVisual != null)
+                SpacefieldVisual.UpdateScale(cam);
         }
 
         private bool IsPointerOverUIObject()

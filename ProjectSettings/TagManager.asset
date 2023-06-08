@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 28634421
+    locked: 0
   - name: World
     uniqueID: 3480582079
     locked: 0

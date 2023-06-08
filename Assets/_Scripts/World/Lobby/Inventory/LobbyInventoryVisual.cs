@@ -51,10 +51,7 @@ namespace Game.Lobby.Inventory.Visual
             {
                 AddInventoryItemVisual(itemData);
 
-                if (itemData.Item.CanTakeInMission)
-                {
-                    AddTakenItemVisual(itemData, lobbyInventory);
-                }
+                AddTakenItemVisual(itemData, lobbyInventory);
             }
         }
 
@@ -130,10 +127,13 @@ namespace Game.Lobby.Inventory.Visual
         }
         private void AddTakenItemVisual(ItemData data, LobbyInventory lobbyInventory)
         {
-            LobbyInventoryTakenItemVisual takenItem = Instantiate(TakenItemVisual.gameObject, TakenItemsVisualParent).GetComponent<LobbyInventoryTakenItemVisual>();
-            takenItem.Initialize(data, lobbyInventory);
+            if (data.Item.CanTakeInMission)
+            {
+                LobbyInventoryTakenItemVisual takenItem = Instantiate(TakenItemVisual.gameObject, TakenItemsVisualParent).GetComponent<LobbyInventoryTakenItemVisual>();
+                takenItem.Initialize(data, lobbyInventory);
 
-            TakenItemVisuals.Add(takenItem);
+                TakenItemVisuals.Add(takenItem);
+            }
         }
 
         private InventoryVisualItem GetItemVisual(InventoryItem item)

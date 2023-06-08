@@ -16,7 +16,7 @@ MonoBehaviour:
   - name: Zuldun
     firstItems:
     - item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
-      amount: 1
+      amount: 2
     - item: {fileID: 11400000, guid: 9b3fd79498a5528499ba93db7d5a401a, type: 2}
       amount: 1
     finalItem:

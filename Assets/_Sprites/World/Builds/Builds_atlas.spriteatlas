@@ -93,6 +93,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a807ddb69d2a5ce4da735bb80df86336, type: 3}
   - {fileID: -1003880061, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
   - {fileID: -134836039, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
+  - {fileID: -1537861586, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
+  - {fileID: -1233123688, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
+  - {fileID: -124102084, guid: 4e2dea49e0a10c94aab8354b6441ad10, type: 3}
   - {fileID: 16113137, guid: 6fa6807a353d8ec4fba6794dcf95f877, type: 3}
   - {fileID: -12247513, guid: 6fa6807a353d8ec4fba6794dcf95f877, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -132,6 +135,9 @@ SpriteAtlas:
   - oven
   - oxygen_ballon_1
   - oxygen_ballon_0
+  - oxygen_ballon_ui_oxygen_bar_bg
+  - oxygen_ballon_ui_oxygen_bar_outline
+  - oxygen_ballon_ui_oxygen_bar_fill
   - workbanch_shadow
   - workbanch
   m_RenderDataMap: {}

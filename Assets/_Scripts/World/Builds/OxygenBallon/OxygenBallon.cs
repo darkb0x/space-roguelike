@@ -13,20 +13,23 @@ namespace Game.World
         [SerializeField] private SpriteRenderer BallonVisual;
         [SerializeField] private Sprite BallonNormal;
         [SerializeField] private Sprite BallonUsed;
+        [Space]
+        [SerializeField] private GameObject Canvas;
+        [SerializeField] private UnityEngine.UI.Image OxygenAmountVisual;
 
         public bool isUsed { get; private set; }
         private float oxygenAmount;
-        private PlayerInteractObject interactObject;
         private PlayerController currentPlayer;
 
         private void Start()
         {
-            interactObject = GetComponent<PlayerInteractObject>();
-
             oxygenAmount = m_OxygenAmount;
 
             isUsed = false;
             BallonVisual.sprite = BallonNormal;
+
+            OxygenAmountVisual.fillAmount = oxygenAmount / m_OxygenAmount;
+            Canvas.SetActive(false);
         }
 
         private void Update()
@@ -49,12 +52,13 @@ namespace Game.World
             currentPlayer.AddOxygen(value);
             oxygenAmount -= value;
 
-            if(oxygenAmount <= 0)
-            {
-                isUsed = true;
+            OxygenAmountVisual.fillAmount = oxygenAmount / m_OxygenAmount;
 
+            if (oxygenAmount <= 0)
+            {
                 BallonVisual.sprite = BallonUsed;
                 isUsed = true;
+                Canvas.SetActive(false);
             }
         }
 
@@ -63,9 +67,10 @@ namespace Game.World
             if (isUsed)
                 return;
 
-            if(coll.TryGetComponent<PlayerController>(out PlayerController player))
+            if(coll.TryGetComponent(out PlayerController player))
             {
                 currentPlayer = player;
+                Canvas.SetActive(true);
             }
         }
         private void OnTriggerExit2D(Collider2D coll)
@@ -73,9 +78,10 @@ namespace Game.World
             if (isUsed)
                 return;
 
-            if (coll.TryGetComponent<PlayerController>(out PlayerController player))
+            if (coll.TryGetComponent(out PlayerController player))
             {
                 currentPlayer = null;
+                Canvas.SetActive(false);
             }
         }
     }

@@ -150,7 +150,10 @@ namespace Game.MainMenu.MissionChoose
 
             startMission = false;
 
-            NotificationManager.NewNotification(selectedMission.MissionIcon, $"Mission <color={NotificationManager.RedColor}>canceled</color>", false);
+            if(selectedMission != null)
+            {
+                NotificationManager.NewNotification(selectedMission.MissionIcon, $"Mission <color={NotificationManager.RedColor}>canceled</color>", false);
+            }
         }
     }
 }

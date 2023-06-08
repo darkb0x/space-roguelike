@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ba1fd9d74922f4fac65c66717d8c8a, type: 3}
   m_Name: Desert Planet 1
   m_EditorClassIdentifier: 
-  MissionName: G-167A-1A
+  MissionName: A-1 Newbie Desert
   MissionIcon: {fileID: 21300000, guid: 6a575ffad8b93ca4894efd5bb89cd33e, type: 3}
   PlanetSprite: {fileID: 21300000, guid: 6a575ffad8b93ca4894efd5bb89cd33e, type: 3}
   SceneId: 2
   DefaultItems:
   - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
-    PercentInWorld: 25
+    PercentInWorld: 22
   - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
-    PercentInWorld: 25
+    PercentInWorld: 35
   - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
-    PercentInWorld: 25
+    PercentInWorld: 22
   - Item: {fileID: 11400000, guid: 9b3fd79498a5528499ba93db7d5a401a, type: 2}
-    PercentInWorld: 25
+    PercentInWorld: 21
   DefaultItemsAmount: 100
   UniqueItems: []
-  UniqueItemsAmount: 0
+  UniqueItemsAmount: 100
   AssetPath: Missions/Planets/Desert Planet 1

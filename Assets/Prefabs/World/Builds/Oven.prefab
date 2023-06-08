@@ -728,7 +728,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  remeltingTime: 10
+  remeltingTime: 7
   Anim: {fileID: 2486929096651877395}
   Anim_StartFireTrigger: Start
   Anim_FireBool: Fire

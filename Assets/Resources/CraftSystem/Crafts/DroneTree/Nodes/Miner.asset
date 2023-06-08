@@ -20,7 +20,7 @@ MonoBehaviour:
   - Item: {fileID: 11400000, guid: ae5daab0699f01c4f8ecdd1eec167bda, type: 2}
     Amount: 2
   - Item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
-    Amount: 5
+    Amount: 1
   <AssetPath>k__BackingField: CraftSystem/Crafts/DroneTree/Nodes/Miner
   <Choices>k__BackingField: []
   <IsStartingNode>k__BackingField: 1

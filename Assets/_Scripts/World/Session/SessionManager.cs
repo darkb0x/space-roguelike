@@ -136,6 +136,9 @@ namespace Game.Session
         {
             LoadSceneUtility.LoadSceneAsync(LobbySceneID);
             EndCutscene.Play();
+
+            float difficultAddition = 0.05f;
+            SaveDataManager.Instance.CurrentSessionData.CurrentDifficultFactor += difficultAddition;
         }
         public void EnableLobbyScene()
         {
