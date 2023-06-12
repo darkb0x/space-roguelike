@@ -23,6 +23,7 @@ namespace Game.Lobby
         [SerializeField, NaughtyAttributes.AnimatorParam("Anim")] private string Anim_interactTrigger = "Interact";
         [SerializeField] private SpriteRenderer CurrentItemSprite;
         [SerializeField] private SpriteRenderer FinalItemSprite;
+        [SerializeField] private SpriteRenderer FinalItemOutline;
         [Space]
         [SerializeField] private TMPro.TMP_Text AvaiableInteractionsText;
 
@@ -47,10 +48,12 @@ namespace Game.Lobby
             {
                 finalItem = UnnecessaryItems[Random.Range(0, UnnecessaryItems.Count)];
                 FinalItemSprite.sprite = finalItem.LowSizeIcon;
+                FinalItemOutline.sprite = finalItem.LowSizeIcon;
             }
             else
             {
                 FinalItemSprite.gameObject.SetActive(false);
+                FinalItemOutline.color = new Color(1, 1, 1, 0);
             }
         }
 

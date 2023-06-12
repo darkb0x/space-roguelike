@@ -762,7 +762,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  playerTag: Player
+  PlayerTag: Player
+  ObjRender: {fileID: 6429762916572656493}
+  OutlineMaterial: {fileID: 2100000, guid: 28e8edb06dcffcc4ea548a6d8305a665, type: 2}
   playerInZone: 0
 --- !u!58 &6429762916929469684
 CircleCollider2D:

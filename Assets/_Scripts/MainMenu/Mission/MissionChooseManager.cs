@@ -29,6 +29,8 @@ namespace Game.MainMenu.MissionChoose
         [Header("Variables")]
         [SerializeField] private float m_StartMissionTimer;
 
+        public System.Action<PlanetSO> OnMissionSelected;
+
         private Dictionary<Orbit, List<PlanetUIVisual>> allPlanetsOnUI = new Dictionary<Orbit, List<PlanetUIVisual>>();
         private Dictionary<Orbit, float> planetDirection = new Dictionary<Orbit, float>();
         private Dictionary<Orbit, int> planetProgress = new Dictionary<Orbit, int>();
@@ -109,6 +111,7 @@ namespace Game.MainMenu.MissionChoose
             if(selectedMission != mission)
             {
                 selectedMission = mission;
+                OnMissionSelected?.Invoke(mission);
             }
 
             Visual.ShowMissionTab(mission.MissionIcon, mission.MissionName, mission.UniqueItems);

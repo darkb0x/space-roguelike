@@ -85,7 +85,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  playerTag: Player
+  PlayerTag: Player
+  RenderType: 0
+  ObjRender: {fileID: 0}
+  ObjRenderers: []
+  OutlineMaterial: {fileID: 0}
+  DefaultMaterial: {fileID: 0}
   playerInZone: 0
 --- !u!58 &8874128260637456720
 CircleCollider2D:

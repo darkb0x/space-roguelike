@@ -120,12 +120,12 @@ TextureImporter:
       name: workbanch
       rect:
         serializedVersion: 2
-        x: 3
-        y: 8
-        width: 28
-        height: 23
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 2
+        y: 7
+        width: 30
+        height: 25
+      alignment: 9
+      pivot: {x: 0.5, y: 0.04}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

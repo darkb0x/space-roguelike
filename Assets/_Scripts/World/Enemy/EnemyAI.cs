@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using Pathfinding;
 using NaughtyAttributes;
 
@@ -22,9 +20,6 @@ namespace Game.Enemy
         [ReadOnly] public float maxHp;
         [Space]
         [ReadOnly] public float currentProtection;
-        [Space]
-        [SerializeField] private GameObject HealthBarObject;
-        [SerializeField] private Image HealthBarImage;
 
         [Header("Attack")]
         public bool IsAttacking = true;
@@ -81,8 +76,6 @@ namespace Game.Enemy
             seecker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
             myTransform = transform;
-
-            HealthBarObject.SetActive(false);
 
             shieldTime = m_ShieldTime;
             haveShield = true;
@@ -351,12 +344,6 @@ namespace Game.Enemy
             else
             {
                 currentHp = Mathf.Clamp(currentHp - dmg, 0, maxHp);
-            }
-
-            if (currentHp < maxHp)
-            {
-                HealthBarObject.SetActive(true);
-                HealthBarImage.fillAmount = currentHp / maxHp;
             }
 
             if (currentHp <= 0)

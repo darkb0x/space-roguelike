@@ -717,7 +717,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  playerTag: Player
+  PlayerTag: Player
+  RenderType: 0
+  ObjRender: {fileID: 0}
+  ObjRenderers: []
+  OutlineMaterial: {fileID: 0}
+  DefaultMaterial: {fileID: 0}
   playerInZone: 0
 --- !u!58 &921638669018763057
 CircleCollider2D:
@@ -1026,8 +1031,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1f9255020f3306145a922ef405035bdb, type: 2}
-  m_sharedMaterial: {fileID: -1310714896259805854, guid: 1f9255020f3306145a922ef405035bdb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f837b6d5ad2d7644c9d3303323dc1891, type: 2}
+  m_sharedMaterial: {fileID: -6193259560219144295, guid: f837b6d5ad2d7644c9d3303323dc1891, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

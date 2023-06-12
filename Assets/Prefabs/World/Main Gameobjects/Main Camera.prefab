@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0779280863b92f43857d5b1cd245b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCamViewScale: 10
+  maxCamViewScale: 12
   minCamViewScale: 6
   scrollSensivity: 1.2
   scaleSpeed: 2.2

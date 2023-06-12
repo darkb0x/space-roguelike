@@ -51,7 +51,7 @@ MonoBehaviour:
   damage: 0
   whatIsSolid:
     serializedVersion: 2
-    m_Bits: 520
+    m_Bits: 8840
   destroyEffect: {fileID: 7267128862785013386, guid: a149b51ad64401545aa05270828ebf4e, type: 3}
 --- !u!212 &4192494121784823278
 SpriteRenderer:

@@ -11,10 +11,20 @@ namespace Game.Player
 
     public class PlayerInteractObject : MonoBehaviour
     {
+        private enum RenderTypeEnum { None, SingleObj, MulitplyObj }
+
         [Header("Action")]
         [SerializeField] private UnityEvent action;
-        [Header("Player interact rules")]
-        [Tag, SerializeField] private string playerTag = "Player";
+        [Header("Interact rules")]
+        [Tag, SerializeField] private string PlayerTag = "Player";
+        [Space]
+
+        [SerializeField, OnValueChanged("OnRenderTypeChanged")] private RenderTypeEnum RenderType = RenderTypeEnum.SingleObj;
+        [SerializeField, ShowIf("RenderType", RenderTypeEnum.SingleObj)] private SpriteRenderer ObjRender;
+        [SerializeField, ShowIf("RenderType", RenderTypeEnum.MulitplyObj)] private SpriteRenderer[] ObjRenderers;
+        [SerializeField, HideIf("RenderType", RenderTypeEnum.None)] private Material OutlineMaterial;
+        [SerializeField, ShowIf("RenderType", RenderTypeEnum.MulitplyObj)] private Material DefaultMaterial;
+        [Space]
 
         [ReadOnly] public bool playerInZone = false;
 
@@ -25,11 +35,26 @@ namespace Game.Player
         private PlayerPickObjects playerPick;
         private UIPanelManager UIPanelManager;
 
+        private void OnRenderTypeChanged()
+        {
+            if(ObjRender != null)
+                ObjRenderers = new SpriteRenderer[1] { ObjRender };
+
+            ObjRender = null;
+        }
+
         private void Start()
         {
             UIPanelManager = Singleton.Get<UIPanelManager>();
 
+            if(ObjRender != null)
+                DefaultMaterial = ObjRender.material;
+
             GameInput.InputActions.Player.Interact.performed += Interact;
+        }
+        private void OnDisable()
+        {
+            GameInput.InputActions.Player.Interact.performed -= Interact;
         }
 
         private void Interact(InputAction.CallbackContext context)
@@ -46,7 +71,7 @@ namespace Game.Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag(playerTag))
+            if (collision.CompareTag(PlayerTag))
             {
                 if (collision.TryGetComponent(out PlayerPickObjects pickObjects))
                     playerPick = pickObjects;
@@ -57,27 +82,55 @@ namespace Game.Player
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.CompareTag(playerTag))
+            if (collision.CompareTag(PlayerTag))
             {
                 OnPlayerStay?.Invoke(collision);
                 playerInZone = true;
+
+                EnableOutline(true);
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.CompareTag(playerTag))
+            if (collision.CompareTag(PlayerTag))
             {
                 if (collision.TryGetComponent<PlayerPickObjects>(out PlayerPickObjects pickObjects))
                     playerPick = null;
 
                 OnPlayerExit?.Invoke(collision);
                 playerInZone = false;
-            }
-        }
 
-        private void OnDisable()
+                EnableOutline(false);
+            }
+        }  
+        
+        private void EnableOutline(bool enabled)
         {
-            GameInput.InputActions.Player.Interact.performed -= Interact;
+            if (RenderType == RenderTypeEnum.None)
+                return;
+
+            if (DefaultMaterial == null)
+            {
+                Debug.LogWarning(gameObject.name + "/PlayerInteractObject.cs/EnableOutline(bool) | DefaultMaterial is null");
+                return;
+            }
+            if(OutlineMaterial == null)
+            {
+                Debug.LogWarning(gameObject.name + "/PlayerInteractObject.cs/EnableOutline(bool) | OutlineMaterial is null");
+                return;
+            }
+
+            if (RenderType == RenderTypeEnum.SingleObj)
+            {
+                ObjRender.material = enabled ? OutlineMaterial : DefaultMaterial;
+            }
+            else if(RenderType == RenderTypeEnum.MulitplyObj)
+            {
+                foreach (var obj in ObjRenderers)
+                {
+                    obj.material = enabled ? OutlineMaterial : DefaultMaterial;
+                }
+            }
         }
     }
 }

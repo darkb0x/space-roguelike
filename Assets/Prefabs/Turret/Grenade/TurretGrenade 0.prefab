@@ -116,7 +116,7 @@ MonoBehaviour:
   Recoil: 0
   DroppedItems:
   - Item: {fileID: 11400000, guid: dfd68b7d618c22e4b84dc74e7d0c50a0, type: 2}
-    Amount: 5
+    Amount: 2
   EnemyTarget: {fileID: 9125450167013893947}
   <Health>k__BackingField: 7
   currentHealth: 0
@@ -128,7 +128,6 @@ MonoBehaviour:
   ShotPos: {fileID: 5034969441700741049}
   EnemyTag: Enemy
   UseEnemyTrajectory: 1
-  currentEnemyTransform: {fileID: 0}
   targets: []
   MendatoryFreeRadius: 0.5
   ConflictedLayers:

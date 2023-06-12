@@ -54,7 +54,7 @@ namespace Game.Lobby.Shop.Container.Visual
 
             ProductIconImage.sprite = product.Icon;
             ProductCostText.text = product.Cost + "$";
-            ProductDescriptionText.text = $"{product.Name}\n<size=17>{product.Description}</size>";
+            ProductDescriptionText.text = $"{product.Name}\n<size=15><color=#ABABAB>{product.Description}";
 
             BuyButton.onClick.AddListener(() =>
             {

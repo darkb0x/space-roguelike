@@ -11,22 +11,24 @@ namespace Game.World
 
         [Header("Visual")]
         [SerializeField] private SpriteRenderer BallonVisual;
+        [SerializeField] private Material OutlineMaterial;
         [SerializeField] private Sprite BallonNormal;
         [SerializeField] private Sprite BallonUsed;
         [Space]
         [SerializeField] private GameObject Canvas;
         [SerializeField] private UnityEngine.UI.Image OxygenAmountVisual;
 
+        private PlayerController currentPlayer;
+        private Material defaultMaterial;
         public bool isUsed { get; private set; }
         private float oxygenAmount;
-        private PlayerController currentPlayer;
 
         private void Start()
         {
             oxygenAmount = m_OxygenAmount;
-
-            isUsed = false;
+            defaultMaterial = BallonVisual.material;
             BallonVisual.sprite = BallonNormal;
+            isUsed = false;
 
             OxygenAmountVisual.fillAmount = oxygenAmount / m_OxygenAmount;
             Canvas.SetActive(false);
@@ -57,8 +59,10 @@ namespace Game.World
             if (oxygenAmount <= 0)
             {
                 BallonVisual.sprite = BallonUsed;
-                isUsed = true;
                 Canvas.SetActive(false);
+                BallonVisual.material = defaultMaterial;
+
+                isUsed = true;
             }
         }
 
@@ -70,7 +74,9 @@ namespace Game.World
             if(coll.TryGetComponent(out PlayerController player))
             {
                 currentPlayer = player;
+
                 Canvas.SetActive(true);
+                BallonVisual.material = OutlineMaterial;
             }
         }
         private void OnTriggerExit2D(Collider2D coll)
@@ -81,7 +87,9 @@ namespace Game.World
             if (coll.TryGetComponent(out PlayerController player))
             {
                 currentPlayer = null;
+
                 Canvas.SetActive(false);
+                BallonVisual.material = defaultMaterial;
             }
         }
     }

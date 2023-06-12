@@ -263,7 +263,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  playerTag: Player
+  PlayerTag: Player
+  ObjRender: {fileID: 7895845794011168361}
+  OutlineMaterial: {fileID: 2100000, guid: 28e8edb06dcffcc4ea548a6d8305a665, type: 2}
   playerInZone: 0
 --- !u!114 &7895845793366927620
 MonoBehaviour:
@@ -616,7 +618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7895845794185152997}
   - component: {fileID: 7895845794185152996}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Coll
   m_TagString: Untagged
   m_Icon: {fileID: 0}

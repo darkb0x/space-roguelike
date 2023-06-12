@@ -122,8 +122,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 9
-        height: 17
+        width: 11
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: oxygen_ballon_1
       rect:
         serializedVersion: 2
-        x: 9
+        x: 10
         y: 0
-        width: 9
-        height: 17
+        width: 11
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,8 +162,8 @@ TextureImporter:
       name: oxygen_ballon_ui_oxygen_bar_outline
       rect:
         serializedVersion: 2
-        x: 18
-        y: 13
+        x: 21
+        y: 14
         width: 11
         height: 4
       alignment: 0
@@ -183,8 +183,8 @@ TextureImporter:
       name: oxygen_ballon_ui_oxygen_bar_bg
       rect:
         serializedVersion: 2
-        x: 19
-        y: 9
+        x: 22
+        y: 10
         width: 9
         height: 4
       alignment: 0
@@ -204,8 +204,8 @@ TextureImporter:
       name: oxygen_ballon_ui_oxygen_bar_fill
       rect:
         serializedVersion: 2
-        x: 19
-        y: 6
+        x: 22
+        y: 7
         width: 9
         height: 4
       alignment: 0

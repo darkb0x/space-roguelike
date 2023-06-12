@@ -8,6 +8,7 @@ namespace Game.MainMenu.MissionChoose
     public class StartMissionZone : MonoBehaviour
     {
         [SerializeField] private PlayerInteractObject InteractComponent;
+        [SerializeField] private GameObject ZoneVisual;
 
         private MissionChooseManager MissionChooseManager;
 
@@ -15,8 +16,30 @@ namespace Game.MainMenu.MissionChoose
         {
             MissionChooseManager = Singleton.Get<MissionChooseManager>();
 
+            ZoneVisual.SetActive(false);
+
             InteractComponent.OnPlayerEnter += PlayerEnter;
             InteractComponent.OnPlayerExit += PlayerExit;
+            MissionChooseManager.OnMissionSelected += OnPlayerChoosedMission;
+        }
+
+        private void OnDisable()
+        {
+            InteractComponent.OnPlayerEnter -= PlayerEnter;
+            InteractComponent.OnPlayerExit -= PlayerExit;
+            MissionChooseManager.OnMissionSelected -= OnPlayerChoosedMission;
+        }
+
+        private void OnPlayerChoosedMission(Planet.PlanetSO mission)
+        {
+            if(mission != null)
+            {
+                ZoneVisual.SetActive(true);
+            }
+            else
+            {
+                ZoneVisual.SetActive(false);
+            }
         }
 
         private void PlayerEnter(Collider2D coll)
@@ -28,10 +51,5 @@ namespace Game.MainMenu.MissionChoose
             MissionChooseManager.StopMissionTimer();
         }
 
-        private void OnDisable()
-        {
-            InteractComponent.OnPlayerEnter -= PlayerEnter;
-            InteractComponent.OnPlayerExit -= PlayerExit;
-        }
     }
 }

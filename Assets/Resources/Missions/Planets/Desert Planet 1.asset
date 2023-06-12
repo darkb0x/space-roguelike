@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ba1fd9d74922f4fac65c66717d8c8a, type: 3}
   m_Name: Desert Planet 1
   m_EditorClassIdentifier: 
-  MissionName: A-1 Newbie Desert
+  MissionName: Newbie Desert
   MissionIcon: {fileID: 21300000, guid: 6a575ffad8b93ca4894efd5bb89cd33e, type: 3}
   PlanetSprite: {fileID: 21300000, guid: 6a575ffad8b93ca4894efd5bb89cd33e, type: 3}
   SceneId: 2

@@ -53,7 +53,7 @@ MonoBehaviour:
   damage: 0
   whatIsSolid:
     serializedVersion: 2
-    m_Bits: 520
+    m_Bits: 8840
   destroyEffect: {fileID: 0}
   speed_rotation: 500
   radius: 1.5
