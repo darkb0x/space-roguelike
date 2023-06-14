@@ -117,7 +117,7 @@ namespace Game.CraftSystem
 
                 if(showNotify)
                 {
-                    NotificationManager.NewNotification(craft.IconSprite, "New craft!", true);
+                    NotificationManager.NewNotification(craft.IconSprite, "New craft!", true, NotificationStyle.NewCraft);
                 }
             }
             if (!currentSessionData.UnlockedCraftPaths.Contains(craft.AssetPath))
@@ -139,7 +139,7 @@ namespace Game.CraftSystem
 
                 if (showNotify)
                 {
-                    NotificationManager.NewNotification(craft.IconSprite, "New craft!", true);
+                    NotificationManager.NewNotification(craft.IconSprite, "New craft!", true, NotificationStyle.NewCraft);
                 }
             }
         }

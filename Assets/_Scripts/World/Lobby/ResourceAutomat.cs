@@ -70,7 +70,10 @@ namespace Game.Lobby
             }
             else if(avaiableInteractionCount == 1)
             {
-                selectedItem = finalItem;
+                if(finalItem != null)
+                    selectedItem = finalItem;
+                else
+                    selectedItem = UnnecessaryItems[Random.Range(0, UnnecessaryItems.Count)];
             }
             else
             {
@@ -81,7 +84,7 @@ namespace Game.Lobby
             Anim.SetTrigger(Anim_interactTrigger);
 
             LobbyInventory.AddItem(new ItemData(selectedItem, ItemAmount));
-            NotificationManager.NewNotification(selectedItem.Icon, $"{selectedItem.ItemName} <color={NotificationManager.GreenColor}>+{ItemAmount}</color>", true);
+            NotificationManager.NewNotification(selectedItem.LowSizeIcon, $"{selectedItem.ItemName} <color={NotificationManager.GreenColor}>+{ItemAmount}</color>", true, NotificationStyle.Positive);
 
             currentSessionData.ResourceAutomatCurrentInteract++;
             currentSessionData.Save();

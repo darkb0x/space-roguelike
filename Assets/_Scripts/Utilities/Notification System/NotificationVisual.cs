@@ -2,77 +2,72 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using AYellowpaper.SerializedCollections;
 
 namespace Game.Utilities.Notifications.Visual
 {
     public class NotificationVisual : MonoBehaviour
     {
+        [System.Serializable]
+        private struct StyleData
+        {
+            public Sprite IconBaseSprite;
+            public Sprite FadeSprite;
+        }
+
         [SerializeField] private Image ItemIconImage;
-        [SerializeField] private Transform ItemHighlight_Visual;
+        [SerializeField] private Image IconBaseImage;
         [Space]
-        [SerializeField] private TextMeshProUGUI ItemTitleText;
-        [Space]
-        [SerializeField] private CanvasGroup CanvasGroup;
-        [Space]
-        [SerializeField] private Transform VisualTransform;
+        [SerializeField] private Image TextFieldFadeImage;
+        [SerializeField] private TMP_Text NotificationText;
 
-        private bool showHighlight = false;
+        [Space]
+        [SerializeField] private Animator Anim;
+        [SerializeField, NaughtyAttributes.AnimatorParam("Anim")] private string Anim_disappearTrigger = "Disappear";
+        [SerializeField] private Material OutlineMaterialIcon;
+        [SerializeField] private Material OutlineMaterialTextHighlighted;
+        [SerializeField] private Material OutlineMaterialTextDefault;
 
-        public void Initialize(Sprite icon, string title, bool isHighlighting, float destroyTime)
+        [Space]
+        [SerializedDictionary("Style enum", "Data"), SerializeField] private SerializedDictionary<NotificationStyle, StyleData> Styles = new SerializedDictionary<NotificationStyle, StyleData>(); 
+
+        public void Initialize(Sprite icon, string title, bool isHighlighting, float destroyTime, NotificationStyle style)
         {
             ItemIconImage.sprite = icon;
-            ItemTitleText.text = title;
+            NotificationText.text = title;
 
-            showHighlight = isHighlighting;
-            ItemHighlight_Visual.gameObject.SetActive(isHighlighting);
+            SetStyle(style);
 
-            StartCoroutine(ShowNotification());
+            if (isHighlighting)
+            {
+                ItemIconImage.material = OutlineMaterialIcon;
+                NotificationText.fontMaterial = OutlineMaterialTextHighlighted;
+            }
+            else
+            {
+                ItemIconImage.material = null;
+                NotificationText.fontMaterial = OutlineMaterialTextDefault;
+            }
 
             Invoke("StartHidingNotification", destroyTime);
         }
 
-        private void Update()
+        private void SetStyle(NotificationStyle target)
         {
-            if (showHighlight)
-            {
-                float rotationSpeed = -30f;
-                ItemHighlight_Visual.Rotate(new Vector3(0, 0, rotationSpeed) * Time.deltaTime);
-            }
+            StyleData currentStyle = Styles[target];
+
+            IconBaseImage.sprite = currentStyle.IconBaseSprite;
+            TextFieldFadeImage.sprite = currentStyle.FadeSprite;
         }
 
         private void StartHidingNotification()
         {
-            StartCoroutine(HideNotification());
+            Anim.SetTrigger(Anim_disappearTrigger);
         }
-        private IEnumerator HideNotification()
+
+        private void Anim_DestroyObj()
         {
-            float speed = 3f;
-            while (CanvasGroup.alpha > 0)
-            {
-                CanvasGroup.alpha = Mathf.MoveTowards(CanvasGroup.alpha, 0, speed * Time.deltaTime);
-                yield return null;
-            }
             Destroy(gameObject);
-        }
-
-        private IEnumerator ShowNotification()
-        {
-            float timeForMove = 2f;
-            float showSpeed = 2f / timeForMove;
-            float moveSpeed = 5f / timeForMove;
-            float time = Time.time + timeForMove;
-
-            CanvasGroup.alpha = 0;
-            VisualTransform.localPosition = new Vector3(0, -130f);
-
-            while (Time.time < time)
-            {
-                VisualTransform.localPosition = Vector3.Lerp(VisualTransform.localPosition, Vector3.zero, moveSpeed * Time.deltaTime);
-                CanvasGroup.alpha = Mathf.MoveTowards(CanvasGroup.alpha, 1, showSpeed * Time.deltaTime);
-
-                yield return null;
-            }
-            CanvasGroup.alpha = 1;
         }
     }
 }

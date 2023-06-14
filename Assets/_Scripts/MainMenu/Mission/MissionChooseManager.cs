@@ -26,8 +26,8 @@ namespace Game.MainMenu.MissionChoose
         [SerializeField, Expandable] private PlanetMapSO PlanetMap;
         [SerializeField] private Transform CentralPoint;
 
-        [Header("Variables")]
-        [SerializeField] private float m_StartMissionTimer;
+        [field: Header("Variables")]
+        [field: SerializeField, Label("Start Mission Timer")] public float m_StartMissionTimer { get; private set; }
 
         public System.Action<PlanetSO> OnMissionSelected;
 
@@ -37,7 +37,7 @@ namespace Game.MainMenu.MissionChoose
         private PlanetSO selectedMission;
 
         private bool startMission = false;
-        private float startMissionTimer;
+        public float startMissionTimer { get; private set; }
 
         private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
 
@@ -45,7 +45,7 @@ namespace Game.MainMenu.MissionChoose
         {
             Singleton.Add(this);
 
-            startMissionTimer = m_StartMissionTimer;
+            startMissionTimer = 0;
         }
 
         private void Start()
@@ -95,14 +95,14 @@ namespace Game.MainMenu.MissionChoose
         {
             if(!startMission)
             {
-                startMissionTimer = m_StartMissionTimer;
+                startMissionTimer = Mathf.Lerp(startMissionTimer, 0, 7f * Time.deltaTime); // 7f - speed 
 
                 return;
             }
 
-            startMissionTimer = Mathf.Clamp(startMissionTimer - Time.deltaTime, 0, m_StartMissionTimer);
+            startMissionTimer = Mathf.Clamp(startMissionTimer + Time.deltaTime, 0, m_StartMissionTimer);
 
-            if (startMissionTimer <= 0)
+            if (startMissionTimer == m_StartMissionTimer)
                 StartCutscene();
         }
 
@@ -144,7 +144,7 @@ namespace Game.MainMenu.MissionChoose
 
             startMission = true;
 
-            NotificationManager.NewNotification(selectedMission.MissionIcon, $"Mission <color={NotificationManager.GreenColor}>start in {m_StartMissionTimer} sec</color>", false);
+            //NotificationManager.NewNotification(selectedMission.MissionIcon, $"Mission <color={NotificationManager.GreenColor}>start in {m_StartMissionTimer} sec</color>", false);
         }
         public void StopMissionTimer()
         {
@@ -153,10 +153,12 @@ namespace Game.MainMenu.MissionChoose
 
             startMission = false;
 
+            /*
             if(selectedMission != null)
             {
                 NotificationManager.NewNotification(selectedMission.MissionIcon, $"Mission <color={NotificationManager.RedColor}>canceled</color>", false);
             }
+            */
         }
     }
 }

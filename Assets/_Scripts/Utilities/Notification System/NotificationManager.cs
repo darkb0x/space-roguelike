@@ -13,7 +13,7 @@ namespace Game.Utilities.Notifications
 
         private static NotificationManager Instance;
 
-        public static string GreenColor = "#42D189";
+        public static string GreenColor = "#6FB372";
         public static string RedColor = "#B01C48";
 
         private void Awake()
@@ -21,10 +21,10 @@ namespace Game.Utilities.Notifications
             Instance = this;
         }
 
-        public static void NewNotification(Sprite icon, string title, bool highlight)
+        public static void NewNotification(Sprite icon, string title, bool highlight, NotificationStyle style = NotificationStyle.Default, string textColor = "ffffff")
         {
             NotificationVisual visual = Instantiate(Instance.NotificationVisual.gameObject, Instance.NotificationsVisualParent).GetComponent<NotificationVisual>();
-            visual.Initialize(icon, title, highlight, Instance.NotificationsDestroyTime);
+            visual.Initialize(icon, $"<color=#{textColor}>{title}</color>", highlight, Instance.NotificationsDestroyTime, style);
         }
     }
 }
