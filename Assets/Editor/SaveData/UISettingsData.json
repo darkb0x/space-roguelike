@@ -1,6 +1,7 @@
 {
     "dataSavePath": "C:/Unity/space-roguelike/Assets/Editor/SaveData/",
     "dataFileName": "UISettingsData",
-    "CameraZoom": 8.880000114440918,
-    "EnableTimeline": true
+    "CameraZoom": 12.0,
+    "EnableTimeline": true,
+    "EnableNotifications": true
 }

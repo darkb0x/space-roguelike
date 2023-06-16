@@ -1,13 +1,13 @@
-using UnityEngine;
-
 namespace Game.SaveData
 {
     using Utilities;
 
+    [System.Serializable]
     public class UISettingsData : Data
     {
         public float CameraZoom;
         public bool EnableTimeline;
+        public bool EnableNotifications;
 
         public UISettingsData(string savePath, string fileName)
         {
@@ -32,6 +32,7 @@ namespace Game.SaveData
         {
             CameraZoom = 6f;
             EnableTimeline = true;
+            EnableNotifications = true;
 
             base.Reset();
         }

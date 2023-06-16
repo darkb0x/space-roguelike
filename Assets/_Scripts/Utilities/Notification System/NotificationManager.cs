@@ -16,6 +16,8 @@ namespace Game.Utilities.Notifications
         public static string GreenColor = "#6FB372";
         public static string RedColor = "#B01C48";
 
+        public bool NotificationsEnabled => SaveData.SaveDataManager.Instance.CurrentUISettingsData.EnableNotifications;
+
         private void Awake()
         {
             Instance = this;
@@ -23,6 +25,9 @@ namespace Game.Utilities.Notifications
 
         public static void NewNotification(Sprite icon, string title, bool highlight, NotificationStyle style = NotificationStyle.Default, string textColor = "ffffff")
         {
+            if (!Instance.NotificationsEnabled)
+                return;
+
             NotificationVisual visual = Instantiate(Instance.NotificationVisual.gameObject, Instance.NotificationsVisualParent).GetComponent<NotificationVisual>();
             visual.Initialize(icon, $"<color=#{textColor}>{title}</color>", highlight, Instance.NotificationsDestroyTime, style);
         }
