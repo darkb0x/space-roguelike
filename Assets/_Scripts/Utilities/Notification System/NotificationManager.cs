@@ -23,13 +23,13 @@ namespace Game.Utilities.Notifications
             Instance = this;
         }
 
-        public static void NewNotification(Sprite icon, string title, bool highlight, NotificationStyle style = NotificationStyle.Default, string textColor = "ffffff")
+        public static void NewNotification(Sprite icon, string title, bool highlight, Color textColor, NotificationStyle style = NotificationStyle.Default)
         {
             if (!Instance.NotificationsEnabled)
                 return;
 
             NotificationVisual visual = Instantiate(Instance.NotificationVisual.gameObject, Instance.NotificationsVisualParent).GetComponent<NotificationVisual>();
-            visual.Initialize(icon, $"<color=#{textColor}>{title}</color>", highlight, Instance.NotificationsDestroyTime, style);
+            visual.Initialize(icon, $"<color=#{ColorUtility.ToHtmlStringRGB(textColor)}>{title}</color>", highlight, Instance.NotificationsDestroyTime, style);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Game.MainMenu.MissionChoose.Visual
         [SerializeField] private TextMeshProUGUI SelectedMissionNameText;
         [Space]
         [SerializeField] private Transform SelectedMissionUniqueItemsContent;
-        [SerializeField] private Vector2 UniqueItemsSize = new Vector2(100, 100);
+        [SerializeField] private GameObject UniqueItemPrefab;
 
         public bool isOpened { get; private set; }
         private Vector2 defaultContentPosition;
@@ -52,15 +52,9 @@ namespace Game.MainMenu.MissionChoose.Visual
             }
             foreach (var item in items)
             {
-                GameObject itemObj = new GameObject();
-
-                itemObj.transform.SetParent(SelectedMissionUniqueItemsContent);
-                itemObj.transform.localScale = Vector3.one;
-
-                Image itemImage = itemObj.AddComponent<Image>();
-                itemImage.sprite = item.Item.Icon;
-
-                itemImage.rectTransform.sizeDelta = UniqueItemsSize;
+                GameObject itemObj = Instantiate(UniqueItemPrefab, SelectedMissionUniqueItemsContent);
+                Image itemIcon = itemObj.transform.GetChild(1).GetComponent<Image>();
+                itemIcon.sprite = item.Item.LowSizeIcon;
             }
 
             SelectedMissionPanel.SetActive(true);

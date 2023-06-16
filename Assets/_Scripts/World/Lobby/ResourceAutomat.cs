@@ -84,7 +84,7 @@ namespace Game.Lobby
             Anim.SetTrigger(Anim_interactTrigger);
 
             LobbyInventory.AddItem(new ItemData(selectedItem, ItemAmount));
-            NotificationManager.NewNotification(selectedItem.LowSizeIcon, $"{selectedItem.ItemName} <color={NotificationManager.GreenColor}>+{ItemAmount}</color>", true, NotificationStyle.Positive);
+            NotificationManager.NewNotification(selectedItem.LowSizeIcon, $"{selectedItem.ItemName} <color={NotificationManager.GreenColor}>+{ItemAmount}</color>", true, selectedItem.ItemTextColor, NotificationStyle.Positive);
 
             currentSessionData.ResourceAutomatCurrentInteract++;
             currentSessionData.Save();

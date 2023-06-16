@@ -120,7 +120,7 @@ namespace Game.Player.Inventory
                 {
                     if (amount > 0)
                     {
-                        NotificationManager.NewNotification(item.LowSizeIcon, $"{item.ItemName} <color={NotificationManager.GreenColor}>+{amount}</color>", true, NotificationStyle.Positive);
+                        NotificationManager.NewNotification(item.LowSizeIcon, $"{item.ItemName} <color={NotificationManager.GreenColor}>+{amount}</color>", true, item.ItemTextColor, NotificationStyle.Positive);
                     }
                 }
             }
@@ -132,11 +132,11 @@ namespace Game.Player.Inventory
                     {
                         if (itemData.Amount == 0)
                         {
-                            NotificationManager.NewNotification(item.LowSizeIcon, $"{item.ItemName} <color={NotificationManager.GreenColor}>+{amount}</color>", true, NotificationStyle.Positive);
+                            NotificationManager.NewNotification(item.LowSizeIcon, $"{item.ItemName} <color={NotificationManager.GreenColor}>+{amount}</color>", true, item.ItemTextColor, NotificationStyle.Positive);
                         }
                         else
                         {
-                            NotificationManager.NewNotification(item.LowSizeIcon, $"{item.ItemName} <color={NotificationManager.GreenColor}>+{amount}</color>", false, NotificationStyle.Positive);
+                            NotificationManager.NewNotification(item.LowSizeIcon, $"{item.ItemName} <color={NotificationManager.GreenColor}>+{amount}</color>", false, item.ItemTextColor, NotificationStyle.Positive);
                         }
                     }
                 }
@@ -172,7 +172,7 @@ namespace Game.Player.Inventory
 
                     if(showNotify)
                     {
-                        NotificationManager.NewNotification(item.LowSizeIcon, $"{item.ItemName} <color={NotificationManager.RedColor}>-{amount}</color>", false, NotificationStyle.Positive);
+                        NotificationManager.NewNotification(item.LowSizeIcon, $"{item.ItemName} <color={NotificationManager.RedColor}>-{amount}</color>", false, item.ItemTextColor, NotificationStyle.Positive);
                     }
 
                     LogUtility.WriteLog($"Player lost {amount} {item.ItemName}");

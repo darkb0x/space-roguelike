@@ -15,6 +15,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: -1054330026, guid: 0e2b068d51399f543b9fe623093a97ef, type: 3}
   <LowSizeIcon>k__BackingField: {fileID: -81004577, guid: 0e2b068d51399f543b9fe623093a97ef, type: 3}
   m_ItemName: Kopoloh
+  <ItemTextColor>k__BackingField: {r: 0.67058825, g: 0.35686275, b: 0.47450984, a: 1}
   <Cost>k__BackingField: 1
   <CanTakeInMission>k__BackingField: 1
   <IsOre>k__BackingField: 1

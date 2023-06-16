@@ -15,6 +15,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: -4360650958587565854, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
   <LowSizeIcon>k__BackingField: {fileID: 1400391229, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
   m_ItemName: 
+  <ItemTextColor>k__BackingField: {r: 0.5372549, g: 0.24313727, b: 0.59607846, a: 1}
   <Cost>k__BackingField: 5
   <CanTakeInMission>k__BackingField: 0
   <IsOre>k__BackingField: 0

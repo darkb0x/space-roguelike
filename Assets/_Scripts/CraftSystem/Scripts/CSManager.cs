@@ -104,7 +104,7 @@ namespace Game.CraftSystem
 
             currentWorkbanch.Craft(craft.ObjectPrefab);
 
-            NotificationManager.NewNotification(craft.IconSprite, "Crafted!", false);
+            NotificationManager.NewNotification(craft.IconSprite, "Crafted!", false, Color.white);
             LogUtility.WriteLog($"Crafted: {craft.CraftName} (path: {craft.AssetPath})");
 
             CloseMenu();

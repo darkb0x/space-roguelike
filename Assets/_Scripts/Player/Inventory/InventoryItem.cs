@@ -11,6 +11,7 @@ namespace Game.Player.Inventory
         [field: SerializeField, ShowAssetPreview] public Sprite Icon { get; private set; }
         [field: SerializeField, ShowAssetPreview] public Sprite LowSizeIcon { get; private set; }
         [SerializeField, OnValueChanged("UpdateAssetName")] private string m_ItemName;
+        [field: SerializeField] public Color ItemTextColor { get; private set; }
         [field: SerializeField, Min(1)] public int Cost { get; private set; }
         [field: Space]
         [field: SerializeField] public bool CanTakeInMission { get; private set; }
@@ -64,6 +65,46 @@ namespace Game.Player.Inventory
             {
                 AssetName = ItemName + " (custom)";
             }
+        }
+
+        [Button]
+        public void CalculateAverageColor()
+        {
+            Dictionary<Color, int> colorCounts = new Dictionary<Color, int>();
+
+            Color[] pixels = Icon.texture.GetPixels();
+
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                Color color = pixels[i];
+                if (color == Color.black)
+                    continue;
+                else if (color == new Color(0, 0, 0, 0))
+                    continue;
+
+                if (colorCounts.ContainsKey(color))
+                {
+                    colorCounts[color]++;
+                }
+                else
+                {
+                    colorCounts.Add(color, 1);
+                }
+            }
+
+            Color mostUsedColor = Color.white;
+            int maxCount = 0;
+
+            foreach (var pair in colorCounts)
+            {
+                if (pair.Value > maxCount)
+                {
+                    mostUsedColor = pair.Key;
+                    maxCount = pair.Value;
+                }
+            }
+
+            ItemTextColor = mostUsedColor;
         }
         #endif
     }
