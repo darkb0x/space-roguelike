@@ -21,6 +21,9 @@ namespace Game.MainMenu.MissionChoose.Visual
         [Space]
         [SerializeField] private Transform SelectedMissionUniqueItemsContent;
         [SerializeField] private GameObject UniqueItemPrefab;
+        [SerializeField] private Sprite UniqueItemAmountMax;
+        [SerializeField] private Sprite UniqueItemAmountMiddle;
+        [SerializeField] private Sprite UniqueItemAmountLow;
 
         public bool isOpened { get; private set; }
         private Vector2 defaultContentPosition;
@@ -55,6 +58,20 @@ namespace Game.MainMenu.MissionChoose.Visual
                 GameObject itemObj = Instantiate(UniqueItemPrefab, SelectedMissionUniqueItemsContent);
                 Image itemIcon = itemObj.transform.GetChild(1).GetComponent<Image>();
                 itemIcon.sprite = item.Item.LowSizeIcon;
+                Image itemBgIcon = itemObj.transform.GetChild(0).GetComponent<Image>();
+
+                if (item.PercentInWorld >= 8)
+                {
+                    itemBgIcon.sprite = UniqueItemAmountMax;
+                }
+                else if(item.PercentInWorld < 8 && item.PercentInWorld > 3)
+                {
+                    itemBgIcon.sprite = UniqueItemAmountMiddle;
+                }
+                else if(item.PercentInWorld <= 3)
+                {
+                    itemBgIcon.sprite = UniqueItemAmountLow;
+                }
             }
 
             SelectedMissionPanel.SetActive(true);

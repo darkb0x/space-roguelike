@@ -6,7 +6,6 @@ using NaughtyAttributes;
 namespace Game.MainMenu.MissionChoose
 {
     using Utilities.LoadScene;
-    using Utilities.Notifications;
     using Planet;
     using Planet.Visual;
     using Visual;
@@ -143,8 +142,6 @@ namespace Game.MainMenu.MissionChoose
                 return;
 
             startMission = true;
-
-            //NotificationManager.NewNotification(selectedMission.MissionIcon, $"Mission <color={NotificationManager.GreenColor}>start in {m_StartMissionTimer} sec</color>", false);
         }
         public void StopMissionTimer()
         {
@@ -152,13 +149,6 @@ namespace Game.MainMenu.MissionChoose
                 return;
 
             startMission = false;
-
-            /*
-            if(selectedMission != null)
-            {
-                NotificationManager.NewNotification(selectedMission.MissionIcon, $"Mission <color={NotificationManager.RedColor}>canceled</color>", false);
-            }
-            */
         }
     }
 }

@@ -46,11 +46,12 @@ namespace Game
                 if(!IsPointerOverUIObject())
                 {
                     currentZoom = Mathf.Clamp(currentZoom + scrollDelta * scrollSensivity, minCamViewScale, maxCamViewScale);
+                    currentUISettingsData.CameraZoom = currentZoom;
+                    currentUISettingsData.Save();
                 }
             }
 
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, currentZoom, scaleSpeed * Time.deltaTime);
-            currentUISettingsData.CameraZoom = currentZoom;
 
             myTransform.position = target.position - new Vector3(0, 0, Mathf.Abs(myTransform.position.z));
 

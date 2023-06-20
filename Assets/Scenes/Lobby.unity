@@ -11516,6 +11516,9 @@ MonoBehaviour:
   SelectedMissionNameText: {fileID: 1134185312}
   SelectedMissionUniqueItemsContent: {fileID: 728851445}
   UniqueItemPrefab: {fileID: 397309328436245578, guid: 9cdec56f80a31f84fbbd6a374442129c, type: 3}
+  UniqueItemAmountMax: {fileID: -1685575689, guid: 1797a46ae2551c149b4b4dd463496f3f, type: 3}
+  UniqueItemAmountMiddle: {fileID: -382037718, guid: 1797a46ae2551c149b4b4dd463496f3f, type: 3}
+  UniqueItemAmountLow: {fileID: -992220832, guid: 1797a46ae2551c149b4b4dd463496f3f, type: 3}
 --- !u!1 &2030542981
 GameObject:
   m_ObjectHideFlags: 0
