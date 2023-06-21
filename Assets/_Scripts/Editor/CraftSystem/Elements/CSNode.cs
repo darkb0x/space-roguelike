@@ -1,31 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+using UnityEngine.UIElements;
 
-namespace Game.CraftSystem.Editor.Elements
+namespace CraftSystem.Elements
 {
+    using Data.Save;
+    using Enumerations;
     using Utilities;
     using Windows;
-    using Data.Save;
-    using Player.Inventory;
 
     public class CSNode : Node
     {
         public string ID { get; set; }
         public string CraftName { get; set; }
         public List<CSChoiceSaveData> Choices { get; set; }
-        public GameObject Object { get; set; }
-        public Sprite Icon { get; set; }
-        public int Cost { get; set; }
-        public List<ItemData> Craft { get; set; }
+        public string Description { get; set; }
+        public CSCraftType CraftType { get; set; }
+        public CSGroup Group { get; set; }
 
         protected CSGraphView graphView;
         private Color defaultBackgroundColor;
+
+        public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
+        {
+            evt.menu.AppendAction("Disconnect Input Ports", actionEvent => DisconnectInputPorts());
+            evt.menu.AppendAction("Disconnect Output Ports", actionEvent => DisconnectOutputPorts());
+
+            base.BuildContextualMenu(evt);
+        }
 
         public virtual void Initialize(string nodeName, CSGraphView dsGraphView, Vector2 position)
         {
@@ -33,17 +38,12 @@ namespace Game.CraftSystem.Editor.Elements
 
             CraftName = nodeName;
             Choices = new List<CSChoiceSaveData>();
-            Object = null;
-            Cost = 0;
-            Craft = new List<ItemData>();
+            Description = "Craft description.";
 
-            Craft.Add(new ItemData(null, 1));
-            Choices.Add(new CSChoiceSaveData());
+            SetPosition(new Rect(position, Vector2.zero));
 
             graphView = dsGraphView;
             defaultBackgroundColor = new Color(29f / 255f, 29f / 255f, 30f / 255f);
-
-            SetPosition(new Rect(position, Vector2.zero));
 
             mainContainer.AddToClassList("ds-node__main-container");
             extensionContainer.AddToClassList("ds-node__extension-container");
@@ -51,245 +51,106 @@ namespace Game.CraftSystem.Editor.Elements
 
         public virtual void Draw()
         {
-            // Title container
+            /* TITLE CONTAINER */
+
             TextField craftNameTextField = CSElementUtility.CreateTextField(CraftName, null, callback =>
             {
                 TextField target = (TextField) callback.target;
 
                 target.value = callback.newValue.RemoveWhitespaces().RemoveSpecialCharacters();
 
-                if(string.IsNullOrEmpty(target.value))
+                if (string.IsNullOrEmpty(target.value))
                 {
                     if (!string.IsNullOrEmpty(CraftName))
                     {
-                        graphView.NameErrorsAmount++;
+                        ++graphView.NameErrorsAmount;
                     }
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(CraftName))
+                    if (string.IsNullOrEmpty(CraftName))
                     {
-                        graphView.NameErrorsAmount--;
+                        --graphView.NameErrorsAmount;
                     }
                 }
 
-                graphView.RemoveUngroupedNode(this);
+                if (Group == null)
+                {
+                    graphView.RemoveUngroupedNode(this);
+
+                    CraftName = target.value;
+
+                    graphView.AddUngroupedNode(this);
+
+                    return;
+                }
+
+                CSGroup currentGroup = Group;
+
+                graphView.RemoveGroupedNode(this, Group);
 
                 CraftName = target.value;
 
-                graphView.AddUngroupedNode(this);
+                graphView.AddGroupedNode(this, currentGroup);
             });
 
             craftNameTextField.AddClasses(
-                "ds-node__textfield",
-                "ds-node__filename-textfield",
-                "ds-node__textfield__hidden"
+                "ds-node__text-field",
+                "ds-node__text-field__hidden",
+                "ds-node__filename-text-field"
             );
 
             titleContainer.Insert(0, craftNameTextField);
 
-            #region Input Container
-            Port inputPort = this.CreatePort("", Orientation.Horizontal, Direction.Input, Port.Capacity.Multi);
+            /* INPUT CONTAINER */
+
+            Port inputPort = this.CreatePort("Previous Craft", Orientation.Horizontal, Direction.Input, Port.Capacity.Multi);
 
             inputContainer.Add(inputPort);
-            #endregion
 
-            #region Outup Container
-            Button addChoiceButton = CSElementUtility.CreateButton("Add Choice", () =>
-            {
-                CSChoiceSaveData choiceData = new CSChoiceSaveData();
+            /* EXTENSION CONTAINER */
 
-                Choices.Add(choiceData);
-
-                Port choicePort = CreateChoicePort(choiceData);
-
-                outputContainer.Add(choicePort);
-            });
-
-            addChoiceButton.AddToClassList("ds-node_button");
-
-            titleContainer.Add(addChoiceButton);
-
-            foreach (CSChoiceSaveData choice in Choices)
-            {
-                Port choicePort = CreateChoicePort(choice);
-
-                choicePort.userData = choice;
-
-                outputContainer.Add(choicePort);
-            }
-            #endregion
-
-            #region Data Container
             VisualElement customDataContainer = new VisualElement();
+
             customDataContainer.AddToClassList("ds-node__custom-data-container");
 
-            // Cost
-            IntegerField costField = CSElementUtility.CreateIntField("Cost", (callback) =>
-            {
-                Cost = callback.newValue;
-            });
-            costField.value = Cost;
+            Foldout textFoldout = CSElementUtility.CreateFoldout("Craft");
 
-            customDataContainer.Add(costField);
+            TextField textTextField = CSElementUtility.CreateTextArea(Description, null, callback => Description = callback.newValue);
 
-            // Object
-            ObjectField turretObjectField = CSElementUtility.CreateObjectField("Object", typeof(GameObject), (callback) =>
-            {
-                Object = (GameObject) callback.newValue;
-            });
-            turretObjectField.value = Object;
+            textTextField.AddClasses(
+                "ds-node__text-field",
+                "ds-node__quote-text-field"
+            );
 
-            customDataContainer.Add(turretObjectField);
+            textFoldout.Add(textTextField);
 
-            // Image
-            ObjectField turretIconField = CSElementUtility.CreateObjectField("Icon", typeof(Sprite), (callback) =>
-            {
-                Icon = (Sprite)callback.newValue;
-            });
-            turretIconField.value = Icon;
+            customDataContainer.Add(textFoldout);
 
-            customDataContainer.Add(turretIconField);
-
-            mainContainer.Add(customDataContainer);
-
-            #region Craft field
-            VisualElement customDataContainer_Craft = new VisualElement();
-            customDataContainer_Craft.AddToClassList("ds-node__custom-data-container");
-
-            Foldout craftFoldout = CSElementUtility.CreateFoldout("Craft", true);
-
-            for (int i = 0; i < Craft.Count; i++)
-            {
-                AddElementToFoldout(craftFoldout, Craft[i]);
-            }
-
-            //Add Element
-            Button AddButton = CSElementUtility.CreateButton("Add", () =>
-            {
-                Craft.Add(AddElementToFoldout(craftFoldout, new ItemData(null, 1)));
-            });
-            craftFoldout.Insert(0, AddButton);
-
-            customDataContainer_Craft.Add(craftFoldout);
-
-            extensionContainer.Add(customDataContainer_Craft);
-            #endregion
-            #endregion
-
-            RefreshExpandedState();
+            extensionContainer.Add(customDataContainer);
         }
 
-        private ItemData AddElementToFoldout(Foldout craftFoldout, ItemData craft)
+        public void DisconnectAllPorts()
         {
-            // Element Foldout
-            Foldout elementFoldout = CSElementUtility.CreateFoldout("Item");
+            DisconnectInputPorts();
+            DisconnectOutputPorts();
+        }
 
-            //Item Object
-            ObjectField itemField = CSElementUtility.CreateObjectField("Item", typeof(InventoryItem), (callback) =>
+        private void DisconnectInputPorts()
+        {
+            DisconnectPorts(inputContainer);
+        }
+
+        private void DisconnectOutputPorts()
+        {
+            DisconnectPorts(outputContainer);
+        }
+
+        private void DisconnectPorts(VisualElement container)
+        {
+            foreach (Port port in container.Children())
             {
-                craft.Item = (InventoryItem)callback.newValue;
-            });
-            itemField.value = craft.Item;
-
-            //Item Amount
-            IntegerField itemAmountField = CSElementUtility.CreateIntField("Amount", (callback) =>
-            {
-                craft.Amount = callback.newValue;
-            });
-            itemAmountField.value = craft.Amount;
-
-            //Remove Button
-            Button removeButton = CSElementUtility.CreateButton("Remove", () =>
-            {
-                if(Craft.Count > 1)
-                {
-                    RemoveElementFromFoldout(craftFoldout, craft, elementFoldout);
-                }
-            });
-
-            //Add elements to foldout
-            elementFoldout.Add(itemField);
-            elementFoldout.Add(itemAmountField);
-            elementFoldout.Add(removeButton);
-
-            //Add foldout to main foldout
-            craftFoldout.Add(elementFoldout);
-
-            return craft;
-        }
-        private void RemoveElementFromFoldout(Foldout craftFoldout, ItemData craft, VisualElement element)
-        {
-            Craft.Remove(craft);
-            craftFoldout.Remove(element);
-        }
-
-        #region Ovverided methods
-        public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
-        {
-            evt.menu.AppendAction("Disconect Input Ports", actionEvent => DisconectInputPorts());
-            evt.menu.AppendAction("Disconect Output Ports", actionEvent => DisconectOutputPorts());
-
-            evt.menu.AppendAction("Reset Position", actionEvent => ResetPositionToZero());
-
-            base.BuildContextualMenu(evt);
-        }
-        #endregion
-
-        #region Utility Methods
-        private Port CreateChoicePort(object userData)
-        {
-            Port choicePort = this.CreatePort("Next Craft", capacity: Port.Capacity.Single);
-
-            choicePort.userData = userData;
-
-            CSChoiceSaveData choiceData = (CSChoiceSaveData)userData;
-
-            Button deleteChoiceButton = CSElementUtility.CreateButton("X", () =>
-            {
-                if (Choices.Count <= 1)
-                    return;
-
-                if (choicePort.connected)
-                {
-                    graphView.DeleteElements(choicePort.connections);
-                }
-
-                Choices.Remove(choiceData);
-
-                graphView.RemoveElement(choicePort);
-            });
-
-            deleteChoiceButton.AddToClassList("ds-node_button");
-
-            choicePort.Add(deleteChoiceButton);
-
-            return choicePort;
-        }
-
-        private void ResetPositionToZero()
-        {
-            SetPosition(new Rect(Vector2.zero, Vector2.zero));
-        }
-
-        public void DisconectInputPorts()
-        {
-            DisconectPorts(inputContainer);
-        }
-        public void DisconectOutputPorts()
-        {
-            DisconectPorts(outputContainer);
-        }
-        public void DisconectAllPorts()
-        {
-            DisconectInputPorts();
-            DisconectOutputPorts();
-        }
-        private void DisconectPorts(VisualElement container)
-        {
-            foreach(Port port in container.Children())
-            {
-                if(!port.connected)
+                if (!port.connected)
                 {
                     continue;
                 }
@@ -314,6 +175,5 @@ namespace Game.CraftSystem.Editor.Elements
         {
             mainContainer.style.backgroundColor = defaultBackgroundColor;
         }
-        #endregion
     }
 }

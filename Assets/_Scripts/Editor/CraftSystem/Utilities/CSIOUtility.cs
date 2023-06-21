@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor;
-using UnityEngine;
 using System.Linq;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+using AYellowpaper.SerializedCollections;
 
-namespace Game.CraftSystem.Editor.Utilities
+namespace CraftSystem.Utilities
 {
-    using Elements;
-    using Windows;
+    using Data;
     using Data.Save;
+    using Elements;
     using ScriptableObjects;
-    using CraftSystem.Editor.Data;
+    using Windows;
 
     public static class CSIOUtility
     {
@@ -19,12 +20,14 @@ namespace Game.CraftSystem.Editor.Utilities
 
         private static string graphFileName;
         private static string containerFolderPath;
-        private static string containerFolderPath_ForLoad;
 
         private static List<CSNode> nodes;
+        private static List<CSGroup> groups;
 
-        private static Dictionary<string, CSCraftSOTree> createdNodes;
+        private static Dictionary<string, CSCraftGroupSO> createdDialogueGroups;
+        private static Dictionary<string, CSTreeCraftSO> createdDialogues;
 
+        private static Dictionary<string, CSGroup> loadedGroups;
         private static Dictionary<string, CSNode> loadedNodes;
 
         public static void Initialize(CSGraphView dsGraphView, string graphName)
@@ -32,24 +35,25 @@ namespace Game.CraftSystem.Editor.Utilities
             graphView = dsGraphView;
 
             graphFileName = graphName;
-            containerFolderPath = $"Assets/Resources/CraftSystem/Crafts/{graphFileName}";
-            containerFolderPath_ForLoad = $"CraftSystem/Crafts/{graphFileName}";
+            containerFolderPath = $"Assets/Resources/CraftSystem/Crafts/{graphName}";
 
             nodes = new List<CSNode>();
+            groups = new List<CSGroup>();
 
-            createdNodes = new Dictionary<string, CSCraftSOTree>();
+            createdDialogueGroups = new Dictionary<string, CSCraftGroupSO>();
+            createdDialogues = new Dictionary<string, CSTreeCraftSO>();
 
+            loadedGroups = new Dictionary<string, CSGroup>();
             loadedNodes = new Dictionary<string, CSNode>();
         }
 
-        #region Save methods
         public static void Save()
         {
-            CreateStaticFolders();
+            CreateDefaultFolders();
 
             GetElementsFromGraphView();
 
-            CSGraphSaveDataSO graphData = CreateAsset<CSGraphSaveDataSO>("Assets/_Scripts/Editor/CraftSystem/Graphs", $"{graphFileName}Graph");
+            CSGraphSaveDataSO graphData = CreateAsset<CSGraphSaveDataSO>("Assets/Editor/CraftSystem/Graphs", $"{graphFileName}Graph");
 
             graphData.Initialize(graphFileName);
 
@@ -57,15 +61,76 @@ namespace Game.CraftSystem.Editor.Utilities
 
             dialogueContainer.Initialize(graphFileName);
 
+            SaveGroups(graphData, dialogueContainer);
             SaveNodes(graphData, dialogueContainer);
 
             SaveAsset(graphData);
             SaveAsset(dialogueContainer);
         }
 
-        #region Nodes
+        private static void SaveGroups(CSGraphSaveDataSO graphData, CSCraftContainerSO dialogueContainer)
+        {
+            List<string> groupNames = new List<string>();
+
+            foreach (CSGroup group in groups)
+            {
+                SaveGroupToGraph(group, graphData);
+                SaveGroupToScriptableObject(group, dialogueContainer);
+
+                groupNames.Add(group.title);
+            }
+
+            UpdateOldGroups(groupNames, graphData);
+        }
+
+        private static void SaveGroupToGraph(CSGroup group, CSGraphSaveDataSO graphData)
+        {
+            CSGroupSaveData groupData = new CSGroupSaveData()
+            {
+                ID = group.ID,
+                Name = group.title,
+                Position = group.GetPosition().position
+            };
+
+            graphData.Groups.Add(groupData);
+        }
+
+        private static void SaveGroupToScriptableObject(CSGroup group, CSCraftContainerSO dialogueContainer)
+        {
+            string groupName = group.title;
+
+            CreateFolder($"{containerFolderPath}/Groups", groupName);
+            CreateFolder($"{containerFolderPath}/Groups/{groupName}", "Crafts");
+
+            CSCraftGroupSO dialogueGroup = CreateAsset<CSCraftGroupSO>($"{containerFolderPath}/Groups/{groupName}", groupName);
+
+            dialogueGroup.Initialize(groupName);
+
+            createdDialogueGroups.Add(group.ID, dialogueGroup);
+
+            dialogueContainer.CraftGroups.Add(dialogueGroup, new List<CSTreeCraftSO>());
+
+            SaveAsset(dialogueGroup);
+        }
+
+        private static void UpdateOldGroups(List<string> currentGroupNames, CSGraphSaveDataSO graphData)
+        {
+            if (graphData.OldGroupNames != null && graphData.OldGroupNames.Count != 0)
+            {
+                List<string> groupsToRemove = graphData.OldGroupNames.Except(currentGroupNames).ToList();
+
+                foreach (string groupToRemove in groupsToRemove)
+                {
+                    RemoveFolder($"{containerFolderPath}/Groups/{groupToRemove}");
+                }
+            }
+
+            graphData.OldGroupNames = new List<string>(currentGroupNames);
+        }
+
         private static void SaveNodes(CSGraphSaveDataSO graphData, CSCraftContainerSO dialogueContainer)
         {
+            SerializedDictionary<string, List<string>> groupedNodeNames = new SerializedDictionary<string, List<string>>();
             List<string> ungroupedNodeNames = new List<string>();
 
             foreach (CSNode node in nodes)
@@ -73,23 +138,19 @@ namespace Game.CraftSystem.Editor.Utilities
                 SaveNodeToGraph(node, graphData);
                 SaveNodeToScriptableObject(node, dialogueContainer);
 
-                ungroupedNodeNames.Add(node.CraftName);
-            }
-            foreach (CSNode node in nodes)
-            {
-                CSCraftSOTree craft = createdNodes[node.ID];
-
-                foreach (var ChoiceSaveData in node.Choices)
+                if (node.Group != null)
                 {
-                    foreach (var SOchoiceData in craft.Choices)
-                    {
-                        if(!string.IsNullOrEmpty(ChoiceSaveData.NodeID)) SOchoiceData.NextCraft = createdNodes[ChoiceSaveData.NodeID];
-                    }
+                    groupedNodeNames.AddItem(node.Group.title, node.CraftName);
+
+                    continue;
                 }
+
+                ungroupedNodeNames.Add(node.CraftName);
             }
 
             UpdateDialoguesChoicesConnections();
 
+            UpdateOldGroupedNodes(groupedNodeNames, graphData);
             UpdateOldUngroupedNodes(ungroupedNodeNames, graphData);
         }
 
@@ -102,10 +163,9 @@ namespace Game.CraftSystem.Editor.Utilities
                 ID = node.ID,
                 Name = node.CraftName,
                 Choices = choices,
-                ObjectPrefab = node.Object,
-                Icon = node.Icon,
-                Cost = node.Cost,
-                Craft = node.Craft,
+                Description = node.Description,
+                GroupID = node.Group?.ID,
+                CraftType = node.CraftType,
                 Position = node.GetPosition().position
             };
 
@@ -114,66 +174,94 @@ namespace Game.CraftSystem.Editor.Utilities
 
         private static void SaveNodeToScriptableObject(CSNode node, CSCraftContainerSO dialogueContainer)
         {
-            CSCraftSOTree craft;
+            CSTreeCraftSO dialogue;
 
-            craft = CreateAsset<CSCraftSOTree>($"{containerFolderPath}/Nodes", node.CraftName);
-
-            dialogueContainer.Nodes.Add(craft);
-
-            craft.Initialize(
-                node.CraftName,
-                ConvertNodeChoicesToCraftChoices(node.Choices),
-                node.Object,
-                node.Icon,
-                node.Cost,
-                node.Craft,
-                node.IsStartingNode(),
-                node.GetPosition().position,
-                $"{containerFolderPath_ForLoad}/Nodes/{node.CraftName}"
-            );
-
-            createdNodes.Add(node.ID, craft);
-
-            SaveAsset(craft);
-        }
-
-        private static List<CSCraftChoiceData> ConvertNodeChoicesToCraftChoices(List<CSChoiceSaveData> nodeChoices)
-        {
-            List<CSCraftChoiceData> craftChoice = new List<CSCraftChoiceData>(nodeChoices.Count);
-            
-            foreach (CSChoiceSaveData nodeChoice in nodeChoices)
+            if (node.Group != null)
             {
-                if (string.IsNullOrEmpty(nodeChoice.NodeID))
-                    continue;
+                dialogue = CreateAsset<CSTreeCraftSO>($"{containerFolderPath}/Groups/{node.Group.title}/Crafts", node.CraftName);
 
-                CSCraftChoiceData choiceData = new CSCraftChoiceData();
+                dialogueContainer.CraftGroups.AddItem(createdDialogueGroups[node.Group.ID], dialogue);
+            }
+            else
+            {
+                dialogue = CreateAsset<CSTreeCraftSO>($"{containerFolderPath}/Global/Crafts", node.CraftName);
 
-                craftChoice.Add(choiceData);
+                dialogueContainer.UngroupedCrafts.Add(dialogue);
             }
 
-            return craftChoice;
+            dialogue.Initialize(
+                node.CraftName,
+                node.Description,
+                ConvertNodeChoicesToDialogueChoices(node.Choices),
+                node.CraftType,
+                node.IsStartingNode()
+            );
+
+            createdDialogues.Add(node.ID, dialogue);
+
+            SaveAsset(dialogue);
+        }
+
+        private static List<CSNextCraftData> ConvertNodeChoicesToDialogueChoices(List<CSChoiceSaveData> nodeChoices)
+        {
+            List<CSNextCraftData> dialogueChoices = new List<CSNextCraftData>();
+
+            foreach (CSChoiceSaveData nodeChoice in nodeChoices)
+            {
+                CSNextCraftData choiceData = new CSNextCraftData()
+                {
+                    Text = nodeChoice.Text
+                };
+
+                dialogueChoices.Add(choiceData);
+            }
+
+            return dialogueChoices;
         }
 
         private static void UpdateDialoguesChoicesConnections()
         {
             foreach (CSNode node in nodes)
             {
-                CSCraftSOTree dialogue = createdNodes[node.ID];
+                CSTreeCraftSO dialogue = createdDialogues[node.ID];
 
-                for (int choiceIndex = 0; choiceIndex < node.Choices.Count; choiceIndex++)
+                for (int choiceIndex = 0; choiceIndex < node.Choices.Count; ++choiceIndex)
                 {
                     CSChoiceSaveData nodeChoice = node.Choices[choiceIndex];
 
-                    if(string.IsNullOrEmpty(nodeChoice.NodeID))
+                    if (string.IsNullOrEmpty(nodeChoice.NodeID))
                     {
                         continue;
                     }
 
-                    dialogue.Choices[choiceIndex].NextCraft = createdNodes[nodeChoice.NodeID];
+                    dialogue.Choices[choiceIndex].Next = createdDialogues[nodeChoice.NodeID];
 
                     SaveAsset(dialogue);
                 }
             }
+        }
+
+        private static void UpdateOldGroupedNodes(SerializedDictionary<string, List<string>> currentGroupedNodeNames, CSGraphSaveDataSO graphData)
+        {
+            if (graphData.OldGroupedNodeNames != null && graphData.OldGroupedNodeNames.Count != 0)
+            {
+                foreach (KeyValuePair<string, List<string>> oldGroupedNode in graphData.OldGroupedNodeNames)
+                {
+                    List<string> nodesToRemove = new List<string>();
+
+                    if (currentGroupedNodeNames.ContainsKey(oldGroupedNode.Key))
+                    {
+                        nodesToRemove = oldGroupedNode.Value.Except(currentGroupedNodeNames[oldGroupedNode.Key]).ToList();
+                    }
+
+                    foreach (string nodeToRemove in nodesToRemove)
+                    {
+                        RemoveAsset($"{containerFolderPath}/Groups/{oldGroupedNode.Key}/Crafts", nodeToRemove);
+                    }
+                }
+            }
+
+            graphData.OldGroupedNodeNames = new SerializedDictionary<string, List<string>>(currentGroupedNodeNames);
         }
 
         private static void UpdateOldUngroupedNodes(List<string> currentUngroupedNodeNames, CSGraphSaveDataSO graphData)
@@ -184,26 +272,23 @@ namespace Game.CraftSystem.Editor.Utilities
 
                 foreach (string nodeToRemove in nodesToRemove)
                 {
-                    RemoveAsset($"{containerFolderPath}/Nodes", nodeToRemove);
+                    RemoveAsset($"{containerFolderPath}/Global/Crafts", nodeToRemove);
                 }
             }
 
             graphData.OldUngroupedNodeNames = new List<string>(currentUngroupedNodeNames);
         }
-        #endregion
-        #endregion
 
-        #region Load methods 
         public static void Load()
         {
-            CSGraphSaveDataSO graphData = LoadAsset<CSGraphSaveDataSO>("Assets/_Scripts/Editor/CraftSystem/Graphs", graphFileName);
+            CSGraphSaveDataSO graphData = LoadAsset<CSGraphSaveDataSO>("Assets/Editor/CraftSystem/Graphs", graphFileName);
 
             if (graphData == null)
             {
                 EditorUtility.DisplayDialog(
                     "Could not find the file!",
                     "The file at the following path could not be found:\n\n" +
-                    $"\"Assets/Resources/CraftSystem/Graphs/{graphFileName}\".\n\n" +
+                    $"\"Assets/Editor/DialogueSystem/Graphs/{graphFileName}\".\n\n" +
                     "Make sure you chose the right file and it's placed at the folder path mentioned above.",
                     "Thanks!"
                 );
@@ -213,8 +298,21 @@ namespace Game.CraftSystem.Editor.Utilities
 
             CSEditorWindow.UpdateFileName(graphData.FileName);
 
+            LoadGroups(graphData.Groups);
             LoadNodes(graphData.Nodes);
             LoadNodesConnections();
+        }
+
+        private static void LoadGroups(List<CSGroupSaveData> groups)
+        {
+            foreach (CSGroupSaveData groupData in groups)
+            {
+                CSGroup group = graphView.CreateGroup(groupData.Name, groupData.Position);
+
+                group.ID = groupData.ID;
+
+                loadedGroups.Add(group.ID, group);
+            }
         }
 
         private static void LoadNodes(List<CSNodeSaveData> nodes)
@@ -223,20 +321,28 @@ namespace Game.CraftSystem.Editor.Utilities
             {
                 List<CSChoiceSaveData> choices = CloneNodeChoices(nodeData.Choices);
 
-                CSNode node = graphView.CreateNode(nodeData.Position, false, nodeData.Name);
+                CSNode node = graphView.CreateNode(nodeData.Name, nodeData.CraftType, nodeData.Position, false);
 
                 node.ID = nodeData.ID;
                 node.Choices = choices;
-                node.Object = nodeData.ObjectPrefab;
-                node.Icon = nodeData.Icon;
-                node.Cost = nodeData.Cost;
-                node.Craft = nodeData.Craft;
+                node.Description = nodeData.Description;
 
                 node.Draw();
 
                 graphView.AddElement(node);
 
                 loadedNodes.Add(node.ID, node);
+
+                if (string.IsNullOrEmpty(nodeData.GroupID))
+                {
+                    continue;
+                }
+
+                CSGroup group = loadedGroups[nodeData.GroupID];
+
+                node.Group = group;
+
+                group.AddElement(node);
             }
         }
 
@@ -246,7 +352,7 @@ namespace Game.CraftSystem.Editor.Utilities
             {
                 foreach (Port choicePort in loadedNode.Value.outputContainer.Children())
                 {
-                    CSChoiceSaveData choiceData = (CSChoiceSaveData)choicePort.userData;
+                    CSChoiceSaveData choiceData = (CSChoiceSaveData) choicePort.userData;
 
                     if (string.IsNullOrEmpty(choiceData.NodeID))
                     {
@@ -255,7 +361,7 @@ namespace Game.CraftSystem.Editor.Utilities
 
                     CSNode nextNode = loadedNodes[choiceData.NodeID];
 
-                    Port nextNodeInputPort = (Port)nextNode.inputContainer.Children().First();
+                    Port nextNodeInputPort = (Port) nextNode.inputContainer.Children().First();
 
                     Edge edge = choicePort.ConnectTo(nextNodeInputPort);
 
@@ -265,52 +371,62 @@ namespace Game.CraftSystem.Editor.Utilities
                 }
             }
         }
-        #endregion
 
-        #region Creation methods
-        private static void CreateStaticFolders()
+        private static void CreateDefaultFolders()
         {
-            CreateFolder("Assets/_Scripts/Editor/CraftSystem", "Graphs");
+            CreateFolder("Assets/Editor", "CraftSystem");
+            CreateFolder("Assets/Editor/CraftSystem", "Graphs");
 
+            CreateFolder("Assets/Resources", "CraftSystem");
             CreateFolder("Assets/Resources/CraftSystem", "Crafts");
 
             CreateFolder("Assets/Resources/CraftSystem/Crafts", graphFileName);
-            CreateFolder(containerFolderPath, "Nodes");
+            CreateFolder(containerFolderPath, "Global");
+            CreateFolder(containerFolderPath, "Groups");
+            CreateFolder($"{containerFolderPath}/Global", "Crafts");
         }
-        #endregion
 
-        #region Fetch methods 
         private static void GetElementsFromGraphView()
         {
+            Type groupType = typeof(CSGroup);
+
             graphView.graphElements.ForEach(graphElement =>
             {
-                if(graphElement is CSNode node)
+                if (graphElement is CSNode node)
                 {
                     nodes.Add(node);
 
                     return;
                 }
+
+                if (graphElement.GetType() == groupType)
+                {
+                    CSGroup group = (CSGroup) graphElement;
+
+                    groups.Add(group);
+
+                    return;
+                }
             });
         }
-        #endregion
 
-        #region Utility methods
-        private static void CreateFolder(string path, string folderName)
+        public static void CreateFolder(string parentFolderPath, string newFolderName)
         {
-            if (AssetDatabase.IsValidFolder($"{path}/{folderName}"))
+            if (AssetDatabase.IsValidFolder($"{parentFolderPath}/{newFolderName}"))
             {
                 return;
             }
 
-            AssetDatabase.CreateFolder(path, folderName);
-        }
-        private static void RemoveFolder(string fullPath)
-        {
-            FileUtil.DeleteFileOrDirectory($"{fullPath}.meta");
-            FileUtil.DeleteFileOrDirectory($"{fullPath}/");
+            AssetDatabase.CreateFolder(parentFolderPath, newFolderName);
         }
 
-        private static T CreateAsset<T>(string path, string assetName) where T : ScriptableObject
+        public static void RemoveFolder(string path)
+        {
+            FileUtil.DeleteFileOrDirectory($"{path}.meta");
+            FileUtil.DeleteFileOrDirectory($"{path}/");
+        }
+
+        public static T CreateAsset<T>(string path, string assetName) where T : ScriptableObject
         {
             string fullPath = $"{path}/{assetName}.asset";
 
@@ -326,24 +442,24 @@ namespace Game.CraftSystem.Editor.Utilities
             return asset;
         }
 
-        private static T LoadAsset<T>(string path, string assetName) where T : ScriptableObject
+        public static T LoadAsset<T>(string path, string assetName) where T : ScriptableObject
         {
             string fullPath = $"{path}/{assetName}.asset";
-
 
             return AssetDatabase.LoadAssetAtPath<T>(fullPath);
         }
 
-        private static void RemoveAsset(string path, string assetName)
-        {
-            AssetDatabase.DeleteAsset($"{path}/{assetName}.asset");
-        }
-        private static void SaveAsset(UnityEngine.Object asset)
+        public static void SaveAsset(UnityEngine.Object asset)
         {
             EditorUtility.SetDirty(asset);
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+        }
+
+        public static void RemoveAsset(string path, string assetName)
+        {
+            AssetDatabase.DeleteAsset($"{path}/{assetName}.asset");
         }
 
         private static List<CSChoiceSaveData> CloneNodeChoices(List<CSChoiceSaveData> nodeChoices)
@@ -354,6 +470,7 @@ namespace Game.CraftSystem.Editor.Utilities
             {
                 CSChoiceSaveData choiceData = new CSChoiceSaveData()
                 {
+                    Text = choice.Text,
                     NodeID = choice.NodeID
                 };
 
@@ -362,6 +479,5 @@ namespace Game.CraftSystem.Editor.Utilities
 
             return choices;
         }
-        #endregion
     }
 }

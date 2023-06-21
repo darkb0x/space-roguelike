@@ -1,10 +1,9 @@
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 using System.IO;
+using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
 
-namespace Game.CraftSystem.Editor.Windows
+namespace CraftSystem.Windows
 {
     using Utilities;
 
@@ -12,16 +11,16 @@ namespace Game.CraftSystem.Editor.Windows
     {
         private CSGraphView graphView;
 
-        private readonly string defaultFileName = "TechTreeFileName";
+        private readonly string defaultFileName = "CraftTreeFileName";
 
         private static TextField fileNameTextField;
         private Button saveButton;
         private Button miniMapButton;
 
-        [MenuItem("Tools/Craft Graph")]
+        [MenuItem("Tools/Craft Tree Graph")]
         public static void Open()
         {
-            GetWindow<CSEditorWindow>("Craft Graph");
+            GetWindow<CSEditorWindow>("Craft Tree Graph Editor");
         }
 
         private void OnEnable()
@@ -32,7 +31,6 @@ namespace Game.CraftSystem.Editor.Windows
             AddStyles();
         }
 
-        #region Elements addition
         private void AddGraphView()
         {
             graphView = new CSGraphView(this);
@@ -42,11 +40,11 @@ namespace Game.CraftSystem.Editor.Windows
             rootVisualElement.Add(graphView);
         }
 
-        public void AddToolbar()
+        private void AddToolbar()
         {
             Toolbar toolbar = new Toolbar();
 
-            fileNameTextField = CSElementUtility.CreateTextField(defaultFileName, "File name:", callback =>
+            fileNameTextField = CSElementUtility.CreateTextField(defaultFileName, "File Name:", callback =>
             {
                 fileNameTextField.value = callback.newValue.RemoveWhitespaces().RemoveSpecialCharacters();
             });
@@ -73,22 +71,14 @@ namespace Game.CraftSystem.Editor.Windows
 
         private void AddStyles()
         {
-            rootVisualElement.AddStyleSheets(
-                "DialogueSystem/DSVariables.uss"
-            );
+            rootVisualElement.AddStyleSheets("DialogueSystem/DSVariables.uss");
         }
-        #endregion
 
-        #region Toolbar actions
         private void Save()
         {
-            if(string.IsNullOrEmpty(fileNameTextField.value))
+            if (string.IsNullOrEmpty(fileNameTextField.value))
             {
-                EditorUtility.DisplayDialog(
-                    "Invalid file name",
-                    "Please ensure the file name you've typed in is valid.",
-                    "Roger!"
-                );
+                EditorUtility.DisplayDialog("Invalid file name.", "Please ensure the file name you've typed in is valid.", "Roger!");
 
                 return;
             }
@@ -99,7 +89,7 @@ namespace Game.CraftSystem.Editor.Windows
 
         private void Load()
         {
-            string filePath = EditorUtility.OpenFilePanel("Craft Graphs", "Assets/_Scripts/Editor/CraftSystem/Graphs", "asset");
+            string filePath = EditorUtility.OpenFilePanel("Craft Graphs", "Assets/Editor/CraftSystem/Graphs", "asset");
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -110,9 +100,6 @@ namespace Game.CraftSystem.Editor.Windows
 
             CSIOUtility.Initialize(graphView, Path.GetFileNameWithoutExtension(filePath));
             CSIOUtility.Load();
-
-            char[] trimEndElements = { 'G', 'r', 'a', 'p', 'h' };
-            UpdateFileName(Path.GetFileNameWithoutExtension(filePath).TrimEnd(trimEndElements));
         }
 
         private void Clear()
@@ -133,9 +120,7 @@ namespace Game.CraftSystem.Editor.Windows
 
             miniMapButton.ToggleInClassList("ds-toolbar__button__selected");
         }
-        #endregion
 
-        #region Utility methods
         public static void UpdateFileName(string newFileName)
         {
             fileNameTextField.value = newFileName;
@@ -145,10 +130,10 @@ namespace Game.CraftSystem.Editor.Windows
         {
             saveButton.SetEnabled(true);
         }
+
         public void DisableSaving()
         {
             saveButton.SetEnabled(false);
         }
-        #endregion
     }
 }

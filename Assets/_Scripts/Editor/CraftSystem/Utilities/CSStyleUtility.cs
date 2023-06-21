@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace Game.CraftSystem.Editor.Utilities
+namespace CraftSystem.Utilities
 {
     public static class CSStyleUtility
     {
@@ -17,11 +14,12 @@ namespace Game.CraftSystem.Editor.Utilities
 
             return element;
         }
+
         public static VisualElement AddStyleSheets(this VisualElement element, params string[] styleSheetNames)
         {
             foreach (string styleSheetName in styleSheetNames)
             {
-                StyleSheet styleSheet = (StyleSheet)EditorGUIUtility.Load(styleSheetName);
+                StyleSheet styleSheet = (StyleSheet) EditorGUIUtility.Load(styleSheetName);
 
                 element.styleSheets.Add(styleSheet);
             }

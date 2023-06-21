@@ -11,7 +11,7 @@ namespace Game.Utilities.CheatPanel
     using Player;
     using Player.Pick;
     using Player.Inventory;
-    using CraftSystem.Editor.ScriptableObjects;
+    using CraftSystem.ScriptableObjects;
     using Turret;
     using Drone;
     using Enemy;
@@ -28,7 +28,7 @@ namespace Game.Utilities.CheatPanel
         [BoxGroup("Player"), SerializeField] private GameObject PlayerCheatsPanel;
         [BoxGroup("Player"), SerializeField] private bool InitializePlayerCheats = true;
 
-        [BoxGroup("Crafts"), SerializeField] private CraftsCheatPanel CraftCheats;
+        //[BoxGroup("Crafts"), SerializeField] private CraftsCheatPanel CraftCheats;
         [BoxGroup("Crafts"), SerializeField] private GameObject CraftCheatsPanel;
         [BoxGroup("Crafts"), SerializeField] private bool InitializeCraftCheats = true;
 
@@ -57,7 +57,7 @@ namespace Game.Utilities.CheatPanel
             }
             if(InitializeCraftCheats)
             {
-                CraftCheats.Initialize(PlayerController);
+                //CraftCheats.Initialize(PlayerController);
                 CraftCheatsPanel.SetActive(true);
             }
             if(InitializeEnemyCheats)
@@ -228,6 +228,7 @@ namespace Game.Utilities.CheatPanel
         }
     }
 
+    /*
     [System.Serializable]
     public class CraftsCheatPanel
     {
@@ -332,6 +333,7 @@ namespace Game.Utilities.CheatPanel
             LogUtility.WriteLog($"Cheats. Given a build '{buildPrefab.name}', for player");
         }
     }
+    */
 
     [System.Serializable]
     public class EnemyCheatPanel

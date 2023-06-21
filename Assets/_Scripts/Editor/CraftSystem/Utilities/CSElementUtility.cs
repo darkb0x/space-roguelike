@@ -3,7 +3,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 
-namespace Game.CraftSystem.Editor.Utilities
+namespace CraftSystem.Utilities
 {
     using Elements;
 

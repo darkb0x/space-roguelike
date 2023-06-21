@@ -49,7 +49,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 973950430778393663}
-  - component: {fileID: 973950430778393662}
   m_Layer: 0
   m_Name: Learn Craft System
   m_TagString: Untagged
@@ -72,54 +71,6 @@ Transform:
   m_Father: {fileID: 973950430228214895}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &973950430778393662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 973950430778393660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87e53bf64a1c9b45be32725d4eb96b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  techTrees:
-  - techTree: {fileID: 11400000, guid: 4f892995c0a2d0a48affc272785e9d37, type: 2}
-    loadedLearnCraftPrefabs: []
-    techTreeRenderTransform: {fileID: 0}
-    techTreeArrowRenderTransform: {fileID: 0}
-    categoryIcon: {fileID: 21300000, guid: 33c5fdff70ab98046a20853f1a59c5bd, type: 3}
-  - techTree: {fileID: 11400000, guid: 2bce19ec8d7f6b542afa9cb64499ff88, type: 2}
-    loadedLearnCraftPrefabs: []
-    techTreeRenderTransform: {fileID: 0}
-    techTreeArrowRenderTransform: {fileID: 0}
-    categoryIcon: {fileID: 21300000, guid: cc28ae4c1ac48dc43b4c2344e45478ab, type: 3}
-  - techTree: {fileID: 11400000, guid: 7c88830c2c59e5d4abbdef47ea829bf8, type: 2}
-    loadedLearnCraftPrefabs: []
-    techTreeRenderTransform: {fileID: 0}
-    techTreeArrowRenderTransform: {fileID: 0}
-    categoryIcon: {fileID: 21300000, guid: e17d3bd4d3d209b4b965be70f2e7869f, type: 3}
-  currentScale: 1
-  scaleSpeed: 3
-  minTreeScale: 0.7
-  maxTreeScale: 1.5
-  techTreePanel: {fileID: 2483677704594758688}
-  content: {fileID: 2483677706056056746}
-  categoryButtons: {fileID: 2483677705611913258}
-  learnCraftPrefab: {fileID: 8212722897547280048, guid: 9ef42207371b4b84f860c05ecee7881d, type: 3}
-  arrowPrefab: {fileID: 5183958908363191403, guid: 7d295b979dcf67346aecc1c2c0375263, type: 3}
-  nullObjPrefab: {fileID: 408940850210868610, guid: 6de546846d7e9654db454d617c10c1b0, type: 3}
-  canvas: {fileID: 2483677705205861331}
-  isOpened: 0
-  openedTechTree:
-    techTree: {fileID: 11400000, guid: 99324b562125f1f409308ddc24f8b985, type: 2}
-    loadedLearnCraftPrefabs:
-    - {fileID: 0}
-    - {fileID: 0}
-    techTreeRenderTransform: {fileID: 0}
-    techTreeArrowRenderTransform: {fileID: 0}
-    categoryIcon: {fileID: 0}
 --- !u!1 &973950431650127924
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +172,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 973950432118627692}
-  - component: {fileID: 973950432118627695}
   m_Layer: 0
   m_Name: Craft System
   m_TagString: Untagged
@@ -244,45 +194,6 @@ Transform:
   m_Father: {fileID: 973950430228214895}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &973950432118627695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 973950432118627693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b34ac5516afa604982eb88276f63fa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  techTrees:
-  - techTree: {fileID: 11400000, guid: 4f892995c0a2d0a48affc272785e9d37, type: 2}
-    loadedCraftObjects: []
-    unlockedCrafts: []
-    categoryIcon: {fileID: 21300000, guid: 33c5fdff70ab98046a20853f1a59c5bd, type: 3}
-    renderTransform: {fileID: 0}
-  - techTree: {fileID: 11400000, guid: 2bce19ec8d7f6b542afa9cb64499ff88, type: 2}
-    loadedCraftObjects: []
-    unlockedCrafts: []
-    categoryIcon: {fileID: 21300000, guid: cc28ae4c1ac48dc43b4c2344e45478ab, type: 3}
-    renderTransform: {fileID: 0}
-  - techTree: {fileID: 11400000, guid: 7c88830c2c59e5d4abbdef47ea829bf8, type: 2}
-    loadedCraftObjects: []
-    unlockedCrafts: []
-    categoryIcon: {fileID: 21300000, guid: e17d3bd4d3d209b4b965be70f2e7869f, type: 3}
-    renderTransform: {fileID: 0}
-  UniqueCrafts:
-    loadedCraftObjects: []
-    unlockedCrafts: []
-    categoryIcon: {fileID: 21300000, guid: 9e8964438445b6946a1bde318f604fb8, type: 3}
-    renderTransform: {fileID: 1736011334334789125}
-  craftTreePanel: {fileID: 2483677705245603372}
-  craftRenderTransform: {fileID: 2483677705872767607}
-  categoryButtons: {fileID: 4770927385320118952}
-  craftObjectPrefab: {fileID: 3511368520870876680, guid: dce1f10b9a7498144b22fd810086b1a2, type: 3}
-  renderTransformPrefab: {fileID: 2207880412841316525, guid: a82148efaeadd6846a005f441c0d7726, type: 3}
-  isOpened: 0
 --- !u!1 &1847842358491474210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,6 +1707,12 @@ MonoBehaviour:
     MasterVolume: 0
     MusicVolume: 0
     EffectsVolume: 0
+  <CurrentUISettingsData>k__BackingField:
+    dataSavePath: 
+    dataFileName: 
+    CameraZoom: 0
+    EnableTimeline: 0
+    EnableNotifications: 0
 --- !u!1 &7189539578889517064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2201,19 +2118,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Categories
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6936236785580643925, guid: 018fb9d527a52c84fbbe1fb0ab10eed4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 018fb9d527a52c84fbbe1fb0ab10eed4, type: 3}
---- !u!114 &4770927385320118952 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6936236785580643925, guid: 018fb9d527a52c84fbbe1fb0ab10eed4, type: 3}
-  m_PrefabInstance: {fileID: 2483677704775814397}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afee346223f9fd24497e0b8e67793d54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &4770927385320118957 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6936236785580643920, guid: 018fb9d527a52c84fbbe1fb0ab10eed4, type: 3}
@@ -2443,19 +2350,9 @@ PrefabInstance:
       propertyPath: contentTransform
       value: 
       objectReference: {fileID: 2483677706056056746}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6936236785580643925, guid: 018fb9d527a52c84fbbe1fb0ab10eed4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 018fb9d527a52c84fbbe1fb0ab10eed4, type: 3}
---- !u!114 &2483677705611913258 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6936236785580643925, guid: 018fb9d527a52c84fbbe1fb0ab10eed4, type: 3}
-  m_PrefabInstance: {fileID: 4770927383404756607}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afee346223f9fd24497e0b8e67793d54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &2483677705611913263 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6936236785580643920, guid: 018fb9d527a52c84fbbe1fb0ab10eed4, type: 3}

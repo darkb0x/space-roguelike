@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
-
-namespace Game.CraftSystem.Editor.Data.Save
+namespace CraftSystem.Data.Save
 {
     [Serializable]
     public class CSChoiceSaveData
     {
+        [field: SerializeField] public string Text { get; set; }
         [field: SerializeField] public string NodeID { get; set; }
     }
 }

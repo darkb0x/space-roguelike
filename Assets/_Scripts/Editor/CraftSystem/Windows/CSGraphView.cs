@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 using AYellowpaper.SerializedCollections;
 
-namespace Game.CraftSystem.Editor.Windows
+namespace CraftSystem.Windows
 {
-    using Data.Save;
     using Data.Error;
+    using Data.Save;
     using Elements;
+    using Enumerations;
     using Utilities;
 
     public class CSGraphView : GraphView
@@ -22,6 +21,8 @@ namespace Game.CraftSystem.Editor.Windows
         private MiniMap miniMap;
 
         private SerializedDictionary<string, CSNodeErrorData> ungroupedNodes;
+        private SerializedDictionary<string, CSGroupErrorData> groups;
+        private SerializedDictionary<Group, SerializedDictionary<string, CSNodeErrorData>> groupedNodes;
 
         private int nameErrorsAmount;
 
@@ -31,11 +32,12 @@ namespace Game.CraftSystem.Editor.Windows
             {
                 return nameErrorsAmount;
             }
+
             set
             {
                 nameErrorsAmount = value;
 
-                if(nameErrorsAmount == 0)
+                if (nameErrorsAmount == 0)
                 {
                     editorWindow.EnableSaving();
                 }
@@ -52,37 +54,41 @@ namespace Game.CraftSystem.Editor.Windows
             editorWindow = dsEditorWindow;
 
             ungroupedNodes = new SerializedDictionary<string, CSNodeErrorData>();
+            groups = new SerializedDictionary<string, CSGroupErrorData>();
+            groupedNodes = new SerializedDictionary<Group, SerializedDictionary<string, CSNodeErrorData>>();
 
             AddManipulators();
-            AddSearchWindow();
-            AddMinimap();
             AddGridBackground();
+            AddSearchWindow();
+            AddMiniMap();
 
             OnElementsDeleted();
+            OnGroupElementsAdded();
+            OnGroupElementsRemoved();
+            OnGroupRenamed();
             OnGraphViewChanged();
 
             AddStyles();
             AddMiniMapStyles();
         }
 
-        #region Overrided methods
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
             List<Port> compatiblePorts = new List<Port>();
 
             ports.ForEach(port =>
             {
-                if(startPort == port)
+                if (startPort == port)
                 {
                     return;
                 }
 
-                if(startPort.node == port.node)
+                if (startPort.node == port.node)
                 {
                     return;
                 }
 
-                if(startPort.direction == port.direction)
+                if (startPort.direction == port.direction)
                 {
                     return;
                 }
@@ -92,9 +98,7 @@ namespace Game.CraftSystem.Editor.Windows
 
             return compatiblePorts;
         }
-        #endregion
 
-        #region Manipulators
         private void AddManipulators()
         {
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
@@ -103,76 +107,218 @@ namespace Game.CraftSystem.Editor.Windows
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
 
-            this.AddManipulator(CreateNodeContextualMenu("Add Node"));
+            this.AddManipulator(CreateNodeContextualMenu("Add Node (Default Craft)", CSCraftType.DefaultCraft));
+
+            this.AddManipulator(CreateGroupContextualMenu());
         }
 
-        private IManipulator CreateNodeContextualMenu(string actionTitle)
+        private IManipulator CreateNodeContextualMenu(string actionTitle, CSCraftType dialogueType)
         {
             ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
-                menuEvent => menuEvent.menu.AppendAction(actionTitle, actionEvent => AddElement(CreateNode(GetLocalMousePosition(actionEvent.eventInfo.localMousePosition))))
+                menuEvent => menuEvent.menu.AppendAction(actionTitle, actionEvent => AddElement(CreateNode("CraftName", dialogueType, GetLocalMousePosition(actionEvent.eventInfo.localMousePosition))))
             );
 
             return contextualMenuManipulator;
         }
-        #endregion
 
-        #region Elements creation
-        public CSNode CreateNode(Vector2 position, bool shouldDraw = true, string nodeName = "CraftName")
+        private IManipulator CreateGroupContextualMenu()
         {
-            Type nodeType = Type.GetType($"CSNode");
+            ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
+                menuEvent => menuEvent.menu.AppendAction("Add Group", actionEvent => CreateGroup("CraftGroup", GetLocalMousePosition(actionEvent.eventInfo.localMousePosition)))
+            );
 
-            CSNode node = new CSNode();
+            return contextualMenuManipulator;
+        }
+
+        public CSGroup CreateGroup(string title, Vector2 position)
+        {
+            CSGroup group = new CSGroup(title, position);
+
+            AddGroup(group);
+
+            AddElement(group);
+
+            foreach (GraphElement selectedElement in selection)
+            {
+                if (!(selectedElement is CSNode))
+                {
+                    continue;
+                }
+
+                CSNode node = (CSNode) selectedElement;
+
+                group.AddElement(node);
+            }
+
+            return group;
+        }
+
+        public CSNode CreateNode(string nodeName, CSCraftType dialogueType, Vector2 position, bool shouldDraw = true)
+        {
+            Type nodeType = Type.GetType($"CraftSystem.Elements.CS{dialogueType}Node");
+
+            CSNode node = (CSNode) Activator.CreateInstance(nodeType);
 
             node.Initialize(nodeName, this, position);
 
-            if(shouldDraw)
+            if (shouldDraw)
+            {
                 node.Draw();
+            }
 
             AddUngroupedNode(node);
 
             return node;
         }
-        #endregion
 
-        #region Callbacks
         private void OnElementsDeleted()
         {
             deleteSelection = (operationName, askUser) =>
             {
+                Type groupType = typeof(CSGroup);
                 Type edgeType = typeof(Edge);
 
-                List<Edge> edgesToDelete = new List<Edge>();
+                List<CSGroup> groupsToDelete = new List<CSGroup>();
                 List<CSNode> nodesToDelete = new List<CSNode>();
+                List<Edge> edgesToDelete = new List<Edge>();
 
-                foreach (GraphElement element in selection)
+                foreach (GraphElement selectedElement in selection)
                 {
-                    if(element is CSNode node)
+                    if (selectedElement is CSNode node)
                     {
                         nodesToDelete.Add(node);
 
                         continue;
                     }
 
-                    if(element.GetType() == edgeType)
+                    if (selectedElement.GetType() == edgeType)
                     {
-                        Edge edge = (Edge)element;
+                        Edge edge = (Edge) selectedElement;
 
                         edgesToDelete.Add(edge);
 
                         continue;
                     }
+
+                    if (selectedElement.GetType() != groupType)
+                    {
+                        continue;
+                    }
+
+                    CSGroup group = (CSGroup) selectedElement;
+
+                    groupsToDelete.Add(group);
+                }
+
+                foreach (CSGroup groupToDelete in groupsToDelete)
+                {
+                    List<CSNode> groupNodes = new List<CSNode>();
+
+                    foreach (GraphElement groupElement in groupToDelete.containedElements)
+                    {
+                        if (!(groupElement is CSNode))
+                        {
+                            continue;
+                        }
+
+                        CSNode groupNode = (CSNode) groupElement;
+
+                        groupNodes.Add(groupNode);
+                    }
+
+                    groupToDelete.RemoveElements(groupNodes);
+
+                    RemoveGroup(groupToDelete);
+
+                    RemoveElement(groupToDelete);
                 }
 
                 DeleteElements(edgesToDelete);
 
-                foreach (CSNode node in nodesToDelete)
+                foreach (CSNode nodeToDelete in nodesToDelete)
                 {
-                    RemoveUngroupedNode(node);
+                    if (nodeToDelete.Group != null)
+                    {
+                        nodeToDelete.Group.RemoveElement(nodeToDelete);
+                    }
 
-                    node.DisconectAllPorts();
+                    RemoveUngroupedNode(nodeToDelete);
 
-                    RemoveElement(node);
+                    nodeToDelete.DisconnectAllPorts();
+
+                    RemoveElement(nodeToDelete);
                 }
+            };
+        }
+
+        private void OnGroupElementsAdded()
+        {
+            elementsAddedToGroup = (group, elements) =>
+            {
+                foreach (GraphElement element in elements)
+                {
+                    if (!(element is CSNode))
+                    {
+                        continue;
+                    }
+
+                    CSGroup dsGroup = (CSGroup) group;
+                    CSNode node = (CSNode) element;
+
+                    RemoveUngroupedNode(node);
+                    AddGroupedNode(node, dsGroup);
+                }
+            };
+        }
+
+        private void OnGroupElementsRemoved()
+        {
+            elementsRemovedFromGroup = (group, elements) =>
+            {
+                foreach (GraphElement element in elements)
+                {
+                    if (!(element is CSNode))
+                    {
+                        continue;
+                    }
+
+                    CSGroup csGroup = (CSGroup) group;
+                    CSNode node = (CSNode) element;
+
+                    RemoveGroupedNode(node, csGroup);
+                    AddUngroupedNode(node);
+                }
+            };
+        }
+
+        private void OnGroupRenamed()
+        {
+            groupTitleChanged = (group, newTitle) =>
+            {
+                CSGroup csGroup = (CSGroup) group;
+
+                csGroup.title = newTitle.RemoveWhitespaces().RemoveSpecialCharacters();
+
+                if (string.IsNullOrEmpty(csGroup.title))
+                {
+                    if (!string.IsNullOrEmpty(csGroup.OldTitle))
+                    {
+                        ++NameErrorsAmount;
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(csGroup.OldTitle))
+                    {
+                        --NameErrorsAmount;
+                    }
+                }
+
+                RemoveGroup(csGroup);
+
+                csGroup.OldTitle = csGroup.title;
+
+                AddGroup(csGroup);
             };
         }
 
@@ -180,7 +326,7 @@ namespace Game.CraftSystem.Editor.Windows
         {
             graphViewChanged = (changes) =>
             {
-                if(changes.edgesToCreate != null)
+                if (changes.edgesToCreate != null)
                 {
                     foreach (Edge edge in changes.edgesToCreate)
                     {
@@ -192,36 +338,34 @@ namespace Game.CraftSystem.Editor.Windows
                     }
                 }
 
-                if(changes.elementsToRemove != null)
+                if (changes.elementsToRemove != null)
                 {
                     Type edgeType = typeof(Edge);
 
                     foreach (GraphElement element in changes.elementsToRemove)
                     {
-                        if(element.GetType() != edgeType)
+                        if (element.GetType() != edgeType)
                         {
                             continue;
                         }
 
-                        Edge edge = (Edge)element;
+                        Edge edge = (Edge) element;
 
-                        CSChoiceSaveData choiceData = (CSChoiceSaveData)edge.output.userData;
+                        CSChoiceSaveData choiceData = (CSChoiceSaveData) edge.output.userData;
 
                         choiceData.NodeID = "";
                     }
-                } 
+                }
 
                 return changes;
             };
         }
-        #endregion
 
-        #region Repeated elements
         public void AddUngroupedNode(CSNode node)
         {
             string nodeName = node.CraftName.ToLower();
 
-            if(!ungroupedNodes.ContainsKey(nodeName))
+            if (!ungroupedNodes.ContainsKey(nodeName))
             {
                 CSNodeErrorData nodeErrorData = new CSNodeErrorData();
 
@@ -240,12 +384,14 @@ namespace Game.CraftSystem.Editor.Windows
 
             node.SetErrorStyle(errorColor);
 
-            if(ungroupedNodesList.Count == 2)
+            if (ungroupedNodesList.Count == 2)
             {
-                NameErrorsAmount++;
+                ++NameErrorsAmount;
+
                 ungroupedNodesList[0].SetErrorStyle(errorColor);
             }
         }
+
         public void RemoveUngroupedNode(CSNode node)
         {
             string nodeName = node.CraftName.ToLower();
@@ -258,7 +404,8 @@ namespace Game.CraftSystem.Editor.Windows
 
             if (ungroupedNodesList.Count == 1)
             {
-                NameErrorsAmount--;
+                --NameErrorsAmount;
+
                 ungroupedNodesList[0].ResetStyle();
 
                 return;
@@ -269,34 +416,131 @@ namespace Game.CraftSystem.Editor.Windows
                 ungroupedNodes.Remove(nodeName);
             }
         }
-        #endregion
 
-        #region Elements addition
-        private void AddSearchWindow()
+        private void AddGroup(CSGroup group)
         {
-            if(searchWindow == null)
-            {
-                searchWindow = ScriptableObject.CreateInstance<CSSearchWindow>();
+            string groupName = group.title.ToLower();
 
-                searchWindow.Initialize(this);
+            if (!groups.ContainsKey(groupName))
+            {
+                CSGroupErrorData groupErrorData = new CSGroupErrorData();
+
+                groupErrorData.Groups.Add(group);
+
+                groups.Add(groupName, groupErrorData);
+
+                return;
             }
 
-            nodeCreationRequest = context => SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), searchWindow);
+            List<CSGroup> groupsList = groups[groupName].Groups;
+
+            groupsList.Add(group);
+
+            Color errorColor = groups[groupName].ErrorData.Color;
+
+            group.SetErrorStyle(errorColor);
+
+            if (groupsList.Count == 2)
+            {
+                ++NameErrorsAmount;
+
+                groupsList[0].SetErrorStyle(errorColor);
+            }
         }
 
-        private void AddMinimap()
+        private void RemoveGroup(CSGroup group)
         {
-            miniMap = new MiniMap()
+            string oldGroupName = group.OldTitle.ToLower();
+
+            List<CSGroup> groupsList = groups[oldGroupName].Groups;
+
+            groupsList.Remove(group);
+
+            group.ResetStyle();
+
+            if (groupsList.Count == 1)
             {
-                anchored = true,
+                --NameErrorsAmount;
 
-            };
+                groupsList[0].ResetStyle();
 
-            miniMap.SetPosition(new Rect(15, 50, 200, 180));
+                return;
+            }
 
-            Add(miniMap);
+            if (groupsList.Count == 0)
+            {
+                groups.Remove(oldGroupName);
+            }
+        }
 
-            miniMap.visible = false;
+        public void AddGroupedNode(CSNode node, CSGroup group)
+        {
+            string nodeName = node.CraftName.ToLower();
+
+            node.Group = group;
+
+            if (!groupedNodes.ContainsKey(group))
+            {
+                groupedNodes.Add(group, new SerializedDictionary<string, CSNodeErrorData>());
+            }
+
+            if (!groupedNodes[group].ContainsKey(nodeName))
+            {
+                CSNodeErrorData nodeErrorData = new CSNodeErrorData();
+
+                nodeErrorData.Nodes.Add(node);
+
+                groupedNodes[group].Add(nodeName, nodeErrorData);
+
+                return;
+            }
+
+            List<CSNode> groupedNodesList = groupedNodes[group][nodeName].Nodes;
+
+            groupedNodesList.Add(node);
+
+            Color errorColor = groupedNodes[group][nodeName].ErrorData.Color;
+
+            node.SetErrorStyle(errorColor);
+
+            if (groupedNodesList.Count == 2)
+            {
+                ++NameErrorsAmount;
+
+                groupedNodesList[0].SetErrorStyle(errorColor);
+            }
+        }
+
+        public void RemoveGroupedNode(CSNode node, CSGroup group)
+        {
+            string nodeName = node.CraftName.ToLower();
+
+            node.Group = null;
+
+            List<CSNode> groupedNodesList = groupedNodes[group][nodeName].Nodes;
+
+            groupedNodesList.Remove(node);
+
+            node.ResetStyle();
+
+            if (groupedNodesList.Count == 1)
+            {
+                --NameErrorsAmount;
+
+                groupedNodesList[0].ResetStyle();
+
+                return;
+            }
+
+            if (groupedNodesList.Count == 0)
+            {
+                groupedNodes[group].Remove(nodeName);
+
+                if (groupedNodes[group].Count == 0)
+                {
+                    groupedNodes.Remove(group);
+                }
+            }
         }
 
         private void AddGridBackground()
@@ -308,6 +552,32 @@ namespace Game.CraftSystem.Editor.Windows
             Insert(0, gridBackground);
         }
 
+        private void AddSearchWindow()
+        {
+            if (searchWindow == null)
+            {
+                searchWindow = ScriptableObject.CreateInstance<CSSearchWindow>();
+            }
+
+            searchWindow.Initialize(this);
+
+            nodeCreationRequest = context => SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), searchWindow);
+        }
+
+        private void AddMiniMap()
+        {
+            miniMap = new MiniMap()
+            {
+                anchored = true
+            };
+
+            miniMap.SetPosition(new Rect(15, 50, 200, 180));
+
+            Add(miniMap);
+
+            miniMap.visible = false;
+        }
+
         private void AddStyles()
         {
             this.AddStyleSheets(
@@ -315,6 +585,7 @@ namespace Game.CraftSystem.Editor.Windows
                 "DialogueSystem/DSNodeStyles.uss"
             );
         }
+
         private void AddMiniMapStyles()
         {
             StyleColor backgroundColor = new StyleColor(new Color32(29, 29, 30, 255));
@@ -326,16 +597,14 @@ namespace Game.CraftSystem.Editor.Windows
             miniMap.style.borderBottomColor = borderColor;
             miniMap.style.borderLeftColor = borderColor;
         }
-        #endregion
 
-        #region Utilities
         public Vector2 GetLocalMousePosition(Vector2 mousePosition, bool isSearchWindow = false)
         {
             Vector2 worldMousePosition = mousePosition;
 
             if (isSearchWindow)
             {
-                worldMousePosition -= editorWindow.position.position;
+                worldMousePosition = editorWindow.rootVisualElement.ChangeCoordinatesTo(editorWindow.rootVisualElement.parent, mousePosition - editorWindow.position.position);
             }
 
             Vector2 localMousePosition = contentViewContainer.WorldToLocal(worldMousePosition);
@@ -345,8 +614,10 @@ namespace Game.CraftSystem.Editor.Windows
 
         public void ClearGraph()
         {
-            DeleteElements(graphElements.ToList());
+            graphElements.ForEach(graphElement => RemoveElement(graphElement));
 
+            groups.Clear();
+            groupedNodes.Clear();
             ungroupedNodes.Clear();
 
             NameErrorsAmount = 0;
@@ -356,6 +627,5 @@ namespace Game.CraftSystem.Editor.Windows
         {
             miniMap.visible = !miniMap.visible;
         }
-        #endregion
     }
 }

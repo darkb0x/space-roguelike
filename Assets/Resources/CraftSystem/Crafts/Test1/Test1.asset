@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2984f8fd6410ca42b4abc3c134415d3, type: 3}
+  m_Name: Test1
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Test1
+  <CraftGroups>k__BackingField:
+    _serializedList:
+    - Key: {fileID: 11400000, guid: 7df1ae2bbb718644a83663621e2628c3, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 682ac83ff5646584c912e0646144fc11, type: 2}
+      - {fileID: 11400000, guid: ac241cf92431cce41b75ee453c5cb4c4, type: 2}
+    - Key: {fileID: 11400000, guid: 1f7d19e8af5aa8840bcb89857f99b955, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 0066aefd962949449a427d53de3ff8cc, type: 2}
+      - {fileID: 11400000, guid: 044e5a12c6b454a41b5f14c1df69544a, type: 2}
+  <UngroupedCrafts>k__BackingField:
+  - {fileID: 11400000, guid: 9e29488dec9f6fc4da9bd04372a7b01b, type: 2}
+  - {fileID: 11400000, guid: 321dd7dedce43c845bf97b5cae42355b, type: 2}

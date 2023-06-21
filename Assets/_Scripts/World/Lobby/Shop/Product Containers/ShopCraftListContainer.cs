@@ -4,25 +4,30 @@ using UnityEngine;
 
 namespace Game.Lobby.Shop.Container
 {
-    using CraftSystem.Editor.ScriptableObjects;
+    //using CraftSystem.Editor.ScriptableObjects;
     using CraftSystem;
     using SaveData;
 
+    /*
     [System.Serializable]
     public class CraftProduct : Product
     {
         [Space]
         [NaughtyAttributes.Expandable] public CSCraftSO Craft;
     }
+    */
 
     [CreateAssetMenu(fileName = "Shop Craft List Container", menuName = "Game/Shop/new Craft List Container")]
     public class ShopCraftListContainer : ShopProductListContainer
     {
+        /*
         [Header("Data")]
         [SerializeField, NaughtyAttributes.ReorderableList] private List<CraftProduct> Crafts = new List<CraftProduct>();
+        */
 
         public override void Initialize(ShopManager manager, ShopProductListContainerVisual containerVisual)
         {
+            /*
             foreach (var craft in Crafts)
             {
                 if (products.Contains(craft))
@@ -33,6 +38,7 @@ namespace Game.Lobby.Shop.Container
                     products.Add(craft);
                 }
             }
+            */
 
             base.Initialize(manager, containerVisual);
         }
@@ -40,11 +46,13 @@ namespace Game.Lobby.Shop.Container
         {
             base.Buy(product, productVisual);
 
+            /*
             CraftProduct craftProduct = product as CraftProduct;
 
             Singleton.Get<LearnCSManager>().LearnCraft(craftProduct.Craft);
 
             productVisual.Interactable = false;
+            */
         }
     }
 }

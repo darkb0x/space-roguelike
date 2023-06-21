@@ -1,11 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace Game.CraftSystem.Editor.Windows
+namespace CraftSystem.Windows
 {
     using Elements;
+    using Enumerations;
 
     public class CSSearchWindow : ScriptableObject, ISearchWindowProvider
     {
@@ -25,14 +25,19 @@ namespace Game.CraftSystem.Editor.Windows
         {
             List<SearchTreeEntry> searchTreeEntries = new List<SearchTreeEntry>()
             {
-                new SearchTreeGroupEntry(new GUIContent("Create Element")),
-
+                new SearchTreeGroupEntry(new GUIContent("Create Elements")),
                 new SearchTreeGroupEntry(new GUIContent("Craft Nodes"), 1),
-                new SearchTreeEntry(new GUIContent("Standart Craft", indentationIcon))
+                new SearchTreeEntry(new GUIContent("Default Craft", indentationIcon))
                 {
-                    level = 2,
-                    userData = new CSNode()
+                    userData = CSCraftType.DefaultCraft,
+                    level = 2
                 },
+                new SearchTreeGroupEntry(new GUIContent("Craft Groups"), 1),
+                new SearchTreeEntry(new GUIContent("Single Group", indentationIcon))
+                {
+                    userData = new Group(),
+                    level = 2
+                }
             };
 
             return searchTreeEntries;
@@ -41,14 +46,29 @@ namespace Game.CraftSystem.Editor.Windows
         public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
         {
             Vector2 localMousePosition = graphView.GetLocalMousePosition(context.screenMousePosition, true);
-            switch(SearchTreeEntry.userData)
+
+            switch (SearchTreeEntry.userData)
             {
-                case CSNode _:
-                    CSNode node = graphView.CreateNode(localMousePosition);
-                    graphView.AddElement(node);
+                case CSCraftType.DefaultCraft:
+                {
+                    CSDefaultCraftNode singleChoiceNode = (CSDefaultCraftNode) graphView.CreateNode("DialogueName", CSCraftType.DefaultCraft, localMousePosition);
+
+                    graphView.AddElement(singleChoiceNode);
+
                     return true;
+                }
+
+                case Group _:
+                {
+                    graphView.CreateGroup("DialogueGroup", localMousePosition);
+
+                    return true;
+                }
+
                 default:
+                {
                     return false;
+                }
             }
         }
     }

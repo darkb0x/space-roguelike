@@ -7,7 +7,7 @@ namespace Game.SaveData
     using Player.Inventory;
     using Utilities;
     using MainMenu.MissionChoose.Planet;
-    using CraftSystem.Editor.ScriptableObjects;
+    //using CraftSystem.Editor.ScriptableObjects;
 
     [Serializable]
     public class SessionData : Data
@@ -38,7 +38,8 @@ namespace Game.SaveData
         }
 
         #region Craft
-        public CSCraftSO GetCraft(string path)
+        /*
+        public void GetCraft(string path)
         {
             foreach (var craft in UnlockedCraftPaths)
             {
@@ -49,11 +50,13 @@ namespace Game.SaveData
                 }
             }
             return null;
+            
         }
         public bool HaveCraft(CSCraftSO craft)
         {
             return GetCraft(craft.AssetPath) != null;
         }
+        */
         #endregion
 
         #region Planet
