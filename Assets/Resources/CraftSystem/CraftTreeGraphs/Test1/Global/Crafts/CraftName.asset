@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8faaa056edd93b3489274d6cf8e46794, type: 3}
-  m_Name: CraftName2
+  m_Name: CraftName
   m_EditorClassIdentifier: 
-  <CraftName>k__BackingField: CraftName2
+  <CraftName>k__BackingField: CraftName
   <CraftDescription>k__BackingField: Craft description.
   <CraftType>k__BackingField: 0
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Craft
-    <Next>k__BackingField: {fileID: 11400000, guid: 0066aefd962949449a427d53de3ff8cc, type: 2}
+    <Next>k__BackingField: {fileID: 0}
   <IsStartingCraft>k__BackingField: 0

@@ -12,82 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9594c05b51a55784fa8901a9a446099f, type: 3}
   m_Name: Test1Graph
   m_EditorClassIdentifier: 
-  <FileName>k__BackingField: Test1
-  <Groups>k__BackingField:
-  - <ID>k__BackingField: b75cfe04-d214-46ee-97ba-a193ab0e240a
-    <Name>k__BackingField: Group
-    <Position>k__BackingField: {x: 906.00006, y: 243.99998}
-  - <ID>k__BackingField: 088aa06b-6a86-41ab-99c6-ec5e945652f6
-    <Name>k__BackingField: Group2
-    <Position>k__BackingField: {x: 1519, y: 151}
+  <FileName>k__BackingField: 
+  <Groups>k__BackingField: []
   <Nodes>k__BackingField:
-  - <ID>k__BackingField: e60ff44d-4e59-47a1-adf1-c133b8b92ff5
-    <Name>k__BackingField: CraftName
+  - <ID>k__BackingField: 5bce2df6-9a4d-42fd-8e73-5407b89a4555
+    <Name>k__BackingField: DialogueName
     <Description>k__BackingField: Craft description.
     <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Craft
-      <NodeID>k__BackingField: 616d8f95-e009-4244-8066-b6250fee68e8
+    - <Description>k__BackingField: Next Craft
+      <NodeID>k__BackingField: 759ce966-a2f0-4842-a6c5-db3c39f0bf83
     <GroupID>k__BackingField: 
     <CraftType>k__BackingField: 0
-    <Position>k__BackingField: {x: 272, y: 252}
-  - <ID>k__BackingField: 616d8f95-e009-4244-8066-b6250fee68e8
-    <Name>k__BackingField: CraftName2
-    <Description>k__BackingField: Craft description.
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Craft
-      <NodeID>k__BackingField: 84fe2f35-8961-4297-ad02-b14f0114137a
-    <GroupID>k__BackingField: 
-    <CraftType>k__BackingField: 0
-    <Position>k__BackingField: {x: 572, y: 304}
-  - <ID>k__BackingField: 84fe2f35-8961-4297-ad02-b14f0114137a
+    <Position>k__BackingField: {x: 298, y: 94}
+  - <ID>k__BackingField: 759ce966-a2f0-4842-a6c5-db3c39f0bf83
     <Name>k__BackingField: CraftName
     <Description>k__BackingField: Craft description.
     <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Craft
-      <NodeID>k__BackingField: 5fe1270a-9282-4744-b5a3-b7c83d347c6e
-    <GroupID>k__BackingField: b75cfe04-d214-46ee-97ba-a193ab0e240a
-    <CraftType>k__BackingField: 0
-    <Position>k__BackingField: {x: 931, y: 303}
-  - <ID>k__BackingField: 5fe1270a-9282-4744-b5a3-b7c83d347c6e
-    <Name>k__BackingField: CraftName2
-    <Description>k__BackingField: Craft description.
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Craft
-      <NodeID>k__BackingField: c06b588a-c3e6-4c56-acc7-673f973917c8
-    <GroupID>k__BackingField: b75cfe04-d214-46ee-97ba-a193ab0e240a
-    <CraftType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1212, y: 321}
-  - <ID>k__BackingField: c06b588a-c3e6-4c56-acc7-673f973917c8
-    <Name>k__BackingField: CraftName
-    <Description>k__BackingField: Craft description.
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Craft
-      <NodeID>k__BackingField: 010b7104-b68b-452d-a220-8c8dc8aa5309
-    <GroupID>k__BackingField: 088aa06b-6a86-41ab-99c6-ec5e945652f6
-    <CraftType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1544, y: 210}
-  - <ID>k__BackingField: 010b7104-b68b-452d-a220-8c8dc8aa5309
-    <Name>k__BackingField: CraftName2
-    <Description>k__BackingField: Craft description.
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Craft
+    - <Description>k__BackingField: Next Craft
       <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: 088aa06b-6a86-41ab-99c6-ec5e945652f6
+    <GroupID>k__BackingField: 
     <CraftType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1845, y: 247}
-  <OldGroupNames>k__BackingField:
-  - Group
-  - Group2
+    <Position>k__BackingField: {x: 654, y: 155}
+  <OldGroupNames>k__BackingField: []
   <OldUngroupedNodeNames>k__BackingField:
+  - DialogueName
   - CraftName
-  - CraftName2
   <OldGroupedNodeNames>k__BackingField:
-    _serializedList:
-    - Key: Group
-      Value:
-      - CraftName
-      - CraftName2
-    - Key: Group2
-      Value:
-      - CraftName
-      - CraftName2
+    _serializedList: []

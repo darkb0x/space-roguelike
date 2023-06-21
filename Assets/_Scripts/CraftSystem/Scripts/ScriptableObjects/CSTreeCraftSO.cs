@@ -11,12 +11,13 @@ namespace CraftSystem.ScriptableObjects
         [field: SerializeField] public List<CSNextCraftData> Choices { get; set; }
         [field: SerializeField] public bool IsStartingCraft { get; set; }
 
-        public void Initialize(string craftName, string craftDescription, List<CSNextCraftData> choices, CSCraftType craftType, bool isStartingCraft)
+        public void Initialize(string craftName, string craftDescription, List<CSNextCraftData> choices, CSCraftType craftType, GameObject craftPrefab, bool isStartingCraft)
         {
             CraftName = craftName;
             CraftDescription = craftDescription;
             Choices = choices;
             CraftType = craftType;
+            CraftPrefab = craftPrefab;
             IsStartingCraft = isStartingCraft;
         }
     }

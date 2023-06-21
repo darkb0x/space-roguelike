@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace CraftSystem.ScriptableObjects
 {
-    using Data;
     using Enumerations;
 
     [CreateAssetMenu(fileName = "Craft", menuName = "Game/New Craft")]
@@ -13,5 +12,6 @@ namespace CraftSystem.ScriptableObjects
         [field: SerializeField] public string CraftName { get; set; }
         [field: SerializeField] public string CraftDescription { get; set; }
         [field: SerializeField] public CSCraftType CraftType { get; set; }
+        [field: SerializeField] public GameObject CraftPrefab { get; set; }
     }
 }

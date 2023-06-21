@@ -11,8 +11,9 @@ namespace CraftSystem.Elements
     using Enumerations;
     using Utilities;
     using Windows;
+    using ScriptableObjects;
 
-    public class CSNode : Node
+    public abstract class CSNode : Node
     {
         public string ID { get; set; }
         public string CraftName { get; set; }
@@ -49,13 +50,22 @@ namespace CraftSystem.Elements
             extensionContainer.AddToClassList("ds-node__extension-container");
         }
 
+        public abstract void LoadData(CSNodeSaveData data, List<CSChoiceSaveData> choices);
+        public abstract CSTreeCraftSO SaveToSO(string path);
+        public abstract CSNodeSaveData ConvertToGraphSaveData();
+
         public virtual void Draw()
         {
-            /* TITLE CONTAINER */
+            AddTitleContainer();
+            AddInputContainer();
+            AddExtenshionContainer();
+        }
 
+        protected virtual void AddTitleContainer()
+        {
             TextField craftNameTextField = CSElementUtility.CreateTextField(CraftName, null, callback =>
             {
-                TextField target = (TextField) callback.target;
+                TextField target = (TextField)callback.target;
 
                 target.value = callback.newValue.RemoveWhitespaces().RemoveSpecialCharacters();
 
@@ -101,15 +111,17 @@ namespace CraftSystem.Elements
             );
 
             titleContainer.Insert(0, craftNameTextField);
+        }
 
-            /* INPUT CONTAINER */
-
+        protected virtual void AddInputContainer()
+        {
             Port inputPort = this.CreatePort("Previous Craft", Orientation.Horizontal, Direction.Input, Port.Capacity.Multi);
 
             inputContainer.Add(inputPort);
+        }
 
-            /* EXTENSION CONTAINER */
-
+        protected virtual void AddExtenshionContainer()
+        {
             VisualElement customDataContainer = new VisualElement();
 
             customDataContainer.AddToClassList("ds-node__custom-data-container");

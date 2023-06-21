@@ -35,7 +35,7 @@ namespace CraftSystem.Utilities
             graphView = dsGraphView;
 
             graphFileName = graphName;
-            containerFolderPath = $"Assets/Resources/CraftSystem/Crafts/{graphName}";
+            containerFolderPath = $"Assets/Resources/CraftSystem/CraftTreeGraphs/{graphName}";
 
             nodes = new List<CSNode>();
             groups = new List<CSGroup>();
@@ -156,67 +156,48 @@ namespace CraftSystem.Utilities
 
         private static void SaveNodeToGraph(CSNode node, CSGraphSaveDataSO graphData)
         {
-            List<CSChoiceSaveData> choices = CloneNodeChoices(node.Choices);
-
-            CSNodeSaveData nodeData = new CSNodeSaveData()
-            {
-                ID = node.ID,
-                Name = node.CraftName,
-                Choices = choices,
-                Description = node.Description,
-                GroupID = node.Group?.ID,
-                CraftType = node.CraftType,
-                Position = node.GetPosition().position
-            };
-
-            graphData.Nodes.Add(nodeData);
+            graphData.Nodes.Add(node.ConvertToGraphSaveData());
         }
 
         private static void SaveNodeToScriptableObject(CSNode node, CSCraftContainerSO dialogueContainer)
         {
-            CSTreeCraftSO dialogue;
+            CSTreeCraftSO craft;
 
             if (node.Group != null)
             {
-                dialogue = CreateAsset<CSTreeCraftSO>($"{containerFolderPath}/Groups/{node.Group.title}/Crafts", node.CraftName);
+                //craft = CreateAsset<CSTreeCraftSO>($"{containerFolderPath}/Groups/{node.Group.title}/Crafts", node.CraftName);
+                craft = node.SaveToSO($"{containerFolderPath}/Groups/{node.Group.title}/Crafts");
 
-                dialogueContainer.CraftGroups.AddItem(createdDialogueGroups[node.Group.ID], dialogue);
+                dialogueContainer.CraftGroups.AddItem(createdDialogueGroups[node.Group.ID], craft);
             }
             else
             {
-                dialogue = CreateAsset<CSTreeCraftSO>($"{containerFolderPath}/Global/Crafts", node.CraftName);
+                //craft = CreateAsset<CSTreeCraftSO>($"{containerFolderPath}/Global/Crafts", node.CraftName);
+                craft = node.SaveToSO($"{containerFolderPath}/Global/Crafts");
 
-                dialogueContainer.UngroupedCrafts.Add(dialogue);
+                dialogueContainer.UngroupedCrafts.Add(craft);
             }
 
-            dialogue.Initialize(
-                node.CraftName,
-                node.Description,
-                ConvertNodeChoicesToDialogueChoices(node.Choices),
-                node.CraftType,
-                node.IsStartingNode()
-            );
+            createdDialogues.Add(node.ID, craft);
 
-            createdDialogues.Add(node.ID, dialogue);
-
-            SaveAsset(dialogue);
+            SaveAsset(craft);
         }
 
-        private static List<CSNextCraftData> ConvertNodeChoicesToDialogueChoices(List<CSChoiceSaveData> nodeChoices)
+        public static List<CSNextCraftData> ConvertNodeChoicesToCraftChoices(List<CSChoiceSaveData> nodeChoices)
         {
-            List<CSNextCraftData> dialogueChoices = new List<CSNextCraftData>();
+            List<CSNextCraftData> craftChoices = new List<CSNextCraftData>();
 
             foreach (CSChoiceSaveData nodeChoice in nodeChoices)
             {
                 CSNextCraftData choiceData = new CSNextCraftData()
                 {
-                    Text = nodeChoice.Text
+                    Text = nodeChoice.Description
                 };
 
-                dialogueChoices.Add(choiceData);
+                craftChoices.Add(choiceData);
             }
 
-            return dialogueChoices;
+            return craftChoices;
         }
 
         private static void UpdateDialoguesChoicesConnections()
@@ -319,13 +300,9 @@ namespace CraftSystem.Utilities
         {
             foreach (CSNodeSaveData nodeData in nodes)
             {
-                List<CSChoiceSaveData> choices = CloneNodeChoices(nodeData.Choices);
-
                 CSNode node = graphView.CreateNode(nodeData.Name, nodeData.CraftType, nodeData.Position, false);
 
-                node.ID = nodeData.ID;
-                node.Choices = choices;
-                node.Description = nodeData.Description;
+                node.LoadData(nodeData, CloneNodeChoices(nodeData.Choices));
 
                 node.Draw();
 
@@ -378,9 +355,9 @@ namespace CraftSystem.Utilities
             CreateFolder("Assets/Editor/CraftSystem", "Graphs");
 
             CreateFolder("Assets/Resources", "CraftSystem");
-            CreateFolder("Assets/Resources/CraftSystem", "Crafts");
+            CreateFolder("Assets/Resources/CraftSystem", "CraftTreeGraphs");
 
-            CreateFolder("Assets/Resources/CraftSystem/Crafts", graphFileName);
+            CreateFolder("Assets/Resources/CraftSystem/CraftTreeGraphs", graphFileName);
             CreateFolder(containerFolderPath, "Global");
             CreateFolder(containerFolderPath, "Groups");
             CreateFolder($"{containerFolderPath}/Global", "Crafts");
@@ -462,7 +439,7 @@ namespace CraftSystem.Utilities
             AssetDatabase.DeleteAsset($"{path}/{assetName}.asset");
         }
 
-        private static List<CSChoiceSaveData> CloneNodeChoices(List<CSChoiceSaveData> nodeChoices)
+        public static List<CSChoiceSaveData> CloneNodeChoices(List<CSChoiceSaveData> nodeChoices)
         {
             List<CSChoiceSaveData> choices = new List<CSChoiceSaveData>();
 
@@ -470,7 +447,7 @@ namespace CraftSystem.Utilities
             {
                 CSChoiceSaveData choiceData = new CSChoiceSaveData()
                 {
-                    Text = choice.Text,
+                    Description = choice.Description,
                     NodeID = choice.NodeID
                 };
 
