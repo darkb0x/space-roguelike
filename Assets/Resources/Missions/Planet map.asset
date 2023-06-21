@@ -19,5 +19,5 @@ MonoBehaviour:
     Speed: 20
   - PlanetsOnOrbit:
     - {fileID: 11400000, guid: c515b537904bd09439c159e4d5e65891, type: 2}
-    DistanceFromPoint: 600
-    Speed: 40
+    DistanceFromPoint: 500
+    Speed: 15
