@@ -11,6 +11,7 @@ namespace CraftSystem.Utilities
     using Data;
     using Data.Save;
     using Elements;
+    using Pathfinding.Serialization;
     using ScriptableObjects;
     using Windows;
 
@@ -165,14 +166,12 @@ namespace CraftSystem.Utilities
 
             if (node.Group != null)
             {
-                //craft = CreateAsset<CSTreeCraftSO>($"{containerFolderPath}/Groups/{node.Group.title}/Crafts", node.CraftName);
                 craft = node.SaveToSO($"{containerFolderPath}/Groups/{node.Group.title}/Crafts");
 
                 dialogueContainer.CraftGroups.AddItem(createdDialogueGroups[node.Group.ID], craft);
             }
             else
             {
-                //craft = CreateAsset<CSTreeCraftSO>($"{containerFolderPath}/Global/Crafts", node.CraftName);
                 craft = node.SaveToSO($"{containerFolderPath}/Global/Crafts");
 
                 dialogueContainer.UngroupedCrafts.Add(craft);

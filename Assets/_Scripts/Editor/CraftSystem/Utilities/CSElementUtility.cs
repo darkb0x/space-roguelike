@@ -63,12 +63,13 @@ namespace CraftSystem.Utilities
             return textArea;
         }
 
-        public static ObjectField CreateObjectField(string name, Type valueType, EventCallback<ChangeEvent<UnityEngine.Object>> onValueChanged)
+        public static ObjectField CreateObjectField(string name, Type valueType, bool allowSceneObj, EventCallback<ChangeEvent<UnityEngine.Object>> onValueChanged)
         {
             ObjectField objectField = new ObjectField()
             {
                 name = name,
-                objectType = valueType
+                objectType = valueType,
+                allowSceneObjects = allowSceneObj
             };
 
             if(onValueChanged != null)

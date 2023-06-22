@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2984f8fd6410ca42b4abc3c134415d3, type: 3}
-  m_Name: Test1
+  m_Name: Test
   m_EditorClassIdentifier: 
-  <FileName>k__BackingField: Test1
+  <FileName>k__BackingField: Test
   <CraftGroups>k__BackingField:
-    _serializedList: []
+    _serializedList:
+    - Key: {fileID: 11400000, guid: 4d3f3b4c837ea544c988dbc54e970e84, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 0ad6d0bc662701b468440bc40e4b9e80, type: 2}
+      - {fileID: 11400000, guid: 0c56161a107d76146a80a5b0143854f1, type: 2}
   <UngroupedCrafts>k__BackingField:
-  - {fileID: 11400000, guid: 43f798f52006449408b65c05a594ac49, type: 2}
-  - {fileID: 11400000, guid: 7a3de422ad2f3da4cb3dbdd3a31356fe, type: 2}
+  - {fileID: 11400000, guid: 59c2f4cd0dc50824891ad3cc4ce2ba9f, type: 2}

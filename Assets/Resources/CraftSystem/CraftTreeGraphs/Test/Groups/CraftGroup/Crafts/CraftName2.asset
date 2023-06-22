@@ -10,12 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8faaa056edd93b3489274d6cf8e46794, type: 3}
-  m_Name: CraftName
+  m_Name: CraftName2
   m_EditorClassIdentifier: 
-  <CraftName>k__BackingField: CraftName
+  <CraftName>k__BackingField: CraftName2
   <CraftDescription>k__BackingField: Craft description.
   <CraftType>k__BackingField: 0
+  <CraftPrefab>k__BackingField: {fileID: 0}
+  <ItemsInCraft>k__BackingField:
+  - Item: {fileID: 11400000, guid: b57de4f8b8fc94a40802cac3d2de38e8, type: 2}
+    Amount: 2
+  <CraftCost>k__BackingField: 200
+  <IsStartingCraft>k__BackingField: 0
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Craft
     <Next>k__BackingField: {fileID: 0}
-  <IsStartingCraft>k__BackingField: 0
+  <Position>k__BackingField: {x: 1188, y: 269}

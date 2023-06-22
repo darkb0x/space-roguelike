@@ -8,7 +8,7 @@ namespace CraftSystem.Data.Save
     {
         [field: SerializeField] public string FileName { get; set; }
         [field: SerializeField] public List<CSGroupSaveData> Groups { get; set; }
-        [field: SerializeField] public List<CSNodeSaveData> Nodes { get; set; }
+        [field: SerializeField, SerializeReference] public List<CSNodeSaveData> Nodes { get; set; }
         [field: SerializeField] public List<string> OldGroupNames { get; set; }
         [field: SerializeField] public List<string> OldUngroupedNodeNames { get; set; }
         [field: SerializeField] public SerializedDictionary<string, List<string>> OldGroupedNodeNames { get; set; }
