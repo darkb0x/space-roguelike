@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace CraftSystem.Elements
     public class CSGroup : Group
     {
         public string ID { get; set; }
+        public List<string> NodeIDs { get; set; }
         public string OldTitle { get; set; }
 
         private Color defaultBorderColor;
@@ -15,6 +17,7 @@ namespace CraftSystem.Elements
         public CSGroup(string groupTitle, Vector2 position)
         {
             ID = Guid.NewGuid().ToString();
+            NodeIDs = new List<string>();
 
             title = groupTitle;
             OldTitle = groupTitle;

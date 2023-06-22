@@ -16,6 +16,7 @@ namespace CraftSystem.Elements
     public abstract class CSNode : Node
     {
         public string ID { get; set; }
+        public List<string> OutputIDs { get; set; }
         public string CraftName { get; set; }
         public List<CSChoiceSaveData> Choices { get; set; }
         public string Description { get; set; }
@@ -27,6 +28,7 @@ namespace CraftSystem.Elements
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
+            evt.menu.AppendAction("Reset Position", actionEvent => SetPosition(new Rect(Vector2.zero, Vector2.zero)));
             evt.menu.AppendAction("Disconnect Input Ports", actionEvent => DisconnectInputPorts());
             evt.menu.AppendAction("Disconnect Output Ports", actionEvent => DisconnectOutputPorts());
 
@@ -36,6 +38,7 @@ namespace CraftSystem.Elements
         public virtual void Initialize(string nodeName, CSGraphView dsGraphView, Vector2 position)
         {
             ID = Guid.NewGuid().ToString();
+            OutputIDs = new List<string>();
 
             CraftName = nodeName;
             Choices = new List<CSChoiceSaveData>();
@@ -173,9 +176,26 @@ namespace CraftSystem.Elements
 
         public bool IsStartingNode()
         {
-            Port inputPort = (Port) inputContainer.Children().First();
+            if (Group == null)
+            {
+                Port inputPort = (Port)inputContainer.Children().First();
 
-            return !inputPort.connected;
+                return !inputPort.connected;
+            }
+            else
+            {
+                if (OutputIDs == null | OutputIDs.Count == 0)
+                    return true;
+                else
+                {
+                    foreach (var id in OutputIDs)
+                    {
+                        if (Group.NodeIDs.Contains(id))
+                            return false;
+                    }
+                    return true;
+                }
+            }
         }
 
         public void SetErrorStyle(Color color)

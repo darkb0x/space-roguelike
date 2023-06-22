@@ -331,10 +331,12 @@ namespace CraftSystem.Windows
                     foreach (Edge edge in changes.edgesToCreate)
                     {
                         CSNode nextNode = (CSNode) edge.input.node;
+                        CSNode currentNode = (CSNode)edge.output.node;
 
                         CSChoiceSaveData choiceData = (CSChoiceSaveData) edge.output.userData;
 
                         choiceData.NodeID = nextNode.ID;
+                        nextNode.OutputIDs.Add(currentNode.ID);
                     }
                 }
 
@@ -352,6 +354,8 @@ namespace CraftSystem.Windows
                         Edge edge = (Edge) element;
 
                         CSChoiceSaveData choiceData = (CSChoiceSaveData) edge.output.userData;
+                        CSNode nextNode = (CSNode)edge.input.node;
+                        nextNode.OutputIDs.Remove(choiceData.NodeID);
 
                         choiceData.NodeID = "";
                     }
@@ -478,6 +482,7 @@ namespace CraftSystem.Windows
             string nodeName = node.CraftName.ToLower();
 
             node.Group = group;
+            group.NodeIDs.Add(node.ID);
 
             if (!groupedNodes.ContainsKey(group))
             {
@@ -516,6 +521,7 @@ namespace CraftSystem.Windows
             string nodeName = node.CraftName.ToLower();
 
             node.Group = null;
+            group.NodeIDs.Remove(node.ID);
 
             List<CSNode> groupedNodesList = groupedNodes[group][nodeName].Nodes;
 
