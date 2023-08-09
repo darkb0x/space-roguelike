@@ -16,19 +16,26 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: 958f43b3-5501-41e2-9f81-83044de6e530
     <Name>k__BackingField: Craft1
-    <Position>k__BackingField: {x: 205, y: 197}
+    <Position>k__BackingField: {x: -25.00003, y: -59}
   - <ID>k__BackingField: 8d61338d-ff1d-41c8-a6fd-89a6ce0b623c
     <Name>k__BackingField: Craft2
-    <Position>k__BackingField: {x: 811, y: -9}
+    <Position>k__BackingField: {x: 692.00006, y: -193.99997}
+  - <ID>k__BackingField: 0e10d9d1-2f82-4789-b11e-3e66f6f81e4c
+    <Name>k__BackingField: Craft3
+    <Position>k__BackingField: {x: 688.00006, y: 296.99994}
   <Nodes>k__BackingField:
-  - rid: 6796116773316067328
-  - rid: 6796116773316067329
-  - rid: 6796116773316067330
-  - rid: 6796116773316067331
-  - rid: 6796116773316067332
+  - rid: 6796116773316067333
+  - rid: 6796116773316067334
+  - rid: 6796116773316067335
+  - rid: 6796116773316067336
+  - rid: 6796116773316067337
+  - rid: 6796116773316067338
+  - rid: 6796116773316067339
+  - rid: 6796116773316067340
   <OldGroupNames>k__BackingField:
   - Craft1
   - Craft2
+  - Craft3
   <OldUngroupedNodeNames>k__BackingField: []
   <OldGroupedNodeNames>k__BackingField:
     _serializedList:
@@ -37,6 +44,11 @@ MonoBehaviour:
       - CraftName
       - CraftName2
       - CraftName3
+    - Key: Craft3
+      Value:
+      - Craft1
+      - Craft2
+      - Craft3
     - Key: Craft1
       Value:
       - Craft1
@@ -44,7 +56,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6796116773316067328
+    - rid: 6796116773316067333
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 26a0e041-fbbd-4764-acb9-0725267a9f45
@@ -57,12 +69,12 @@ MonoBehaviour:
           <NodeID>k__BackingField: 19653415-7394-4e54-aab8-47b1a2415ed4
         <GroupID>k__BackingField: 8d61338d-ff1d-41c8-a6fd-89a6ce0b623c
         <CraftType>k__BackingField: 0
-        <Position>k__BackingField: {x: 836, y: 50}
+        <Position>k__BackingField: {x: 717, y: -135}
         CraftIcon: {fileID: 0}
         <CraftPrefab>k__BackingField: {fileID: 0}
         <CraftCost>k__BackingField: 0
         <ItemsInCraft>k__BackingField: []
-    - rid: 6796116773316067329
+    - rid: 6796116773316067334
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 19653415-7394-4e54-aab8-47b1a2415ed4
@@ -75,12 +87,12 @@ MonoBehaviour:
           <NodeID>k__BackingField: 37f1eaac-cd89-4e7b-99e8-18d3b3b687f8
         <GroupID>k__BackingField: 8d61338d-ff1d-41c8-a6fd-89a6ce0b623c
         <CraftType>k__BackingField: 0
-        <Position>k__BackingField: {x: 1084, y: 50}
+        <Position>k__BackingField: {x: 965, y: -135}
         CraftIcon: {fileID: 0}
         <CraftPrefab>k__BackingField: {fileID: 0}
         <CraftCost>k__BackingField: 0
         <ItemsInCraft>k__BackingField: []
-    - rid: 6796116773316067330
+    - rid: 6796116773316067335
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 37f1eaac-cd89-4e7b-99e8-18d3b3b687f8
@@ -93,12 +105,66 @@ MonoBehaviour:
           <NodeID>k__BackingField: 
         <GroupID>k__BackingField: 8d61338d-ff1d-41c8-a6fd-89a6ce0b623c
         <CraftType>k__BackingField: 0
-        <Position>k__BackingField: {x: 1341, y: 50}
+        <Position>k__BackingField: {x: 1222, y: -135}
         CraftIcon: {fileID: 0}
         <CraftPrefab>k__BackingField: {fileID: 0}
         <CraftCost>k__BackingField: 104
         <ItemsInCraft>k__BackingField: []
-    - rid: 6796116773316067331
+    - rid: 6796116773316067336
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: fb51770c-62b2-4048-b124-462248bfab60
+        <OutputIDs>k__BackingField:
+        - be2747c5-fbe8-4c86-b707-622b96f580b1
+        <Name>k__BackingField: Craft1
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 4a179967-d739-46f7-ad41-8bfba0d370a7
+        <GroupID>k__BackingField: 0e10d9d1-2f82-4789-b11e-3e66f6f81e4c
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 713, y: 356}
+        CraftIcon: {fileID: 0}
+        <CraftPrefab>k__BackingField: {fileID: 0}
+        <CraftCost>k__BackingField: 0
+        <ItemsInCraft>k__BackingField: []
+    - rid: 6796116773316067337
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 4a179967-d739-46f7-ad41-8bfba0d370a7
+        <OutputIDs>k__BackingField:
+        - fb51770c-62b2-4048-b124-462248bfab60
+        <Name>k__BackingField: Craft2
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 01d54bac-6033-40ae-891e-9c71389df99b
+        <GroupID>k__BackingField: 0e10d9d1-2f82-4789-b11e-3e66f6f81e4c
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 997, y: 356}
+        CraftIcon: {fileID: 0}
+        <CraftPrefab>k__BackingField: {fileID: 0}
+        <CraftCost>k__BackingField: 0
+        <ItemsInCraft>k__BackingField: []
+    - rid: 6796116773316067338
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 01d54bac-6033-40ae-891e-9c71389df99b
+        <OutputIDs>k__BackingField:
+        - 4a179967-d739-46f7-ad41-8bfba0d370a7
+        <Name>k__BackingField: Craft3
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 
+        <GroupID>k__BackingField: 0e10d9d1-2f82-4789-b11e-3e66f6f81e4c
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 1273, y: 356}
+        CraftIcon: {fileID: 0}
+        <CraftPrefab>k__BackingField: {fileID: 0}
+        <CraftCost>k__BackingField: 0
+        <ItemsInCraft>k__BackingField: []
+    - rid: 6796116773316067339
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 779928d0-0b74-4a33-b3b6-5a783f157661
@@ -110,14 +176,14 @@ MonoBehaviour:
           <NodeID>k__BackingField: be2747c5-fbe8-4c86-b707-622b96f580b1
         <GroupID>k__BackingField: 958f43b3-5501-41e2-9f81-83044de6e530
         <CraftType>k__BackingField: 0
-        <Position>k__BackingField: {x: 230, y: 256}
+        <Position>k__BackingField: {x: 0, y: 0}
         CraftIcon: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
         <CraftPrefab>k__BackingField: {fileID: 0}
         <CraftCost>k__BackingField: 0
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
           Amount: 5
-    - rid: 6796116773316067332
+    - rid: 6796116773316067340
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: be2747c5-fbe8-4c86-b707-622b96f580b1
@@ -128,9 +194,11 @@ MonoBehaviour:
         <Choices>k__BackingField:
         - <Description>k__BackingField: Next Craft
           <NodeID>k__BackingField: 26a0e041-fbbd-4764-acb9-0725267a9f45
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: fb51770c-62b2-4048-b124-462248bfab60
         <GroupID>k__BackingField: 958f43b3-5501-41e2-9f81-83044de6e530
         <CraftType>k__BackingField: 0
-        <Position>k__BackingField: {x: 497, y: 256}
+        <Position>k__BackingField: {x: 312, y: 0}
         CraftIcon: {fileID: 7337600296622790751, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
         <CraftPrefab>k__BackingField: {fileID: 0}
         <CraftCost>k__BackingField: 100

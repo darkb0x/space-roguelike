@@ -109,12 +109,39 @@ namespace CraftSystem.Elements
         {
             foreach (CSChoiceSaveData choice in Choices)
             {
-                Port choicePort = this.CreatePort(choice.Description);
+                Port choicePort;
+                if(Choices.IndexOf(choice) == 0)
+                    choicePort = CreateChoicePort(choice.Description);
+                else
+                    choicePort = this.CreatePort(choice.Description);
 
                 choicePort.userData = choice;
 
                 outputContainer.Add(choicePort);
             }
+        }
+
+        protected override void AddTitleContainer()
+        {
+            base.AddTitleContainer();
+
+            Button addChoiceButton = CSElementUtility.CreateButton("Add Choice", () =>
+            {
+                CSChoiceSaveData choiceData = new CSChoiceSaveData()
+                {
+                    Description = "Next Craft"
+                };
+
+                Choices.Add(choiceData);
+
+                Port choicePort = CreateChoicePort(choiceData);
+
+                outputContainer.Add(choicePort);
+            });
+
+            addChoiceButton.AddToClassList("ds-node__button");
+
+            mainContainer.Insert(1, addChoiceButton);
         }
 
         protected override void AddExtenshionContainer()
@@ -218,6 +245,71 @@ namespace CraftSystem.Elements
                 item.text = "Element " + i;
             }
             RefreshExpandedState();
+        }
+
+        private Port CreateChoicePort(object userData)
+        {
+            CSChoiceSaveData choiceData = (CSChoiceSaveData)userData;
+
+            Port choicePort = this.CreatePort(choiceData.Description);
+
+            choicePort.userData = userData;
+
+            Button deleteChoiceButton = CSElementUtility.CreateButton("X", () =>
+            {
+                if (Choices.Count == 1)
+                {
+                    return;
+                }
+
+                if (choicePort.connected)
+                {
+                    graphView.DeleteElements(choicePort.connections);
+                }
+
+                Choices.Remove(choiceData);
+
+                graphView.RemoveElement(choicePort);
+            });
+
+            deleteChoiceButton.AddToClassList("ds-node__button");
+
+            choicePort.Add(deleteChoiceButton);
+
+            return choicePort;
+        }
+        private Port CreateChoicePort(string text)
+        {
+            CSChoiceSaveData choiceData = new CSChoiceSaveData() { Description = text };
+
+            Port choicePort = this.CreatePort(choiceData.Description);
+
+            choicePort.userData = userData;
+
+            Button deleteChoiceButton = CSElementUtility.CreateButton("X", () =>
+            {
+                if (Choices.Count == 1)
+                {
+                    return;
+                }
+
+                if (choicePort.connected)
+                {
+                    graphView.DeleteElements(choicePort.connections);
+                }
+
+                Choices.Remove(choiceData);
+
+                graphView.RemoveElement(choicePort);
+            });
+
+            deleteChoiceButton.AddToClassList("ds-node__button");
+
+            deleteChoiceButton.SetEnabled(false);
+
+            choicePort.Add(deleteChoiceButton);
+
+            return choicePort;
         }
     }
 }
