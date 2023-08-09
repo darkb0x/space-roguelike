@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -111,6 +116,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -799,54 +818,53 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DesertTiles_12: -641950428
-      DesertTiles_5: 1225127518
-      DesertTiles_shadow_4: -1087501099
-      DesertTiles_shadow_3: -961072172
-      DesertTiles_11: -1954621399
-      DesertTiles_20: 1042031373
-      DesertTiles_28: 443664843
+      DesertTiles_0: 1208541625
       DesertTiles_1: -253925216
-      DesertTiles_4: 563668239
-      DesertTiles_shadow_5: -1209505005
+      DesertTiles_10: -1510072863
+      DesertTiles_11: -1954621399
+      DesertTiles_12: -641950428
+      DesertTiles_13: 130008115
+      DesertTiles_14: -692505884
+      DesertTiles_15: -1922391827
+      DesertTiles_16: 917688004
+      DesertTiles_17: 1247117806
+      DesertTiles_18: -301067399
+      DesertTiles_19: 1100842501
+      DesertTiles_2: -984245808
+      DesertTiles_20: 1042031373
+      DesertTiles_21: -394721557
+      DesertTiles_22: -1531450113
+      DesertTiles_23: -2142865512
+      DesertTiles_24: 1465304407
       DesertTiles_25: -2021368073
+      DesertTiles_26: 779008035
+      DesertTiles_27: -762516194
+      DesertTiles_28: 443664843
+      DesertTiles_29: 1535338483
+      DesertTiles_3: 817570444
+      DesertTiles_30: -1050913097
+      DesertTiles_31: 606866833
+      DesertTiles_32: -161151367
+      DesertTiles_33: 2130924922
+      DesertTiles_34: -1750268819
       DesertTiles_35: 87747603
       DesertTiles_36: -187656774
-      DesertTiles_18: -301067399
+      DesertTiles_4: 563668239
+      DesertTiles_5: 1225127518
       DesertTiles_6: -1551902223
-      DesertTiles_32: -161151367
-      DesertTiles_shadow_2: 729127317
-      DesertTiles_22: -1531450113
-      DesertTiles_33: 2130924922
-      DesertTiles_23: -2142865512
-      DesertTiles_17: 1247117806
-      DesertTiles_shadow_0: -1214681504
-      DesertTiles_27: -762516194
-      DesertTiles_shadow_6: -1916184438
-      DesertTiles_31: 606866833
-      DesertTiles_21: -394721557
-      DesertTiles_19: 1100842501
-      DesertTiles_24: 1465304407
-      DesertTiles_shadow_7: 1985318128
-      DesertTiles_15: -1922391827
       DesertTiles_7: -1889767323
-      DesertTiles_10: -1510072863
-      DesertTiles_9: -202433708
-      DesertTiles_2: -984245808
-      DesertTiles_16: 917688004
-      DesertTiles_14: -692505884
       DesertTiles_8: 1098819591
-      DesertTiles_34: -1750268819
-      DesertTiles_13: 130008115
-      DesertTiles_30: -1050913097
-      DesertTiles_26: 779008035
-      DesertTiles_3: 817570444
+      DesertTiles_9: -202433708
+      DesertTiles_shadow_0: -1214681504
       DesertTiles_shadow_1: -139844201
-      DesertTiles_0: 1208541625
-      DesertTiles_29: 1535338483
-  spritePackingTag: 
+      DesertTiles_shadow_2: 729127317
+      DesertTiles_shadow_3: -961072172
+      DesertTiles_shadow_4: -1087501099
+      DesertTiles_shadow_5: -1209505005
+      DesertTiles_shadow_6: -1916184438
+      DesertTiles_shadow_7: 1985318128
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

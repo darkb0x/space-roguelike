@@ -10,6 +10,7 @@ namespace CraftSystem.Data.Save
     public class CSNodeSaveData
     {
         [field: SerializeField] public string ID { get; set; }
+        [field: SerializeField] public List<string> OutputIDs { get; set; }
         [field: SerializeField] public string Name { get; set; }
         [field: SerializeField] public string Description { get; set; }
         [field: SerializeField] public List<CSChoiceSaveData> Choices { get; set; }

@@ -180,6 +180,7 @@ namespace CraftSystem.Utilities
             createdDialogues.Add(node.ID, craft);
 
             SaveAsset(craft);
+            craft.UpdateAssetPath();
         }
 
         public static List<CSNextCraftData> ConvertNodeChoicesToCraftChoices(List<CSChoiceSaveData> nodeChoices)

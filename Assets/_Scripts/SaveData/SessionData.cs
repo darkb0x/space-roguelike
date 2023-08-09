@@ -7,7 +7,7 @@ namespace Game.SaveData
     using Player.Inventory;
     using Utilities;
     using MainMenu.MissionChoose.Planet;
-    //using CraftSystem.Editor.ScriptableObjects;
+    using global::CraftSystem.ScriptableObjects;
 
     [Serializable]
     public class SessionData : Data
@@ -31,6 +31,11 @@ namespace Game.SaveData
 
         public SessionData(string savePath, string fileName)
         {
+            UnlockedCraftPaths = new List<string>();
+
+            MainInventory = new Inventory();
+            LobbyInventory = new Inventory();
+
             dataSavePath = savePath;
             dataFileName = fileName;
 
@@ -38,25 +43,34 @@ namespace Game.SaveData
         }
 
         #region Craft
-        /*
-        public void GetCraft(string path)
+        public void InjectCrafts(List<CraftSO> crafts)
+        {
+            UnlockedCraftPaths.Clear();
+            foreach (var craft in crafts)
+            {
+                UnlockedCraftPaths.Add(craft.AssetPath);
+            }
+        }
+        public CraftSO GetCraft(string path)
         {
             foreach (var craft in UnlockedCraftPaths)
             {
                 if (craft == path)
                 {
-                    CSCraftSO craftSO = Resources.Load<CSCraftSO>(craft);
+                    CraftSO craftSO = Resources.Load<CraftSO>(craft);
                     return craftSO;
                 }
             }
-            return null;
-            
+            return null; 
         }
-        public bool HaveCraft(CSCraftSO craft)
+        public bool ContainsCraft(string path)
+        {
+            return GetCraft(path) != null;
+        }
+        public bool ContainsCraft(CraftSO craft)
         {
             return GetCraft(craft.AssetPath) != null;
         }
-        */
         #endregion
 
         #region Planet
@@ -92,10 +106,10 @@ namespace Game.SaveData
         }
         public override void Reset()
         {
-            UnlockedCraftPaths = new List<string>();
+            UnlockedCraftPaths.Clear();
 
-            MainInventory = new Inventory();
-            LobbyInventory = new Inventory();
+            MainInventory.Clear();
+            LobbyInventory.Clear();
 
             Money = 0;
             ResourceAutomatCurrentInteract = 0;

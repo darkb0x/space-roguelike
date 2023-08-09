@@ -12,11 +12,10 @@ namespace CraftSystem.Elements
     using Enumerations;
     using Utilities;
     using Windows;
-    using static Codice.CM.Common.CmCallContext;
-    using System.Linq;
 
     public class CSDefaultCraftNode : CSNode
     {
+        public Sprite CraftIcon { get; set; }
         public GameObject CraftPrefab { get; set; }
         public int CraftCost { get; set; }
         public List<ItemData> ItemsInCraft { get; set; }
@@ -42,13 +41,15 @@ namespace CraftSystem.Elements
         public override void LoadData(CSNodeSaveData data, List<CSChoiceSaveData> choices)
         {
             ID = data.ID;
+            OutputIDs = new List<string>(data.OutputIDs);
             Choices = choices;
             Description = data.Description;
 
             CSDefaultCraftSaveData nodeData = data as CSDefaultCraftSaveData;
+            CraftIcon = nodeData.CraftIcon;
             CraftPrefab = nodeData.CraftPrefab;
             CraftCost = nodeData.CraftCost;
-            ItemsInCraft = CloneItemData(nodeData.ItemsInCraft);
+            ItemsInCraft = new List<ItemData>(nodeData.ItemsInCraft);
         }
 
         public override CSTreeCraftSO SaveToSO(string path)
@@ -62,9 +63,11 @@ namespace CraftSystem.Elements
                 Description,
                 CraftCost,
                 CraftType,
+                CraftIcon,
                 CraftPrefab,
-                CloneItemData(ItemsInCraft),
-                IsStartingNode(),
+                new List<ItemData>(ItemsInCraft),
+                IsStartNode(),
+                IsStartingNodeInGroup(),
                 CSIOUtility.ConvertNodeChoicesToCraftChoices(Choices),
                 position
             );
@@ -77,6 +80,7 @@ namespace CraftSystem.Elements
             CSDefaultCraftSaveData nodeData = new CSDefaultCraftSaveData()
             {
                 ID = ID,
+                OutputIDs = new List<string>(OutputIDs),
                 Name = CraftName,
                 Choices = CSIOUtility.CloneNodeChoices(Choices),
                 Description = Description,
@@ -84,8 +88,9 @@ namespace CraftSystem.Elements
                 CraftType = CraftType,
                 Position = GetPosition().position,
                 CraftPrefab = CraftPrefab,
+                CraftIcon = CraftIcon,
                 CraftCost = CraftCost,
-                ItemsInCraft = CloneItemData(ItemsInCraft)
+                ItemsInCraft = new List<ItemData>(ItemsInCraft)
             };
 
             return nodeData;
@@ -117,6 +122,11 @@ namespace CraftSystem.Elements
             VisualElement craftObjectVisualElement = new VisualElement();
             craftObjectVisualElement.AddToClassList("ds-node__custom-data-container");
 
+            ObjectField craftIconObjectField = CSElementUtility.CreateObjectField("CraftIcon", typeof(Sprite), false, callback =>
+            {
+                CraftIcon = (Sprite)callback.newValue;
+            });
+            craftIconObjectField.value = CraftIcon;
             ObjectField craftPrefabObjectField = CSElementUtility.CreateObjectField("CraftPrefab", typeof(GameObject), false, callback =>
             {
                 CraftPrefab = (GameObject)callback.newValue;
@@ -129,6 +139,7 @@ namespace CraftSystem.Elements
             });
             craftCostIntField.value = CraftCost;
 
+            craftObjectVisualElement.Add(craftIconObjectField);
             craftObjectVisualElement.Add(craftPrefabObjectField);
             craftObjectVisualElement.Add(craftCostIntField);
 
@@ -197,18 +208,6 @@ namespace CraftSystem.Elements
             itemFoldout.Add(removeCraftButton);
 
             return itemFoldout;
-        }
-
-        private List<ItemData> CloneItemData(List<ItemData> original)
-        {
-            List<ItemData> clonned = new List<ItemData>();
-
-            foreach (var item in original)
-            {
-                clonned.Add(new ItemData(item.Item, item.Amount));
-            }
-
-            return clonned;
         }
 
         private void RefreshElementsInItemsFoldouts()

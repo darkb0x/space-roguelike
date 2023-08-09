@@ -174,13 +174,17 @@ namespace CraftSystem.Elements
             }
         }
 
-        public bool IsStartingNode()
+        public bool IsStartNode()
+        {
+            Port inputPort = (Port)inputContainer.Children().First();
+
+            return !inputPort.connected;
+        }
+        public bool IsStartingNodeInGroup()
         {
             if (Group == null)
             {
-                Port inputPort = (Port)inputContainer.Children().First();
-
-                return !inputPort.connected;
+                return false;
             }
             else
             {

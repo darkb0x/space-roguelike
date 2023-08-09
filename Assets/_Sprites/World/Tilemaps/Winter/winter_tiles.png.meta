@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -111,6 +116,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -757,39 +776,38 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      winter_tiles_16: 1540885095
-      winter_tiles_14: -577117098
-      winter_tiles_19: 2064595962
-      winter_tiles_24: 77759574
-      winter_tiles_20: -497563561
-      winter_tiles_4: 1967322141
+      winter_tiles_0: -121239020
+      winter_tiles_1: -276881942
+      winter_tiles_10: 88524310
+      winter_tiles_11: 206866350
       winter_tiles_12: -1323718830
+      winter_tiles_13: 1149019056
+      winter_tiles_14: -577117098
+      winter_tiles_15: 326021776
+      winter_tiles_16: 1540885095
+      winter_tiles_17: -228184349
+      winter_tiles_18: 787168275
+      winter_tiles_19: 2064595962
+      winter_tiles_2: -1382245639
+      winter_tiles_20: -497563561
+      winter_tiles_21: 721473174
+      winter_tiles_22: -523448810
+      winter_tiles_23: 1439252809
+      winter_tiles_24: 77759574
       winter_tiles_25: 331115673
       winter_tiles_26: -1711205400
-      winter_tiles_2: -1382245639
-      winter_tiles_23: 1439252809
-      winter_tiles_9: -751178981
-      winter_tiles_29: -57837285
-      winter_tiles_11: 206866350
-      winter_tiles_22: -523448810
-      winter_tiles_1: -276881942
-      winter_tiles_7: -284235482
-      winter_tiles_0: -121239020
-      winter_tiles_17: -228184349
-      winter_tiles_6: 535100705
-      winter_tiles_15: 326021776
       winter_tiles_27: -455617455
-      winter_tiles_21: 721473174
-      winter_tiles_10: 88524310
-      winter_tiles_13: 1149019056
-      winter_tiles_18: 787168275
-      winter_tiles_8: 758258430
-      winter_tiles_5: 1837873708
-      winter_tiles_3: -1683882
       winter_tiles_28: -425060720
-  spritePackingTag: 
+      winter_tiles_29: -57837285
+      winter_tiles_3: -1683882
+      winter_tiles_4: 1967322141
+      winter_tiles_5: 1837873708
+      winter_tiles_6: 535100705
+      winter_tiles_7: -284235482
+      winter_tiles_8: 758258430
+      winter_tiles_9: -751178981
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

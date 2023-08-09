@@ -11,7 +11,6 @@ namespace Game.Utilities.CheatPanel
     using Player;
     using Player.Pick;
     using Player.Inventory;
-    using CraftSystem.ScriptableObjects;
     using Turret;
     using Drone;
     using Enemy;
