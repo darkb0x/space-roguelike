@@ -15,17 +15,24 @@ namespace Game.CraftSystem.Visual.Node
 
     public class CraftTreeNodeVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
+        private readonly int _animSelectedBool = Animator.StringToHash("Selected");
+
 #if UNITY_EDITOR
         [Foldout("Parameters"), SerializeField] private VisualNodeState m_state;        
         [Foldout("Parameters"), SerializeField] private int m_currentLevel;
         [Foldout("Parameters"), SerializeField] private CSTreeCraftSO m_currentCraft;
         [Foldout("Parameters"), SerializeField] private CSTreeCraftSO[] m_allCraftsInGroup;
-        #endif
+        [Foldout("Parameters"), SerializeField] private CraftTreeNodeVisual[] m_subsequents;
+#endif
+
+        [SerializeField] private Animator anim;
 
         [Header("Title")]
         [SerializeField] private TMP_Text CraftNameText;
         [Space]
         [SerializeField] private Image CraftIconImage;
+        [Space]
+        [SerializeField] private NodeOutlineVisual OutlineVisual;
 
         [Header("Craft Information")]
         [SerializeField] private NodeItemFieldVisual ItemVisualPrefab;
@@ -41,7 +48,9 @@ namespace Game.CraftSystem.Visual.Node
         [SerializeField] private GameObject UpgradePreviewGameObj;
         [Space]
         [SerializeField] private Image UpgradePreviewCurrentImage;
+        [SerializeField] private TextMeshProUGUI UpgradePreviewCurrentLevelText;
         [SerializeField] private Image UpgradePreviewNextImage;
+        [SerializeField] private TextMeshProUGUI UpgradePreviewNextLevelText;
 
         public IReadOnlyList<CraftTreeNodeVisual> subsequentNodes { get { return _subsequentNodes; } }
         public IReadOnlyList<CSTreeCraftSO> craftsInGroup { get { return _researchTreeCraft.crafts; } }
@@ -70,6 +79,7 @@ namespace Game.CraftSystem.Visual.Node
             {
                 m_pressProgress = value;
                 _currentNodeField?.UpdateFill(m_pressProgress);
+                OutlineVisual.UpdateFill(m_pressProgress);
             }
         }
         private bool _cursorOnCraft;
@@ -92,13 +102,19 @@ namespace Game.CraftSystem.Visual.Node
                 3);
             _visualFields = new List<NodeFieldVisual>()
                 { ResearchButton, UpgradeButton, FullyUpgradedField, NonAvailableField };
+            _subsequentNodes = new List<CraftTreeNodeVisual>();
 
             InitializeFields();
 
             if (researchTreeCraft.IsStartCraft())
+            {
                 SetState(VisualNodeState.Purchased);
+                _manager.Research(researchTreeCraft);
+            }
             else
+            {
                 SetState(VisualNodeState.NonAvaiable);
+            }
         }
         private void InitializeFields()
         {
@@ -114,14 +130,19 @@ namespace Game.CraftSystem.Visual.Node
             m_currentLevel = _researchTreeCraft.level;
             m_currentCraft = _researchTreeCraft.GetCurrentCraft();
             m_allCraftsInGroup = _researchTreeCraft.crafts.ToArray();
+            m_subsequents = subsequentNodes.ToArray();
         }
         #endif
         public void InjectSubsequentNodes(List<CraftTreeNodeVisual> subsequents)
         {
             _subsequentNodes = subsequents;
-            SetState(craftState);
+            UpdateState();
         }
 
+        public void UpdateState()
+        {
+            SetState(craftState);
+        }
         public void SetState(VisualNodeState state)
         {
             craftState = state;
@@ -155,7 +176,7 @@ namespace Game.CraftSystem.Visual.Node
 
                         foreach (var subsequent in _subsequentNodes)
                         {
-                            subsequent.SetState(VisualNodeState.NonPurchased);
+                            subsequent.UnlockForBuy();
                         }
                     }
                     break;
@@ -168,13 +189,21 @@ namespace Game.CraftSystem.Visual.Node
                 default:
                     break;
             }
-            
+
+            OutlineVisual.SetColor(_currentNodeField.MainImage.color, _currentNodeField.FillImage.color);
             _pressProgress = 0f;
             UpdateFullVisual();
 
 #if UNITY_EDITOR
             UpdateEditorDebugFields();
 #endif
+        }
+        protected void UnlockForBuy()
+        {
+            if(craftState == VisualNodeState.NonAvaiable)
+            {
+                SetState(VisualNodeState.NonPurchased);
+            }
         }
 
         private void Update()
@@ -209,7 +238,7 @@ namespace Game.CraftSystem.Visual.Node
             #endif 
         }
 
-        private void UpdateFullVisual()
+        public void UpdateFullVisual()
         {
             CraftIconImage.sprite = currentCraft.CraftIcon;
 
@@ -232,6 +261,12 @@ namespace Game.CraftSystem.Visual.Node
         }
         private void UpdateUpgradePreview()
         {
+            if(craftState == VisualNodeState.NonPurchased | craftState == VisualNodeState.NonAvaiable)
+            {
+                UpgradePreviewGameObj.SetActive(false);
+                return;
+            }
+
             CSTreeCraftSO next = _researchTreeCraft.GetNextCraft();
 
             if(next == null)
@@ -240,10 +275,14 @@ namespace Game.CraftSystem.Visual.Node
                 return;
             }
 
+            UpgradePreviewGameObj.SetActive(true);
+
             UpgradeButton.UpdateTitleText($"Upgrade ({_researchTreeCraft.GetNextCraft().CraftCost})");
 
             UpgradePreviewCurrentImage.sprite = currentCraft.CraftIcon;
+            UpgradePreviewCurrentLevelText.text = "Lvl. " + (_researchTreeCraft.IndexOf(currentCraft) + 1);
             UpgradePreviewNextImage.sprite = next.CraftIcon;
+            UpgradePreviewNextLevelText.text = "Lvl. " + (_researchTreeCraft.IndexOf(next) + 1);
         }
         private void UpdateItemList()
         {
@@ -261,11 +300,15 @@ namespace Game.CraftSystem.Visual.Node
         public void OnPointerEnter(PointerEventData eventData)
         {
             _cursorOnCraft = true;
+
+            anim.SetBool(_animSelectedBool, true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             _cursorOnCraft = false;
+
+            anim.SetBool(_animSelectedBool, false);
         }
 
         public void OnPointerDown(PointerEventData eventData)

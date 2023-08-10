@@ -1,17 +1,22 @@
+using System;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 
-public static class CollectionUtility
+namespace Game.Utilities
 {
-    public static void AddItem<K, V>(this SerializedDictionary<K, List<V>> serializableDictionary, K key, V value)
+    public static class CollectionUtility
     {
-        if (serializableDictionary.ContainsKey(key))
+        public static void AddItem<K, V>(this SerializedDictionary<K, List<V>> serializableDictionary, K key, V value)
         {
-            serializableDictionary[key].Add(value);
+            if (serializableDictionary.ContainsKey(key))
+            {
+                serializableDictionary[key].Add(value);
 
-            return;
+                return;
+            }
+
+            serializableDictionary.Add(key, new List<V>() { value });
         }
-
-        serializableDictionary.Add(key, new List<V>() { value });
     }
 }
+

@@ -8,6 +8,7 @@ namespace Game.CraftSystem
     using Player.Inventory;
     using SaveData;
     using global::CraftSystem.ScriptableObjects;
+    using System.Linq;
 
     public class ResearchManager : MonoBehaviour, ISingleton
     {
@@ -27,19 +28,20 @@ namespace Game.CraftSystem
         {
             PlayerInventory = Singleton.Get<PlayerInventory>();
 
-            Visual.Initalize(Trees, this);
+            crafts = currentSessionData.GetCraftList();
+            Visual.Initalize(Trees, crafts.ConvertAll(result => result as CSTreeCraftSO), this);
         }
 
         public void Research(ResearchTreeCraft craft, CraftTreeNodeVisual nodeVisual)
         {
-            var nextCraft = craft.GetCurrentCraft();
-            int craftCost = nextCraft.CraftCost;
+            var currentCraft = craft.GetCurrentCraft();
+            int craftCost = currentCraft.CraftCost;
 
             if(PlayerInventory.money >= craftCost)
             {
                 PlayerInventory.money -= craftCost;
 
-                crafts.Add(nextCraft);
+                if(!crafts.Contains(currentCraft)) crafts.Add(currentCraft);
 
                 nodeVisual.SetState(VisualNodeState.Purchased);
 
@@ -49,6 +51,17 @@ namespace Game.CraftSystem
             else
             {
                 // to do
+            }
+        }
+        public void Research(ResearchTreeCraft craft)
+        {
+            var currentCraft = craft.GetCurrentCraft();
+
+            if (!crafts.Any(item => craft.crafts.Contains(item)))
+            {
+                crafts.Add(currentCraft);
+                currentSessionData.InjectCrafts(crafts);
+                currentSessionData.Save();
             }
         }
         public void Upgrade(ResearchTreeCraft craft, CraftTreeNodeVisual nodeVisual)
@@ -65,11 +78,15 @@ namespace Game.CraftSystem
                     craft.Upgrade();
 
                     crafts.Remove(craft.GetPreviousCraft());
-                    crafts.Add(nextCraft);
+                    if(!crafts.Contains(nextCraft)) crafts.Add(nextCraft);
 
                     if(!craft.Upgradable())
                     {
                         nodeVisual.SetState(VisualNodeState.FullyUpgraded);
+                    }
+                    else
+                    {
+                        nodeVisual.UpdateState();
                     }
 
                     currentSessionData.InjectCrafts(crafts);

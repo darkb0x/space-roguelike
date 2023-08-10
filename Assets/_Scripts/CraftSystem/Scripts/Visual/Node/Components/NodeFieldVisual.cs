@@ -3,10 +3,31 @@ using UnityEngine;
 using TMPro;
 
 namespace Game.CraftSystem.Visual.Node.Components
-{
+{   
+    // Note:
+    // This code would be better if i wasn't lazy.
     public class NodeFieldVisual : MonoBehaviour
     {
-        [SerializeField] private Image FillImage;
+        [SerializeField] private Image m_FillImage;
+        [SerializeField] private Image m_MainImage;
+
+        public Image FillImage
+        {
+            get
+            {
+                if (m_FillImage == null)
+                    return m_MainImage;
+
+                return m_FillImage;
+            } 
+        }
+        public Image MainImage
+        {
+            get
+            {
+                return m_MainImage;
+            }
+        }
         [SerializeField] private TextMeshProUGUI TitleText;
 
         private System.Action OnActivate;
@@ -19,6 +40,9 @@ namespace Game.CraftSystem.Visual.Node.Components
 
         public void UpdateTitleText(string value)
         {
+            if (TitleText == null)
+                return;
+
             TitleText.text = value;
         }
         public void UpdateFill(float progress)

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,30 +10,36 @@ namespace Game.CraftSystem.Visual
 
     public class ResearchVisual : MonoBehaviour
     {
+        [SerializeField] private Canvas MainCanvas;
+        [Space]
         [SerializeField] private Transform TreeVisualsParent;
         [SerializeField] private CraftTreeNodeVisual NodeVisualPrefab;
+        [SerializeField] private CraftTreeConnectionVisual ConnectionVisualPrefab;
 
         private ResearchManager _manager;
 
         private Dictionary<ResearchTree, Dictionary<ResearchTreeCraft, CraftTreeNodeVisual>> _nodes;
         private List<ResearchTree> _trees;
 
-        public void Initalize(List<ResearchTree> trees, ResearchManager manager)
+        public void Initalize(List<ResearchTree> trees, List<CSTreeCraftSO> saveData, ResearchManager manager)
         {
             _trees = trees;
             _manager = manager;
             _nodes = new Dictionary<ResearchTree, Dictionary<ResearchTreeCraft, CraftTreeNodeVisual>>();
  
-            // Main nodes
+            // Nodes
             foreach (var researchTree in _trees)
             { 
-                GameObject treeVisualParent = CreateEmptyGO(researchTree.title, TreeVisualsParent);
+                GameObject treeVisualParent = CreateEmptyGO(researchTree.Title, TreeVisualsParent);
+                GameObject connectionsVisualParent = CreateEmptyGO("Connections", treeVisualParent.transform);
+
+                researchTree.InjectVisual(treeVisualParent.transform, connectionsVisualParent.transform);
 
                 _nodes.Add(researchTree, InstantiateNodes(researchTree, treeVisualParent.transform));
             }
-            // Connections
             foreach (var researchTree in _nodes.Keys)
             {
+                // Create connections
                 List<ResearchTreeCraft> currentCraftList = new List<ResearchTreeCraft>() 
                     { Array.Find(_nodes[researchTree].Keys.ToArray(), result => result.IsStartCraft()) };
                 List<ResearchTreeCraft> nextCraftList = new List<ResearchTreeCraft>();
@@ -56,12 +61,31 @@ namespace Game.CraftSystem.Visual
                         var currentNode = _nodes[researchTree][researchCraftTree];
                         var subsequents = connectedCraftTrees.Select(tree => _nodes[researchTree][tree]).ToList();
                         currentNode.InjectSubsequentNodes(subsequents);
+                        foreach (var subsequentNode in subsequents)
+                        {
+                            var connectionVisual = Instantiate(ConnectionVisualPrefab, researchTree.ConnectionsVisualParent);
+                            connectionVisual.SetPosition(currentNode.transform.position, subsequentNode.transform.position, MainCanvas.scaleFactor);
+                        }
 
                         nextCraftList.AddRange(connectedCraftTrees);
                     }
 
-                    currentCraftList = nextCraftList;
+                    currentCraftList = new List<ResearchTreeCraft>(nextCraftList);
                     nextCraftList.Clear();
+                }
+
+                // Load data
+                foreach (var researchCraftTree in _nodes[researchTree].Keys)
+                {
+                    if(researchCraftTree.LoadData(saveData))
+                    {
+                        var node = _nodes[researchTree][researchCraftTree];
+
+                        if (researchCraftTree.Upgradable())
+                            node.SetState(VisualNodeState.Purchased);
+                        else
+                            node.SetState(VisualNodeState.FullyUpgraded);
+                    }
                 }
             }
 
@@ -76,6 +100,7 @@ namespace Game.CraftSystem.Visual
 
                 go.transform.SetParent(parent);
                 go.transform.localPosition = Vector2.zero;
+                go.transform.localScale = Vector3.one;
 
                 RectTransform rect = go.GetComponent<RectTransform>();
                 rect.sizeDelta = new Vector2(100, 100); // width and height
@@ -87,7 +112,7 @@ namespace Game.CraftSystem.Visual
         private Dictionary<ResearchTreeCraft, CraftTreeNodeVisual> InstantiateNodes(ResearchTree researchTree, Transform visualParent)
         {
             Dictionary<ResearchTreeCraft, CraftTreeNodeVisual> result = new Dictionary<ResearchTreeCraft, CraftTreeNodeVisual>();
-            CSCraftContainerSO craftTree = researchTree.craftTree;
+            CSCraftContainerSO craftTree = researchTree.CraftTree;
 
             foreach (var craftGroup in craftTree.CraftGroups.Keys)
             {
@@ -102,8 +127,8 @@ namespace Game.CraftSystem.Visual
             CraftTreeNodeVisual SpawnNode(ResearchTreeCraft researchTreeCraft)
             {
                 CraftTreeNodeVisual node = Instantiate(NodeVisualPrefab, visualParent);
-                node.transform.localPosition = researchTreeCraft.crafts[0].Position;
-                node.Initalize(researchTree.title, researchTreeCraft, _manager);
+                node.transform.localPosition = researchTreeCraft.crafts[0].Position / 2f;
+                node.Initalize(researchTreeCraft.group.GroupName, researchTreeCraft, _manager);
                 return node;
             }
         }

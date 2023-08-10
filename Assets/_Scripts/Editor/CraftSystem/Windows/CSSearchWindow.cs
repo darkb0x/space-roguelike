@@ -51,7 +51,7 @@ namespace CraftSystem.Windows
             {
                 case CSCraftType.DefaultCraft:
                 {
-                    CSDefaultCraftNode singleChoiceNode = (CSDefaultCraftNode) graphView.CreateNode("DialogueName", CSCraftType.DefaultCraft, localMousePosition);
+                    CSDefaultCraftNode singleChoiceNode = (CSDefaultCraftNode) graphView.CreateNode("CraftName", CSCraftType.DefaultCraft, localMousePosition);
 
                     graphView.AddElement(singleChoiceNode);
 

@@ -63,6 +63,17 @@ namespace Game.SaveData
             }
             return null; 
         }
+        public List<CraftSO> GetCraftList()
+        {
+            List<CraftSO> result = new List<CraftSO>();
+
+            foreach (var path in UnlockedCraftPaths)
+            {
+                result.Add(GetCraft(path));
+            }
+
+            return result;
+        }
         public bool ContainsCraft(string path)
         {
             return GetCraft(path) != null;

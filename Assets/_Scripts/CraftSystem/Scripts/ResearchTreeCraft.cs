@@ -63,9 +63,42 @@ namespace Game.CraftSystem
 
             return crafts[level + 1];
         }
-        public bool Contains(CSTreeCraftSO craft)
+
+        public int IndexOf(CSTreeCraftSO craft)
         {
-            return crafts.Contains(craft);
+            for (int i = 0; i < crafts.Count; i++)
+            {
+                if (crafts[i] == craft)
+                    return i;
+            }
+            return -1;
+        }
+
+        private void LoadData(CSTreeCraftSO current)
+        {
+            _level = IndexOf(current);
+        }
+        public bool LoadData(List<CSTreeCraftSO> current)
+        {
+            var list = current.Where(result => crafts.Contains(result)).ToArray();
+
+            if(list.Length == 1)
+            {
+                LoadData(list[0]);
+                return true;
+            }
+            else if (list.Length > 1)
+            {
+                Dictionary<CSTreeCraftSO, int> results = new Dictionary<CSTreeCraftSO, int>();
+                foreach (var item in list)
+                {
+                    results.Add(item, IndexOf(item));
+                }
+                LoadData(results.OrderByDescending(pair => pair.Value).First().Key);
+                return true;
+            }
+
+            return false;
         }
 
         private List<CSTreeCraftSO> GetSortedCrafts(List<CSTreeCraftSO> input)

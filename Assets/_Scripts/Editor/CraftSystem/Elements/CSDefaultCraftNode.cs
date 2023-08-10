@@ -55,8 +55,6 @@ namespace CraftSystem.Elements
         public override CSTreeCraftSO SaveToSO(string path)
         {
             CSTreeCraftSO so = CSIOUtility.CreateAsset<CSTreeCraftSO>(path, CraftName);
-            Rect rectPosition = GetPosition();
-            Vector2 position = new Vector2(rectPosition.x, rectPosition.y);          
 
             so.Initialize(
                 CraftName,
@@ -69,7 +67,7 @@ namespace CraftSystem.Elements
                 IsStartNode(),
                 IsStartingNodeInGroup(),
                 CSIOUtility.ConvertNodeChoicesToCraftChoices(Choices),
-                position
+                GetPosition().position * new Vector2(1, -1)
             );
 
             return so;

@@ -25,4 +25,4 @@ MonoBehaviour:
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Craft
     <Next>k__BackingField: {fileID: 11400000, guid: c56f1ad99e929614e9070199591502a3, type: 2}
-  <Position>k__BackingField: {x: 997, y: 356}
+  <Position>k__BackingField: {x: 997, y: -356}
