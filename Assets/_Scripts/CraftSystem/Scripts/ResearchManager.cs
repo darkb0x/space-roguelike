@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace Game.CraftSystem
 {
@@ -12,7 +13,8 @@ namespace Game.CraftSystem
 
     public class ResearchManager : MonoBehaviour, ISingleton
     {
-        [SerializeField] private ResearchVisual Visual;
+        [SerializeField] private bool ShowVisual = true;
+        [SerializeField, ShowIf("ShowVisual")] private ResearchVisual Visual;
         [Space]
         [SerializeField] private List<ResearchTree> Trees = new List<ResearchTree>();
 
@@ -29,7 +31,12 @@ namespace Game.CraftSystem
             PlayerInventory = Singleton.Get<PlayerInventory>();
 
             crafts = currentSessionData.GetCraftList();
-            Visual.Initalize(Trees, crafts.ConvertAll(result => result as CSTreeCraftSO), this);
+
+            if(ShowVisual && Visual != null)
+            {
+                Visual.Initalize(Trees, this);
+                Visual.LoadSaveData(crafts.ConvertAll(result => result as CSTreeCraftSO));
+            }
         }
 
         public void Research(ResearchTreeCraft craft, CraftTreeNodeVisual nodeVisual)
@@ -97,6 +104,11 @@ namespace Game.CraftSystem
             {
                 // to do
             }
+        }
+
+        public void Open()
+        {
+            Visual.Open();
         }
     }
 }

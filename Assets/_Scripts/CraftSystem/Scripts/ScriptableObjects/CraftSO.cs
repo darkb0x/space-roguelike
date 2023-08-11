@@ -13,7 +13,7 @@ namespace CraftSystem.ScriptableObjects
     using Game.Player.Inventory;
 
 
-    [CreateAssetMenu(fileName = "Craft", menuName = "Game/New Craft")]
+    [CreateAssetMenu(fileName = "Craft", menuName = "Game/new Craft")]
     public class CraftSO : ScriptableObject
     {
         [field: SerializeField, ReadOnly] public string AssetPath { get; protected set; }

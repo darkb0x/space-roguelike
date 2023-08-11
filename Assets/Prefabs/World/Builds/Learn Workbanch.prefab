@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606160782922630208}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9164917980068214239}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &5018337825804241726
 BoxCollider2D:
@@ -42,6 +42,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -82,13 +101,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4655775096551115512}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.097, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9164917978824403236}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9192884896013363419
 SpriteRenderer:
@@ -166,6 +185,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9164917978824403227}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -173,7 +193,6 @@ Transform:
   m_Children:
   - {fileID: 5198354305345438566}
   m_Father: {fileID: 9164917980068214239}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9164917978824403237
 SpriteRenderer:
@@ -236,7 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9164917980068214239}
-  - component: {fileID: 9164917980068214237}
+  - component: {fileID: 616578638448512726}
   - component: {fileID: 5624307593005751420}
   - component: {fileID: 7253046234316372961}
   m_Layer: 0
@@ -253,6 +272,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9164917980068214227}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.36, y: -1.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -261,9 +281,8 @@ Transform:
   - {fileID: 9164917978824403236}
   - {fileID: 6511638302030609728}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9164917980068214237
+--- !u!114 &616578638448512726
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,7 +291,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9164917980068214227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e39339cd966f194991ea5160d72b299, type: 3}
+  m_Script: {fileID: 11500000, guid: afd210a31e6f4b846a2ef29c5b90e1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5624307593005751420
@@ -290,9 +309,9 @@ MonoBehaviour:
   action:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9164917980068214237}
-        m_TargetAssemblyTypeName: Game.CraftSystem.LearnWorkbanch, Assembly-CSharp
-        m_MethodName: OpenMenu
+      - m_Target: {fileID: 616578638448512726}
+        m_TargetAssemblyTypeName: Game.CraftSystem.ResearchTable, Assembly-CSharp
+        m_MethodName: OpenResearchManager
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -303,8 +322,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   PlayerTag: Player
+  RenderType: 1
   ObjRender: {fileID: 9164917978824403237}
+  ObjRenderers: []
   OutlineMaterial: {fileID: 2100000, guid: 28e8edb06dcffcc4ea548a6d8305a665, type: 2}
+  DefaultMaterial: {fileID: 0}
   playerInZone: 0
 --- !u!58 &7253046234316372961
 CircleCollider2D:
@@ -316,6 +338,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0

@@ -2,45 +2,130 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Game.CraftSystem.Visual
 {
+    using Category;
     using global::CraftSystem.ScriptableObjects;
     using Node;
 
-    public class ResearchVisual : MonoBehaviour
+    public class ResearchVisual : MonoBehaviour, IUIPanelManagerObserver
     {
         [SerializeField] private Canvas MainCanvas;
+        [Space]
+        [SerializeField] private GameObject MainPanel;
+        [SerializeField] private Transform Content;
+        [SerializeField] private CraftCategoryController CategoryController;
         [Space]
         [SerializeField] private Transform TreeVisualsParent;
         [SerializeField] private CraftTreeNodeVisual NodeVisualPrefab;
         [SerializeField] private CraftTreeConnectionVisual ConnectionVisualPrefab;
 
+        private UIPanelManager UIPanelManager;
         private ResearchManager _manager;
 
         private Dictionary<ResearchTree, Dictionary<ResearchTreeCraft, CraftTreeNodeVisual>> _nodes;
         private List<ResearchTree> _trees;
 
-        public void Initalize(List<ResearchTree> trees, List<CSTreeCraftSO> saveData, ResearchManager manager)
+        private ResearchTree _currentResearchTree;
+        private bool _isOpened;
+
+        public void Initalize(List<ResearchTree> trees, ResearchManager manager)
         {
             _trees = trees;
             _manager = manager;
             _nodes = new Dictionary<ResearchTree, Dictionary<ResearchTreeCraft, CraftTreeNodeVisual>>();
- 
-            // Nodes
-            foreach (var researchTree in _trees)
-            { 
-                GameObject treeVisualParent = CreateEmptyGO(researchTree.Title, TreeVisualsParent);
-                GameObject connectionsVisualParent = CreateEmptyGO("Connections", treeVisualParent.transform);
+            UIPanelManager = Singleton.Get<UIPanelManager>();
 
-                researchTree.InjectVisual(treeVisualParent.transform, connectionsVisualParent.transform);
+            CreateNodes();
+            CreateConnections();
 
-                _nodes.Add(researchTree, InstantiateNodes(researchTree, treeVisualParent.transform));
+            Dictionary<ResearchTree, Action> categories = new Dictionary<ResearchTree, Action>();
+            foreach (var tree in trees)
+            {
+                categories.Add(tree, () => SelectTree(tree));
             }
+            CategoryController.Initialize(categories);
+
+            SelectTree(trees[0]);
+            Close();
+
+            GameInput.InputActions.UI.CloseWindow.performed += Close;
+        }
+        private void OnDisable()
+        {
+            GameInput.InputActions.UI.CloseWindow.performed -= Close;
+        }
+
+        private void Update()
+        {
+            if (!_isOpened)
+                return;
+        }
+
+        public void LoadSaveData(List<CSTreeCraftSO> saveData)
+        {
             foreach (var researchTree in _nodes.Keys)
             {
-                // Create connections
-                List<ResearchTreeCraft> currentCraftList = new List<ResearchTreeCraft>() 
+                foreach (var researchCraftTree in _nodes[researchTree].Keys)
+                {
+                    if (researchCraftTree.LoadData(saveData))
+                    {
+                        var node = _nodes[researchTree][researchCraftTree];
+
+                        if (researchCraftTree.Upgradable())
+                            node.SetState(VisualNodeState.Purchased);
+                        else
+                            node.SetState(VisualNodeState.FullyUpgraded);
+                    }
+                }
+            }
+        }
+
+        private void SelectTree(ResearchTree target)
+        {
+            _currentResearchTree = target;
+
+            foreach (var tree in _trees)
+            {
+                tree.MainVisualParent.gameObject.SetActive(false);
+            }
+            _currentResearchTree.MainVisualParent.gameObject.SetActive(true);
+        }
+
+        private void CreateNodes()
+        {
+            foreach (var researchTree in _trees)
+            {
+                GameObject treeVisualParent = CreateEmptyGO(researchTree.Title, TreeVisualsParent);
+                GameObject connectionsVisualParent = CreateEmptyGO("Connections", treeVisualParent.transform);
+                var nodes = InstantiateNodes(researchTree, treeVisualParent.transform);
+
+                researchTree.InjectVisual(nodes.Values.ToList(), treeVisualParent.transform, connectionsVisualParent.transform);
+
+                _nodes.Add(researchTree, nodes);
+            }
+
+            GameObject CreateEmptyGO(string name, Transform parent)
+            {
+                GameObject go = new GameObject(name, typeof(RectTransform));
+
+                go.transform.SetParent(parent);
+                go.transform.localPosition = Vector2.zero;
+                go.transform.localScale = Vector3.one;
+
+                RectTransform rect = go.GetComponent<RectTransform>();
+                rect.sizeDelta = new Vector2(100, 100); // width and height
+
+                return go;
+            }
+        }
+        private void CreateConnections()
+        {
+            foreach (var researchTree in _nodes.Keys)
+            {
+                List<ResearchTreeCraft> currentCraftList = new List<ResearchTreeCraft>()
                     { Array.Find(_nodes[researchTree].Keys.ToArray(), result => result.IsStartCraft()) };
                 List<ResearchTreeCraft> nextCraftList = new List<ResearchTreeCraft>();
 
@@ -73,39 +158,11 @@ namespace Game.CraftSystem.Visual
                     currentCraftList = new List<ResearchTreeCraft>(nextCraftList);
                     nextCraftList.Clear();
                 }
-
-                // Load data
-                foreach (var researchCraftTree in _nodes[researchTree].Keys)
-                {
-                    if(researchCraftTree.LoadData(saveData))
-                    {
-                        var node = _nodes[researchTree][researchCraftTree];
-
-                        if (researchCraftTree.Upgradable())
-                            node.SetState(VisualNodeState.Purchased);
-                        else
-                            node.SetState(VisualNodeState.FullyUpgraded);
-                    }
-                }
             }
 
-            // Functions
             ResearchTreeCraft GetTreeCraftByCraft(CSTreeCraftSO craft, ResearchTree researchTree)
             {
                 return _nodes[researchTree].Keys.FirstOrDefault(researchTreeCraft => researchTreeCraft.crafts.Contains(craft));
-            }
-            GameObject CreateEmptyGO(string name, Transform parent)
-            {
-                GameObject go = new GameObject(name, typeof(RectTransform));
-
-                go.transform.SetParent(parent);
-                go.transform.localPosition = Vector2.zero;
-                go.transform.localScale = Vector3.one;
-
-                RectTransform rect = go.GetComponent<RectTransform>();
-                rect.sizeDelta = new Vector2(100, 100); // width and height
-
-                return go;
             }
         }
 
@@ -130,6 +187,34 @@ namespace Game.CraftSystem.Visual
                 node.transform.localPosition = researchTreeCraft.crafts[0].Position / 2f;
                 node.Initalize(researchTreeCraft.group.GroupName, researchTreeCraft, _manager);
                 return node;
+            }
+        }
+
+        public void Open()
+        {
+            UIPanelManager.OpenPanel(MainPanel);
+
+            _isOpened = true;
+        }
+        public void Close()
+        {
+            if (!_isOpened)
+                return;
+
+            UIPanelManager.ClosePanel(MainPanel);
+
+            _isOpened = false;
+        }
+        public void Close(InputAction.CallbackContext callbackContext)
+        {
+            Close();
+        }
+
+        public void PanelStateIsChanged(GameObject panel)
+        {
+            if(panel != MainPanel)
+            {
+                _isOpened = false;
             }
         }
     }
