@@ -37,7 +37,7 @@ namespace Game.CraftSystem
             _mainVisualParent = mainVisualParent;
             _connectionsVisualParent = connectionsVisualParent;
 
-            Vector2 spacing = Vector2.one * 100f;
+            Vector2 spacing = new Vector2(100, 0);
             Vector2 min = (Vector2)nodes[0].transform.localPosition;
             Vector2 max = (Vector2)nodes[nodes.Count - 1].transform.localPosition;
             foreach (var node in nodes)
@@ -49,7 +49,7 @@ namespace Game.CraftSystem
                 {
                     min = new Vector2(nodePosition.x, min.y);
                 }
-                if(nodePosition.x < min.y)
+                if(nodePosition.y < min.y)
                 {
                     min = new Vector2(min.x, nodePosition.y);
                 }
@@ -64,8 +64,6 @@ namespace Game.CraftSystem
                     max = new Vector2(max.x, nodePosition.y);
                 }
             }
-
-            Debug.Log($"Min: {min}, Max: {max}");
 
             _clampedPosition = new ClampedPosition()
             {

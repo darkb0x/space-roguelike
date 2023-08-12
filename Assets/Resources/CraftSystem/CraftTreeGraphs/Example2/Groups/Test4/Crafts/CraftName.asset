@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8faaa056edd93b3489274d6cf8e46794, type: 3}
   m_Name: CraftName
   m_EditorClassIdentifier: 
-  <AssetPath>k__BackingField: CraftSystem/CraftTreeGraphs/Example2/Groups/Test1/Crafts/CraftName
+  <AssetPath>k__BackingField: CraftSystem/CraftTreeGraphs/Example2/Groups/Test4/Crafts/CraftName
   <CraftName>k__BackingField: CraftName
   <CraftDescription>k__BackingField: Craft description.
   <CraftType>k__BackingField: 0
@@ -21,14 +21,8 @@ MonoBehaviour:
   <ItemsInCraft>k__BackingField: []
   <CraftCost>k__BackingField: 0
   <IsStartingCraft>k__BackingField: 0
-  <IsStartingCraftInGroup>k__BackingField: 0
+  <IsStartingCraftInGroup>k__BackingField: 1
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Craft
-    <Next>k__BackingField: {fileID: 11400000, guid: 2bb1481df9d5e50439874d6579e52a68, type: 2}
-  - <Text>k__BackingField: Next Craft
-    <Next>k__BackingField: {fileID: 11400000, guid: 2c9631df67256fd48b2db9a4e8f497cc, type: 2}
-  - <Text>k__BackingField: Next Craft
-    <Next>k__BackingField: {fileID: 11400000, guid: 7f9a2e0a6c8553e4db93c30ec9f06ddc, type: 2}
-  - <Text>k__BackingField: Next Craft
-    <Next>k__BackingField: {fileID: 11400000, guid: 0bf950a693ee31c468457e5842b160a7, type: 2}
-  <Position>k__BackingField: {x: 921, y: -0}
+    <Next>k__BackingField: {fileID: 11400000, guid: 86b94f1795f16f64e98f02f234ed3b46, type: 2}
+  <Position>k__BackingField: {x: 1288, y: 422}

@@ -49,7 +49,7 @@ namespace Game.CraftSystem.Visual
             }
             CategoryController.Initialize(categories);
 
-            SelectTree(trees[0]);
+            SelectTree(trees.First(result => result.Enabled));
             Close();
 
             GameInput.InputActions.UI.CloseWindow.performed += Close;
@@ -63,6 +63,8 @@ namespace Game.CraftSystem.Visual
         {
             if (!_isOpened)
                 return;
+
+            ClampTreeVisualPosition(_currentResearchTree);
         }
 
         public void LoadSaveData(List<CSTreeCraftSO> saveData)
@@ -93,11 +95,52 @@ namespace Game.CraftSystem.Visual
 
             foreach (var tree in _trees)
             {
+                if (!tree.Enabled)
+                    continue;
+
                 tree.MainVisualParent.gameObject.SetActive(false);
             }
+
+            Content.localPosition = Vector3.zero;
             _currentResearchTree.MainVisualParent.gameObject.SetActive(true);
         }
 
+        private void ClampTreeVisualPosition(ResearchTree tree)
+        {
+            Content.localPosition = ClampedPosition();
+
+            Vector2 ClampedPosition()
+            {
+                var min = tree.ClampedVisualPosition.Min;
+                var max = tree.ClampedVisualPosition.Max;
+                var pos = Content.localPosition;
+
+                float x = pos.x;
+                float y = pos.y;
+
+                // Min
+                if (x > Mathf.Abs(min.x))
+                {
+                    x = Mathf.Abs(min.x);
+                }
+                if(y < -max.y)
+                {
+                    y = -max.y;
+                }
+
+                // Max
+                if(x < -max.x)
+                {
+                    x = -max.x;
+                }
+                if(y > Mathf.Abs(min.y))
+                {
+                    y = Mathf.Abs(min.y);
+                }
+
+                return new Vector2(x, y);
+            }
+        }
         private void CreateNodes()
         {
             foreach (var researchTree in _trees)

@@ -109,11 +109,9 @@ namespace CraftSystem.Elements
             {
                 Port choicePort;
                 if(Choices.IndexOf(choice) == 0)
-                    choicePort = CreateChoicePort(choice.Description);
+                    choicePort = CreateChoicePort(choice, false);
                 else
-                    choicePort = this.CreatePort(choice.Description);
-
-                choicePort.userData = choice;
+                    choicePort = CreateChoicePort(choice);
 
                 outputContainer.Add(choicePort);
             }
@@ -245,7 +243,7 @@ namespace CraftSystem.Elements
             RefreshExpandedState();
         }
 
-        private Port CreateChoicePort(object userData)
+        private Port CreateChoicePort(object userData, bool enableDeleteButton = true)
         {
             CSChoiceSaveData choiceData = (CSChoiceSaveData)userData;
 
@@ -269,41 +267,9 @@ namespace CraftSystem.Elements
 
                 graphView.RemoveElement(choicePort);
             });
+            deleteChoiceButton.SetEnabled(enableDeleteButton);
 
             deleteChoiceButton.AddToClassList("ds-node__button");
-
-            choicePort.Add(deleteChoiceButton);
-
-            return choicePort;
-        }
-        private Port CreateChoicePort(string text)
-        {
-            CSChoiceSaveData choiceData = new CSChoiceSaveData() { Description = text };
-
-            Port choicePort = this.CreatePort(choiceData.Description);
-
-            choicePort.userData = userData;
-
-            Button deleteChoiceButton = CSElementUtility.CreateButton("X", () =>
-            {
-                if (Choices.Count == 1)
-                {
-                    return;
-                }
-
-                if (choicePort.connected)
-                {
-                    graphView.DeleteElements(choicePort.connections);
-                }
-
-                Choices.Remove(choiceData);
-
-                graphView.RemoveElement(choicePort);
-            });
-
-            deleteChoiceButton.AddToClassList("ds-node__button");
-
-            deleteChoiceButton.SetEnabled(false);
 
             choicePort.Add(deleteChoiceButton);
 

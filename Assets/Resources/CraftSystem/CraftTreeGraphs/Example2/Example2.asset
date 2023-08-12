@@ -26,4 +26,16 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 85ce02b3c92081c49a880b34f835ef97, type: 2}
       - {fileID: 11400000, guid: ab4314c93c48bf047b01475b37ba7d93, type: 2}
       - {fileID: 11400000, guid: b6a0d0d92297c2242a02cb53193876ca, type: 2}
+    - Key: {fileID: 11400000, guid: a381dd692616e0343bd25fecf278c3ad, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 2bb1481df9d5e50439874d6579e52a68, type: 2}
+      - {fileID: 11400000, guid: 4ec78a6c3898c7948a87107d65417eab, type: 2}
+    - Key: {fileID: 11400000, guid: 7666ab7f576eba745a6fe7cdee07ebd4, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 2c9631df67256fd48b2db9a4e8f497cc, type: 2}
+      - {fileID: 11400000, guid: 86b94f1795f16f64e98f02f234ed3b46, type: 2}
+    - Key: {fileID: 11400000, guid: ae35e2610429b8f4fa26db1d762e64a2, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 0bf950a693ee31c468457e5842b160a7, type: 2}
+      - {fileID: 11400000, guid: 72695c7d7603968459030a1774c1a8f1, type: 2}
   <UngroupedCrafts>k__BackingField: []

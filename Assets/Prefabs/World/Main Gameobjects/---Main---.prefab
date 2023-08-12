@@ -92,7 +92,7 @@ MonoBehaviour:
     m_Title: Turrets
     m_Icon: {fileID: 21300000, guid: 33c5fdff70ab98046a20853f1a59c5bd, type: 3}
     m_CraftTree: {fileID: 11400000, guid: e4b99bad222ce9548a9c020be0792b17, type: 2}
-  - m_Enabled: 0
+  - m_Enabled: 1
     m_Title: Turrets 2
     m_Icon: {fileID: 21300000, guid: cc28ae4c1ac48dc43b4c2344e45478ab, type: 3}
     m_CraftTree: {fileID: 11400000, guid: 903a4f2e776eb5149b237936f914c2e0, type: 2}
