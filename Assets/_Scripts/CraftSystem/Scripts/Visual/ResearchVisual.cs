@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;  
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 namespace Game.CraftSystem.Visual
@@ -16,6 +17,7 @@ namespace Game.CraftSystem.Visual
         [Space]
         [SerializeField] private GameObject MainPanel;
         [SerializeField] private Transform Content;
+        [SerializeField] private ScrollRect MainScrollRect;
         [SerializeField] private CraftCategoryController CategoryController;
         [Space]
         [SerializeField] private Transform TreeVisualsParent;
@@ -29,18 +31,22 @@ namespace Game.CraftSystem.Visual
         private List<ResearchTree> _trees;
 
         private ResearchTree _currentResearchTree;
+        private float _currentScale;
         private bool _isOpened;
 
         public void Initalize(List<ResearchTree> trees, ResearchManager manager)
         {
+            // Initialize variables
             _trees = trees;
             _manager = manager;
             _nodes = new Dictionary<ResearchTree, Dictionary<ResearchTreeCraft, CraftTreeNodeVisual>>();
             UIPanelManager = Singleton.Get<UIPanelManager>();
 
+            // Create visual
             CreateNodes();
             CreateConnections();
 
+            // Create research tree categories
             Dictionary<ResearchTree, Action> categories = new Dictionary<ResearchTree, Action>();
             foreach (var tree in trees)
             {
@@ -49,9 +55,11 @@ namespace Game.CraftSystem.Visual
             }
             CategoryController.Initialize(categories);
 
+            // Choosing research tree
             SelectTree(trees.First(result => result.Enabled));
             Close();
 
+            // Subscribing to events
             GameInput.InputActions.UI.CloseWindow.performed += Close;
         }
         private void OnDisable()
@@ -64,9 +72,11 @@ namespace Game.CraftSystem.Visual
             if (!_isOpened)
                 return;
 
-            ClampTreeVisualPosition(_currentResearchTree);
+            // Handlers
+            HandleContentPosition();
         }
 
+        #region Public Methods
         public void LoadSaveData(List<CSTreeCraftSO> saveData)
         {
             foreach (var researchTree in _nodes.Keys)
@@ -89,7 +99,7 @@ namespace Game.CraftSystem.Visual
             }
         }
 
-        private void SelectTree(ResearchTree target)
+        public void SelectTree(ResearchTree target)
         {
             _currentResearchTree = target;
 
@@ -101,18 +111,31 @@ namespace Game.CraftSystem.Visual
                 tree.MainVisualParent.gameObject.SetActive(false);
             }
 
+            MainScrollRect.StopMovement();
             Content.localPosition = Vector3.zero;
+            SetContentScale(1f);
             _currentResearchTree.MainVisualParent.gameObject.SetActive(true);
         }
+        #endregion
 
-        private void ClampTreeVisualPosition(ResearchTree tree)
+        #region Private Methods
+        private void SetContentScale(float scale)
+        {
+            _currentScale = scale;
+
+            Content.localScale = new Vector3(scale, scale, 1);
+        }
+        #endregion
+
+        #region Handlers
+        private void HandleContentPosition()
         {
             Content.localPosition = ClampedPosition();
 
             Vector2 ClampedPosition()
             {
-                var min = tree.ClampedVisualPosition.Min;
-                var max = tree.ClampedVisualPosition.Max;
+                var min = _currentResearchTree.ClampedVisualPosition.Min / _currentScale;
+                var max = _currentResearchTree.ClampedVisualPosition.Max / _currentScale;
                 var pos = Content.localPosition;
 
                 float x = pos.x;
@@ -141,6 +164,9 @@ namespace Game.CraftSystem.Visual
                 return new Vector2(x, y);
             }
         }
+        #endregion
+
+        #region Visual Creating
         private void CreateNodes()
         {
             foreach (var researchTree in _trees)
@@ -178,8 +204,9 @@ namespace Game.CraftSystem.Visual
                 if (!researchTree.Enabled)
                     continue;
 
-                List<ResearchTreeCraft> currentCraftList = new List<ResearchTreeCraft>()
-                    { Array.Find(_nodes[researchTree].Keys.ToArray(), result => result.IsStartCraft()) };
+                List<ResearchTreeCraft> currentCraftList = new List<ResearchTreeCraft>(
+                    _nodes[researchTree].Keys.ToArray().Where(result => result.IsStartCraft())
+                    );
                 List<ResearchTreeCraft> nextCraftList = new List<ResearchTreeCraft>();
 
                 while (currentCraftList.Count > 0)
@@ -242,7 +269,9 @@ namespace Game.CraftSystem.Visual
                 return node;
             }
         }
+        #endregion
 
+        #region Window
         public void Open()
         {
             UIPanelManager.OpenPanel(MainPanel);
@@ -270,5 +299,6 @@ namespace Game.CraftSystem.Visual
                 _isOpened = false;
             }
         }
+        #endregion
     }
 }

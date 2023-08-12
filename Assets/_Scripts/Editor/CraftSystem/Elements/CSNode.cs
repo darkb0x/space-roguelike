@@ -129,7 +129,7 @@ namespace CraftSystem.Elements
 
             customDataContainer.AddToClassList("ds-node__custom-data-container");
 
-            Foldout textFoldout = CSElementUtility.CreateFoldout("Craft Description");
+            Foldout textFoldout = CSElementUtility.CreateFoldout("Craft Description", true);
 
             TextField textTextField = CSElementUtility.CreateTextArea(Description, null, callback => Description = callback.newValue);
 

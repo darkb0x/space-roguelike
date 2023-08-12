@@ -1,0 +1,390 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9594c05b51a55784fa8901a9a446099f, type: 3}
+  m_Name: TurretsGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Turrets
+  <Groups>k__BackingField:
+  - <ID>k__BackingField: e9d794e0-5cb1-408a-a8b1-9f0ab227f5c4
+    <Name>k__BackingField: Lasergun
+    <Position>k__BackingField: {x: -25, y: -563}
+  - <ID>k__BackingField: d82a8cdc-4358-4e64-a121-46b1f371bc49
+    <Name>k__BackingField: Minigun
+    <Position>k__BackingField: {x: -25, y: -60}
+  - <ID>k__BackingField: a2be15eb-fb29-4a50-92fb-ffd405337d4f
+    <Name>k__BackingField: Grenade
+    <Position>k__BackingField: {x: -25, y: 458}
+  - <ID>k__BackingField: 2bbd8536-071e-435a-96d0-dee5629def24
+    <Name>k__BackingField: Rocket
+    <Position>k__BackingField: {x: 881, y: 458}
+  - <ID>k__BackingField: 5f717af8-01ca-4c52-96c1-0adec2406605
+    <Name>k__BackingField: Firegun
+    <Position>k__BackingField: {x: 881, y: -563}
+  <Nodes>k__BackingField:
+  - rid: 6796116835916054645
+  - rid: 6796116835916054646
+  - rid: 6796116835916054647
+  - rid: 6796116835916054648
+  - rid: 6796116835916054649
+  - rid: 6796116835916054650
+  - rid: 6796116835916054651
+  - rid: 6796116835916054652
+  - rid: 6796116835916054653
+  - rid: 6796116835916054654
+  - rid: 6796116835916054655
+  - rid: 6796116835916054656
+  - rid: 6796116835916054657
+  - rid: 6796116835916054658
+  - rid: 6796116835916054659
+  <OldGroupNames>k__BackingField:
+  - Lasergun
+  - Minigun
+  - Grenade
+  - Rocket
+  - Firegun
+  <OldUngroupedNodeNames>k__BackingField: []
+  <OldGroupedNodeNames>k__BackingField:
+    _serializedList:
+    - Key: Minigun
+      Value:
+      - 1
+      - 3
+      - 2
+    - Key: Firegun
+      Value:
+      - 2
+      - 3
+      - 1
+    - Key: Lasergun
+      Value:
+      - 1
+      - 2
+      - 3
+    - Key: Grenade
+      Value:
+      - 2
+      - 1
+      - 3
+    - Key: Rocket
+      Value:
+      - 2
+      - 1
+      - 3
+  references:
+    version: 2
+    RefIds:
+    - rid: 6796116835916054645
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 99a967ff-e063-4883-87af-390c1634bd83
+        <OutputIDs>k__BackingField: []
+        <Name>k__BackingField: 1
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 2ec4c7a0-b2b3-4e68-bb51-ebad148d6551
+        <GroupID>k__BackingField: d82a8cdc-4358-4e64-a121-46b1f371bc49
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 0, y: -1}
+        CraftIcon: {fileID: -1021886080061906764, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 7019874376984613498, guid: 7ddcde72848e2b64b88f0e0526cd523e, type: 3}
+        <CraftCost>k__BackingField: 0
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+          Amount: 5
+    - rid: 6796116835916054646
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: ca4d3474-e66e-4d60-b400-7ad0f5ed83f5
+        <OutputIDs>k__BackingField:
+        - 2ec4c7a0-b2b3-4e68-bb51-ebad148d6551
+        <Name>k__BackingField: 3
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 6a3d7a41-0562-445b-8e19-f932ac9390ba
+        <GroupID>k__BackingField: d82a8cdc-4358-4e64-a121-46b1f371bc49
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 532, y: -1}
+        CraftIcon: {fileID: -1234075964109648898, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 5173164355021505155, guid: 910f0e303ae19204a8e345f89bf05ba7, type: 3}
+        <CraftCost>k__BackingField: 100
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+          Amount: 7
+    - rid: 6796116835916054647
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 2ec4c7a0-b2b3-4e68-bb51-ebad148d6551
+        <OutputIDs>k__BackingField:
+        - 99a967ff-e063-4883-87af-390c1634bd83
+        <Name>k__BackingField: 2
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: ca4d3474-e66e-4d60-b400-7ad0f5ed83f5
+        <GroupID>k__BackingField: d82a8cdc-4358-4e64-a121-46b1f371bc49
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 270, y: -1}
+        CraftIcon: {fileID: -3023398558421556299, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 39576876075023254, guid: b90f612512657164fba17bc6b211c0f9, type: 3}
+        <CraftCost>k__BackingField: 50
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+          Amount: 6
+    - rid: 6796116835916054648
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 366e4030-b13a-4ae1-8681-f92a469b5b68
+        <OutputIDs>k__BackingField:
+        - 6a3d7a41-0562-445b-8e19-f932ac9390ba
+        <Name>k__BackingField: 2
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 66e26995-f4ee-4cd4-a51a-a058ffabaa7d
+        <GroupID>k__BackingField: 5f717af8-01ca-4c52-96c1-0adec2406605
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 1178, y: -503}
+        CraftIcon: {fileID: 7337600296622790751, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 8059542609985656661, guid: 6a52e777a3d4aa64faf06e047c0f2a04, type: 3}
+        <CraftCost>k__BackingField: 150
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
+          Amount: 2
+    - rid: 6796116835916054649
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 66e26995-f4ee-4cd4-a51a-a058ffabaa7d
+        <OutputIDs>k__BackingField:
+        - 366e4030-b13a-4ae1-8681-f92a469b5b68
+        <Name>k__BackingField: 3
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 
+        <GroupID>k__BackingField: 5f717af8-01ca-4c52-96c1-0adec2406605
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 1446, y: -503}
+        CraftIcon: {fileID: 6012115335786710259, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 8404311886298238108, guid: 8733ff9cdf11d624fb754a5ac2bd8230, type: 3}
+        <CraftCost>k__BackingField: 200
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
+          Amount: 3
+    - rid: 6796116835916054650
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 829f19f6-f596-46b9-9859-8acfc11a9430
+        <OutputIDs>k__BackingField: []
+        <Name>k__BackingField: 1
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: ebc80432-d778-4589-996c-333ad6cb93d9
+        <GroupID>k__BackingField: e9d794e0-5cb1-408a-a8b1-9f0ab227f5c4
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 0, y: -503}
+        CraftIcon: {fileID: -1895180281693119143, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 8243757421391822110, guid: bc24ed00d7c3e6a45abd489650a8012e, type: 3}
+        <CraftCost>k__BackingField: 0
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+          Amount: 5
+    - rid: 6796116835916054651
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: ebc80432-d778-4589-996c-333ad6cb93d9
+        <OutputIDs>k__BackingField:
+        - 829f19f6-f596-46b9-9859-8acfc11a9430
+        <Name>k__BackingField: 2
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: ca1a9e00-5709-481f-9147-02915b86ccb0
+        <GroupID>k__BackingField: e9d794e0-5cb1-408a-a8b1-9f0ab227f5c4
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 270, y: -504}
+        CraftIcon: {fileID: 7355283632040961757, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 7194809214900846474, guid: c01f54d828948c749be1937b74aa49c3, type: 3}
+        <CraftCost>k__BackingField: 50
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+          Amount: 6
+    - rid: 6796116835916054652
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: ca1a9e00-5709-481f-9147-02915b86ccb0
+        <OutputIDs>k__BackingField:
+        - ebc80432-d778-4589-996c-333ad6cb93d9
+        <Name>k__BackingField: 3
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 6a3d7a41-0562-445b-8e19-f932ac9390ba
+        <GroupID>k__BackingField: e9d794e0-5cb1-408a-a8b1-9f0ab227f5c4
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 532, y: -504}
+        CraftIcon: {fileID: -7066744340616056132, guid: a161d9c113b08f44ba1ea1c9c175d6f1, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 1515487199647265894, guid: 51aae271f3d133342808027d1eae4a24, type: 3}
+        <CraftCost>k__BackingField: 100
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
+          Amount: 7
+    - rid: 6796116835916054653
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 6a3d7a41-0562-445b-8e19-f932ac9390ba
+        <OutputIDs>k__BackingField:
+        - ca1a9e00-5709-481f-9147-02915b86ccb0
+        - ca4d3474-e66e-4d60-b400-7ad0f5ed83f5
+        <Name>k__BackingField: 1
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 366e4030-b13a-4ae1-8681-f92a469b5b68
+        <GroupID>k__BackingField: 5f717af8-01ca-4c52-96c1-0adec2406605
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 906, y: -504}
+        CraftIcon: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 7672746000741777773, guid: 3ad694691941cec409a179f9a177f07c, type: 3}
+        <CraftCost>k__BackingField: 100
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
+          Amount: 1
+    - rid: 6796116835916054654
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 791d02d6-cee9-44e4-a139-84db702c7009
+        <OutputIDs>k__BackingField:
+        - 19be1520-a950-4949-af81-0e08cdc65353
+        <Name>k__BackingField: 2
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 39f00531-458c-4916-a4ad-9e116ae40de8
+        <GroupID>k__BackingField: a2be15eb-fb29-4a50-92fb-ffd405337d4f
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 268, y: 517}
+        CraftIcon: {fileID: 7337600296622790751, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 2028656411571455001, guid: 63dad0209062ae047bc4c6495345302a, type: 3}
+        <CraftCost>k__BackingField: 100
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+          Amount: 6
+    - rid: 6796116835916054655
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: d8e870cb-fb5a-4425-b565-47b15033f9c5
+        <OutputIDs>k__BackingField:
+        - f24ebeb2-289d-42fe-aacc-a1974515d5b9
+        <Name>k__BackingField: 2
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: ac7ba35a-33f9-4db0-ad09-04857316a47d
+        <GroupID>k__BackingField: 2bbd8536-071e-435a-96d0-dee5629def24
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 1168, y: 517}
+        CraftIcon: {fileID: -5684688948141070065, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 2433710820788063445, guid: 0c5e1f37aceaf8844ac4933092b5f6ac, type: 3}
+        <CraftCost>k__BackingField: 150
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
+          Amount: 2
+        - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+          Amount: 6
+    - rid: 6796116835916054656
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 19be1520-a950-4949-af81-0e08cdc65353
+        <OutputIDs>k__BackingField: []
+        <Name>k__BackingField: 1
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 791d02d6-cee9-44e4-a139-84db702c7009
+        <GroupID>k__BackingField: a2be15eb-fb29-4a50-92fb-ffd405337d4f
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 0, y: 517}
+        CraftIcon: {fileID: -745282310284442268, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 5034969440185020039, guid: dd34d4c9839ca3645bf55f110ca179bc, type: 3}
+        <CraftCost>k__BackingField: 50
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+          Amount: 5
+    - rid: 6796116835916054657
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 39f00531-458c-4916-a4ad-9e116ae40de8
+        <OutputIDs>k__BackingField:
+        - 791d02d6-cee9-44e4-a139-84db702c7009
+        <Name>k__BackingField: 3
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: f24ebeb2-289d-42fe-aacc-a1974515d5b9
+        <GroupID>k__BackingField: a2be15eb-fb29-4a50-92fb-ffd405337d4f
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 532, y: 517}
+        CraftIcon: {fileID: 6012115335786710259, guid: beb3de02022595c4e96775e8f0fd8401, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 5524837020640256684, guid: 9c93040da388af744b0d640d318b3cf8, type: 3}
+        <CraftCost>k__BackingField: 150
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+          Amount: 7
+    - rid: 6796116835916054658
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: f24ebeb2-289d-42fe-aacc-a1974515d5b9
+        <OutputIDs>k__BackingField:
+        - 39f00531-458c-4916-a4ad-9e116ae40de8
+        - ca4d3474-e66e-4d60-b400-7ad0f5ed83f5
+        - 39f00531-458c-4916-a4ad-9e116ae40de8
+        <Name>k__BackingField: 1
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: d8e870cb-fb5a-4425-b565-47b15033f9c5
+        <GroupID>k__BackingField: 2bbd8536-071e-435a-96d0-dee5629def24
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 906, y: 517}
+        CraftIcon: {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 2757904308861421873, guid: e2b12354cbb132844a55aa18d776cdff, type: 3}
+        <CraftCost>k__BackingField: 100
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
+          Amount: 1
+        - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+          Amount: 5
+    - rid: 6796116835916054659
+      type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: ac7ba35a-33f9-4db0-ad09-04857316a47d
+        <OutputIDs>k__BackingField:
+        - d8e870cb-fb5a-4425-b565-47b15033f9c5
+        <Name>k__BackingField: 3
+        <Description>k__BackingField: Craft description.
+        <Choices>k__BackingField:
+        - <Description>k__BackingField: Next Craft
+          <NodeID>k__BackingField: 
+        <GroupID>k__BackingField: 2bbd8536-071e-435a-96d0-dee5629def24
+        <CraftType>k__BackingField: 0
+        <Position>k__BackingField: {x: 1446, y: 517}
+        CraftIcon: {fileID: 8710807232114406779, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+        <CraftPrefab>k__BackingField: {fileID: 5937511617165716184, guid: 86035ff4772cf004999e94b5a799dae6, type: 3}
+        <CraftCost>k__BackingField: 200
+        <ItemsInCraft>k__BackingField:
+        - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
+          Amount: 3
+        - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+          Amount: 7

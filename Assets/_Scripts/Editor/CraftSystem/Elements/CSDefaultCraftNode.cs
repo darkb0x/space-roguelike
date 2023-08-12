@@ -173,7 +173,7 @@ namespace CraftSystem.Elements
             VisualElement craftDataContainer = new VisualElement();
             craftDataContainer.AddToClassList("ds-node__custom-data-container");
 
-            Foldout craftFoldout = CSElementUtility.CreateFoldout("Craft");
+            Foldout craftFoldout = CSElementUtility.CreateFoldout("Craft", true);
 
             Button addItemButton = CSElementUtility.CreateButton("+");
             addItemButton.clicked += () => {

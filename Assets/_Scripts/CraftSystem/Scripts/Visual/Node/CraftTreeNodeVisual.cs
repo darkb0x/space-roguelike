@@ -97,8 +97,8 @@ namespace Game.CraftSystem.Visual.Node
 
             _itemListVisualPool = new ObjectPool<NodeItemFieldVisual>(
                 () => Instantiate(ItemVisualPrefab, ItemVisualsParent),
-                callback => callback.gameObject.SetActive(true), 
-                callback => callback.gameObject.SetActive(false),
+                callback => callback.Enable(), 
+                callback => callback.Disable(),
                 3);
             _visualFields = new List<NodeFieldVisual>()
                 { ResearchButton, UpgradeButton, FullyUpgradedField, NonAvailableField };
@@ -108,8 +108,15 @@ namespace Game.CraftSystem.Visual.Node
 
             if (researchTreeCraft.IsStartCraft())
             {
-                SetState(VisualNodeState.Purchased);
-                _manager.Research(researchTreeCraft);
+                if (researchTreeCraft.crafts[0].CraftCost == 0)
+                {
+                    SetState(VisualNodeState.Purchased);
+                    _manager.Research(researchTreeCraft);
+                }
+                else
+                {
+                    SetState(VisualNodeState.NonPurchased);
+                }
             }
             else
             {
@@ -119,7 +126,7 @@ namespace Game.CraftSystem.Visual.Node
         private void InitializeFields()
         {
             ResearchButton.Initialize($"Research ({currentCraft.CraftCost})", Research);
-            UpgradeButton.Initialize($"Upgrade ({_researchTreeCraft.GetNextCraft().CraftCost})", Upgrade);
+            UpgradeButton.Initialize($"Upgrade ({_researchTreeCraft.GetNextCraft().CraftCost}$)", Upgrade);
             FullyUpgradedField.Initialize("Upgraded!", null);
             NonAvailableField.Initialize("Non Avaialable", null);
         }
@@ -158,18 +165,24 @@ namespace Game.CraftSystem.Visual.Node
                     {
                         NonAvailableField.SetActive(true);
                         _currentNodeField = NonAvailableField;
+
+                        SetHideView();
                     }
                     break;
                 case VisualNodeState.NonPurchased:
                     {
                         ResearchButton.SetActive(true);
                         _currentNodeField = ResearchButton;
+
+                        SetDefaultView();
                     }
                     break;
                 case VisualNodeState.Purchased:
                     {
                         UpgradeButton.SetActive(true);
                         _currentNodeField = UpgradeButton;
+
+                        SetDefaultView();
 
                         if (_subsequentNodes == null)
                             break;
@@ -184,6 +197,8 @@ namespace Game.CraftSystem.Visual.Node
                     {
                         FullyUpgradedField.SetActive(true);
                         _currentNodeField = FullyUpgradedField;
+
+                        SetDefaultView();
                     }
                     break;
                 default:
@@ -238,6 +253,18 @@ namespace Game.CraftSystem.Visual.Node
             #endif 
         }
 
+        #region Visual Update Methods
+        private void SetDefaultView()
+        {
+            CraftNameText.text = craftName;
+            CraftIconImage.color = Color.white;
+        }
+        private void SetHideView()
+        {
+            CraftNameText.text = "???";
+            CraftIconImage.color = Color.black;
+        }
+
         public void UpdateFullVisual()
         {
             CraftIconImage.sprite = currentCraft.CraftIcon;
@@ -277,7 +304,7 @@ namespace Game.CraftSystem.Visual.Node
 
             UpgradePreviewGameObj.SetActive(true);
 
-            UpgradeButton.UpdateTitleText($"Upgrade ({_researchTreeCraft.GetNextCraft().CraftCost})");
+            UpgradeButton.UpdateTitleText($"Upgrade ({_researchTreeCraft.GetNextCraft().CraftCost}$)");
 
             UpgradePreviewCurrentImage.sprite = currentCraft.CraftIcon;
             UpgradePreviewCurrentLevelText.text = "Lvl. " + (_researchTreeCraft.IndexOf(currentCraft) + 1);
@@ -292,9 +319,17 @@ namespace Game.CraftSystem.Visual.Node
 
             foreach (var item in craft.ItemsInCraft)
             {
-                _itemListVisualPool.Get().UpdateVisual(item.Item.LowSizeIcon, item.Amount);
+                var itemVisual = _itemListVisualPool.Get();
+
+                if (craftState == VisualNodeState.NonAvaiable)
+                    itemVisual.SetHideStyle();
+                else
+                    itemVisual.SetDefaultStyle();
+
+                itemVisual.UpdateVisual(item.Item.LowSizeIcon, item.Amount);
             }
         }
+        #endregion
 
         #region Pointer Interfaces
         public void OnPointerEnter(PointerEventData eventData)

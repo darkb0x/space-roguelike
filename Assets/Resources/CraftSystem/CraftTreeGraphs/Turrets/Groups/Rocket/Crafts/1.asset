@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8faaa056edd93b3489274d6cf8e46794, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  <AssetPath>k__BackingField: CraftSystem/CraftTreeGraphs/Turrets/Groups/Rocket/Crafts/1
+  <CraftName>k__BackingField: 1
+  <CraftDescription>k__BackingField: Craft description.
+  <CraftType>k__BackingField: 0
+  <CraftIcon>k__BackingField: {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
+  <CraftPrefab>k__BackingField: {fileID: 2757904308861421873, guid: e2b12354cbb132844a55aa18d776cdff, type: 3}
+  <ItemsInCraft>k__BackingField:
+  - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
+    Amount: 1
+  - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
+    Amount: 5
+  <CraftCost>k__BackingField: 100
+  <IsStartingCraft>k__BackingField: 0
+  <IsStartingCraftInGroup>k__BackingField: 1
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: Next Craft
+    <Next>k__BackingField: {fileID: 11400000, guid: 4087b6f98eb768847a5973e2640f8f95, type: 2}
+  <Position>k__BackingField: {x: 906, y: -517}

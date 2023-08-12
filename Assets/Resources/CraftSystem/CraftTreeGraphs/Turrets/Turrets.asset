@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2984f8fd6410ca42b4abc3c134415d3, type: 3}
+  m_Name: Turrets
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Turrets
+  <CraftGroups>k__BackingField:
+    _serializedList:
+    - Key: {fileID: 11400000, guid: 0519f9aaa4d02f54a838dca58ea53e34, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 98a82034ce689ab4aa3c23f36b110978, type: 2}
+      - {fileID: 11400000, guid: fff6d624426c67646bbba5aa971c8a0b, type: 2}
+      - {fileID: 11400000, guid: 138fc22396536134fb06aa07511f263e, type: 2}
+    - Key: {fileID: 11400000, guid: ecd27e0c12f7a5a4a97e3b35e0f1a1a2, type: 2}
+      Value:
+      - {fileID: 11400000, guid: b8c76ebcae52a9a49810c5431d87899e, type: 2}
+      - {fileID: 11400000, guid: 4e90c930bf5ecfb40811d00dbab541c1, type: 2}
+      - {fileID: 11400000, guid: a23ab82c6c4f29a4a88c51839b7bf3b7, type: 2}
+    - Key: {fileID: 11400000, guid: eea8fc3b495163148a11e61bd9add9e9, type: 2}
+      Value:
+      - {fileID: 11400000, guid: d39c7822ef909144fbd9410549bc1012, type: 2}
+      - {fileID: 11400000, guid: 7944a0e51842af3409d5ba53aa27de79, type: 2}
+      - {fileID: 11400000, guid: ac76ab46f36fd044caf3ec3eb8b5d880, type: 2}
+    - Key: {fileID: 11400000, guid: 4db17dce603480045a8f88a4fc026002, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 4087b6f98eb768847a5973e2640f8f95, type: 2}
+      - {fileID: 11400000, guid: 48548720e95286147a6d51e8607bb3fe, type: 2}
+      - {fileID: 11400000, guid: 38b471866ae28514f822d6d40abe52f5, type: 2}
+    - Key: {fileID: 11400000, guid: 4f6d72277afc1464e8f7aa122278f3b9, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 6e528113e5426f3479183be5ebce26d8, type: 2}
+      - {fileID: 11400000, guid: df2ded83d715445479faf7b54bc8ac04, type: 2}
+      - {fileID: 11400000, guid: 8473b69baed5ece4083e7bc6c4f9f7d4, type: 2}
+  <UngroupedCrafts>k__BackingField: []

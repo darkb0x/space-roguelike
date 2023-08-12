@@ -51,6 +51,10 @@ namespace Game.Utilities
 
             return item;
         }
+        public TPoolObject[] GetActive()
+        {
+            return _active.ToArray();
+        }
 
         public void Return(TPoolObject item)
         {

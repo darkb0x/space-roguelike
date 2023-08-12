@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8faaa056edd93b3489274d6cf8e46794, type: 3}
+  m_Name: 3
+  m_EditorClassIdentifier: 
+  <AssetPath>k__BackingField: CraftSystem/CraftTreeGraphs/Turrets/Groups/Minigun/Crafts/3
+  <CraftName>k__BackingField: 3
+  <CraftDescription>k__BackingField: Craft description.
+  <CraftType>k__BackingField: 0
+  <CraftIcon>k__BackingField: {fileID: -1234075964109648898, guid: 2d5b3f52b693b264db38b5dee678892e, type: 3}
+  <CraftPrefab>k__BackingField: {fileID: 5173164355021505155, guid: 910f0e303ae19204a8e345f89bf05ba7, type: 3}
+  <ItemsInCraft>k__BackingField:
+  - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
+    Amount: 7
+  <CraftCost>k__BackingField: 100
+  <IsStartingCraft>k__BackingField: 0
+  <IsStartingCraftInGroup>k__BackingField: 0
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: Next Craft
+    <Next>k__BackingField: {fileID: 11400000, guid: 8473b69baed5ece4083e7bc6c4f9f7d4, type: 2}
+  <Position>k__BackingField: {x: 532, y: 1}
