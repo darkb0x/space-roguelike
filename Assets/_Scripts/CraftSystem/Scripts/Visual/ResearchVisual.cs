@@ -44,7 +44,8 @@ namespace Game.CraftSystem.Visual
             Dictionary<ResearchTree, Action> categories = new Dictionary<ResearchTree, Action>();
             foreach (var tree in trees)
             {
-                categories.Add(tree, () => SelectTree(tree));
+                if(tree.Enabled)
+                    categories.Add(tree, () => SelectTree(tree));
             }
             CategoryController.Initialize(categories);
 
@@ -68,6 +69,9 @@ namespace Game.CraftSystem.Visual
         {
             foreach (var researchTree in _nodes.Keys)
             {
+                if (!researchTree.Enabled)
+                    continue;
+
                 foreach (var researchCraftTree in _nodes[researchTree].Keys)
                 {
                     if (researchCraftTree.LoadData(saveData))
@@ -98,6 +102,9 @@ namespace Game.CraftSystem.Visual
         {
             foreach (var researchTree in _trees)
             {
+                if (!researchTree.Enabled)
+                    continue;
+
                 GameObject treeVisualParent = CreateEmptyGO(researchTree.Title, TreeVisualsParent);
                 GameObject connectionsVisualParent = CreateEmptyGO("Connections", treeVisualParent.transform);
                 var nodes = InstantiateNodes(researchTree, treeVisualParent.transform);
@@ -125,6 +132,9 @@ namespace Game.CraftSystem.Visual
         {
             foreach (var researchTree in _nodes.Keys)
             {
+                if (!researchTree.Enabled)
+                    continue;
+
                 List<ResearchTreeCraft> currentCraftList = new List<ResearchTreeCraft>()
                     { Array.Find(_nodes[researchTree].Keys.ToArray(), result => result.IsStartCraft()) };
                 List<ResearchTreeCraft> nextCraftList = new List<ResearchTreeCraft>();

@@ -13,6 +13,8 @@ namespace Game.CraftSystem
             public Vector2 Max;
         }
 
+        [SerializeField] private bool m_Enabled;
+        [Space]
         [SerializeField] private string m_Title;
         [SerializeField] private Sprite m_Icon;
         [Space]
@@ -22,6 +24,7 @@ namespace Game.CraftSystem
         private Transform _connectionsVisualParent;
         private ClampedPosition _clampedPosition;
 
+        public bool Enabled => m_Enabled;
         public string Title => m_Title;
         public Sprite Icon => m_Icon;
         public CSCraftContainerSO CraftTree => m_CraftTree;
@@ -35,11 +38,11 @@ namespace Game.CraftSystem
             _connectionsVisualParent = connectionsVisualParent;
 
             Vector2 spacing = Vector2.one * 100f;
-            Vector2 min = (Vector2)nodes[0].transform.position;
-            Vector2 max = (Vector2)nodes[nodes.Count - 1].transform.position;
+            Vector2 min = (Vector2)nodes[0].transform.localPosition;
+            Vector2 max = (Vector2)nodes[nodes.Count - 1].transform.localPosition;
             foreach (var node in nodes)
             {
-                var nodePosition = node.transform.position;
+                var nodePosition = node.transform.localPosition;
 
                 // min
                 if(nodePosition.x < min.x)
@@ -61,6 +64,8 @@ namespace Game.CraftSystem
                     max = new Vector2(max.x, nodePosition.y);
                 }
             }
+
+            Debug.Log($"Min: {min}, Max: {max}");
 
             _clampedPosition = new ClampedPosition()
             {
