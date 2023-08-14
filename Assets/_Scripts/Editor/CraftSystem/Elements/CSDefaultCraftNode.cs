@@ -52,7 +52,7 @@ namespace CraftSystem.Elements
             ItemsInCraft = new List<ItemData>(nodeData.ItemsInCraft);
         }
 
-        public override CSTreeCraftSO SaveToSO(string path)
+        public override CSTreeCraftSO SaveToSO(string path, CSCraftGroupSO group, CSCraftContainerSO container)
         {
             CSTreeCraftSO so = CSIOUtility.CreateAsset<CSTreeCraftSO>(path, CraftName);
 
@@ -67,6 +67,8 @@ namespace CraftSystem.Elements
                 IsStartNode(),
                 IsStartingNodeInGroup(),
                 CSIOUtility.ConvertNodeChoicesToCraftChoices(Choices),
+                group,
+                container,
                 GetPosition().position * new Vector2(1, -1)
             );
 

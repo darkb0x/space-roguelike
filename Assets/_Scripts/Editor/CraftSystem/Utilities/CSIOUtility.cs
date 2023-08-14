@@ -166,13 +166,13 @@ namespace CraftSystem.Utilities
 
             if (node.Group != null)
             {
-                craft = node.SaveToSO($"{containerFolderPath}/Groups/{node.Group.title}/Crafts");
+                craft = node.SaveToSO($"{containerFolderPath}/Groups/{node.Group.title}/Crafts", createdDialogueGroups[node.Group.ID], dialogueContainer);
 
                 dialogueContainer.CraftGroups.AddItem(createdDialogueGroups[node.Group.ID], craft);
             }
             else
             {
-                craft = node.SaveToSO($"{containerFolderPath}/Global/Crafts");
+                craft = node.SaveToSO($"{containerFolderPath}/Global/Crafts", null, dialogueContainer);
 
                 dialogueContainer.UngroupedCrafts.Add(craft);
             }

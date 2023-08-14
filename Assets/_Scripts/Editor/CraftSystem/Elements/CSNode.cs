@@ -54,7 +54,7 @@ namespace CraftSystem.Elements
         }
 
         public abstract void LoadData(CSNodeSaveData data, List<CSChoiceSaveData> choices);
-        public abstract CSTreeCraftSO SaveToSO(string path);
+        public abstract CSTreeCraftSO SaveToSO(string path, CSCraftGroupSO group, CSCraftContainerSO container);
         public abstract CSNodeSaveData ConvertToGraphSaveData();
 
         public virtual void Draw()

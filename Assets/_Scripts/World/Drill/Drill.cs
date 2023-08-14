@@ -10,7 +10,7 @@ namespace Game.Drill
     using Player.Pick;
     using Enemy;
 
-    public abstract class Drill : MonoBehaviour, IDamagable
+    public abstract class Drill : MonoBehaviour, IDamagable, ICraftableBuild
     {
         [System.Serializable]
         public struct dropped_item
@@ -91,12 +91,12 @@ namespace Game.Drill
             PreRenderPlaceObject.gameObject.SetActive(false);
         }
 
-        public virtual void Initialize()
+        public virtual void Initialize(PlayerController p)
         {
             if (isInitialized)
                 return;
 
-            player = FindObjectOfType<PlayerController>();
+            player = p;
             playerTransform = player.transform;
             oreDetectColl_transform = OreDetectColl.transform;
             myTransform = transform;

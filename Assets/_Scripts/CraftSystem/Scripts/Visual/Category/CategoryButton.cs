@@ -16,6 +16,7 @@ namespace Game.CraftSystem.Visual.Category
         [SerializeField] private TextMeshProUGUI TitleText;
 
         private Action OnClick;
+        private bool _enabled;
 
         public void Intialize(Sprite icon, string categoryTitle, Action onClickedAction)
         {
@@ -24,18 +25,32 @@ namespace Game.CraftSystem.Visual.Category
             OnClick = onClickedAction;
         }
 
+        public void SetEnabled(bool enabled)
+        {
+            _enabled = enabled;
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (!_enabled)
+                return;
+
             OnClick.Invoke();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (!_enabled)
+                return;
+
             Anim.SetBool(_animEnabledBool, true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (!_enabled)
+                return;
+
             Anim.SetBool(_animEnabledBool, false);
         }
     }

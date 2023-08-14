@@ -255,7 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9164917980068214239}
-  - component: {fileID: 616578638448512726}
+  - component: {fileID: 5366839312396686645}
   - component: {fileID: 5624307593005751420}
   - component: {fileID: 7253046234316372961}
   m_Layer: 0
@@ -282,7 +282,7 @@ Transform:
   - {fileID: 6511638302030609728}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &616578638448512726
+--- !u!114 &5366839312396686645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9164917980068214227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afd210a31e6f4b846a2ef29c5b90e1d7, type: 3}
+  m_Script: {fileID: 11500000, guid: ec2b6f920ae9a344fa7d5a0e11961407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5624307593005751420
@@ -309,8 +309,8 @@ MonoBehaviour:
   action:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 616578638448512726}
-        m_TargetAssemblyTypeName: Game.CraftSystem.ResearchTable, Assembly-CSharp
+      - m_Target: {fileID: 5366839312396686645}
+        m_TargetAssemblyTypeName: Game.CraftSystem.Research.ResearchTable, Assembly-CSharp
         m_MethodName: OpenResearchManager
         m_Mode: 1
         m_Arguments:

@@ -19,16 +19,18 @@ namespace CraftSystem.ScriptableObjects
             UngroupedCrafts = new List<CSTreeCraftSO>();
         }
 
-        public int GetConnectionsCount()
+        public bool ContainsCraft(CraftSO craft)
         {
-            int result = 0;
+            if (UngroupedCrafts.Contains(craft))
+                return true;
 
             foreach (var group in CraftGroups.Keys)
             {
-                result += CraftGroups[group].Last().Choices.Count;
+                if (CraftGroups[group].Contains(craft))
+                    return true;
             }
 
-            return result;
+            return false;
         }
         public CSTreeCraftSO GetStartCraft()
         {

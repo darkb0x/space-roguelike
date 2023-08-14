@@ -29,4 +29,6 @@ MonoBehaviour:
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Craft
     <Next>k__BackingField: {fileID: 11400000, guid: 4087b6f98eb768847a5973e2640f8f95, type: 2}
+  <Group>k__BackingField: {fileID: 11400000, guid: 4db17dce603480045a8f88a4fc026002, type: 2}
+  <Container>k__BackingField: {fileID: 11400000, guid: 9451cd4983db15446bda236150d6557a, type: 2}
   <Position>k__BackingField: {x: 906, y: -517}

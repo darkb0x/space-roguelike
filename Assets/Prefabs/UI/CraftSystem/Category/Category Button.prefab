@@ -189,6 +189,8 @@ MonoBehaviour:
   Anim: {fileID: 980604988841490073}
   IconImage: {fileID: 1816099655333452814}
   TitleText: {fileID: 8796751099332737991}
+  EnabledColor: {r: 1, g: 1, b: 1, a: 1}
+  DisabledColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
 --- !u!222 &4479625117767419102
 CanvasRenderer:
   m_ObjectHideFlags: 0

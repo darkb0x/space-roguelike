@@ -10,7 +10,7 @@ namespace Game.Turret
     using Player.Pick;
     using Enemy;
 
-    public abstract class Turret : MonoBehaviour, IDamagable
+    public abstract class Turret : MonoBehaviour, IDamagable, ICraftableBuild
     {
         private const float STANDART_ROTATION_TIME = 5f;
 

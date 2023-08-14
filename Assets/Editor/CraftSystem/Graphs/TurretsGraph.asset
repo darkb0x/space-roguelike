@@ -30,21 +30,21 @@ MonoBehaviour:
     <Name>k__BackingField: Firegun
     <Position>k__BackingField: {x: 881, y: -563}
   <Nodes>k__BackingField:
-  - rid: 6796116835916054645
-  - rid: 6796116835916054646
-  - rid: 6796116835916054647
-  - rid: 6796116835916054648
-  - rid: 6796116835916054649
-  - rid: 6796116835916054650
-  - rid: 6796116835916054651
-  - rid: 6796116835916054652
-  - rid: 6796116835916054653
-  - rid: 6796116835916054654
-  - rid: 6796116835916054655
-  - rid: 6796116835916054656
-  - rid: 6796116835916054657
-  - rid: 6796116835916054658
-  - rid: 6796116835916054659
+  - rid: 6796116882704564239
+  - rid: 6796116882704564240
+  - rid: 6796116882704564241
+  - rid: 6796116882704564242
+  - rid: 6796116882704564243
+  - rid: 6796116882704564244
+  - rid: 6796116882704564245
+  - rid: 6796116882704564246
+  - rid: 6796116882704564247
+  - rid: 6796116882704564248
+  - rid: 6796116882704564249
+  - rid: 6796116882704564250
+  - rid: 6796116882704564251
+  - rid: 6796116882704564252
+  - rid: 6796116882704564253
   <OldGroupNames>k__BackingField:
   - Lasergun
   - Minigun
@@ -82,7 +82,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6796116835916054645
+    - rid: 6796116882704564239
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 99a967ff-e063-4883-87af-390c1634bd83
@@ -101,7 +101,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
           Amount: 5
-    - rid: 6796116835916054646
+    - rid: 6796116882704564240
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: ca4d3474-e66e-4d60-b400-7ad0f5ed83f5
@@ -121,7 +121,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
           Amount: 7
-    - rid: 6796116835916054647
+    - rid: 6796116882704564241
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 2ec4c7a0-b2b3-4e68-bb51-ebad148d6551
@@ -141,7 +141,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
           Amount: 6
-    - rid: 6796116835916054648
+    - rid: 6796116882704564242
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 366e4030-b13a-4ae1-8681-f92a469b5b68
@@ -161,7 +161,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
           Amount: 2
-    - rid: 6796116835916054649
+    - rid: 6796116882704564243
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 66e26995-f4ee-4cd4-a51a-a058ffabaa7d
@@ -181,7 +181,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
           Amount: 3
-    - rid: 6796116835916054650
+    - rid: 6796116882704564244
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 829f19f6-f596-46b9-9859-8acfc11a9430
@@ -200,7 +200,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
           Amount: 5
-    - rid: 6796116835916054651
+    - rid: 6796116882704564245
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: ebc80432-d778-4589-996c-333ad6cb93d9
@@ -220,7 +220,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
           Amount: 6
-    - rid: 6796116835916054652
+    - rid: 6796116882704564246
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: ca1a9e00-5709-481f-9147-02915b86ccb0
@@ -240,7 +240,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
           Amount: 7
-    - rid: 6796116835916054653
+    - rid: 6796116882704564247
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 6a3d7a41-0562-445b-8e19-f932ac9390ba
@@ -261,7 +261,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: 6e44a908444317448a936cbb47cb2ad2, type: 2}
           Amount: 1
-    - rid: 6796116835916054654
+    - rid: 6796116882704564248
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 791d02d6-cee9-44e4-a139-84db702c7009
@@ -281,7 +281,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
           Amount: 6
-    - rid: 6796116835916054655
+    - rid: 6796116882704564249
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: d8e870cb-fb5a-4425-b565-47b15033f9c5
@@ -303,7 +303,7 @@ MonoBehaviour:
           Amount: 2
         - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
           Amount: 6
-    - rid: 6796116835916054656
+    - rid: 6796116882704564250
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 19be1520-a950-4949-af81-0e08cdc65353
@@ -322,7 +322,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
           Amount: 5
-    - rid: 6796116835916054657
+    - rid: 6796116882704564251
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 39f00531-458c-4916-a4ad-9e116ae40de8
@@ -342,7 +342,7 @@ MonoBehaviour:
         <ItemsInCraft>k__BackingField:
         - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
           Amount: 7
-    - rid: 6796116835916054658
+    - rid: 6796116882704564252
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: f24ebeb2-289d-42fe-aacc-a1974515d5b9
@@ -366,7 +366,7 @@ MonoBehaviour:
           Amount: 1
         - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
           Amount: 5
-    - rid: 6796116835916054659
+    - rid: 6796116882704564253
       type: {class: CSDefaultCraftSaveData, ns: CraftSystem.Data.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: ac7ba35a-33f9-4db0-ad09-04857316a47d
