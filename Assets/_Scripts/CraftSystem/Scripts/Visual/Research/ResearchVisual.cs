@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;  
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 namespace Game.CraftSystem.Research.Visual
 {
     using CraftSystem.Visual.Category;
     using global::CraftSystem.ScriptableObjects;
     using Node;
+    using Input;
 
     public class ResearchVisual : MonoBehaviour, IUIPanelManagerObserver
     {
@@ -25,6 +25,7 @@ namespace Game.CraftSystem.Research.Visual
         [SerializeField] private CraftTreeConnectionVisual ConnectionVisualPrefab;
 
         private UIPanelManager UIPanelManager;
+        private UIInputHandler _input => InputManager.UIInputHandler;
         private ResearchManager _manager;
 
         private Dictionary<ResearchTree, Dictionary<ResearchTreeCraft, CraftTreeNodeVisual>> _nodes;
@@ -60,11 +61,11 @@ namespace Game.CraftSystem.Research.Visual
             Close();
 
             // Subscribing to events
-            GameInput.InputActions.UI.CloseWindow.performed += Close;
+            _input.CloseEvent += Close;
         }
         private void OnDisable()
         {
-            GameInput.InputActions.UI.CloseWindow.performed -= Close;
+            _input.CloseEvent -= Close;
         }
 
         private void Update()
@@ -286,10 +287,6 @@ namespace Game.CraftSystem.Research.Visual
             UIPanelManager.ClosePanel(MainPanel);
 
             _isOpened = false;
-        }
-        public void Close(InputAction.CallbackContext callbackContext)
-        {
-            Close();
         }
 
         public void PanelStateIsChanged(GameObject panel)

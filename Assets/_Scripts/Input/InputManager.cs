@@ -1,0 +1,124 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace Game.Input
+{
+    using ActionsMap;
+
+    public class InputManager : MonoBehaviour
+    {
+        public static InputManager Instance;
+
+        public static PlayerInputHandler PlayerInputHandler { get; private set; }
+        public static UIInputHandler UIInputHandler { get; private set; }
+
+        private InputActionsMap _inputActions;
+        private InputHandler _selectedInputHandler;
+
+        public InputEmptyCallbackDelegate PauseEvent;
+
+        private void Awake()
+        {
+            if(Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                return;
+            }
+
+            _inputActions = new InputActionsMap();
+
+            PlayerInputHandler = new PlayerInputHandler(_inputActions);
+            UIInputHandler = new UIInputHandler(_inputActions);
+
+            SetDefaultActionMap();
+
+            PlayerInputHandler.PauseEvent += Pause;
+            UIInputHandler.PauseEvent += Pause;
+        }
+        private void OnDisable()
+        {
+            PlayerInputHandler.PauseEvent -= Pause;
+            UIInputHandler.PauseEvent -= Pause;
+
+            PlayerInputHandler.Dispose();
+            UIInputHandler.Dispose();
+        }
+
+        #region Mouse
+        // Scroll
+        public float GetMouseScrollDeltaY()
+        { 
+            if (!(_selectedInputHandler is IScrollHandler))
+                return 0f;
+
+            IScrollHandler scrollHandler = _selectedInputHandler as IScrollHandler;
+            return scrollHandler.GetMouseScrollDeltaY();
+        }
+
+        // Position
+        public Vector2 GetMousePosition()
+        {
+            return Mouse.current.position.ReadValue();
+        }
+
+        // Left btn
+        public bool MouseLeftButtonPressed()
+        {
+            return Mouse.current.leftButton.isPressed;
+        }
+        public bool MouseLeftButtonPressed(out Vector2 pos)
+        {
+            pos = GetMousePosition();
+            return MouseLeftButtonPressed();
+        }
+
+        // Right btn
+        public bool MouseRightButtonPressed()
+        {
+            return Mouse.current.rightButton.isPressed;
+        }
+        public bool MouseRightButtonPressed(out Vector2 pos)
+        {
+            pos = GetMousePosition();
+            return MouseRightButtonPressed();
+        }
+        #endregion
+
+        public void SetDefaultActionMap()
+        {
+            SetActionMap(ActionMap.Player);
+        }
+        public void SetActionMap(ActionMap actionMap)
+        {
+            switch (actionMap)
+            {
+                case ActionMap.Player:
+                    Enable(PlayerInputHandler);
+                    break;
+                case ActionMap.UI:
+                    Enable(UIInputHandler);
+                    break;
+                default:
+                    goto case ActionMap.Player;
+            }
+
+            void Enable(InputHandler inputHandler)
+            {
+                PlayerInputHandler.SetActive(false);
+                UIInputHandler.SetActive(false);
+
+                inputHandler.SetActive(true);
+                _selectedInputHandler = inputHandler;
+            }
+        }
+
+        private void Pause()
+        {
+            PauseEvent?.Invoke();
+        }
+    }
+}

@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
 
 namespace Game.Lobby.Inventory.Visual
 {
     using Player.Inventory.Visual;
     using Player.Inventory;
+    using Input;
 
     public class LobbyInventoryVisual : MonoBehaviour, IUIPanelManagerObserver
     {
@@ -30,17 +30,19 @@ namespace Game.Lobby.Inventory.Visual
         private Animator currentChestAnimator;
 
         private UIPanelManager UIPanelManager;
+        private UIInputHandler _input => InputManager.UIInputHandler;
 
         private void Start()
         {
             UIPanelManager = Singleton.Get<UIPanelManager>();
 
-            GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
             UIPanelManager.Attach(this);
+
+            _input.CloseEvent += ClosePanel;
         }
         private void OnDisable()
         {
-            GameInput.InputActions.UI.CloseWindow.performed -= ClosePanel;
+            _input.CloseEvent -= ClosePanel;
         }
 
         public void Initialize(List<ItemData> datas, LobbyInventory lobbyInventory)
@@ -77,10 +79,6 @@ namespace Game.Lobby.Inventory.Visual
             UIPanelManager.ClosePanel(MainPanel);
             inventory.SetItemsToInventory();
             isOpened = true;
-        }
-        public void ClosePanel(InputAction.CallbackContext callback)
-        {
-            ClosePanel();
         }
 
         public void UpdateFreeSpaceText(int currentAmount, int maxAmount)

@@ -8,6 +8,7 @@ namespace Game.Lobby.Shop.Visual
     using Player.Inventory;
     using Container;
     using Container.Visual;
+    using Input;
 
     public class ShopManagerVisual : MonoBehaviour, IUIPanelManagerObserver
     {
@@ -33,6 +34,7 @@ namespace Game.Lobby.Shop.Visual
         private List<Image> categoryButtonVisuals = new List<Image>();
 
         private UIPanelManager UIPanelManager;
+        private UIInputHandler _input => InputManager.UIInputHandler;
 
         private void Start()
         {
@@ -40,8 +42,12 @@ namespace Game.Lobby.Shop.Visual
 
             manager = GetComponent<ShopManager>();
 
-            GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
+            _input.CloseEvent += ClosePanel;
             UIPanelManager.Attach(this);
+        }
+        private void OnDisable()
+        {
+            _input.CloseEvent -= ClosePanel;
         }
 
         public void Initialize(List<ItemData> items)
@@ -122,15 +128,6 @@ namespace Game.Lobby.Shop.Visual
 
             UIPanelManager.ClosePanel(MainPanel);
             isOpened = false;
-        }
-        public void ClosePanel(InputAction.CallbackContext callback)
-        {
-            ClosePanel();
-        }
-
-        private void OnDisable()
-        {
-            GameInput.InputActions.UI.CloseWindow.performed -= ClosePanel;
         }
 
         public void PanelStateIsChanged(GameObject panel)

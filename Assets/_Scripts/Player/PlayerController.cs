@@ -8,6 +8,7 @@ namespace Game.Player
     using Pick;
     using Visual;
     using SaveData;
+    using Input;
 
     public class PlayerController : MonoBehaviour, IDamagable, IMovableTarget
     {
@@ -47,6 +48,7 @@ namespace Game.Player
         [HideInInspector] public bool isDied = false;
         [HideInInspector] public bool canLookAround = true;
 
+        private PlayerInputHandler _input => InputManager.PlayerInputHandler;
         private UIPanelManager UIPanelManager;
 
         private void Start()
@@ -71,7 +73,7 @@ namespace Game.Player
 
         private void Update()
         {
-            moveInput = GameInput.Instance.GetMoveInput();
+            moveInput = _input.GetMoveValue();
 
             //animation
             if(moveInput.magnitude > 0)
@@ -89,7 +91,7 @@ namespace Game.Player
             {
                 if (!UIPanelManager.SomethinkIsOpened())
                 {
-                    Vector3 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
+                    Vector3 mousePos = cam.ScreenToWorldPoint(InputManager.Instance.GetMousePosition());
                     lookDir = -(transform.position - mousePos).normalized;
 
                     if (canLookAround)

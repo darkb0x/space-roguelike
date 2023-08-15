@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 namespace Game.Player
 {
+    using Input;
+
     public class BreakingBuildObject : MonoBehaviour
     {
         [Header("Break Visual")]
@@ -20,6 +22,8 @@ namespace Game.Player
         [Space]
         [SerializeField] private UnityEvent Break;
 
+        private PlayerInputHandler _input => InputManager.PlayerInputHandler;
+
         private Coroutine endBreakingCoroutine;
         private float currentBreakProgress;
         private bool playerInZone = false;
@@ -33,12 +37,12 @@ namespace Game.Player
 
         private void Start()
         {
-            GameInput.InputActions.Player.Break.performed += StartBreaking;
-            GameInput.InputActions.Player.Break.canceled += EndBreaking;
-
             currentBreakProgress = BreakTime;
 
-            BreakProgressGameObj.SetActive(false);
+            BreakProgressGameObj.SetActive(false);  
+            
+            _input.BreakEvent.Performed += StartBreaking;
+            _input.BreakEvent.Canceled += EndBreaking;
         }
 
         public void DisableBreaking()
@@ -56,11 +60,11 @@ namespace Game.Player
             if (!canBeBreak)
                 return;
 
-            if (GameInput.InputActions.Player.Break.IsPressed())
+            if (_input.BreakEvent.IsPressed())
                 Breaking();
         }
 
-        private void StartBreaking(InputAction.CallbackContext obj)
+        private void StartBreaking()
         {
             playerInZone = Physics2D.OverlapCircleAll(transform.position, Radius, PlayerLayer).Length > 0;
         }
@@ -81,7 +85,7 @@ namespace Game.Player
             BreakProgressGameObj.SetActive(true);
             if (currentBreakProgress <= 0)
             {
-                GameInput.InputActions.Player.Break.canceled -= EndBreaking;
+                _input.BreakEvent.Canceled -= EndBreaking;
                 Break?.Invoke();
             }
             else
@@ -93,10 +97,6 @@ namespace Game.Player
         private void EndBreaking()
         {
             endBreakingCoroutine = StartCoroutine(EndBreakingCoroutine());
-        }
-        private void EndBreaking(InputAction.CallbackContext context)
-        {
-            EndBreaking();
         }
         private IEnumerator EndBreakingCoroutine()
         {
@@ -116,8 +116,8 @@ namespace Game.Player
 
         private void OnDisable()
         {
-            GameInput.InputActions.Player.Break.performed -= StartBreaking;
-            GameInput.InputActions.Player.Break.canceled -= EndBreaking;
+            _input.BreakEvent.Performed -= StartBreaking;
+            _input.BreakEvent.Canceled -= EndBreaking;
         }
     }
 }

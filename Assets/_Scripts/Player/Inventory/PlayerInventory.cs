@@ -8,6 +8,7 @@ namespace Game.Player.Inventory
     using Visual;
     using SaveData;
     using Utilities.Notifications;
+    using Input;
 
     public class PlayerInventory : MonoBehaviour, ISingleton
     {
@@ -61,6 +62,7 @@ namespace Game.Player.Inventory
 
         public List<IInventoryObserver> observers = new List<IInventoryObserver>();
         private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
+        private PlayerInputHandler _input => InputManager.PlayerInputHandler;
 
         private Color greenColor = new Color(0.254902f, 0.8196079f, 0.5372549f, 1);
         private Color redColor = new Color(0.6901961f, 0.1098039f, 0.282353f, 1f);
@@ -74,15 +76,15 @@ namespace Game.Player.Inventory
         }
         private void Start()
         {
-            GameInput.InputActions.Player.Inventory.performed += InventoryEnabled;
-
             Load();
 
             UpdateVisual();
+            
+            _input.InventoryEvent += InventoryEnabled;
         }
         private void OnDisable()
         {
-            GameInput.InputActions.Player.Inventory.performed -= InventoryEnabled;
+            _input.InventoryEvent -= InventoryEnabled;
         }
 
         private void Load()
@@ -228,7 +230,7 @@ namespace Game.Player.Inventory
             }
         }
 
-        public void InventoryEnabled(UnityEngine.InputSystem.InputAction.CallbackContext callback)
+        public void InventoryEnabled()
         {
             if (!IsActive)
                 return;

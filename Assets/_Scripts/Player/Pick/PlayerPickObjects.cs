@@ -7,6 +7,7 @@ namespace Game.Player.Pick
     using Drill;
     using UnityEngine.InputSystem;
     using Visual;
+    using Input;
 
     public class PlayerPickObjects : MonoBehaviour
     {
@@ -24,6 +25,8 @@ namespace Game.Player.Pick
 
         private Transform pickedGameObject_transform;
 
+        private PlayerInputHandler _input => InputManager.PlayerInputHandler;
+
         public bool HaveObject { get; private set; }
 
         private void OnDrawGizmosSelected()
@@ -34,7 +37,11 @@ namespace Game.Player.Pick
 
         private void Start()
         {
-            GameInput.InputActions.Player.Build.performed += Pick;
+            _input.BuildEvent += Pick;
+        }
+        private void OnDisable()
+        {
+            _input.BuildEvent -= Pick;
         }
 
         private void Update()
@@ -45,7 +52,7 @@ namespace Game.Player.Pick
             }
         }
 
-        private void Pick(InputAction.CallbackContext obj)
+        private void Pick()
         {
             if (pickedGameObject)
                 PutCurrentGameobj();
@@ -119,11 +126,6 @@ namespace Game.Player.Pick
                     }
                 }
             }
-        }
-
-        private void OnDisable()
-        {
-            GameInput.InputActions.Player.Build.performed -= Pick;
         }
     }
 }

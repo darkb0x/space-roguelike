@@ -9,6 +9,7 @@ using System.Linq;
 namespace Game.CraftSystem.Craft.Visual
 {
     using Game.CraftSystem.Visual.Category;
+    using Input;
 
     public class CraftVisual : MonoBehaviour, IUIPanelManagerObserver
     {
@@ -28,6 +29,7 @@ namespace Game.CraftSystem.Craft.Visual
         [SerializeField] private CraftNodeVisual NodeVisualPrefab;
 
         private UIPanelManager UIPanelManager;
+        private UIInputHandler _input => InputManager.UIInputHandler;
         private CraftManager _manager;
 
         public void Initialize(CraftManager manager, List<CraftSO> saveData)
@@ -40,7 +42,11 @@ namespace Game.CraftSystem.Craft.Visual
             InstantiateNodes();
             InitializeCategoryController();
 
-            GameInput.InputActions.UI.CloseWindow.performed += Close;
+            _input.CloseEvent += Close;
+        }
+        private void OnDisable()
+        {
+            _input.CloseEvent -= Close;
         }
 
         public void SelectContainer(CraftContainer container)

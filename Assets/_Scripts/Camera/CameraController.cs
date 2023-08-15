@@ -6,6 +6,7 @@ namespace Game
 {
     using Player;
     using SaveData;
+    using Input;
 
     public class CameraController : MonoBehaviour
     {
@@ -40,7 +41,7 @@ namespace Game
 
         private void Update()
         {
-            float scrollDelta = -GameInput.Instance.GetMouseScrollDeltaY();
+            float scrollDelta = InputManager.Instance.GetMouseScrollDeltaY();
             if (scrollDelta != 0)
             {
                 if(!IsPointerOverUIObject())
@@ -62,7 +63,7 @@ namespace Game
         private bool IsPointerOverUIObject()
         {
             PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-            eventDataCurrentPosition.position = GameInput.Instance.GetMousePosition();
+            eventDataCurrentPosition.position = InputManager.Instance.GetMousePosition();
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
             return results.Count > 0;

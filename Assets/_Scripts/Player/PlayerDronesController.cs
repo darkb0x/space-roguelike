@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Game.Player
 {
     using Drone;
     using World.Generation.Ore;
+    using Input;
 
     public class PlayerDronesController : MonoBehaviour
     {
@@ -47,10 +47,8 @@ namespace Game.Player
 
         private void Update()
         {
-            if(Mouse.current.leftButton.isPressed)
+            if(InputManager.Instance.MouseLeftButtonPressed(out Vector2 mousePos))
             {
-                Vector2 mousePos = cam.ScreenToWorldPoint(GameInput.Instance.GetMousePosition());
-
                 if(DroneMiners.Count > 0)
                 {
                     SetOreTarget(mousePos);

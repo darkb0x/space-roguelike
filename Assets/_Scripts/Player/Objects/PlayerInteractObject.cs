@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using NaughtyAttributes;
 
 namespace Game.Player
 {
     using Pick;
+    using Input;
 
     public delegate void CollisionEnter(Collider2D coll);
 
@@ -27,6 +27,8 @@ namespace Game.Player
         [Space]
 
         [ReadOnly] public bool playerInZone = false;
+
+        private PlayerInputHandler _input => InputManager.PlayerInputHandler;
 
         public CollisionEnter OnPlayerEnter;
         public CollisionEnter OnPlayerStay;
@@ -50,14 +52,14 @@ namespace Game.Player
             if(ObjRender != null)
                 DefaultMaterial = ObjRender.material;
 
-            GameInput.InputActions.Player.Interact.performed += Interact;
+            _input.InteractEvent.Performed += Interact;
         }
         private void OnDisable()
         {
-            GameInput.InputActions.Player.Interact.performed -= Interact;
+            _input.InteractEvent.Performed -= Interact;
         }
 
-        private void Interact(InputAction.CallbackContext context)
+        private void Interact()
         {
             if (!playerInZone)
                 return;

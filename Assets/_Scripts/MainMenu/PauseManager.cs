@@ -3,11 +3,12 @@ using UnityEngine.InputSystem;
 
 namespace Game.MainMenu.Pause
 {
+    using Input;
+
     public delegate void OnGamePaused(bool enabled);
 
     public class PauseManager : MonoBehaviour, ISingleton
     {
-
         [SerializeField, Tooltip("Canvas/Pause")] private GameObject MainPanel;
         [SerializeField] private GameObject[] PauseChildPanels;
 
@@ -26,16 +27,15 @@ namespace Game.MainMenu.Pause
         {
             UIPanelManager = Singleton.Get<UIPanelManager>();
 
-            GameInput.InputActions.Player.Pause.performed += OpenClose;
-            GameInput.InputActions.UI.Pause.performed += OpenClose;
+            InputManager.Instance.PauseEvent += OpenClose;
         }
+        
         private void OnDisable()
         {
-            GameInput.InputActions.Player.Pause.performed -= OpenClose;
-            GameInput.InputActions.UI.Pause.performed -= OpenClose;
+            InputManager.Instance.PauseEvent -= OpenClose;
         }
 
-        private void OpenClose(InputAction.CallbackContext context)
+        private void OpenClose()
         {
             if (UIPanelManager.SomethinkIsOpened())
             {

@@ -5,6 +5,8 @@ using UnityEngine.Rendering;
 
 namespace Game
 {
+    using Input;
+
     public interface IUIPanelManagerObserver
     {
         public void PanelStateIsChanged(GameObject panel);
@@ -76,7 +78,7 @@ namespace Game
         {
             EnablePanel(panel, false);
 
-            GameInput.Instance.SetPlayerActionMap();
+            InputManager.Instance.SetDefaultActionMap();
 
             Notify();
             StartCoroutine(SetCooldown());
@@ -90,7 +92,7 @@ namespace Game
             currentOpenedPanel = panel;
             EnablePanel(panel, true);
 
-            GameInput.Instance.SetUIActionMap();
+            InputManager.Instance.SetActionMap(ActionMap.UI);
 
             Notify();
 
@@ -106,7 +108,7 @@ namespace Game
                 panels[i].panel_obj.SetActive(false);
             }
             playerUI.SetActive(showPlayerInterface);
-            GameInput.Instance.SetPlayerActionMap();
+            InputManager.Instance.SetDefaultActionMap();
         }
 
         public bool SomethinkIsOpened()

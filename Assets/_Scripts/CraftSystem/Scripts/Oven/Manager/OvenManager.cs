@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using NaughtyAttributes;
 
 namespace Game.CraftSystem.Oven.Manager
 {
     using Player.Inventory;
+    using Input;
 
     public class OvenManager : MonoBehaviour, IUIPanelManagerObserver
     {
@@ -23,13 +23,13 @@ namespace Game.CraftSystem.Oven.Manager
 
         private UIPanelManager UIPanelManager;
         private PlayerInventory PlayerInventory;
+        private UIInputHandler _input => InputManager.UIInputHandler;
 
         private void Start()
         {
             UIPanelManager = Singleton.Get<UIPanelManager>();
             PlayerInventory = Singleton.Get<PlayerInventory>();
 
-            GameInput.InputActions.UI.CloseWindow.performed += ClosePanel;
             UIPanelManager.Attach(this);
 
             foreach (var item in craftList.Items)
@@ -38,11 +38,13 @@ namespace Game.CraftSystem.Oven.Manager
                 element.Initialize(item, this);
 
                 craftsVisuals.Add(element);
-            }
+            } 
+            
+            _input.CloseEvent += ClosePanel;
         }
         private void OnDisable()
         {
-            GameInput.InputActions.UI.CloseWindow.performed -= ClosePanel;
+            _input.CloseEvent -= ClosePanel;
         }
 
         public void RemeltingItem(OvenConfig.craft craft)
@@ -90,10 +92,6 @@ namespace Game.CraftSystem.Oven.Manager
             isOpened = false;
 
             UIPanelManager.ClosePanel(panel);
-        }
-        public void ClosePanel(InputAction.CallbackContext context)
-        {
-            ClosePanel();
         }
         #endregion
 

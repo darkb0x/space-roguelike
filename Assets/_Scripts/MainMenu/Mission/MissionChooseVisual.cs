@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using TMPro;
 
 namespace Game.MainMenu.MissionChoose.Visual
 {
+    using Input;
+
     public class MissionChooseVisual : MonoBehaviour, IUIPanelManagerObserver
     {
         [Header("Main")]
@@ -29,17 +30,21 @@ namespace Game.MainMenu.MissionChoose.Visual
         private Vector2 defaultContentPosition;
 
         private UIPanelManager UIPanelManager;
+        private UIInputHandler _input => InputManager.UIInputHandler;
 
         private void Start()
         {
             UIPanelManager = Singleton.Get<UIPanelManager>();
 
-            GameInput.InputActions.UI.CloseWindow.performed += CloseMenu;
+            _input.CloseEvent += CloseMenu;
 
             defaultContentPosition = Content.position;
             UIPanelManager.Attach(this);
         }
-
+        private void OnDisable()
+        {
+            _input.CloseEvent -= CloseMenu;
+        }
         public void ShowMissionTab(Sprite missionIcon, string missionName, List<Planet.PlanetSO.ItemGenerationData> items)
         {
             SelectedMissionIcon.sprite = missionIcon;
@@ -95,14 +100,6 @@ namespace Game.MainMenu.MissionChoose.Visual
 
             UIPanelManager.ClosePanel(MainPanel);
             isOpened = false;
-        }
-        public void CloseMenu(InputAction.CallbackContext context)
-        {
-            CloseMenu();
-        }
-        private void OnDisable()
-        {
-            GameInput.InputActions.UI.CloseWindow.performed -= CloseMenu;
         }
 
         public void PanelStateIsChanged(GameObject panel)

@@ -3,6 +3,7 @@ using UnityEngine;
 namespace Game.World
 {
     using Player;
+    using Input;
 
     public class OxygenBallon : MonoBehaviour
     {
@@ -41,7 +42,7 @@ namespace Game.World
             if (currentPlayer == null)
                 return;
             
-            if(GameInput.InputActions.Player.Interact.IsPressed())
+            if(InputManager.PlayerInputHandler.InteractEvent.IsPressed())
             {
                 UseOxygenBallon();
             }
@@ -71,10 +72,8 @@ namespace Game.World
             if (isUsed)
                 return;
 
-            if(coll.TryGetComponent(out PlayerController player))
+            if(coll.TryGetComponent(out currentPlayer))
             {
-                currentPlayer = player;
-
                 Canvas.SetActive(true);
                 BallonVisual.material = OutlineMaterial;
             }
