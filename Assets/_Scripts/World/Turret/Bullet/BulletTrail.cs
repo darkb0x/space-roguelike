@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Game.Bullets
+namespace Game.Turret.Bullets
 {
     public class BulletTrail : MonoBehaviour
     {

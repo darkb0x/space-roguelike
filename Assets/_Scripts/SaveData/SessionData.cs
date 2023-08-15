@@ -108,12 +108,12 @@ namespace Game.SaveData
             dataSavePath = filePath;
             dataFileName = fileName;
 
-            SaveDataUtility.SaveDataToJson(this, fileName, filePath, true);
+            Save();
 
         }
         public override void Save()
         {
-            SaveDataUtility.SaveDataToJson(this, dataFileName, dataSavePath, true);
+            SaveUtility.SaveDataToJson(dataSavePath, dataFileName, this, true);
         }
         public override void Reset()
         {

@@ -12,6 +12,7 @@ namespace CraftSystem.Windows
     using Elements;
     using Enumerations;
     using Utilities;
+    using Game.Utilities;
 
     public class CSGraphView : GraphView
     {

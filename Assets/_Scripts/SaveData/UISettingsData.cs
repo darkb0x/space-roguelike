@@ -22,11 +22,11 @@ namespace Game.SaveData
             dataSavePath = filePath;
             dataFileName = fileName;
 
-            SaveDataUtility.SaveDataToJson(this, dataFileName, dataSavePath);
+            Save();
         }
         public override void Save()
         {
-            SaveDataUtility.SaveDataToJson(this, dataFileName, dataSavePath);
+            SaveUtility.SaveDataToJson(dataSavePath, dataFileName, this);
         }
         public override void Reset()
         {

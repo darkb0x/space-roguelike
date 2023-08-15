@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
-  m_Name: scrap
+  m_Name: Scrap
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: -1174898945, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
   <LowSizeIcon>k__BackingField: {fileID: 1952006705, guid: c9526f0ee9f3ffd4794ce81530233cdd, type: 3}
   m_ItemName: 
+  <ItemTextColor>k__BackingField: {r: 0.8745099, g: 0.4431373, b: 0.14901961, a: 1}
   <Cost>k__BackingField: 3
   <CanTakeInMission>k__BackingField: 0
   <IsOre>k__BackingField: 0
   OreSprites: []
-  <AssetPath>k__BackingField: Items/scrap
-  AssetName: scrap (default)
+  <AssetPath>k__BackingField: Items/Scrap
+  AssetName: Scrap (default)

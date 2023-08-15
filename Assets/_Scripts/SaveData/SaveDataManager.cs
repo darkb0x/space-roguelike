@@ -35,24 +35,24 @@ namespace Game.SaveData
                 Directory.CreateDirectory(savePath);
             }
 
-            CurrentSessionData = SaveDataUtility.LoadDataFromJson<SessionData>(savePath, SESSION_DATA_FILENAME, true);
-            CurrentSettingsData = SaveDataUtility.LoadDataFromJson<SettingsData>(savePath, SETTINGS_DATA_FILENAME);
-            CurrentUISettingsData = SaveDataUtility.LoadDataFromJson<UISettingsData>(savePath, UI_SETTINGS_DATA_FILENAME);
+            CurrentSessionData = SaveUtility.LoadDataFromJson<SessionData>(savePath, SESSION_DATA_FILENAME, true);
+            CurrentSettingsData = SaveUtility.LoadDataFromJson<SettingsData>(savePath, SETTINGS_DATA_FILENAME);
+            CurrentUISettingsData = SaveUtility.LoadDataFromJson<UISettingsData>(savePath, UI_SETTINGS_DATA_FILENAME);
 
             if(CurrentSessionData == null)
             {
                 CurrentSessionData = new SessionData(savePath, SESSION_DATA_FILENAME);
-                SaveDataUtility.SaveDataToJson(CurrentSessionData, SESSION_DATA_FILENAME, savePath, true);
+                SaveUtility.SaveDataToJson(savePath, SESSION_DATA_FILENAME, CurrentSessionData, true);
             }
             if (CurrentSettingsData == null)
             {
                 CurrentSettingsData = new SettingsData(savePath, SETTINGS_DATA_FILENAME);
-                SaveDataUtility.SaveDataToJson(CurrentSettingsData, SETTINGS_DATA_FILENAME, savePath);
+                SaveUtility.SaveDataToJson(savePath, SETTINGS_DATA_FILENAME, CurrentSettingsData);
             }
             if (CurrentUISettingsData == null)
             {
                 CurrentUISettingsData = new UISettingsData(savePath, UI_SETTINGS_DATA_FILENAME);
-                SaveDataUtility.SaveDataToJson(CurrentUISettingsData, UI_SETTINGS_DATA_FILENAME, savePath);
+                SaveUtility.SaveDataToJson(savePath, UI_SETTINGS_DATA_FILENAME, CurrentUISettingsData);
             }
         }
     }

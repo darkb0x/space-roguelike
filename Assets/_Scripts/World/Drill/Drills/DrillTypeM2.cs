@@ -13,6 +13,12 @@ namespace Game.Drill
         private bool canBePicked = true;
         private bool inCooldown = false;
 
+        public void Initialize()
+        {
+            base.Initialize(FindObjectOfType<Player.PlayerController>());
+
+            BackLegsSR.sortingLayerName = PickSortingLayer;
+        }
         public override void Initialize(Player.PlayerController p)
         {
             base.Initialize(p);

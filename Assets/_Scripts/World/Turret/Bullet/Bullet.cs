@@ -1,27 +1,21 @@
 using UnityEngine;
 
-namespace Game.Bullets
+namespace Game.Turret.Bullets
 {
     using Enemy;
 
     public class Bullet : MonoBehaviour
     {
-        [Header("скорость, дистанция, время")]
         public float speed;
         public float lifeTime;
         public float distance;
 
-        [Header("урон")]
         [NaughtyAttributes.ReadOnly] public float damage;
         public LayerMask whatIsSolid;
         public GameObject destroyEffect;
 
-        new Transform transform;
-
         public virtual void Init(float dmg)
         {
-            transform = GetComponent<Transform>();
-
             damage = dmg;
             Destroy(gameObject, lifeTime);
         }
