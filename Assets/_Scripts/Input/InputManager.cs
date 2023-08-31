@@ -17,6 +17,8 @@ namespace Game.Input
 
         public InputEmptyCallbackDelegate PauseEvent;
 
+        private Camera _camera;
+
         private void Awake()
         {
             if(Instance == null)
@@ -63,6 +65,13 @@ namespace Game.Input
         public Vector2 GetMousePosition()
         {
             return Mouse.current.position.ReadValue();
+        }
+        public Vector2 GetWorldMousePosition()
+        {
+            if (_camera == null)
+                _camera = Camera.main;
+
+            return _camera.ScreenToWorldPoint(GetMousePosition());
         }
 
         // Left btn

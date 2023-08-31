@@ -1,280 +1,219 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
 
 namespace Game.Player
 {
-    using Inventory;
-    using Pick;
-    using Visual;
-    using SaveData;
     using Input;
+    using Components;
+    using Game.Player.State;
+    using System;
 
+    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour, IDamagable, IMovableTarget
     {
         [Header("Oxygen")]
-        [SerializeField] private float oxygen = 50;
-        [SerializeField] private float LowOxygenValue;
-        [SerializeField] private float maxOxygen = 100f;
-        [SerializeField] private float oxygenUseSpeed = 1.3f;
-        public bool DoOxygenCycle = true;
+        [SerializeField] private OxygenConfig OxygenConfig;
 
         [Header("Health")]
-        [SerializeField] private float health = 10;
-        [SerializeField] private float maxHealth;
-        public bool DoHealthCycle = true;
-        [Space]
-        [SerializeField] private float InvulnerabilityTime = 0.2f;
+        [SerializeField] private HealthConfig HealthConfig;
 
         [Header("Movement")]
-        [SerializeField] private float speed;
+        [SerializeField] private MovementConfig MovementConfig;
+
+        [Header("Build")]
+        [SerializeField] private BuildConfig BuildConfig;
 
         [Header("Visual")]
         [SerializeField] private PlayerVisual Visual;
 
-        [Header("components")]
-        public PlayerPickObjects pickObjSystem;
-        [HideInInspector] public PlayerInventory inventory;
-        [SerializeField] private Collider2D MainColl;
+        [Header("Components")]
+        public Collider2D MainCollider;
         [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
-        private Vector2 moveInput;
-        private Vector2 lookDir;
+        // Components
+        public Action<PlayerComponent> OnComponentChangedEnabled;
+        public HealthController Health;
+        public OxygenController Oxygen;
+        public MovementController Movement;
+        public BuildController Build;
 
-        private Rigidbody2D rb;
-        private Camera cam;
-        public bool invulnerability = false;
-        [HideInInspector] public bool canMove = true;
-        [HideInInspector] public bool isDied = false;
-        [HideInInspector] public bool canLookAround = true;
+        private List<IRequireUpdate> _updatableComponents;
+        private List<IRequireFixedUpdate> _fixedUpdatableComponents;
 
-        private PlayerInputHandler _input => InputManager.PlayerInputHandler;
-        private UIPanelManager UIPanelManager;
+        // State
+        public PlayerState CurrentState { get { return _state; } }
+        private PlayerState _state;
+        public PlayerState DefaultState { get; } = new PlayerDefaultState();
+        public PlayerState DeadState { get; } = new PlayerDeadState();
+        public PlayerState InvulnerabityState { get; } = new PlayerInvulnerabilityState();
+        public PlayerState StandingState { get; } = new PlayerStandingState();
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, BuildConfig.PickRadius);
+        }
+
+        private void Awake()
+        {
+            InitializeComponents();
+            InitializeStates();
+        }
+
+        private void InitializeComponents()
+        {
+            ComponentConfig componentConfig = new ComponentConfig()
+            {
+                Player = this,
+                Visual = Visual,
+                Input = InputManager.PlayerInputHandler
+            };
+
+            Oxygen = new OxygenController(componentConfig, OxygenConfig);
+            Health = new HealthController(componentConfig, HealthConfig);
+            Movement = new MovementController(componentConfig, MovementConfig);
+            Build = new BuildController(componentConfig, BuildConfig);
+
+            _updatableComponents = new List<IRequireUpdate>()
+            {
+                Oxygen,
+                Movement,
+                Build
+            };
+            _fixedUpdatableComponents = new List<IRequireFixedUpdate>()
+            {
+                Movement
+            };
+
+            Oxygen.OnEnableChanged += () => OnComponentChangedEnabled?.Invoke(Oxygen);
+            Health.OnEnableChanged += () => OnComponentChangedEnabled?.Invoke(Health);
+            Movement.OnEnableChanged += () => OnComponentChangedEnabled?.Invoke(Movement);
+
+            Build.AttachInput();
+        }
+        private void InitializeStates()
+        {
+            DefaultState.Initialize(this);
+            DeadState.Initialize(this);
+            InvulnerabityState.Initialize(this);
+            StandingState.Initialize(this);
+
+            SetState(DefaultState);
+        }
 
         private void Start()
         {
-            UIPanelManager = Singleton.Get<UIPanelManager>();
-
-            rb = GetComponent<Rigidbody2D>();
-
-            inventory = FindObjectOfType<PlayerInventory>();
-            cam = Camera.main;
             EnemyTarget.Initialize(this, this);
+        }
 
-            health = maxHealth;
-            Visual.InitializeHealthVisual();
+        private void OnDisable()
+        {
+            Build.DetachInput();
 
-            if(!DoOxygenCycle)
-            {
-                oxygen = maxOxygen;
-                Visual.UpdateOxygenVisual(oxygen, maxOxygen);
-            }
+            Oxygen.OnEnableChanged -= () => OnComponentChangedEnabled?.Invoke(Oxygen);
+            Health.OnEnableChanged -= () => OnComponentChangedEnabled?.Invoke(Health);
+            Movement.OnEnableChanged -= () => OnComponentChangedEnabled?.Invoke(Movement);
         }
 
         private void Update()
         {
-            moveInput = _input.GetMoveValue();
-
-            //animation
-            if(moveInput.magnitude > 0)
+            foreach (var component in _updatableComponents)
             {
-                if (!UIPanelManager.SomethinkIsOpened())
-                {
-                    if(canLookAround)
-                    {
-                        lookDir = moveInput;
-                        Visual.PlayerLookDirection(moveInput);
-                    }
-                }
+                component.Update();
             }
-            else
-            {
-                if (!UIPanelManager.SomethinkIsOpened())
-                {
-                    Vector3 mousePos = cam.ScreenToWorldPoint(InputManager.Instance.GetMousePosition());
-                    lookDir = -(transform.position - mousePos).normalized;
-
-                    if (canLookAround)
-                    {
-                        Visual.PlayerLookDirection(lookDir);
-                    }
-                }
-            }
-
-            if (canMove)
-            {
-                if (moveInput.magnitude > 0)
-                {
-                    Visual.PlayerRunAnimation();
-                }
-                else
-                {
-                    Visual.PlayerIdleAnimation();
-                }
-            }
-            else
-                Visual.PlayerIdleAnimation();
-
-            //oxygen
-            if(DoOxygenCycle)
-                OxygenCycle();
         }
 
         private void FixedUpdate()
         {
-            if(canMove)
-                rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
+            foreach (var component in _fixedUpdatableComponents)
+            {
+                component.FixedUpdate();
+            }
         }
+
+        public void SetState(PlayerState state)
+        {
+            _state = state;
+            _state.Enable();
+        }
+        public void SetComponentEnabled(PlayerComponent component, bool enabled)
+        {
+            if (enabled)
+                component.Enable();
+            else
+                component.Disable();
+        }
+        private void SetComponentEnabled(bool enabled)
+        {
+            SetComponentEnabled(Health, enabled);
+            SetComponentEnabled(Oxygen, enabled);
+            SetComponentEnabled(Movement, enabled);
+            SetComponentEnabled(Build, enabled);
+        }
+        public void EnableAllComponents()
+        {
+            SetComponentEnabled(true);
+        }
+        public void DisableAllComponents()
+        {
+            SetComponentEnabled(false);
+        }
+
+        #region IMovableTarget
         public Vector3 GetMoveDirection()
         {
-            if(canMove)
+            if(_state == DefaultState)
             {
-                return moveInput;
+                return Movement.GetMoveDirection();
             } 
             else
             {
                 return Vector3.zero;
             }
         }
-
-        #region Oxygen
-        private void OxygenCycle()
-        {
-            if(oxygen <= 0)
-            {
-                Die();
-            }
-
-            if(oxygen < LowOxygenValue)
-            {
-                Visual.PlayerLowOxygen(true, oxygen, LowOxygenValue);
-            }
-            else
-            {
-                Visual.PlayerLowOxygen(false, oxygen, LowOxygenValue);
-            }
-
-            oxygen -= (Time.deltaTime * oxygenUseSpeed);
-            Visual.UpdateOxygenVisual(oxygen, maxOxygen);
-        }
-
-        public void AddOxygen(float amount)
-        {
-            oxygen = Mathf.Clamp(oxygen + amount, 0, maxOxygen);
-        }
         #endregion
 
-        #region Health
-        [Button(enabledMode: EButtonEnableMode.Playmode)]
-        public void TakeDamage()
-        {
-            TakeDamage(1);
-        }
-
-        public void TakeDamage(float value)
-        {
-            health = Mathf.Clamp(health - Mathf.RoundToInt(value), 0, maxHealth);
-
-            Visual.UpdateHealthVisual((int)health);
-
-            LogUtility.WriteLog($"Player got damage, {health}/{maxHealth}");
-
-            if (health <= 0)
-            {
-                Die();
-            }
-
-            StartCoroutine(SetInvulnerability());
-        }
-        public void RegenerateHealth()
-        {
-            health = maxHealth;
-
-            Visual.UpdateHealthVisual((int)health);
-        }
-
-        private void Die()
-        {
-            if (isDied)
-                return;
-
-            StopPlayerMove();
-            MainColl.enabled = false;
-            DoOxygenCycle = false;
-
-            SaveDataManager.Instance.CurrentSessionData.Reset();
-            UIPanelManager.CloseAllPanel();
-
-            Visual.PlayerDead();
-
-            isDied = true;
-
-            LogUtility.WriteLog("Player died");
-        }
-
-        private IEnumerator SetInvulnerability()
-        {
-            invulnerability = true;
-            StartCoroutine(Visual.PlayerHurt(InvulnerabilityTime));
-            yield return new WaitForSeconds(InvulnerabilityTime);
-            invulnerability = false;
-        }
-
+        #region IDamagable
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
         {
-            if (!DoHealthCycle)
-                return;
-            if (invulnerability)
-                return;
-
-            TakeDamage(dmg);
+            Health.TakeDamage(dmg);
         }
         void IDamagable.Die()
         {
-            if (!DoHealthCycle)
-                return;
-            if (invulnerability)
-                return;
-
             Singleton.Get<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
-            Die();
+            Health.Die();
         }
         #endregion
 
         #region Animation Control
         public void StopPlayerMove(Transform posTransform)
         {
-            canMove = false;
+            StopPlayerMove();
             transform.position = posTransform.position;
         }
         public void StopPlayerMove()
         {
-            canMove = false;
+            SetState(StandingState);
         }
         public void ContinuePlayerMove()
         {
-            canMove = true;
+            SetState(DefaultState);
         }
 
         public void LockPlayerPosition(Transform posPosition)
         {
-            canMove = false;
+            SetState(StandingState);
             transform.SetParent(posPosition);
             transform.localPosition = Vector2.zero;
-            MainColl.enabled = false;
-            invulnerability = true;
+            MainCollider.enabled = false;
+            SetComponentEnabled(Health, false);
         }
         public void UnlockPlayerPosition()
         {
             transform.SetParent(null);
-            canMove = true;
-            MainColl.enabled = true;
-            invulnerability = false;
-        }
-
-        public void LockPlayerLook(bool enabled)
-        {
-            canLookAround = !enabled;
+            SetState(DefaultState);
+            MainCollider.enabled = true;
+            SetComponentEnabled(Health, true);
         }
         #endregion
     }

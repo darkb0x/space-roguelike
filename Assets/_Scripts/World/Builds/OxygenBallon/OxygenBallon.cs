@@ -52,7 +52,8 @@ namespace Game.World
         {
             float value = Time.deltaTime * UseSpeed;
 
-            currentPlayer.AddOxygen(value);
+            if(!currentPlayer.Oxygen.AddOxygen(value))
+                return;
             oxygenAmount -= value;
 
             OxygenAmountVisual.fillAmount = oxygenAmount / m_OxygenAmount;
@@ -72,8 +73,10 @@ namespace Game.World
             if (isUsed)
                 return;
 
-            if(coll.TryGetComponent(out currentPlayer))
+            if(coll.TryGetComponent(out PlayerController p))
             {
+                currentPlayer = p;
+
                 Canvas.SetActive(true);
                 BallonVisual.material = OutlineMaterial;
             }
@@ -83,7 +86,7 @@ namespace Game.World
             if (isUsed)
                 return;
 
-            if (coll.TryGetComponent(out PlayerController player))
+            if (coll.TryGetComponent(out PlayerController _))
             {
                 currentPlayer = null;
 

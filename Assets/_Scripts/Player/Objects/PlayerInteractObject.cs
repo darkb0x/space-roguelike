@@ -6,6 +6,7 @@ namespace Game.Player
 {
     using Pick;
     using Input;
+    using Game.Player.Components;
 
     public delegate void CollisionEnter(Collider2D coll);
 
@@ -34,7 +35,7 @@ namespace Game.Player
         public CollisionEnter OnPlayerStay;
         public CollisionEnter OnPlayerExit;
 
-        private PlayerPickObjects playerPick;
+        private BuildController playerBuildController;
         private UIPanelManager UIPanelManager;
 
         private void OnRenderTypeChanged()
@@ -65,7 +66,7 @@ namespace Game.Player
                 return;
             if (UIPanelManager.SomethinkIsOpened())
                 return;
-            if (playerPick.HaveObject)
+            if (playerBuildController.HaveBuild)
                 return;
 
             action.Invoke();
@@ -75,8 +76,8 @@ namespace Game.Player
         {
             if (collision.CompareTag(PlayerTag))
             {
-                if (collision.TryGetComponent(out PlayerPickObjects pickObjects))
-                    playerPick = pickObjects;
+                if (collision.TryGetComponent(out PlayerController player))
+                    playerBuildController = player.Build;
 
                 OnPlayerEnter?.Invoke(collision);
                 playerInZone = true;
@@ -96,8 +97,8 @@ namespace Game.Player
         {
             if (collision.CompareTag(PlayerTag))
             {
-                if (collision.TryGetComponent<PlayerPickObjects>(out PlayerPickObjects pickObjects))
-                    playerPick = null;
+                if (collision.TryGetComponent(out PlayerController player))
+                    playerBuildController = null;
 
                 OnPlayerExit?.Invoke(collision);
                 playerInZone = false;

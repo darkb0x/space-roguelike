@@ -39,18 +39,18 @@ namespace Game.Drill
             canBePicked = false;
         }
 
-        public bool CanPick()
+        public override bool CanPick()
         {
             bool pick = true;
 
+            if (inCooldown)
+                return false;
             if (!canBePicked)
                 pick = false;
             if (isPicked)
                 pick = false;
             if (IsMining)
                 pick = false;
-            if (inCooldown)
-                return false;
 
             return pick;
         }
@@ -66,7 +66,7 @@ namespace Game.Drill
             OreDetectColl.enabled = true;
             PlayerDetectColl.enabled = false;
 
-            player.pickObjSystem.SetPickedGameobj(gameObject);
+            player.Build.Pick(this);
         }
 
         public override void PlayerTakeItems()
@@ -82,7 +82,7 @@ namespace Game.Drill
         public override void Die()
         {
             Singleton.Get<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
-            player.pickObjSystem.SetPickedGameobj(null);
+            player.Build.CleanPickedObject(this);
 
             Instantiate(ExploisonEffect, myTransform.position, Quaternion.identity);
 

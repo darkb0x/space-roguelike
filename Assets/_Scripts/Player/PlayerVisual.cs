@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using NaughtyAttributes;
 
-namespace Game.Player.Visual
+namespace Game.Player
 {
     using Utilities.LoadScene;
 

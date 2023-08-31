@@ -91,7 +91,7 @@ namespace Game.Drill
             PreRenderPlaceObject.gameObject.SetActive(false);
         }
 
-        public virtual void Initialize(PlayerController p)
+        public virtual void Initialize(PlayerController p) // ICraftableBuild func
         {
             if (isInitialized)
                 return;
@@ -105,7 +105,7 @@ namespace Game.Drill
 
             isPicked = true;
 
-            player.pickObjSystem.SetPickedGameobj(gameObject);
+            player.Build.Pick(this);
             EnemyTarget.Initialize(this, null);
 
             isInitialized = true;
@@ -152,7 +152,11 @@ namespace Game.Drill
             }
         }
 
-        #region Put
+        #region ICraftableBuild
+        public GameObject GetGameObject()
+        {
+            return gameObject;
+        }
         public bool CanPut()
         {
             return CurrentOre;
@@ -177,6 +181,8 @@ namespace Game.Drill
 
             inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
         }
+        public virtual bool CanPick()
+            => isPicked;
         #endregion
 
         #region Mining
@@ -240,7 +246,7 @@ namespace Game.Drill
         public virtual void Die()
         {
             MiningEnded();
-            player.pickObjSystem.SetPickedGameobj(null);
+            player.Build.CleanPickedObject(this);
         }
 
         void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
@@ -364,7 +370,7 @@ namespace Game.Drill
 
             if(isPicked && isInitialized)
             {
-                player.pickObjSystem.PutCurrentGameobj(false);
+                player.Build.CleanPickedObject(this);
             }
 
             foreach (var item in DroppedItemsAfterBroke)

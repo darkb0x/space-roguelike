@@ -1600,7 +1600,6 @@ GameObject:
   - component: {fileID: 3514759272854996622}
   - component: {fileID: 3514759272854996621}
   - component: {fileID: 5340520158696822646}
-  - component: {fileID: 3514759272854996626}
   - component: {fileID: 3514759272854996620}
   - component: {fileID: 3514759272854996623}
   - component: {fileID: 3514759272854996627}
@@ -1645,25 +1644,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac32ce79632794243a6cbd5354811a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oxygen: 210
-  LowOxygenValue: 30
-  maxOxygen: 300
-  oxygenUseSpeed: 1
-  DoOxygenCycle: 1
-  health: 0
-  maxHealth: 3
-  DoHealthCycle: 1
-  InvulnerabilityTime: 0.7
-  speed: 5
+  OxygenConfig:
+    MaxOxygen: 369
+    StartOxygenValue: 279
+    LowOxygenValue: 30
+    OxygenUseSpeed: 1
+  HealthConfig:
+    MaxHealth: 3
+    InvulnerabilityTime: 0.1
+  MovementConfig:
+    Speed: 5
+  BuildConfig:
+    PickRadius: 1.3
+    BuildsLayer:
+      serializedVersion: 2
+      m_Bits: 10240
+    PickedBuildColor: {r: 1, g: 1, b: 1, a: 1}
+    BlueprintSortingLayer: World
+    PickedBuildRenderPosition: {fileID: 3514759272266711524}
   Visual: {fileID: 5340520158696822646}
-  pickObjSystem: {fileID: 3514759272854996626}
-  inventory: {fileID: 0}
-  MainColl: {fileID: 4447103223347090712}
+  MainCollider: {fileID: 4447103223347090712}
   EnemyTarget: {fileID: 7655071616738455957}
-  invulnerability: 0
-  canMove: 1
-  isDied: 0
-  canLookAround: 1
 --- !u!114 &5340520158696822646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1695,24 +1696,6 @@ MonoBehaviour:
   Anim_isRunningBool: isRunning
   Anim_isPickingSmthBool: isPickSomething
   Anim_deadTrigger: Die
---- !u!114 &3514759272854996626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3514759272854996617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d5df1a1026f1b44b6455aeaa532418, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Visual: {fileID: 5340520158696822646}
-  pickRadius: 1.5
-  pickedObjColor: {r: 0.25, g: 0.63282454, b: 1, a: 0.69803923}
-  blueprintSortingLayer: World
-  pickedGameObject: {fileID: 0}
-  pickedGameObject_renderPosition: {fileID: 3514759272266711524}
 --- !u!114 &3514759272854996620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1720,7 +1703,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3514759272854996617}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec2fc857a757f6b42b43d3beea298fec, type: 3}
   m_Name: 

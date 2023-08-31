@@ -110,7 +110,7 @@ namespace Game.Turret
             }
         }
 
-        public virtual void Initialize(PlayerController p)
+        public virtual void Initialize(PlayerController p) // ICraftableBuild func
         {
             player = p;
 
@@ -121,7 +121,7 @@ namespace Game.Turret
             EnemyDetectionCollider.enabled = false;
 
             PreRenderPlaceObject.gameObject.SetActive(true);
-            player.pickObjSystem.SetPickedGameobj(gameObject);
+            player.Build.Pick(this);
         }
 
         #region Updates
@@ -340,25 +340,23 @@ namespace Game.Turret
         }
         #endregion
 
-        #region Put functions
-        public virtual bool Put()
+        #region ICraftableBuild
+        public GameObject GetGameObject()
+        {
+            return gameObject;
+        }
+        public bool CanPut()
         {
             Collider2D[] colls = Physics2D.OverlapCircleAll(targetPlacePosition, MendatoryFreeRadius, ConflictedLayers);
             if (colls.Length > 0)
             {
-                if(colls.Length == 1)
-                {
-                    if(colls[0] != GetComponent<Collider2D>())
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+                return !(colls.Length == 1 && colls[0] != GetComponent<Collider2D>());
             }
 
+            return true;
+        }
+        public void Put()
+        {
             transform.position = targetPlacePosition;
             PreRenderPlaceObject.gameObject.SetActive(false);
 
@@ -366,18 +364,15 @@ namespace Game.Turret
             EnemyDetectionCollider.enabled = true;
 
             Singleton.Get<EnemySpawner>().AddTarget(EnemyTarget);
-
-            return true;
         }
+        public bool CanPick()
+            => true;
         #endregion
 
         #region Break
         public virtual void Break()
-        {
-            if (isPicked)
-            {
-                player.pickObjSystem.PutCurrentGameobj(false);
-            }
+        {    
+            player.Build.CleanPickedObject(this);
 
             PlayerInventory inventory = Singleton.Get<PlayerInventory>();
             foreach (var item in DroppedItems)
@@ -406,9 +401,8 @@ namespace Game.Turret
         }
         [Button]
         protected virtual void Die()
-        {
-            if(isPicked)
-                player.pickObjSystem.PutCurrentGameobj(false);
+        {    
+            player.Build.CleanPickedObject(this);
 
             GameObject particle = Instantiate(DestroyParticle, transform.position, Quaternion.identity);
             particle.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 360));
