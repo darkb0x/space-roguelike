@@ -76,6 +76,8 @@ namespace Game.Turret
         [Header("Other")]
         [Tag, SerializeField] protected string PlayerTag = "Player";
 
+        private EnemySpawner _enemySpawner;
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.grey;
@@ -91,15 +93,17 @@ namespace Game.Turret
             }
         }
 
-        protected virtual void Start()
+        protected virtual void Awake()
         {
+            _enemySpawner = ServiceLocator.GetService<EnemySpawner>();
+
             if(!ChangeRotationTime)
             {
                 TurretRotateTime = STANDART_ROTATION_TIME;
                 TurretBackRotateTime = STANDART_ROTATION_TIME;
             }
 
-            EnemyTarget.Initialize(this, null);
+            EnemyTarget.Initialize(this);
 
             if (InitializeOnStart) 
             {
@@ -363,7 +367,7 @@ namespace Game.Turret
             isPicked = false;
             EnemyDetectionCollider.enabled = true;
 
-            Singleton.Get<EnemySpawner>().AddTarget(EnemyTarget);
+            _enemySpawner.AddTarget(EnemyTarget);
         }
         public bool CanPick()
             => true;
@@ -374,13 +378,13 @@ namespace Game.Turret
         {    
             player.Build.CleanPickedObject(this);
 
-            PlayerInventory inventory = Singleton.Get<PlayerInventory>();
+            var inventory = ServiceLocator.GetService<PlayerInventory>();
             foreach (var item in DroppedItems)
             {
                 inventory.AddItem(item.Item, item.Amount);
             }
 
-            Singleton.Get<EnemySpawner>().RemoveTarget(EnemyTarget);
+            _enemySpawner.RemoveTarget(EnemyTarget);
             Destroy(gameObject);
         }
         #endregion
@@ -416,7 +420,7 @@ namespace Game.Turret
         }
         void IDamagable.Die()
         {
-            Singleton.Get<EnemySpawner>().RemoveTarget(EnemyTarget);
+            _enemySpawner.RemoveTarget(EnemyTarget);
             Die();
         }
         #endregion

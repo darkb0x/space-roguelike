@@ -46,7 +46,7 @@ namespace Game.Drone
 
         private void Start()
         {
-            PlayerInventory = Singleton.Get<PlayerInventory>();
+            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
 
             if(InitializeOnStart)
             {

@@ -42,7 +42,7 @@ namespace Game.Session
             }
             Enable(currentUISettingsData.EnableTimeline);
 
-            SessionManager = Singleton.Get<SessionManager>();
+            SessionManager = ServiceLocator.GetService<SessionManager>();
 
             m_Slider.minValue = 0;
             m_Slider.maxValue = SessionManager.SessionTimings.Music.length;

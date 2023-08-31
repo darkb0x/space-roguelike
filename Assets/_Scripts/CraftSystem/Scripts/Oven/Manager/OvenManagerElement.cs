@@ -25,7 +25,7 @@ namespace Game.CraftSystem.Oven.Manager
 
         public void Initialize(OvenConfig.craft craft, OvenManager m)
         {
-            PlayerInventory = Singleton.Get<PlayerInventory>();
+            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
 
             currentCraft = craft;
             manager = m;

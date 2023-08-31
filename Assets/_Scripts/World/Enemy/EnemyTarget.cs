@@ -13,14 +13,15 @@ namespace Game.Enemy
         private IDamagable damagableObject;
         private IMovableTarget movableObject;
 
-        public void Initialize(IDamagable damagableObj, IMovableTarget movableObj)
+        public void Initialize(IDamagable damagableObj, IMovableTarget movableObj = null)
         {
             damagableObject = damagableObj;
             movableObject = movableObj;
 
             if (AddObjectToListAtStart)
-                Singleton.Get<EnemySpawner>().AddTarget(this);
+                ServiceLocator.GetService<EnemySpawner>().AddTarget(this);
         }
+
 
         public void Hurt(float dmg)
         {

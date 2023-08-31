@@ -81,7 +81,7 @@ namespace Game.Drill
 
         public override void Die()
         {
-            Singleton.Get<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
+            ServiceLocator.GetService<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
             player.Build.CleanPickedObject(this);
 
             Instantiate(ExploisonEffect, myTransform.position, Quaternion.identity);

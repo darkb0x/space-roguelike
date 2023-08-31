@@ -11,7 +11,7 @@ namespace Game.CraftSystem.Research
     using global::CraftSystem.ScriptableObjects;
     using System.Linq;
 
-    public class ResearchManager : MonoBehaviour, ISingleton
+    public class ResearchManager : MonoBehaviour, IService, IEntryComponent<PlayerInventory>
     {
         [SerializeField] private bool ShowVisual = true;
         [SerializeField, ShowIf("ShowVisual")] private ResearchVisual Visual;
@@ -22,13 +22,9 @@ namespace Game.CraftSystem.Research
         private PlayerInventory PlayerInventory;
         private List<CraftSO> crafts;
 
-        private void Awake()
+        public void Initialize(PlayerInventory playerInventory)
         {
-            Singleton.Add(this);
-        }
-        private void Start()
-        {
-            PlayerInventory = Singleton.Get<PlayerInventory>();
+            PlayerInventory = playerInventory;
 
             crafts = currentSessionData.GetCraftList();
 

@@ -24,7 +24,7 @@ namespace Game.Player
 
         private void Start()
         {
-            PlayerInventory = Singleton.Get<PlayerInventory>();
+            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
 
             ItemsForRepairInUI = new List<RepairObjectItemUIVisual>();
 

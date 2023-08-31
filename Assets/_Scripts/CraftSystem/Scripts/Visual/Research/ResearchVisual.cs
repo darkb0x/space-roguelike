@@ -41,7 +41,7 @@ namespace Game.CraftSystem.Research.Visual
             _trees = trees;
             _manager = manager;
             _nodes = new Dictionary<ResearchTree, Dictionary<ResearchTreeCraft, CraftTreeNodeVisual>>();
-            UIPanelManager = Singleton.Get<UIPanelManager>();
+            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
 
             // Create visual
             CreateNodes();

@@ -14,9 +14,9 @@ namespace Game.Turret
         private float reloadTime;
         private bool isReloading = false;
 
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
 
             currentRocketsCount = maxRocketsCount;
             reloadTime = startReloadTime;

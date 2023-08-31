@@ -8,7 +8,7 @@ namespace Game.Enemy
     using Session;
     using SaveData;
 
-    public class EnemySpawner : MonoBehaviour, ISingleton
+    public class EnemySpawner : MonoBehaviour, IService, IEntryComponent<SessionManager>
     {
         [HideInInspector] public List<EnemyAI> AllEnemies = new List<EnemyAI>();
 
@@ -44,13 +44,9 @@ namespace Game.Enemy
             }
         }
 
-        private void Awake()
+        public void Initialize(SessionManager sessionManager)
         {
-            Singleton.Add(this);
-        }
-        private void Start()
-        {
-            SessionManager = Singleton.Get<SessionManager>();
+            SessionManager = sessionManager;
 
             DifficultFactor = SaveDataManager.Instance.CurrentSessionData.CurrentDifficultFactor;
             SpawnScore = Mathf.RoundToInt(MaxSpawnScore * DifficultFactor);

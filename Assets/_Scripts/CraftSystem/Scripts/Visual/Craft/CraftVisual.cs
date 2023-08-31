@@ -35,7 +35,7 @@ namespace Game.CraftSystem.Craft.Visual
         public void Initialize(CraftManager manager, List<CraftSO> saveData)
         {
             _manager = manager;
-            UIPanelManager = Singleton.Get<UIPanelManager>();
+            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
 
             LoadSaveData(saveData);
             InstantiatePanels();

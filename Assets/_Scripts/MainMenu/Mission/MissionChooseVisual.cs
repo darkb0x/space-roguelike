@@ -34,7 +34,7 @@ namespace Game.MainMenu.MissionChoose.Visual
 
         private void Start()
         {
-            UIPanelManager = Singleton.Get<UIPanelManager>();
+            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
 
             _input.CloseEvent += CloseMenu;
 

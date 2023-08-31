@@ -13,7 +13,7 @@ namespace Game.Player.Inventory.Visual
 
         private void Start()
         {
-            Singleton.Get<PlayerInventory>().Attach(this, true);
+            ServiceLocator.GetService<PlayerInventory>().Attach(this, true);
         }
 
         #region Item Visuals

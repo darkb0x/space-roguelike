@@ -34,7 +34,7 @@ namespace Game.Drill
 
             Anim.SetTrigger(anim_DieTrigger);
 
-            Singleton.Get<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
+            ServiceLocator.GetService<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
             exploisonGameObj.SetActive(true);
             BreakingBuildObject.DisableBreaking();
 

@@ -18,7 +18,7 @@ namespace Game.Session
         StartWave
     }
 
-    public class SessionManager : MonoBehaviour, ISingleton
+    public class SessionManager : MonoBehaviour, IService, IEntryComponent<EnemySpawner, PauseManager>
     {
         [Header("Rocket")]
         [SerializeField] private Transform StartRocket;
@@ -47,33 +47,30 @@ namespace Game.Session
         public PlanetSO planetData { get; private set; }
 
         private EnemySpawner EnemySpawner;
+        private PauseManager _pauseManager;
         public System.Action<SessionEvent> OnEventReached;
 
-        private void Awake()
-        {
-            Singleton.Add(this);
+        public void Initialize(EnemySpawner enemySpawner, PauseManager pauseManager)
+        {  
+            EnemySpawner = enemySpawner;
+            _pauseManager = pauseManager;
 
             eventsCount = SessionTimings.EventsList.Count;
             currentEvent = 0;
+            planetData = SaveDataManager.Instance.CurrentSessionData.GetPlanet();
 
             StartRocket.position = RocketPositions[Random.Range(0, RocketPositions.Length)].position;
 
             LogUtility.StartLogging("session");
 
+            _pauseManager.OnGamePaused += OnGamePaused;
+            
             #if !UNITY_EDITOR
             DebugText.gameObject.SetActive(false);
             #endif
         }
 
-        private void Start()
-        {
-            EnemySpawner = Singleton.Get<EnemySpawner>();
-            Singleton.Get<PauseManager>().OnGamePaused += OnGamePaused;
-
-            planetData = SaveDataManager.Instance.CurrentSessionData.GetPlanet();
-        }
-
-        public void Initialize()
+        public void StartPlaying()
         {
             MusicManager.Instance.SetMusic(Music, false);
 
@@ -155,7 +152,7 @@ namespace Game.Session
         private void OnDisable()
         {
             LogUtility.StopLogging();
-            Singleton.Get<PauseManager>().OnGamePaused -= OnGamePaused;
+            _pauseManager.OnGamePaused -= OnGamePaused;
         }
     }
 }

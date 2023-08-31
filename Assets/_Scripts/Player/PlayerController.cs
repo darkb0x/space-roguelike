@@ -9,7 +9,7 @@ namespace Game.Player
     using System;
 
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerController : MonoBehaviour, IDamagable, IMovableTarget
+    public class PlayerController : MonoBehaviour, IEntryComponent, IService, IDamagable, IMovableTarget
     {
         [Header("Oxygen")]
         [SerializeField] private OxygenConfig OxygenConfig;
@@ -54,10 +54,12 @@ namespace Game.Player
             Gizmos.DrawWireSphere(transform.position, BuildConfig.PickRadius);
         }
 
-        private void Awake()
+        public void Initialize()
         {
             InitializeComponents();
             InitializeStates();
+            
+            EnemyTarget.Initialize(this, this);
         }
 
         private void InitializeComponents()
@@ -99,11 +101,6 @@ namespace Game.Player
             StandingState.Initialize(this);
 
             SetState(DefaultState);
-        }
-
-        private void Start()
-        {
-            EnemyTarget.Initialize(this, this);
         }
 
         private void OnDisable()
@@ -180,7 +177,7 @@ namespace Game.Player
         }
         void IDamagable.Die()
         {
-            Singleton.Get<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
+            ServiceLocator.GetService<Enemy.EnemySpawner>().RemoveTarget(EnemyTarget);
             Health.Die();
         }
         #endregion

@@ -27,14 +27,14 @@ namespace Game
 
             writer = new StreamWriter(filePath, true);
             Application.logMessageReceived += HandleLog;
-            WriteLog($"Start logging..");
+            WriteLog("Start logging..");
         }
         public static void StopLogging()
         {
             if (writer == null)
                 return;
 
-            WriteLog($"End logging..");
+            WriteLog("End logging..");
             Application.logMessageReceived -= HandleLog;
             writer.Flush();
             writer.Close();

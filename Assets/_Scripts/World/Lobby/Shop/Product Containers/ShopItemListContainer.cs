@@ -39,7 +39,7 @@ namespace Game.Lobby.Shop.Container
 
             ItemProduct itemProduct = product as ItemProduct;
 
-            Singleton.Get<LobbyInventory>().AddItem(new ItemData(itemProduct.Item, 1));
+            ServiceLocator.GetService<LobbyInventory>().AddItem(new ItemData(itemProduct.Item, 1));
         }
     }
 }

@@ -48,6 +48,7 @@ namespace Game.CraftSystem.Craft.Visual
 
         public void Initialize(CraftSO craft, CraftManager manager)
         {
+            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
             this.craft = craft;
             _manager = manager;
 
@@ -101,9 +102,6 @@ namespace Game.CraftSystem.Craft.Visual
 
         public void UpdateVisual()
         {
-            if (PlayerInventory == null)
-                PlayerInventory = Singleton.Get<PlayerInventory>();
-
             _pressProgress = 0;
             _cursorOnCraft = false;
             _isPressed = false;

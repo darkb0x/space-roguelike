@@ -69,7 +69,7 @@ namespace Game.Enemy
 
         public virtual void Start()
         {
-            EnemySpawner = Singleton.Get<EnemySpawner>();
+            EnemySpawner = ServiceLocator.GetService<EnemySpawner>();
 
             EnemySpawner.OnTargetRemoved += OnTargetRemoved;
 
@@ -308,7 +308,7 @@ namespace Game.Enemy
         }
         protected virtual EnemyTarget GetRandomTarget()
         {
-            EnemyTarget[] targets = Singleton.Get<EnemySpawner>().GetTargetList().ToArray();
+            EnemyTarget[] targets = ServiceLocator.GetService<EnemySpawner>().GetTargetList().ToArray();
 
             if (targets.Length <= 0)
                 return null;

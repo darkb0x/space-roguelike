@@ -15,7 +15,7 @@ namespace Game.MainMenu.MissionChoose.Planet.Visual
 
         public void Initialize(PlanetSO so)
         {
-            MissionChooseManager = Singleton.Get<MissionChooseManager>();
+            MissionChooseManager = ServiceLocator.GetService<MissionChooseManager>();
 
             myTransform = transform;
 

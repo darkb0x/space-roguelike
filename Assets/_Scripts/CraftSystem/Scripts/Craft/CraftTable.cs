@@ -7,9 +7,9 @@ namespace Game.CraftSystem.Craft
     {
         private CraftManager CraftManager;
 
-        private void Start()
+        private void Awake()
         {
-            CraftManager = Singleton.Get<CraftManager>();
+            CraftManager = ServiceLocator.GetService<CraftManager>();
         }
 
         public void OpenCraftPanel()

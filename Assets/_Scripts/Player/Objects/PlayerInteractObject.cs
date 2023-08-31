@@ -48,11 +48,11 @@ namespace Game.Player
 
         private void Start()
         {
-            UIPanelManager = Singleton.Get<UIPanelManager>();
+            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
 
             if(ObjRender != null)
                 DefaultMaterial = ObjRender.material;
-
+            
             _input.InteractEvent.Performed += Interact;
         }
         private void OnDisable()

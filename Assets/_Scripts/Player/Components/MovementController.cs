@@ -8,7 +8,7 @@ namespace Game.Player.Components
         public readonly float Speed;
 
         private Rigidbody2D _rigidbody;
-        private UIPanelManager UIPanelManager;
+        private UIPanelManager _uiPanelManager;
 
         private Vector2 _moveInput;
         private Vector2 _lookDirection;
@@ -22,7 +22,7 @@ namespace Game.Player.Components
 
             _rigidbody = _player.GetComponent<Rigidbody2D>();
 
-            UIPanelManager = Singleton.Get<UIPanelManager>();
+            _uiPanelManager = ServiceLocator.GetService<UIPanelManager>();
         }
 
         public void Update()
@@ -43,7 +43,7 @@ namespace Game.Player.Components
                 _visual.PlayerIdleAnimation();
             }
 
-            if(!UIPanelManager.SomethinkIsOpened())
+            if(!_uiPanelManager.SomethinkIsOpened())
                 _visual.PlayerLookDirection(_lookDirection);
         }
 

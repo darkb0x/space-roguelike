@@ -7,7 +7,7 @@ namespace Game.Lobby.Inventory
     using Player.Inventory;
     using SaveData;
 
-    public class LobbyInventory : MonoBehaviour, ISingleton
+    public class LobbyInventory : MonoBehaviour, IService, IEntryComponent<PlayerInventory>
     {
         [SerializeField] private LobbyInventoryVisual Visual;
 
@@ -21,12 +21,7 @@ namespace Game.Lobby.Inventory
         private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
         public System.Action<ItemData> OnNewItem;
 
-        private void Awake()
-        {
-            Singleton.Add(this);
-        }
-
-        void Start()
+        public void Initialize(PlayerInventory playerInventory)
         {
             FreeItemsAmount = MaxTakenItemsAmount;
 
@@ -37,7 +32,6 @@ namespace Game.Lobby.Inventory
                 AddItem(item, false);
             }
 
-            PlayerInventory playerInventory = Singleton.Get<PlayerInventory>();
             playerInventory.Items.Clear();
             playerInventory.IsActive = false;
             currentSessionData.MainInventory.Clear();

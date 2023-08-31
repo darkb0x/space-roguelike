@@ -10,7 +10,7 @@ namespace Game.Lobby.Shop
     using Player.Inventory;
     using SaveData;
 
-    public class ShopManager : MonoBehaviour
+    public class ShopManager : MonoBehaviour, IService, IEntryComponent<PlayerInventory, LobbyInventory>
     {
         [Header("Buy")]
         [SerializeField, Expandable] private List<ShopProductListContainer> BuyProductListContainers;
@@ -18,13 +18,13 @@ namespace Game.Lobby.Shop
         [Header("Visual")]
         public ShopManagerVisual Visual;
 
-        private PlayerInventory mainInventory;
-        private LobbyInventory lobbyInventory;
+        private PlayerInventory _playerInventory;
+        private LobbyInventory _lobbyInventory;
 
-        private void Start()
+        public void Initialize(PlayerInventory playerInventory, LobbyInventory lobbyInventory)
         {
-            mainInventory = Singleton.Get<PlayerInventory>();
-            lobbyInventory = Singleton.Get<LobbyInventory>();
+            _playerInventory = playerInventory;
+            _lobbyInventory = lobbyInventory;
 
             List<ItemData> items = SaveDataManager.Instance.CurrentSessionData.LobbyInventory.GetItemList();
             Visual.Initialize(items);
@@ -42,9 +42,9 @@ namespace Game.Lobby.Shop
 
         public void SellItem(InventoryItem item, int amount)
         {
-            if(lobbyInventory.TakeItem(item, amount))
+            if(_lobbyInventory.TakeItem(item, amount))
             {
-                mainInventory.money += item.Cost * amount;
+                _playerInventory.money += item.Cost * amount;
             }
         }
     }

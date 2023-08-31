@@ -12,7 +12,7 @@ namespace Game
         public void PanelStateIsChanged(GameObject panel);
     }
 
-    public class UIPanelManager : MonoBehaviour, ISingleton
+    public class UIPanelManager : MonoBehaviour, IService
     {
         List<IUIPanelManagerObserver> observers = new List<IUIPanelManagerObserver>();
         [NaughtyAttributes.ReadOnly] public GameObject currentOpenedPanel;
@@ -31,11 +31,6 @@ namespace Game
         public List<Panels> panels = new List<Panels>();
 
         private bool canOpen = true;
-
-        private void Awake()
-        {
-            Singleton.Add(this);
-        }
 
         private void EnablePanel(GameObject panel, bool enabled)
         {

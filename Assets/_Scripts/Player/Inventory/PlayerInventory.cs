@@ -10,7 +10,7 @@ namespace Game.Player.Inventory
     using Utilities.Notifications;
     using Input;
 
-    public class PlayerInventory : MonoBehaviour, ISingleton
+    public class PlayerInventory : MonoBehaviour, IService, IEntryComponent
     {
         [Header("Inventory")]
         [ReadOnly] public List<ItemData> Items = new List<ItemData>();
@@ -69,19 +69,17 @@ namespace Game.Player.Inventory
 
         public bool IsActive { get; set; }
 
-        private void Awake()
+        public void Initialize()
         {
-            Singleton.Add(this);
             IsActive = true;
-        }
-        private void Start()
-        {
+
             Load();
 
             UpdateVisual();
             
             _input.InventoryEvent += InventoryEnabled;
         }
+
         private void OnDisable()
         {
             _input.InventoryEvent -= InventoryEnabled;

@@ -16,7 +16,7 @@ namespace Game.MainMenu.MissionChoose
 
         private void Start()
         {
-            MissionChooseManager = Singleton.Get<MissionChooseManager>();
+            MissionChooseManager = ServiceLocator.GetService<MissionChooseManager>();
 
             ZoneVisual.SetActive(false);
 

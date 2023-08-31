@@ -7,7 +7,7 @@ namespace Game.CraftSystem.Oven.Manager
     using Player.Inventory;
     using Input;
 
-    public class OvenManager : MonoBehaviour, IUIPanelManagerObserver
+    public class OvenManager : MonoBehaviour, IUIPanelManagerObserver, IService, IEntryComponent<UIPanelManager, PlayerInventory>
     {
         [SerializeField, Expandable] private OvenConfig craftList;
 
@@ -25,10 +25,10 @@ namespace Game.CraftSystem.Oven.Manager
         private PlayerInventory PlayerInventory;
         private UIInputHandler _input => InputManager.UIInputHandler;
 
-        private void Start()
+        public void Initialize(UIPanelManager ui, PlayerInventory inventory)
         {
-            UIPanelManager = Singleton.Get<UIPanelManager>();
-            PlayerInventory = Singleton.Get<PlayerInventory>();
+            UIPanelManager = ui;
+            PlayerInventory = inventory;
 
             UIPanelManager.Attach(this);
 

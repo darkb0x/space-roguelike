@@ -40,7 +40,7 @@ namespace Game.Lobby
 
         private void Start()
         {
-            LobbyInventory = Singleton.Get<LobbyInventory>();
+            LobbyInventory = ServiceLocator.GetService<LobbyInventory>();
 
             AvaiableInteractionsText.text = avaiableInteractionCount.ToString();
 

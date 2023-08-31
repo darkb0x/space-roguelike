@@ -38,7 +38,7 @@ namespace Game.Lobby.Shop.Visual
 
         private void Start()
         {
-            UIPanelManager = Singleton.Get<UIPanelManager>();
+            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
 
             manager = GetComponent<ShopManager>();
 

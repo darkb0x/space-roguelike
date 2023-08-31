@@ -44,7 +44,7 @@ namespace Game.Lobby.Shop.Container.Visual
 
         public void Initialize(Product product, ShopProductListContainer productListContainer, ShopManagerVisual shopManagerVisual)
         {
-            playerInventory = Singleton.Get<PlayerInventory>();
+            playerInventory = ServiceLocator.GetService<PlayerInventory>();
 
             Product = product;
             container = productListContainer;

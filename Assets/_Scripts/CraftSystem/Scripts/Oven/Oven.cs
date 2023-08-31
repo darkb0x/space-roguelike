@@ -41,7 +41,7 @@ namespace Game.CraftSystem.Oven
 
         private void Start()
         {
-            PlayerInventory = Singleton.Get<PlayerInventory>();
+            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
 
             manager = FindObjectOfType<OvenManager>();
 

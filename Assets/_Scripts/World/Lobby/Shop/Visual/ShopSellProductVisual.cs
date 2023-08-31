@@ -31,7 +31,7 @@ namespace Game.Lobby.Shop.Visual
 
         public void Initialize(InventoryItem item, int amount, ShopManager manager)
         {
-            LobbyInventory = Singleton.Get<LobbyInventory>();
+            LobbyInventory = ServiceLocator.GetService<LobbyInventory>();
 
             Item = item;
             shopManager = manager;

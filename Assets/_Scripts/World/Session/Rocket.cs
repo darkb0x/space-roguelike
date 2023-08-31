@@ -19,7 +19,7 @@ namespace Game.Session
             Visual.SetActive(true);
             VisualAnim.enabled = true;
 
-            SessionManager sessionManager = Singleton.Get<SessionManager>();
+            var sessionManager = ServiceLocator.GetService<SessionManager>();
             sessionManager.StartLoadingLobby();
             sessionManager.SetPlayerIntoRocket(PlayerParent);
         }

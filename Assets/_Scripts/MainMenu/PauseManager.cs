@@ -7,7 +7,7 @@ namespace Game.MainMenu.Pause
 
     public delegate void OnGamePaused(bool enabled);
 
-    public class PauseManager : MonoBehaviour, ISingleton
+    public class PauseManager : MonoBehaviour, IService, IEntryComponent<UIPanelManager>
     {
         [SerializeField, Tooltip("Canvas/Pause")] private GameObject MainPanel;
         [SerializeField] private GameObject[] PauseChildPanels;
@@ -18,14 +18,9 @@ namespace Game.MainMenu.Pause
 
         private UIPanelManager UIPanelManager;
 
-        private void Awake()
+        public void Initialize(UIPanelManager ui)
         {
-            Singleton.Add(this);
-        }
-
-        private void Start()
-        {
-            UIPanelManager = Singleton.Get<UIPanelManager>();
+            UIPanelManager = ui;
 
             InputManager.Instance.PauseEvent += OpenClose;
         }

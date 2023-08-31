@@ -76,7 +76,7 @@ namespace Game.Drill
 
         public virtual void Start()
         {
-            playerInventory = Singleton.Get<PlayerInventory>();
+            playerInventory = ServiceLocator.GetService<PlayerInventory>();
 
             inventoryVisual = GetComponent<DrillInventoryVisual>();
 
@@ -106,7 +106,7 @@ namespace Game.Drill
             isPicked = true;
 
             player.Build.Pick(this);
-            EnemyTarget.Initialize(this, null);
+            EnemyTarget.Initialize(this);
 
             isInitialized = true;
         }
@@ -249,14 +249,14 @@ namespace Game.Drill
             player.Build.CleanPickedObject(this);
         }
 
-        void IDamagable.Damage(float dmg, Enemy.EnemyTarget enemyTarget)
+        void IDamagable.Damage(float dmg, EnemyTarget enemyTarget)
         {
             TakeDamage(dmg);
         }
 
         void IDamagable.Die()
         {
-            Singleton.Get<EnemySpawner>().RemoveTarget(EnemyTarget);
+            ServiceLocator.GetService<EnemySpawner>().RemoveTarget(EnemyTarget);
             Die();
         }
         #endregion
@@ -378,7 +378,7 @@ namespace Game.Drill
                 playerInventory.AddItem(item.item, item.amount);
             }
 
-            Singleton.Get<EnemySpawner>().RemoveTarget(EnemyTarget);
+            ServiceLocator.GetService<EnemySpawner>().RemoveTarget(EnemyTarget);
             Destroy(PreRenderPlaceObject.gameObject);
             Destroy(gameObject);
         }

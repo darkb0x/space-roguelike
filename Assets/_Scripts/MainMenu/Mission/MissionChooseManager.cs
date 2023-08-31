@@ -12,7 +12,7 @@ namespace Game.MainMenu.MissionChoose
     using SaveData;
     using Audio;
 
-    public class MissionChooseManager : MonoBehaviour, ISingleton
+    public class MissionChooseManager : MonoBehaviour, IService
     {
         [Header("Visual")]
         [SerializeField] private MissionChooseVisual Visual;
@@ -40,16 +40,11 @@ namespace Game.MainMenu.MissionChoose
 
         private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
 
-        private void Awake()
+        public void Initialize()
         {
-            Singleton.Add(this);
-
-            startMissionTimer = 0;
-        }
-
-        private void Start()
-        {
-            // Initialize planets
+            startMissionTimer = 0; 
+            
+            // Initalize planets
             for (int i = 0; i < PlanetMap.Orbits.Count; i++)
             {
                 Orbit orbit = PlanetMap.Orbits[i];
@@ -120,7 +115,7 @@ namespace Game.MainMenu.MissionChoose
 
         public void StartCutscene()
         {
-            Singleton.Get<UIPanelManager>().CloseAllPanel(false);
+            ServiceLocator.GetService<UIPanelManager>().CloseAllPanel(false);
 
             Cutscene.Play();
             currentSessionData.SetPlanet(selectedMission.AssetPath);

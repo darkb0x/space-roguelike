@@ -34,7 +34,7 @@ namespace Game.Lobby.Inventory.Visual
 
         private void Start()
         {
-            UIPanelManager = Singleton.Get<UIPanelManager>();
+            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
 
             UIPanelManager.Attach(this);
 

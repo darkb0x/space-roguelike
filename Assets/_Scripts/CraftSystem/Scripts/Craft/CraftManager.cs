@@ -10,7 +10,7 @@ namespace Game.CraftSystem.Craft
     using Player.Inventory;
     using Player;
 
-    public class CraftManager : MonoBehaviour, ISingleton
+    public class CraftManager : MonoBehaviour, IService, IEntryComponent<PlayerInventory, PlayerController>
     {
         [SerializeField] private bool ShowVisual = true;
         [SerializeField, NaughtyAttributes.ShowIf("ShowVisual")] private CraftVisual Visual;
@@ -22,15 +22,10 @@ namespace Game.CraftSystem.Craft
 
         private CraftTable _currentCraftTable;
 
-        private void Awake()
+        public void Initialize(PlayerInventory playerInventory, PlayerController player)
         {
-            Singleton.Add(this);
-        }
-
-        private void Start()
-        {
-            PlayerInventory = Singleton.Get<PlayerInventory>();
-            Player = FindObjectOfType<PlayerController>();
+            PlayerInventory = playerInventory;
+            Player = player;
             _allUnlockedCrafts = _currentSessionData.GetCraftList();
 
             if(ShowVisual && Visual != null)

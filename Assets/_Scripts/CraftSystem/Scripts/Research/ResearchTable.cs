@@ -8,7 +8,7 @@ namespace Game.CraftSystem.Research
 
         private void Start()
         {
-            ResearchManager = Singleton.Get<ResearchManager>();
+            ResearchManager = ServiceLocator.GetService<ResearchManager>();
         }
 
         public void OpenResearchManager()
