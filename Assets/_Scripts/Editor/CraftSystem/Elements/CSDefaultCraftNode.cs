@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace CraftSystem.Elements
 {
-    using Game.Player.Inventory;
+    using Game.Inventory;
     using CraftSystem.ScriptableObjects;
     using Data.Save;
     using Enumerations;

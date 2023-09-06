@@ -1651,7 +1651,7 @@ MonoBehaviour:
     OxygenUseSpeed: 1
   HealthConfig:
     MaxHealth: 3
-    InvulnerabilityTime: 0.1
+    InvulnerabilityTime: 0.3
   MovementConfig:
     Speed: 5
   BuildConfig:
@@ -3361,13 +3361,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c4b288d0ddab745933f608c1b331b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items: []
-  m_money: 10000
-  InventoryWindow: {fileID: 7843022709662901795}
-  money_texts:
-  - {fileID: 1683526899597659663}
-  MoneyChangedAnim: {fileID: 2272615635894289678}
-  MoneyChangedText: {fileID: 6650292753970331957}
+  m_Money: 0
+  Items:
+    _serializedList: []
+  Window: {fileID: 7843022709662901795}
 --- !u!1 &7290752753141187143
 GameObject:
   m_ObjectHideFlags: 0
@@ -4230,6 +4227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5138592370601071054}
+  - component: {fileID: 3334023896885844956}
   - component: {fileID: 5573075516698550815}
   - component: {fileID: 1683526899597659663}
   - component: {fileID: 2272615635894289678}
@@ -4260,6 +4258,21 @@ RectTransform:
   m_AnchoredPosition: {x: 64.24, y: 49.8}
   m_SizeDelta: {x: 253.119, y: 30.912}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3334023896885844956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8841991753525930616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5298b5f5ebf50c14983813ffb86bebad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: {fileID: 1683526899597659663}
+  Anim: {fileID: 2272615635894289678}
+  DifferenceText: {fileID: 6650292753970331957}
 --- !u!222 &5573075516698550815
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Game.CraftSystem.Oven.Manager
 {
-    using Player.Inventory;
+    using Game.Inventory;
 
     public class OvenManagerElement : MonoBehaviour
     {
@@ -21,11 +21,11 @@ namespace Game.CraftSystem.Oven.Manager
 
         private List<TextMeshProUGUI> amountsText = new List<TextMeshProUGUI>();
 
-        private PlayerInventory PlayerInventory;
+        private IInventory PlayerInventory;
 
         public void Initialize(OvenConfig.craft craft, OvenManager m)
         {
-            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
+            PlayerInventory = ServiceLocator.GetService<IInventory>();
 
             currentCraft = craft;
             manager = m;
@@ -35,10 +35,10 @@ namespace Game.CraftSystem.Oven.Manager
             {
                 GameObject obj = Instantiate(itemPrefab, firstItems_parent);
 
-                obj.GetComponentInChildren<Image>().sprite = currentCraft.firstItems[i].item.Icon;
+                obj.GetComponentInChildren<Image>().sprite = currentCraft.firstItems[i].Item.Icon;
 
                 TextMeshProUGUI text = obj.GetComponentInChildren<TextMeshProUGUI>();
-                text.text = currentCraft.firstItems[i].amount.ToString();
+                text.text = currentCraft.firstItems[i].Amount.ToString();
 
                 amountsText.Add(text);
             }
@@ -46,8 +46,8 @@ namespace Game.CraftSystem.Oven.Manager
             // final item
             GameObject obj_final = Instantiate(itemPrefab, finalItem_parent);
 
-            obj_final.GetComponentInChildren<Image>().sprite = currentCraft.finalItem.item.Icon;
-            obj_final.GetComponentInChildren<TextMeshProUGUI>().text = currentCraft.finalItem.amount.ToString();
+            obj_final.GetComponentInChildren<Image>().sprite = currentCraft.finalItem.Item.Icon;
+            obj_final.GetComponentInChildren<TextMeshProUGUI>().text = currentCraft.finalItem.Amount.ToString();
         }
 
         public void StartRemelting()
@@ -60,11 +60,11 @@ namespace Game.CraftSystem.Oven.Manager
         {
             for (int i = 0; i < amountsText.Count; i++)
             {
-                OvenConfig.craft.s_item item = currentCraft.firstItems[i];
-                ItemData data = PlayerInventory.GetItem(item.item);
+                ItemData item = currentCraft.firstItems[i];
+                ItemData data = PlayerInventory.GetItem(item.Item);
                 if(data != null)
                 {
-                    amountsText[i].color = data.Amount >= item.amount ? Color.white : Color.red;
+                    amountsText[i].color = data.Amount >= item.Amount ? Color.white : Color.red;
                 }
                 else
                 {

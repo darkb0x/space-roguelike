@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Drill.SpecialDrill
 {
-    using Player.Inventory;
+    using Game.Inventory;
 
     public class ArtefactDrill : MonoBehaviour
     {
@@ -11,13 +11,12 @@ namespace Game.Drill.SpecialDrill
 
         [Header("Artefact")]
         [SerializeField] private float m_ArtefactHealth;
-        [SerializeField] private InventoryItem Artefact;
+        [SerializeField] private ItemData Artefact;
 
         [Header("Mining")]
         [SerializeField] private float Damage;
         [SerializeField] private float m_TimeBtwAttacks;
 
-        private int artefactsAmount = 1;
         private float artefactHealth;
         private float timeBtwAttacks;
         private bool isMining = false;
@@ -66,7 +65,7 @@ namespace Game.Drill.SpecialDrill
 
         public void EndMining()
         {
-            ServiceLocator.GetService<PlayerInventory>().AddItem(Artefact, artefactsAmount);
+            ServiceLocator.GetService<IInventory>().AddItem(Artefact);
             Visual.UpdateMiningProgress(artefactHealth, m_ArtefactHealth);
             Visual.EnableMiningProgressVisual(false);
             isMining = false;

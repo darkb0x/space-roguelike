@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Player.Inventory.Visual
+namespace Game.Inventory
 {
-    public class InventoryVisual : MonoBehaviour, IInventoryObserver
+    public class InventoryVisual : MonoBehaviour
     {
         [SerializeField] private InventoryVisualItem ItemVisualPrefab;
         [SerializeField] private Transform ItemVisualsParent;
@@ -11,9 +11,28 @@ namespace Game.Player.Inventory.Visual
         public bool isOpened { get; private set; }
         private List<InventoryVisualItem> itemVisuals = new List<InventoryVisualItem>();
 
+        private Inventory _inventory;
+
         private void Start()
         {
-            ServiceLocator.GetService<PlayerInventory>().Attach(this, true);
+            _inventory = ServiceLocator.GetService<Inventory>();
+
+            SubscribeToEvents();
+        }
+        private void OnDisable()
+        {
+            UnsubscribeFromEvents();
+        }
+
+        private void SubscribeToEvents()
+        {
+            _inventory.OnItemAdded += x => UpdateData();
+            _inventory.OnItemTaken += x => UpdateData();
+        }
+        private void UnsubscribeFromEvents()
+        {
+            _inventory.OnItemAdded -= x => UpdateData();
+            _inventory.OnItemTaken -= x => UpdateData();
         }
 
         #region Item Visuals
@@ -38,9 +57,9 @@ namespace Game.Player.Inventory.Visual
         }
         #endregion
 
-        public void UpdateData(PlayerInventory inventory)
+        public void UpdateData()
         {
-            foreach (var itemData in inventory.Items)
+            foreach (var itemData in _inventory.GetItems())
             {
                 InventoryVisualItem visual = GetItemVisual(itemData.Item);
 

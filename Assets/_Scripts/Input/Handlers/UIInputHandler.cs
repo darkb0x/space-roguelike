@@ -29,12 +29,12 @@ namespace Game.Input
                 _inputActions.UI.Disable();
         }
 
-        public void OnCloseWindow(InputAction.CallbackContext context)
+        private void OnCloseWindow(InputAction.CallbackContext context)
         {
             CloseEvent?.Invoke();
         }
 
-        public void OnPause(InputAction.CallbackContext context)
+        private void OnPause(InputAction.CallbackContext context)
         {
             PauseEvent?.Invoke();
         }

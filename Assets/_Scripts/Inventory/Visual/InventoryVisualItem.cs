@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Game.Player.Inventory.Visual
+namespace Game.Inventory
 {
     public class InventoryVisualItem : MonoBehaviour
     {

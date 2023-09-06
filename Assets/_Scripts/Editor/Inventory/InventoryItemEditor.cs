@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using NaughtyAttributes.Editor;
 
-namespace Game.Player.Inventory
+namespace Game.Inventory
 {
     [CustomEditor(typeof(InventoryItem))]
     [CanEditMultipleObjects]

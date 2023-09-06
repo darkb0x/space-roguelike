@@ -4,8 +4,8 @@ using TMPro;
 
 namespace Game.Lobby.Shop.Visual
 {
-    using Player.Inventory;
     using Lobby.Inventory;
+    using Game.Inventory;
 
     public class ShopSellProductVisual : MonoBehaviour
     {
@@ -29,17 +29,17 @@ namespace Game.Lobby.Shop.Visual
         private ShopManagerVisual managerVisual;
         private LobbyInventory LobbyInventory;
 
-        public void Initialize(InventoryItem item, int amount, ShopManager manager)
+        public void Initialize(ItemData itemData, ShopManager manager)
         {
             LobbyInventory = ServiceLocator.GetService<LobbyInventory>();
 
-            Item = item;
+            Item = itemData.Item;
             shopManager = manager;
             managerVisual = manager.Visual;
 
-            ItemIconImage.sprite = item.Icon;
-            ItemCostText.text = item.Cost+"$";
-            ItemAmountText.text = amount.ToString();
+            ItemIconImage.sprite = Item.Icon;
+            ItemCostText.text = Item.Cost+"$";
+            ItemAmountText.text = itemData.Amount.ToString();
 
             foreach (var button in Buttons)
             {

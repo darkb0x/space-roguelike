@@ -27,7 +27,7 @@ namespace Game.Player
         [SerializeField] private PlayerVisual Visual;
 
         [Header("Components")]
-        public Collider2D MainCollider;
+        [SerializeField] private Collider2D MainCollider;
         [SerializeField] private Enemy.EnemyTarget EnemyTarget;
 
         // Components
@@ -131,7 +131,8 @@ namespace Game.Player
         public void SetState(PlayerState state)
         {
             _state = state;
-            _state.Enable();
+            _state.Enter();
+            Debug.Log($"Player entered into {_state.GetType().Name} state");
         }
         public void SetComponentEnabled(PlayerComponent component, bool enabled)
         {

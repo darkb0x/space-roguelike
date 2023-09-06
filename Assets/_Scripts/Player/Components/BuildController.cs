@@ -94,6 +94,7 @@ namespace Game.Player.Components
             if (_pickedBuild.CanPut())
             {
                 _pickedBuild.Put();
+                Debug.Log($"Put {_pickedBuildGameObject.name}");
                 CleanPickedObject();
             }
         }

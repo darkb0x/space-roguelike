@@ -5,7 +5,7 @@ using NaughtyAttributes;
 namespace Game.CraftSystem.Oven
 {
     using Player;
-    using Player.Inventory;
+    using Game.Inventory;
     using Manager;
 
     [RequireComponent(typeof(PlayerInteractObject))]
@@ -37,11 +37,11 @@ namespace Game.CraftSystem.Oven
         float currentTime;
         bool canTakeItem = false;
 
-        private PlayerInventory PlayerInventory;
+        private IInventory PlayerInventory;
 
         private void Start()
         {
-            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
+            PlayerInventory = ServiceLocator.GetService<IInventory>();
 
             manager = FindObjectOfType<OvenManager>();
 
@@ -104,7 +104,7 @@ namespace Game.CraftSystem.Oven
             {
                 if(canTakeItem)
                 {
-                    PlayerInventory.AddItem(currentItem.finalItem.item, currentItem.finalItem.amount);
+                    PlayerInventory.AddItem(currentItem.finalItem);
                     currentItem = null;
                     canTakeItem = false;
 
@@ -122,7 +122,7 @@ namespace Game.CraftSystem.Oven
         }
         private void EnableProgressBar()
         {
-            itemImage.sprite = currentItem.finalItem.item.LowSizeIcon;
+            itemImage.sprite = currentItem.finalItem.Item.LowSizeIcon;
             progressRender.fillAmount = 0;
             progressRender.color = progressColor.Evaluate(0);
 

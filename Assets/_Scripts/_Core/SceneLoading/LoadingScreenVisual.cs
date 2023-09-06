@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Game.Utilities.LoadScene.Visual
+namespace Game.SceneLoading
 {
     public class LoadingScreenVisual : MonoBehaviour
     {

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using AYellowpaper.SerializedCollections;
 
-namespace Game.Utilities.Notifications.Visual
+namespace Game.Notifications
 {
     public class NotificationVisual : MonoBehaviour
     {

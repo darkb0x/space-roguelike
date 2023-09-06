@@ -1,25 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Game
 {
     public static class ServiceLocator
     {
-        private static Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
+        private static List<IService> _services = new List<IService>();
 
         public static void Register(IService service)
         {
-            if(!HaveService(service))
-            {
-                _services.Add(service.GetType(), service);
-                LogUtility.WriteLog($"Registered: {service.GetType().Name} service");
-            }
+            if (_services.Contains(service))
+                throw new Exception($"{service.GetType().Name} already registered!");
+
+            _services.Add(service);
+            LogUtility.WriteLog($"Registered: {service.GetType().Name} service");
         }
         public static void Unregister(IService service)
         {
-            if (HaveService(service))
+            if (_services.Contains(service))
             {
-                _services.Remove(service.GetType());
+                _services.Remove(service);
                 LogUtility.WriteLog($"Unregistered: {service.GetType().Name} service");
             }
         }
@@ -30,27 +31,12 @@ namespace Game
         }
         public static T GetService<T>() where T : class, IService
         {
-            if(HaveService(typeof(T)))
-            {
-                return _services[typeof(T)] as T;
-            }
+            var service = (T)_services.FirstOrDefault(x => x is T);
 
-            return default;
-        }
+            if (service == default(T))
+                throw new NullReferenceException($"No service: {typeof(T).Name} in list!");
 
-        private static bool HaveService(IService service)
-        {
-            if (_services.ContainsKey(service.GetType()))
-                return true;
-
-            return false;
-        }
-        private static bool HaveService(Type type)
-        {
-            if (_services.ContainsKey(type))
-                return true;
-
-            return false;
+            return service;
         }
     }
 }

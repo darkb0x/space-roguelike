@@ -4,7 +4,7 @@ using TMPro;
 
 namespace Game.Drill
 {
-    using Player.Inventory;
+    using Inventory;
 
     public class DrillInventoryVisual : MonoBehaviour
     {
@@ -13,12 +13,12 @@ namespace Game.Drill
         [SerializeField] private TextMeshProUGUI ItemAmountText;
         [SerializeField] private GameObject InventoryVisual;
 
-        public void UpdateVisual(InventoryItem item, int amount)
+        public void UpdateVisual(ItemData item)
         {
-            if(item != null)
+            if(item != null && item.Item != null)
             {
-                ItemImage.sprite = item.LowSizeIcon;
-                ItemAmountText.text = amount.ToString();
+                ItemImage.sprite = item.Item.LowSizeIcon;
+                ItemAmountText.text = item.Amount.ToString();
             }
             else
             {

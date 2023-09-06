@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Lobby.Shop.Container
 {
-    using Player.Inventory;
+    using Game.Inventory;
     using Lobby.Inventory;
 
     [System.Serializable]

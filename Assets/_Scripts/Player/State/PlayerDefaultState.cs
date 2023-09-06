@@ -2,7 +2,7 @@
 {
     public class PlayerDefaultState : PlayerState
     {
-        public override void Enable()
+        public override void Enter()
         {
             _player.EnableAllComponents();
         }

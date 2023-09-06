@@ -4,7 +4,7 @@ using NaughtyAttributes;
 
 namespace Game.CraftSystem.Oven.Manager
 {
-    using Player.Inventory;
+    using Inventory;
     using Input;
 
     public class OvenManager : MonoBehaviour, IUIPanelManagerObserver, IService, IEntryComponent<UIPanelManager, PlayerInventory>
@@ -51,9 +51,8 @@ namespace Game.CraftSystem.Oven.Manager
         {
             List<ItemData> itemsData = ConvertOvenCraftToItemData(craft);
 
-            if (PlayerInventory.CanTakeItems(itemsData))
+            if (PlayerInventory.TakeItem(itemsData))
             {
-                PlayerInventory.TakeItem(itemsData);
                 currentOven.StartRemelting(craft);
                 ClosePanel();
             }
@@ -64,8 +63,7 @@ namespace Game.CraftSystem.Oven.Manager
             List<ItemData> itemsData = new List<ItemData>();
             foreach (var item in craft.firstItems)
             {
-                ItemData data = new ItemData(item.item, item.amount);
-                itemsData.Add(data);
+                itemsData.Add(item);
             }
             return itemsData;
         }

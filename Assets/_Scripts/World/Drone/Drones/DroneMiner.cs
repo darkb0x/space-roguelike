@@ -5,7 +5,7 @@ using NaughtyAttributes;
 namespace Game.Drone
 {
     using World.Generation.Ore;
-    using Player.Inventory;
+    using Game.Inventory;
 
     public class DroneMiner : DroneAI
     {
@@ -36,7 +36,7 @@ namespace Game.Drone
         private Vector2 targetPos;
         private float timeBtwMiningHits;
 
-        private PlayerInventory PlayerInventory;
+        private IInventory _playerInventory;
 
         private void OnDrawGizmosSelected()
         {
@@ -46,7 +46,7 @@ namespace Game.Drone
 
         private void Start()
         {
-            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
+            _playerInventory = ServiceLocator.GetService<IInventory>();
 
             if(InitializeOnStart)
             {
@@ -115,14 +115,13 @@ namespace Game.Drone
                     return;
                 }
 
-                PlayerInventory.AddItem(CurrentItem, currentOre.Take(ItemsPerHit), false);
+                _playerInventory.AddItem(new ItemData(CurrentItem, currentOre.Take(ItemsPerHit)), false);
 
                 Anim.SetTrigger(Anim_newItemTrigger);
 
                 InOrbit = false;
 
                 timeBtwMiningHits = m_TimeBtwMiningHits;
-                //Hurt(1);
             }
             else
             {

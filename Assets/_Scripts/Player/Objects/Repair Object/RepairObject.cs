@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Game.Player
 {
-    using Inventory;
+    using Game.Inventory;
 
     [RequireComponent(typeof(PlayerInteractObject))]
     public class RepairObject : MonoBehaviour
@@ -20,11 +20,11 @@ namespace Game.Player
         private PlayerInteractObject playerInteract;
         public bool isRepaired { get; private set; }
 
-        private PlayerInventory PlayerInventory;
+        private IInventory PlayerInventory;
 
         private void Start()
         {
-            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
+            PlayerInventory = ServiceLocator.GetService<IInventory>();
 
             ItemsForRepairInUI = new List<RepairObjectItemUIVisual>();
 
@@ -65,10 +65,8 @@ namespace Game.Player
         {
             if (isRepaired)
                 return;
-            if (!PlayerInventory.CanTakeItems(ItemsForRepair))
+            if (!PlayerInventory.TakeItem(ItemsForRepair))
                 return;
-
-            PlayerInventory.TakeItem(ItemsForRepair);
 
             AfterRepair.Invoke();
             isRepaired = true;

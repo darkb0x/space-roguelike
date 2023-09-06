@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.SaveData
 {
-    using Player.Inventory;
+    using Inventory;
     using Utilities;
     using MainMenu.MissionChoose.Planet;
     using global::CraftSystem.ScriptableObjects;

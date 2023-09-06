@@ -4,7 +4,7 @@ using TMPro;
 
 namespace Game.Player
 {
-    using Inventory;
+    using Game.Inventory;
 
     public class RepairObjectItemUIVisual : MonoBehaviour
     {

@@ -6,12 +6,13 @@ namespace Game.CraftSystem.Research
 {
     using Visual;
     using Visual.Node;
-    using Player.Inventory;
+    using Game.Inventory;
     using SaveData;
     using global::CraftSystem.ScriptableObjects;
     using System.Linq;
+    using Notifications;
 
-    public class ResearchManager : MonoBehaviour, IService, IEntryComponent<PlayerInventory>
+    public class ResearchManager : MonoBehaviour, IService, IEntryComponent<IInventory>
     {
         [SerializeField] private bool ShowVisual = true;
         [SerializeField, ShowIf("ShowVisual")] private ResearchVisual Visual;
@@ -19,10 +20,10 @@ namespace Game.CraftSystem.Research
         public List<ResearchTree> Trees = new List<ResearchTree>();
 
         private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
-        private PlayerInventory PlayerInventory;
+        private IInventory PlayerInventory;
         private List<CraftSO> crafts;
 
-        public void Initialize(PlayerInventory playerInventory)
+        public void Initialize(IInventory playerInventory)
         {
             PlayerInventory = playerInventory;
 
@@ -40,16 +41,22 @@ namespace Game.CraftSystem.Research
             var currentCraft = craft.GetCurrentCraft();
             int craftCost = currentCraft.CraftCost;
 
-            if(PlayerInventory.money >= craftCost)
+            if(PlayerInventory.TakeMoney(craftCost))
             {
-                PlayerInventory.money -= craftCost;
-
                 if(!crafts.Contains(currentCraft)) crafts.Add(currentCraft);
 
                 nodeVisual.SetState(VisualNodeState.Purchased);
 
                 currentSessionData.InjectCrafts(crafts);
                 currentSessionData.Save();
+
+                NotificationManager.NewNotification(
+                    currentCraft.CraftIcon,
+                    "Researched!",
+                    true,
+                    Color.white,
+                    NotificationStyle.NewCraft
+                    );
             }
             else
             {
@@ -72,29 +79,24 @@ namespace Game.CraftSystem.Research
             var nextCraft = craft.GetNextCraft();
             int craftCost = nextCraft.CraftCost;
 
-            if (PlayerInventory.money >= craftCost)
+            if (craft.Upgradable() && PlayerInventory.TakeMoney(craftCost))
             {
-                if(craft.Upgradable())
+                craft.Upgrade();
+
+                crafts.Remove(craft.GetPreviousCraft());
+                if (!crafts.Contains(nextCraft)) crafts.Add(nextCraft);
+
+                if (!craft.Upgradable())
                 {
-                    PlayerInventory.money -= craftCost; 
-
-                    craft.Upgrade();
-
-                    crafts.Remove(craft.GetPreviousCraft());
-                    if(!crafts.Contains(nextCraft)) crafts.Add(nextCraft);
-
-                    if(!craft.Upgradable())
-                    {
-                        nodeVisual.SetState(VisualNodeState.FullyUpgraded);
-                    }
-                    else
-                    {
-                        nodeVisual.UpdateState();
-                    }
-
-                    currentSessionData.InjectCrafts(crafts);
-                    currentSessionData.Save();
+                    nodeVisual.SetState(VisualNodeState.FullyUpgraded);
                 }
+                else
+                {
+                    nodeVisual.UpdateState();
+                }
+
+                currentSessionData.InjectCrafts(crafts);
+                currentSessionData.Save();
             }
             else
             {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.World.Generation.Ore
 {
-    using Player.Inventory;
+    using Inventory;
     using Drill;
     using Drone;
 

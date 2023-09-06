@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 namespace Game.Lobby.Shop.Visual
 {
-    using Player.Inventory;
+    using Game.Inventory;
     using Container;
     using Container.Visual;
     using Input;
+    using System.Linq;
 
     public class ShopManagerVisual : MonoBehaviour, IUIPanelManagerObserver
     {
@@ -60,8 +61,15 @@ namespace Game.Lobby.Shop.Visual
 
         public void AddSellProductVisual(ItemData itemData)
         {
+            var productVisual = sellProductVisuals.FirstOrDefault(x => x.Item == itemData.Item);
+            if (productVisual != null)
+            {
+                productVisual.UpdateVisual();
+                return;
+            }
+
             ShopSellProductVisual visual = Instantiate(SellProductVisual.gameObject, SellProductParent).GetComponent<ShopSellProductVisual>();
-            visual.Initialize(itemData.Item, itemData.Amount, manager);
+            visual.Initialize(itemData, manager);
 
             sellProductVisuals.Add(visual);
         }

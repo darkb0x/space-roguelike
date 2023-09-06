@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Utilities.Notifications.Visual
+namespace Game.Notifications
 {
     using SaveData;
 

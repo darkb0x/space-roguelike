@@ -1,4 +1,4 @@
-using Game.Player.Inventory;
+using Game.Inventory;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,169 +1,127 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using AYellowpaper.SerializedCollections;
 
 namespace Game.Lobby.Inventory.Visual
 {
-    using Player.Inventory.Visual;
-    using Player.Inventory;
+    using Game.Inventory;
     using Input;
+    using System.Data.Common;
 
+    // TO DO
     public class LobbyInventoryVisual : MonoBehaviour, IUIPanelManagerObserver
     {
-        [Header("Panel")]
         [SerializeField] private GameObject MainPanel;
-
-        [Header("Default inventory")]
-        [SerializeField] private Transform InventoryVisualParent;
-        [SerializeField] private InventoryVisualItem InventoryItemVisual;
-
-        [Header("Taken items inventory")]
+        [Space]
         [SerializeField] private TextMeshProUGUI FreeSpaceText;
         [Space]
-        [SerializeField] private Transform TakenItemsVisualParent;
-        [SerializeField] private LobbyInventoryTakenItemVisual TakenItemVisual;
+        [SerializeField] private LobbyInventoryTakenItemVisual TakenItemVisualPrefab;
+        [SerializeField] private Transform TakenItemVisualsParent;
 
-        [HideInInspector] public List<InventoryVisualItem> InventoryItemVisuals = new List<InventoryVisualItem>();
-        [HideInInspector] public List<LobbyInventoryTakenItemVisual> TakenItemVisuals = new List<LobbyInventoryTakenItemVisual>();
-        private LobbyInventory inventory;
-        public bool isOpened { get; private set; }
-        private Animator currentChestAnimator;
-
-        private UIPanelManager UIPanelManager;
+        private LobbyInventory _inventory;
+        private UIPanelManager _uiPanelManager;
         private UIInputHandler _input => InputManager.UIInputHandler;
+        private Dictionary<InventoryItem, LobbyInventoryTakenItemVisual> _takenItemVisuals;
 
-        private void Start()
+        private LobbyInventoryChest _chest;
+
+        public void Initialize(LobbyInventory inventory, Dictionary<InventoryItem, int> items)
         {
-            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
+            _uiPanelManager = ServiceLocator.GetService<UIPanelManager>();
+            _inventory = inventory;
+            _takenItemVisuals = new Dictionary<InventoryItem, LobbyInventoryTakenItemVisual>();
 
-            UIPanelManager.Attach(this);
+            foreach (var item in items.Keys)
+            {
+                AddTakenItemVisual(new ItemData(item, items[item]));
+            }
+            UpdateFreeSpaceText();
 
-            _input.CloseEvent += ClosePanel;
+            _inventory.OnItemAdded += OnItemAdded;
+            _inventory.OnItemTaken += OnItemTaken;
+
+            _uiPanelManager.Attach(this);
+
+            _input.CloseEvent += Close;
         }
         private void OnDisable()
         {
-            _input.CloseEvent -= ClosePanel;
+            _inventory.OnItemAdded -= OnItemAdded;
+            _inventory.OnItemTaken -= OnItemTaken;
+
+            _input.CloseEvent -= Close;
         }
 
-        public void Initialize(List<ItemData> datas, LobbyInventory lobbyInventory)
+        private void OnItemAdded(ItemData itemData)
         {
-            inventory = lobbyInventory;
+            AddTakenItemVisual(itemData);
+            UpdateFreeSpaceText();
+        }
+        private void OnItemTaken(ItemData itemData)
+        {
+            UpdateTakenItemVisual(_takenItemVisuals[itemData.Item]);
+            UpdateFreeSpaceText();
+        }
 
-            foreach (var itemData in datas)
+        private void AddTakenItemVisual(ItemData itemData)
+        {
+            var item = itemData.Item;
+
+            if(_takenItemVisuals.ContainsKey(item))
             {
-                AddInventoryItemVisual(itemData);
+                UpdateTakenItemVisual(_takenItemVisuals[item]);
+                return;
+            }
 
-                AddTakenItemVisual(itemData, lobbyInventory);
+            if(item.CanTakeInMission)
+            {
+                var takenItemVisual = Instantiate(TakenItemVisualPrefab, TakenItemVisualsParent);
+                takenItemVisual.Initialize(item);
+                takenItemVisual.ItemSlider.onValueChanged.AddListener(_ => UpdateFreeSpaceText());
             }
         }
-
-        public void OpenPanel(Animator chestAnim)
+        private void UpdateFreeSpaceText()
         {
-            currentChestAnimator = chestAnim;
-            currentChestAnimator.SetBool("isOpened", true);
-
-            UIPanelManager.OpenPanel(MainPanel);
-            isOpened = true;
+            FreeSpaceText.text = $"({_inventory.CurrentItemsAmount}/{_inventory.MaxTakenItemsAmount})";
         }
-        public void ClosePanel()
+        private void UpdateTakenItemVisual()
         {
-            if (!isOpened)
+            foreach (var item in _takenItemVisuals.Keys)
+            {
+                _takenItemVisuals[item].UpdateData();
+            }
+        }
+        private void UpdateTakenItemVisual(LobbyInventoryTakenItemVisual visual)
+        {
+            visual.UpdateData();
+        }
+
+        public void Open(LobbyInventoryChest chest)
+        {
+            _chest = chest;
+
+            UpdateTakenItemVisual();
+
+            _uiPanelManager.OpenPanel(MainPanel);
+
+            _chest.SetVisualOpened(true);
+        }
+        private void Close()
+        {
+            if (!MainPanel.activeSelf)
                 return;
 
-            if(currentChestAnimator != null)
-            {
-                currentChestAnimator.SetBool("isOpened", false);
-                currentChestAnimator = null;
-            }
+            _uiPanelManager.ClosePanel(MainPanel);
+            _inventory.ApplyItemsToMainInventory();
 
-            UIPanelManager.ClosePanel(MainPanel);
-            inventory.SetItemsToInventory();
-            isOpened = true;
-        }
-
-        public void UpdateFreeSpaceText(int currentAmount, int maxAmount)
-        {
-            FreeSpaceText.text = $"({currentAmount}/{maxAmount})";
-        }
-
-        public void UpdateItemsInInventory(List<ItemData> itemDatas)
-        {
-            foreach (var itemData in itemDatas)
-            {
-                InventoryVisualItem visual = GetItemVisual(itemData.Item);
-
-                if (visual == null)
-                {
-                    AddInventoryItemVisual(itemData);
-                    continue;
-                }
-
-                visual.UpdateVisual(itemData.Item, itemData.Amount);
-
-            }
-        }
-        public void UpdateTakenItems(List<ItemData> itemDatas)
-        {
-            foreach (var itemData in itemDatas)
-            {
-                LobbyInventoryTakenItemVisual visual = GetTakenItemVisual(itemData.Item);
-
-                if(visual == null)
-                {
-                    AddTakenItemVisual(itemData, inventory);
-                }
-            }
-        }
-
-        #region Utilities
-        private void AddInventoryItemVisual(ItemData data)
-        {
-            InventoryVisualItem inventoryItem = Instantiate(InventoryItemVisual.gameObject, InventoryVisualParent).GetComponent<InventoryVisualItem>();
-            inventoryItem.UpdateVisual(data.Item, data.Amount);
-
-            InventoryItemVisuals.Add(inventoryItem);
-        }
-        private void AddTakenItemVisual(ItemData data, LobbyInventory lobbyInventory)
-        {
-            if (data.Item.CanTakeInMission)
-            {
-                LobbyInventoryTakenItemVisual takenItem = Instantiate(TakenItemVisual.gameObject, TakenItemsVisualParent).GetComponent<LobbyInventoryTakenItemVisual>();
-                takenItem.Initialize(data, lobbyInventory);
-
-                TakenItemVisuals.Add(takenItem);
-            }
-        }
-
-        private InventoryVisualItem GetItemVisual(InventoryItem item)
-        {
-            foreach (var visual in InventoryItemVisuals)
-            {
-                if (visual.Item == item)
-                    return visual;
-            }
-            return null;
-        }
-        private LobbyInventoryTakenItemVisual GetTakenItemVisual(InventoryItem item)
-        {
-            foreach (var visual in TakenItemVisuals)
-            {
-                if (visual.ItemData.Item == item)
-                    return visual;
-            }
-            return null;
-        }
-        #endregion
-
+            _chest.SetVisualOpened(false);
+        } 
 
         public void PanelStateIsChanged(GameObject panel)
         {
-            if(panel != MainPanel)
-            {
-                if(isOpened)
-                {
-                    isOpened = false;
-                }
-            }
+            if (panel != MainPanel && MainPanel.activeSelf)
+                MainPanel.SetActive(false);
         }
     }
 }

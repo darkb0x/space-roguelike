@@ -7,8 +7,9 @@ namespace Game.CraftSystem.Craft
     using global::CraftSystem.ScriptableObjects;
     using Visual;
     using SaveData;
-    using Player.Inventory;
+    using Inventory;
     using Player;
+    using Notifications;
 
     public class CraftManager : MonoBehaviour, IService, IEntryComponent<PlayerInventory, PlayerController>
     {
@@ -36,7 +37,7 @@ namespace Game.CraftSystem.Craft
 
         public void Craft(CraftSO craft)
         {
-            if(PlayerInventory.CanTakeItems(craft.ItemsInCraft))
+            if(PlayerInventory.TakeItem(craft.ItemsInCraft))
             {
                 GameObject craftedObj = Instantiate(craft.CraftPrefab, Player.transform.position, Quaternion.identity);
                 if(craftedObj.TryGetComponent(out ICraftableBuild build))
@@ -44,9 +45,14 @@ namespace Game.CraftSystem.Craft
                     build.Initialize(Player);
                 }
 
-                PlayerInventory.TakeItem(craft.ItemsInCraft, false);
-
                 Visual.Close();
+
+                NotificationManager.NewNotification(
+                    craft.CraftIcon,
+                    "Crafted",
+                    true,
+                    Color.white
+                    );
             }
             else
             {

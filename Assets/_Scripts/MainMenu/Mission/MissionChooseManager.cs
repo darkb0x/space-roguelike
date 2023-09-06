@@ -5,7 +5,7 @@ using NaughtyAttributes;
 
 namespace Game.MainMenu.MissionChoose
 {
-    using Utilities.LoadScene;
+    using SceneLoading;
     using Planet;
     using Planet.Visual;
     using Visual;

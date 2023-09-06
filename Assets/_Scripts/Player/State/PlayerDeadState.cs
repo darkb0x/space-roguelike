@@ -2,8 +2,9 @@
 {
     public class PlayerDeadState : PlayerState
     {
-        public override void Enable()
+        public override void Enter()
         {
+            _player.StopAllCoroutines();
             _player.DisableAllComponents();
         }
     }

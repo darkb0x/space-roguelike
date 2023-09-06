@@ -11,6 +11,6 @@
             return this;
         }
 
-        public abstract void Enable();
+        public abstract void Enter();
     }
 }

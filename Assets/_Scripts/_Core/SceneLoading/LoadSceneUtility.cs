@@ -2,10 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game.Utilities.LoadScene
+namespace Game.SceneLoading
 {
-    using Visual;
-
     public class LoadSceneUtility : MonoBehaviour
     {
         [SerializeField] private LoadingScreenVisual Visual;

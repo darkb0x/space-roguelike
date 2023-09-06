@@ -10,8 +10,7 @@ using UnityEditor;
 namespace CraftSystem.ScriptableObjects
 {
     using Enumerations;
-    using Game.Player.Inventory;
-
+    using Game.Inventory;
 
     [CreateAssetMenu(fileName = "Craft", menuName = "Game/new Craft")]
     public class CraftSO : ScriptableObject

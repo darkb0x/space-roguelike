@@ -4,7 +4,7 @@ using NaughtyAttributes;
 
 namespace Game.MainMenu
 {
-    using Utilities.LoadScene;
+    using SceneLoading;
     using Audio;
 
     public class MainMenu : MonoBehaviour

@@ -52,6 +52,9 @@ namespace Game.Drill
             if (IsMining)
                 pick = false;
 
+            if (pick)
+                Pick();
+
             return pick;
         }
 
@@ -71,7 +74,7 @@ namespace Game.Drill
 
         public override void PlayerTakeItems()
         {
-            if(ItemAmount > 0)
+            if(CurrentItem.Amount > 0)
             {
                 StartCoroutine(Cooldown());
             }

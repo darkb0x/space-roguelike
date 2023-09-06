@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace Game.MainMenu.MissionChoose.Planet
 {
-    using Player.Inventory;
+    using Game.Inventory;
 
     [CreateAssetMenu(fileName = "Planet map", menuName = "Game/Mission/new Planet")]
     public class PlanetSO : ScriptableObject

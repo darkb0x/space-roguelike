@@ -21,6 +21,7 @@ namespace Game.Player.Components
 
             MaxHealth = config.MaxHealth;
             InvulnerabilityTime = config.InvulnerabilityTime;
+            _health = MaxHealth;
 
             _visual.InitializeHealthVisual();
         }
@@ -34,15 +35,19 @@ namespace Game.Player.Components
                 throw new System.ArgumentOutOfRangeException(nameof(value));
 
             _health = Mathf.Clamp(_health - value, 0, MaxHealth);
-            LogUtility.WriteLog($"Player got damage({value}), {_health}/{MaxHealth}");
+            Debug.Log($"Player got damage({value}), {_health}/{MaxHealth}");
 
             if (_health == 0)
             {
                 Die();
             }
+            else
+            {
+                _player.StartCoroutine(_visual.PlayerHurt(InvulnerabilityTime));
+                _player.StartCoroutine(InvulnerabilityCoroutine());
+            }
 
-            _player.StartCoroutine(_visual.PlayerHurt(InvulnerabilityTime));
-            _player.StartCoroutine(InvulnerabilityCoroutine());
+            _visual.UpdateHealthVisual((int)_health);
         }
         public void Die()
         {
@@ -52,7 +57,7 @@ namespace Game.Player.Components
             _player.SetState(_player.DeadState);
             _visual.PlayerDead();
 
-            LogUtility.WriteLog("Player died");
+            Debug.Log("Player died");
         }
 
         private IEnumerator InvulnerabilityCoroutine()

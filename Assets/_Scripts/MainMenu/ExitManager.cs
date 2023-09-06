@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.MainMenu.Pause.Exit
 {
-    using Utilities.LoadScene;
+    using SceneLoading;
     using SaveData;
 
     public class ExitManager : MonoBehaviour

@@ -6,9 +6,6 @@ namespace Game.Player
     [CustomEditor(typeof(PlayerController))]
     public class PlayerEditor : Editor
     {
-        private readonly string RED_COLOR = "#" + ColorUtility.ToHtmlStringRGB(Color.red);
-        private readonly string GREEN_COLOR = "#" + ColorUtility.ToHtmlStringRGB(Color.green);
-
         private PlayerController _player;
 
         private void OnEnable()
@@ -33,41 +30,24 @@ namespace Game.Player
 
             GUILayout.BeginHorizontal();
 
-            string oxygenEnabledText = _player.Oxygen.Enabled ? "Disable Oxygen" : "Enable Oxygen";
-            GUIStyle oxygenBtnStyle = new GUIStyle()
+            if (_player.Oxygen != null)
             {
-                normal = new GUIStyleState() { textColor = _player.Oxygen.Enabled ? Color.green : Color.red }
-            };
-
-            if(GUILayout.Button(oxygenEnabledText, oxygenBtnStyle))
+                DrawOxygenButton();
+            }
+            if (_player.Health != null)
             {
-                if(_player.Oxygen.Enabled)
-                {
-                    _player.Oxygen.Disable();
-                }
-                else
-                {
-                    _player.Oxygen.Enable();
-                }
+                DrawHealthButton();
+            }
+            if(_player.Movement != null)
+            {
+                DrawMovementButton();
             }
 
-            string healthEnabledText = _player.Health.Enabled ? "Disable Health" : "Enable Health";
-            GUIStyle healthBtnStyle = new GUIStyle()
-            {
-                normal = new GUIStyleState() { textColor = _player.Health.Enabled ? Color.green : Color.red }
-            };
-            if (GUILayout.Button(healthEnabledText, healthBtnStyle))
-            {
-                if (_player.Health.Enabled)
-                {
-                    _player.Health.Disable();
-                }
-                else
-                {
-                    _player.Health.Enable();
-                }
-            }
+            GUILayout.EndHorizontal();
+        }
 
+        private void DrawMovementButton()
+        {
             string movementEnabledText = _player.Movement.Enabled ? "Disable Movement" : "Enable Movement";
             GUIStyle movementBtnStyle = new GUIStyle()
             {
@@ -84,8 +64,47 @@ namespace Game.Player
                     _player.Movement.Enable();
                 }
             }
+        }
 
-            GUILayout.EndHorizontal();
+        private void DrawHealthButton()
+        {
+            string healthEnabledText = _player.Health.Enabled ? "Disable Health" : "Enable Health";
+            GUIStyle healthBtnStyle = new GUIStyle()
+            {
+                normal = new GUIStyleState() { textColor = _player.Health.Enabled ? Color.green : Color.red }
+            };
+            if (GUILayout.Button(healthEnabledText, healthBtnStyle))
+            {
+                if (_player.Health.Enabled)
+                {
+                    _player.Health.Disable();
+                }
+                else
+                {
+                    _player.Health.Enable();
+                }
+            }
+        }
+
+        private void DrawOxygenButton()
+        {
+            string oxygenEnabledText = _player.Oxygen.Enabled ? "Disable Oxygen" : "Enable Oxygen";
+            GUIStyle oxygenBtnStyle = new GUIStyle()
+            {
+                normal = new GUIStyleState() { textColor = _player.Oxygen.Enabled ? Color.green : Color.red }
+            };
+
+            if (GUILayout.Button(oxygenEnabledText, oxygenBtnStyle))
+            {
+                if (_player.Oxygen.Enabled)
+                {
+                    _player.Oxygen.Disable();
+                }
+                else
+                {
+                    _player.Oxygen.Enable();
+                }
+            }
         }
     }
 }

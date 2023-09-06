@@ -1,4 +1,4 @@
-﻿namespace Game.Utilities.Notifications
+﻿namespace Game.Notifications
 {
     public enum NotificationStyle
     {

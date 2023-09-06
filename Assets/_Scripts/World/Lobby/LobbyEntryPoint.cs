@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Lobby
 {
@@ -8,14 +7,12 @@ namespace Game.Lobby
     using Game.Lobby.Inventory;
     using Game.Lobby.Shop;
     using Game.MainMenu.MissionChoose;
-    using Game.Player.Inventory;
     using Player;
 
     public class LobbyEntryPoint : MonoBehaviour, IEntryPoint
     {
         [Header("Components")]
         [SerializeField] private UIPanelManager UIPanelManager;
-        [SerializeField] private PlayerInventory PlayerInventory;
         [SerializeField] private LobbyInventory LobbyInventory;
         [Space]
         [SerializeField] private ResearchManager ResearchManager;
@@ -45,11 +42,10 @@ namespace Game.Lobby
 
         public void InitializeComponents()
         {
-            PlayerInventory.Initialize();
-            LobbyInventory.Initialize(PlayerInventory);
+            LobbyInventory.Initialize();
 
-            ResearchManager.Initialize(PlayerInventory);
-            ShopManager.Initialize(PlayerInventory, LobbyInventory);
+            ResearchManager.Initialize(LobbyInventory);
+            ShopManager.Initialize(LobbyInventory);
             MissionChooseManager.Initialize();
 
             Player.Initialize();
@@ -58,13 +54,11 @@ namespace Game.Lobby
         public void RegisterServices()
         {
             ServiceLocator.Register(UIPanelManager);
-            ServiceLocator.Register(PlayerInventory);
             ServiceLocator.Register(LobbyInventory);
 
             ServiceLocator.Register(ResearchManager);
             ServiceLocator.Register(ShopManager);
             ServiceLocator.Register(MissionChooseManager);
-            
 
             ServiceLocator.Register(Player);
         }

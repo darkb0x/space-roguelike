@@ -8,7 +8,7 @@ using NaughtyAttributes;
 
 namespace Game.Player
 {
-    using Utilities.LoadScene;
+    using SceneLoading;
 
     public class PlayerVisual : MonoBehaviour
     {

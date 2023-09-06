@@ -7,7 +7,7 @@ using CraftSystem.ScriptableObjects;
 
 namespace Game.CraftSystem.Craft.Visual
 {
-    using Player.Inventory;
+    using Inventory;
 
     public class CraftNodeVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
@@ -23,7 +23,7 @@ namespace Game.CraftSystem.Craft.Visual
         [SerializeField] private Transform ItemsVisualParent;
         [SerializeField] private NodeCraftItemField ItemVisualPrefab;
 
-        private PlayerInventory PlayerInventory;
+        private Inventory PlayerInventory;
         private CraftManager _manager;
 
         private CraftSO craft;
@@ -48,7 +48,7 @@ namespace Game.CraftSystem.Craft.Visual
 
         public void Initialize(CraftSO craft, CraftManager manager)
         {
-            PlayerInventory = ServiceLocator.GetService<PlayerInventory>();
+            PlayerInventory = ServiceLocator.GetService<Inventory>();
             this.craft = craft;
             _manager = manager;
 

@@ -4,7 +4,7 @@ using TMPro;
 
 namespace Game.Lobby.Shop.Container.Visual
 {
-    using Player.Inventory;
+    using Game.Inventory;
     using Shop.Visual;
 
     public class ShopBuyProductVisual : MonoBehaviour
@@ -18,7 +18,7 @@ namespace Game.Lobby.Shop.Container.Visual
         [SerializeField] private CanvasGroup CanvasGroup;
         [SerializeField] private GameObject PurchasedText;
 
-        private PlayerInventory playerInventory;
+        private Inventory _inventory;
         private ShopProductListContainer container;
         private ShopManagerVisual managerVisual;
 
@@ -44,7 +44,7 @@ namespace Game.Lobby.Shop.Container.Visual
 
         public void Initialize(Product product, ShopProductListContainer productListContainer, ShopManagerVisual shopManagerVisual)
         {
-            playerInventory = ServiceLocator.GetService<PlayerInventory>();
+            _inventory = ServiceLocator.GetService<Inventory>();
 
             Product = product;
             container = productListContainer;
@@ -66,7 +66,7 @@ namespace Game.Lobby.Shop.Container.Visual
 
         public void UpdateVisual()
         {
-            if(playerInventory.money >= Product.Cost)
+            if(_inventory.Money >= Product.Cost)
             {
                 ProductCostText.color = defaulrCostTextColor;
                 BuyButton.interactable = true;

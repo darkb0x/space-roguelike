@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using NaughtyAttributes;
 
-namespace Game.Player.Inventory
+namespace Game.Inventory
 {
     [CreateAssetMenu(fileName = "Inventory item", menuName = "Game/new Inventory item")]
     public class InventoryItem : ScriptableObject

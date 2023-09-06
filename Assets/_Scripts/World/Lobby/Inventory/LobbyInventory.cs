@@ -1,155 +1,123 @@
-using System.Collections.Generic;
 using UnityEngine;
+using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
+using System.Collections.Generic;
 
 namespace Game.Lobby.Inventory
 {
     using Visual;
-    using Player.Inventory;
-    using SaveData;
+    using Game.Inventory;
+    using System.Linq;
 
-    public class LobbyInventory : MonoBehaviour, IService, IEntryComponent<PlayerInventory>
+    public class LobbyInventory : Inventory, IService, IEntryComponent
     {
-        [SerializeField] private LobbyInventoryVisual Visual;
-
+        [SerializeField] public LobbyInventoryVisual Visual;
         [Space]
-        public int MaxTakenItemsAmount = 20;
+        [SerializeField, Min(1)] private int m_MaxTakenItemsAmount;
+        [Space]
+        [SerializeField] private SerializedDictionary<InventoryItem, int> ItemsForSession;
 
-        public List<ItemData> LobbyItems = new List<ItemData>();
-        public Dictionary<InventoryItem, int> Items = new Dictionary<InventoryItem, int>();
-        public int FreeItemsAmount { get; private set; }
+#if UNITY_EDITOR
+        [Header("Debug")]
+        [SerializeField, ReadOnly] private int m_MaxItemCount;
+        [SerializeField, ReadOnly] private int m_FreeItemsCount;
+        [SerializeField, ReadOnly] private int m_CurrentItemsAmount;
+#endif
 
-        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
-        public System.Action<ItemData> OnNewItem;
-
-        public void Initialize(PlayerInventory playerInventory)
+        public int MaxTakenItemsAmount => m_MaxTakenItemsAmount;
+        public int FreeItemsAmount
         {
-            FreeItemsAmount = MaxTakenItemsAmount;
-
-            LobbyItems = currentSessionData.LobbyInventory.GetItemList();
-
-            foreach (var item in currentSessionData.MainInventory.GetItemList())
-            {
-                AddItem(item, false);
-            }
-
-            playerInventory.Items.Clear();
-            playerInventory.IsActive = false;
-            currentSessionData.MainInventory.Clear();
-
-            currentSessionData.Save();
-
-            Visual.Initialize(LobbyItems, this);
+            get => MaxTakenItemsAmount - CurrentItemsAmount;
         }
-
-        private void Update()
+        public int CurrentItemsAmount
         {
-            UpdateFreeSpace();
-        }
-
-        public void SetItemsToInventory()
-        {
-            currentSessionData.MainInventory.Clear();
-            foreach (var item in Items.Keys)
+            get
             {
-                ItemData itemData = new ItemData(item, Items[item]);
-                currentSessionData.MainInventory.AddItem(itemData);
+                if (ItemsForSession == null && ItemsForSession.Count == 0)
+                    return 0;
 
-                LogUtility.WriteLog($"Taken item: {Items[item]} {item.ItemName}");
-            }
-            currentSessionData.Save();
-        }
+                int value = 0;
+                ItemsForSession.Keys.ToList().ForEach(x => value += ItemsForSession[x]);
 
-        public void AddItem(ItemData data, bool updateVisual = true)
-        {
-            ItemData itemData = GetItem(data.Item);
-            if(itemData != null)
-            {
-                itemData.Amount += data.Amount;
-                currentSessionData.LobbyInventory.SetItem(itemData);
-
-                if (updateVisual)
-                {
-                    Visual.UpdateItemsInInventory(LobbyItems);
-                }
-            }
-            else
-            {
-                itemData = new ItemData(data.Item, data.Amount);
-                LobbyItems.Add(itemData);
-                currentSessionData.LobbyInventory.AddItem(itemData);
-
-                if (updateVisual)
-                {
-                    Visual.UpdateItemsInInventory(LobbyItems);
-                    Visual.UpdateTakenItems(LobbyItems);
-                }
-
-                OnNewItem?.Invoke(itemData);
+                return value;
             }
         }
-        public bool TakeItem(InventoryItem item, int amount)
+
+#if UNITY_EDITOR
+        private void UpdateEditorDebugValues()
         {
-            ItemData itemData = GetItem(item);
-            if (itemData != null)
+            m_MaxItemCount = MaxTakenItemsAmount;
+            m_FreeItemsCount = FreeItemsAmount;
+            m_CurrentItemsAmount = CurrentItemsAmount;
+        }
+#endif
+
+        public void Initialize()
+        {
+            Load();
+
+            ItemsForSession = new SerializedDictionary<InventoryItem, int>();
+
+            var itemsInInventory = _currentSessionData.MainInventory.GetItemList();
+            if(itemsInInventory.Count > 0)
             {
-                if(itemData.Amount >= amount)
-                {
-                    itemData.Amount -= amount;
-                    currentSessionData.LobbyInventory.SetItem(itemData);
-                    Visual.UpdateItemsInInventory(LobbyItems);
-                    return true;
-                }
+                itemsInInventory.ForEach(item => AddItem(item, false));
+                _currentSessionData.MainInventory.Clear();
+            }
+            
+            Visual.Initialize(this, new Dictionary<InventoryItem, int>(Items));
+
+#if UNITY_EDITOR
+            UpdateEditorDebugValues();
+#endif
+        }
+        protected override void Load()
+        {
+            Money = _currentSessionData.Money;
+
+            Items = new SerializedDictionary<InventoryItem, int>();
+            foreach (var item in _currentSessionData.LobbyInventory.GetItemList())
+            {
+                Items.Add(item.Item, item.Amount);
+            }
+        }
+
+        public bool TryPickItemIntoSession(InventoryItem item, int value)
+        {
+            if (FreeItemsAmount == 0 && value > 0)
                 return false;
+            if (CurrentItemsAmount + value > MaxTakenItemsAmount ||
+                CurrentItemsAmount + value < 0)
+                return false;
+
+            PickItemIntoSession(item, value);
+
+            return true;
+        }
+        public void PickItemIntoSession(InventoryItem item, int value)
+        {
+            if(!ItemsForSession.ContainsKey(item))
+            {
+                ItemsForSession.Add(item, value);
+                return;
             }
-            return false;
+
+            ItemsForSession[item] += value;
+
+#if UNITY_EDITOR
+            UpdateEditorDebugValues();
+#endif
         }
 
-        public ItemData GetItem(InventoryItem item)
+        public void ApplyItemsToMainInventory()
         {
-            foreach (var itemData in LobbyItems)
-            {
-                if(itemData.Item == item)
+            ItemsForSession.Keys.ToList().ForEach(
+                item =>
                 {
-                    return itemData;
+                    if (ItemsForSession[item] > 0)
+                        _currentSessionData.MainInventory.AddItem(new ItemData(item, ItemsForSession[item]));
                 }
-            }
-            return null;
-        }
-
-        public void UpdateTakenItems(ItemData data)
-        {
-            if(data.Amount > 0)
-            {
-                if(Items.ContainsKey(data.Item))
-                {
-                    Items[data.Item] = data.Amount;
-                }
-                else
-                {
-                    Items.Add(data.Item, data.Amount);
-                }
-            }
-            else
-            {
-                if (Items.ContainsKey(data.Item))
-                {
-                    Items.Remove(data.Item);
-                }
-            }
-        }
-
-        private void UpdateFreeSpace()
-        {
-            int currentAmount = 0;
-            foreach (var item in Visual.TakenItemVisuals)
-            {
-                currentAmount += item.ItemData.Amount;
-
-                UpdateTakenItems(item.ItemData);
-            }
-
-            FreeItemsAmount = MaxTakenItemsAmount - currentAmount;
-            Visual.UpdateFreeSpaceText(Mathf.Clamp(currentAmount, 0, MaxTakenItemsAmount), MaxTakenItemsAmount);
+            );
         }
     }
 }

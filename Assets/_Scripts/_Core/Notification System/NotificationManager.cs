@@ -1,9 +1,7 @@
 using UnityEngine;
 
-namespace Game.Utilities.Notifications
+namespace Game.Notifications
 {
-    using Visual;
-
     public class NotificationManager : MonoBehaviour
     {
         [SerializeField] protected Transform NotificationsVisualParent;

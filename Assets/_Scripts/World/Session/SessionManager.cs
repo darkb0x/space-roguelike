@@ -9,7 +9,7 @@ namespace Game.Session
     using MainMenu.MissionChoose.Planet;
     using MainMenu.Pause;
     using SaveData;
-    using Utilities.LoadScene;
+    using SceneLoading;
     using Audio;
 
     public enum SessionEventType

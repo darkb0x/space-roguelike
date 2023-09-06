@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace Game.Turret
 {
     using Player;
-    using Player.Inventory;
+    using Game.Inventory;
     using Player.Pick;
     using Enemy;
 
@@ -14,12 +14,6 @@ namespace Game.Turret
     {
         private const float STANDART_ROTATION_TIME = 5f;
 
-        [System.Serializable]
-        public struct DroppedItem
-        {
-            public InventoryItem Item;
-            public int Amount;
-        }
         private bool isFacingRight = true;
         protected bool playerInZone { get; private set; }
         protected bool enemyInZone { get; private set; }
@@ -37,7 +31,7 @@ namespace Game.Turret
         [SerializeField] protected float TimeBtwAttack = 0.3f;
         [SerializeField] protected float Recoil = 0f;
         [Space]
-        [SerializeField] private List<DroppedItem> DroppedItems = new List<DroppedItem>(1);
+        [SerializeField] private List<ItemData> DroppedItems = new List<ItemData>(1);
 
         [Header("Turret survivability")]
         [SerializeField] private EnemyTarget EnemyTarget;
@@ -370,7 +364,7 @@ namespace Game.Turret
             _enemySpawner.AddTarget(EnemyTarget);
         }
         public bool CanPick()
-            => true;
+            => false;
         #endregion
 
         #region Break
@@ -378,10 +372,10 @@ namespace Game.Turret
         {    
             player.Build.CleanPickedObject(this);
 
-            var inventory = ServiceLocator.GetService<PlayerInventory>();
+            var inventory = ServiceLocator.GetService<IInventory>();
             foreach (var item in DroppedItems)
             {
-                inventory.AddItem(item.Item, item.Amount);
+                inventory.AddItem(item);
             }
 
             _enemySpawner.RemoveTarget(EnemyTarget);

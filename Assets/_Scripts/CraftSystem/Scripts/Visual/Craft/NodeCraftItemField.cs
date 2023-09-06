@@ -4,7 +4,7 @@ using TMPro;
 
 namespace Game.CraftSystem
 {
-    using Player.Inventory;
+    using Inventory;
 
     public class NodeCraftItemField : MonoBehaviour
     {

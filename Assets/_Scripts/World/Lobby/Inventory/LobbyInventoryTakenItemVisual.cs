@@ -4,44 +4,46 @@ using TMPro;
 
 namespace Game.Lobby.Inventory.Visual
 {
-    using Player.Inventory;
+    using Game.Inventory;
 
+    // TO DO
     public class LobbyInventoryTakenItemVisual : MonoBehaviour
     {
-        [SerializeField] private Image ItemIconImage;
-        [SerializeField] private TextMeshProUGUI ItemAmountText;
+        public Image ItemIconImage;
+        public TextMeshProUGUI ItemAmountText;
         [Space]
-        [SerializeField] private Slider ItemSlider;
-        [SerializeField] private TextMeshProUGUI TakenItemAmountText;
+        public Slider ItemSlider;
+        public TextMeshProUGUI TakenItemAmountText;
 
         public ItemData ItemData { get; private set; }
-        private LobbyInventory inventory;
+        private LobbyInventory _inventory;
 
-        private int itemAmount => inventory.GetItem(ItemData.Item).Amount;
-        private int maxTakenItemAmount { 
+        private int _itemAmount => _inventory.GetItem(ItemData.Item).Amount;
+        private int _maxTakenItemAmount { 
             get
             {
-                if (itemAmount < inventory.MaxTakenItemsAmount)
+                if (_itemAmount < _inventory.MaxTakenItemsAmount)
                 {
-                    return itemAmount;
+                    return _itemAmount;
                 }
                 else
                 {
-                    return inventory.MaxTakenItemsAmount;
+                    return _inventory.MaxTakenItemsAmount;
                 }
             }
         }
-        private int freeSpace => inventory.FreeItemsAmount;
+        private int _freeSpace => _inventory.FreeItemsAmount;
+        
 
-        public void Initialize(ItemData itemdata, LobbyInventory lobbyInventory)
+        public void Initialize(InventoryItem item)
         {
-            inventory = lobbyInventory;
+            _inventory = ServiceLocator.GetService<LobbyInventory>();
 
-            ItemData = new ItemData(itemdata.Item);
+            ItemData = new ItemData(item);
 
-            ItemIconImage.sprite = ItemData.Item.Icon;
+            ItemIconImage.sprite = item.Icon;
             ItemSlider.value = 0;
-            ItemSlider.maxValue = maxTakenItemAmount;
+            ItemSlider.maxValue = _maxTakenItemAmount;
 
             UpdateData();
         }
@@ -50,38 +52,30 @@ namespace Game.Lobby.Inventory.Visual
         {
             if(ItemData.Amount <= 0)
             {
-                ItemAmountText.text = itemAmount.ToString();
+                ItemAmountText.text = _itemAmount.ToString();
             }
             else
             {
-                ItemAmountText.text = $"{itemAmount}<color=#{ColorUtility.ToHtmlStringRGBA(Color.red)}>-{ItemData.Amount}</color>";
+                ItemAmountText.text = $"{_itemAmount}<color=#{ColorUtility.ToHtmlStringRGBA(Color.red)}>-{ItemData.Amount}</color>";
             }
 
-            TakenItemAmountText.text = $"({ItemData.Amount}/{Mathf.Clamp(freeSpace, 0, maxTakenItemAmount)})";
-            ItemSlider.maxValue = maxTakenItemAmount;
-        }
-
-        private void Update()
-        {
-            UpdateData();
-
-            ItemSlider.value = Mathf.Clamp(ItemSlider.value, 0, maxTakenItemAmount);
-            
-            if (freeSpace < 0)
-            {
-                ItemData.Amount = Mathf.Clamp(ItemData.Amount - 1, 0, maxTakenItemAmount); ;
-                ItemSlider.value = ItemData.Amount;
-            }
+            TakenItemAmountText.text = $"({ItemData.Amount}/{Mathf.Clamp(_freeSpace, 0, _maxTakenItemAmount)})";
+            ItemSlider.maxValue = _maxTakenItemAmount;
         }
 
         public void SetTakenItemsAmount(float amount)
         {
-            ItemData.Amount = Mathf.Clamp((int)amount, 0, maxTakenItemAmount);
+            AddTakenItemsAmount((int)amount - ItemData.Amount);
         }
 
         public void AddTakenItemsAmount(int value)
         {
-            ItemData.Amount = Mathf.Clamp(ItemData.Amount + value, 0, maxTakenItemAmount);
+            if(_inventory.TryPickItemIntoSession(ItemData.Item, value))
+            {
+                ItemData.Amount = Mathf.Clamp(ItemData.Amount + value, 0, _maxTakenItemAmount);
+
+                UpdateData();
+            }
             ItemSlider.SetValueWithoutNotify(ItemData.Amount);
         }
     }

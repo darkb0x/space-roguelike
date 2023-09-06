@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.CraftSystem.Oven.Manager
 {
-    using Player.Inventory;
+    using Inventory;
 
     [CreateAssetMenu(fileName = "Oven Config", menuName = "Game/new Oven config")]
     public class OvenConfig : ScriptableObject
@@ -13,16 +13,9 @@ namespace Game.CraftSystem.Oven.Manager
         {
             public string name;
 
-            [System.Serializable]
-            public struct s_item
-            {
-                public InventoryItem item;
-                [Min(1)] public int amount;
-            }
-
             [Space]
-            public List<s_item> firstItems = new List<s_item>(1);
-            public s_item finalItem = new s_item() { amount = 1 };
+            public List<ItemData> firstItems = new List<ItemData>(1);
+            public ItemData finalItem;
         }
 
         [SerializeField] private List<craft> m_Items = new List<craft>();

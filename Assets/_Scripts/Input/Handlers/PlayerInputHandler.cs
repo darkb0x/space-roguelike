@@ -53,18 +53,18 @@ namespace Game.Input
             return -(_inputActions.Player.Zoom.ReadValue<Vector2>().y / scrollDivision);
         }
 
-        public void OnBuild(InputAction.CallbackContext context)
+        private void OnBuild(InputAction.CallbackContext context)
         {
             BuildEvent?.Invoke();
         }
 
 
-        public void OnPause(InputAction.CallbackContext context)
+        private void OnPause(InputAction.CallbackContext context)
         {
             PauseEvent?.Invoke();
         }
 
-        public void OnInventory(InputAction.CallbackContext context)
+        private void OnInventory(InputAction.CallbackContext context)
         {
             InventoryEvent?.Invoke();
         }

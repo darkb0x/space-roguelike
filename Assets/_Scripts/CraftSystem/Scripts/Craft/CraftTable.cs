@@ -7,7 +7,7 @@ namespace Game.CraftSystem.Craft
     {
         private CraftManager CraftManager;
 
-        private void Awake()
+        private void Start()
         {
             CraftManager = ServiceLocator.GetService<CraftManager>();
         }

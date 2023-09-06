@@ -5,7 +5,7 @@ using NaughtyAttributes;
 namespace Game.Lobby.Shop.Container
 {
     using Visual;
-    using Player.Inventory;
+    using Game.Inventory;
 
     public abstract class Product
     {
@@ -36,7 +36,7 @@ namespace Game.Lobby.Shop.Container
 
         public virtual void Buy(Product product, ShopBuyProductVisual productVisual)
         {
-            ServiceLocator.GetService<PlayerInventory>().money -= product.Cost;
+            ServiceLocator.GetService<PlayerInventory>().TakeMoney(product.Cost);
         }
     }
 }

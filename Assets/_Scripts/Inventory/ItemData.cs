@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Game.Player.Inventory
+namespace Game.Inventory
 {
     [System.Serializable]
     public class ItemData

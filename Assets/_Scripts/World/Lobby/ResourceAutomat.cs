@@ -5,9 +5,8 @@ using UnityEngine;
 namespace Game.Lobby
 {
     using SaveData;
-    using Lobby.Inventory;
-    using Player.Inventory;
-    using Utilities.Notifications;
+    using Game.Inventory;
+    using Notifications;
 
     public class ResourceAutomat : MonoBehaviour
     {
@@ -27,7 +26,7 @@ namespace Game.Lobby
         [Space]
         [SerializeField] private TMPro.TMP_Text AvaiableInteractionsText;
 
-        private LobbyInventory LobbyInventory;
+        private IInventory _inventory;
         private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
         private InventoryItem finalItem;
         private int avaiableInteractionCount
@@ -40,7 +39,7 @@ namespace Game.Lobby
 
         private void Start()
         {
-            LobbyInventory = ServiceLocator.GetService<LobbyInventory>();
+            _inventory = ServiceLocator.GetService<IInventory>();
 
             AvaiableInteractionsText.text = avaiableInteractionCount.ToString();
 
@@ -83,7 +82,7 @@ namespace Game.Lobby
             CurrentItemSprite.sprite = selectedItem.LowSizeIcon;
             Anim.SetTrigger(Anim_interactTrigger);
 
-            LobbyInventory.AddItem(new ItemData(selectedItem, ItemAmount));
+            _inventory.AddItem(new ItemData(selectedItem, ItemAmount));
             NotificationManager.NewNotification(selectedItem.LowSizeIcon, $"{selectedItem.ItemName} <color={NotificationManager.GreenColor}>+{ItemAmount}</color>", true, selectedItem.ItemTextColor, NotificationStyle.Positive);
 
             currentSessionData.ResourceAutomatCurrentInteract++;

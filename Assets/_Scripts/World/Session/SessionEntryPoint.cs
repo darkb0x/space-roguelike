@@ -4,7 +4,7 @@ namespace Game
 {
     using Player;
     using CraftSystem.Oven.Manager;
-    using Game.Player.Inventory;
+    using Game.Inventory;
     using Game.Enemy;
     using Game.Session;
     using Game.MainMenu.Pause;

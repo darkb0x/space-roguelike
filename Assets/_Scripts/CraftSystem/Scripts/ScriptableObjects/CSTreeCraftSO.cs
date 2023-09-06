@@ -5,7 +5,7 @@ namespace CraftSystem.ScriptableObjects
 {
     using Data;
     using Enumerations;
-    using Game.Player.Inventory;
+    using Game.Inventory;
 
     public class CSTreeCraftSO : CraftSO
     {

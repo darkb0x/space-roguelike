@@ -6,19 +6,12 @@ namespace Game.Drill
 {
     using World.Generation.Ore;
     using Player;
-    using Player.Inventory;
+    using Inventory;
     using Player.Pick;
     using Enemy;
 
     public abstract class Drill : MonoBehaviour, IDamagable, ICraftableBuild
     {
-        [System.Serializable]
-        public struct dropped_item
-        {
-            public InventoryItem item;
-            public int amount;
-        }
-
         private List<Ore> currentOresList = new List<Ore>();
         private Transform oreDetectColl_transform;
         private Transform playerTransform;
@@ -28,7 +21,7 @@ namespace Game.Drill
         protected Transform oreTransform;
         protected PlayerController player;
         protected PlayerInteractObject playerInteractObject;
-        protected PlayerInventory playerInventory;
+        protected IInventory _playerInventory;
         protected bool playerInZone = false;
         protected bool isPicked = false;
 
@@ -43,10 +36,8 @@ namespace Game.Drill
         [Tag, SerializeField] protected string PlayerTag = "Player";
 
         [Header("Inventory")]
-        [ReadOnly] public InventoryItem CurrentItem;
-        [ReadOnly] public int ItemAmount;
+        [ReadOnly] public ItemData CurrentItem;
         [ReadOnly, SerializeField] protected int allExtractedOre = 0;
-        [Space]
         [Space]
         [ReadOnly] public Ore CurrentOre;
 
@@ -56,7 +47,7 @@ namespace Game.Drill
         [SerializeField] protected Collider2D PlayerDetectColl;
 
         [Header("Break System")]
-        public List<dropped_item> DroppedItemsAfterBroke = new List<dropped_item>();
+        public List<ItemData> DroppedItemsAfterBroke = new List<ItemData>();
 
         [Header("Health")]
         public float MaxHealth = 10;
@@ -76,7 +67,7 @@ namespace Game.Drill
 
         public virtual void Start()
         {
-            playerInventory = ServiceLocator.GetService<PlayerInventory>();
+            _playerInventory = ServiceLocator.GetService<IInventory>();
 
             inventoryVisual = GetComponent<DrillInventoryVisual>();
 
@@ -164,7 +155,7 @@ namespace Game.Drill
         public virtual void Put()
         {
             CurrentOre.currentDrill = this;
-            CurrentItem = CurrentOre.Item;
+            CurrentItem.Item = CurrentOre.Item;
             oreDetectColl_transform.position = myTransform.position;
 
             myTransform.position = oreTransform.position;
@@ -179,7 +170,7 @@ namespace Game.Drill
             PreRenderPlaceObject.transform.SetParent(null);
             PreRenderPlaceObject.gameObject.SetActive(false);
 
-            inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
+            inventoryVisual.UpdateVisual(CurrentItem);
         }
         public virtual bool CanPick()
             => isPicked;
@@ -193,9 +184,9 @@ namespace Game.Drill
             if (CurrentItem == null | isPicked)
                 return;
 
-            playerInventory.AddItem(CurrentItem, ItemAmount);
-            ItemAmount = 0;
-            inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
+            _playerInventory.AddItem(CurrentItem);
+            CurrentItem.Amount = 0;
+            inventoryVisual.UpdateVisual(CurrentItem);
 
             if (CurrentOre != null)
             {
@@ -213,9 +204,9 @@ namespace Game.Drill
         {
             int oreAmount = CurrentOre.Take(MiningDamage);
 
-            ItemAmount += oreAmount;
+            CurrentItem.Amount += oreAmount;
             allExtractedOre += oreAmount;
-            inventoryVisual.UpdateVisual(CurrentItem, ItemAmount);
+            inventoryVisual.UpdateVisual(CurrentItem);
 
             if (CurrentOre.Amount <= 0)
             {
@@ -363,7 +354,7 @@ namespace Game.Drill
         #region Break
         public virtual void Break()
         {
-            if(ItemAmount > 0)
+            if(CurrentItem.Amount > 0)
             {
                 PlayerTakeItems();
             }
@@ -375,7 +366,7 @@ namespace Game.Drill
 
             foreach (var item in DroppedItemsAfterBroke)
             {
-                playerInventory.AddItem(item.item, item.amount);
+                _playerInventory.AddItem(item);
             }
 
             ServiceLocator.GetService<EnemySpawner>().RemoveTarget(EnemyTarget);
@@ -393,7 +384,7 @@ namespace Game.Drill
 
                 if (isPicked)
                     canEnable = false;
-                if (CurrentOre?.Amount < 0 && ItemAmount == 0)
+                if (CurrentOre?.Amount < 0 && CurrentItem.Amount == 0)
                     canEnable = false;
 
                 inventoryVisual.EnableVisual(canEnable);
