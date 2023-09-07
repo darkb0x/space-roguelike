@@ -82,7 +82,7 @@ namespace Game.Lobby.Inventory.Visual
                 _takenItemVisuals.Add(item, takenItemVisual);
             }
         }
-        private void UpdateFreeSpaceText()
+        public void UpdateFreeSpaceText()
         {
             FreeSpaceText.text = $"({_inventory.CurrentItemsAmount}/{_inventory.MaxTakenItemsAmount})";
         }

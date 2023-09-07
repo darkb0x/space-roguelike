@@ -3,11 +3,11 @@ using System.IO;
 
 namespace Game
 {
-    using SaveData;
+    using Save;
 
     public static class LogUtility
     {
-        private static SettingsData currentSettingsData => SaveDataManager.Instance.CurrentSettingsData;
+        private static SettingsSaveData currentSettingsData => SaveManager.SettingsSaveData;
         private static StreamWriter writer;
 
         public static void StartLogging(string logName = "log")

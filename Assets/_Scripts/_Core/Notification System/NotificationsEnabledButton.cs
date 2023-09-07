@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Game.Notifications
 {
-    using SaveData;
+    using Save;
 
     public class NotificationsEnabledButton : MonoBehaviour
     {
@@ -19,12 +19,12 @@ namespace Game.Notifications
 
         private void Start()
         {
-            UpdateVisual(SaveDataManager.Instance.CurrentUISettingsData.EnableNotifications);
+            UpdateVisual(SaveManager.UISaveData.EnableNotifications);
         }
 
         public void SetEnabled()
         {
-            UISettingsData data = SaveDataManager.Instance.CurrentUISettingsData;
+            UISaveData data = SaveManager.UISaveData;
             data.EnableNotifications = !data.EnableNotifications;
             data.Save();
 

@@ -9,7 +9,7 @@ namespace Game.MainMenu.MissionChoose
     using Planet;
     using Planet.Visual;
     using Visual;
-    using SaveData;
+    using Save;
     using Audio;
 
     public class MissionChooseManager : MonoBehaviour, IService
@@ -38,7 +38,7 @@ namespace Game.MainMenu.MissionChoose
         private bool startMission = false;
         public float startMissionTimer { get; private set; }
 
-        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
+        private SessionSaveData currentSessionData => SaveManager.SessionSaveData;
 
         public void Initialize()
         {
@@ -118,10 +118,8 @@ namespace Game.MainMenu.MissionChoose
             ServiceLocator.GetService<UIPanelManager>().CloseAllPanel(false);
 
             Cutscene.Play();
-            currentSessionData.SetPlanet(selectedMission.AssetPath);
+            currentSessionData.SetPlanet(selectedMission);
             LoadSceneUtility.LoadSceneAsync(selectedMission.SceneId, 20);
-
-            currentSessionData.Save();
         }
         public void StartMission()
         {

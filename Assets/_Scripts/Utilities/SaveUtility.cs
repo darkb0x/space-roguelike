@@ -5,7 +5,7 @@ namespace Game.Utilities
 {
     public static class SaveUtility
     {
-        private const string JSON_DATA_TYPE = "json";
+        public const string FILE_EXTENSION = "json";
         private const string ENCRYPT_KEY = "217702026";
 
         /// <summary>
@@ -17,13 +17,18 @@ namespace Game.Utilities
         /// <param name="encrypt">if you want encrypt data, enable this parameter</param>
         public static void SaveDataToJson(string filePath, string fileName, object data, bool encrypt = false)
         {
-            if (string.IsNullOrEmpty(filePath) | string.IsNullOrEmpty(fileName))
+            if (string.IsNullOrEmpty(filePath))
             {
-                Debug.LogError("SaveDataUtility.cs | SaveDataToJson(string, string, object, bool) | filePath or fileName is empty");
+                Debug.LogError("SaveDataUtility.cs | LoadDataFromJson(string, string, bool) | filePath is empty");
+                return;
+            }
+            if (string.IsNullOrEmpty(fileName))
+            {
+                Debug.LogError("SaveDataUtility.cs | LoadDataFromJson(string, string, bool) | fileName is empty");
                 return;
             }
 
-            string path = $"{filePath}{fileName}.{JSON_DATA_TYPE}";
+            string path = $"{filePath}{fileName}.{FILE_EXTENSION}";
 
             string json = JsonUtility.ToJson(data, true);
 
@@ -46,13 +51,18 @@ namespace Game.Utilities
         /// <returns>loaded data</returns>
         public static T LoadDataFromJson<T>(string filePath, string fileName, bool ecrypt = false)
         {
-            if (string.IsNullOrEmpty(filePath) | string.IsNullOrEmpty(fileName))
+            if (string.IsNullOrEmpty(filePath) )
             {
-                Debug.LogError("SaveDataUtility.cs | LoadDataFromJson(string, string, bool) | filePath or fileName is empty");
+                Debug.LogError("SaveDataUtility.cs | LoadDataFromJson(string, string, bool) | filePath is empty");
+                return default(T);
+            }
+            if(string.IsNullOrEmpty(fileName))
+            {
+                Debug.LogError("SaveDataUtility.cs | LoadDataFromJson(string, string, bool) | fileName is empty");
                 return default(T);
             }
 
-            string path = $"{filePath}{fileName}.{JSON_DATA_TYPE}";
+            string path = $"{filePath}{fileName}.{FILE_EXTENSION}";
             if (!File.Exists(path))
             {
                 Debug.LogWarning($"SaveDataUtility.cs | LoadDataFromJson(string, string, bool) | file at path '{path}', is not exist.");

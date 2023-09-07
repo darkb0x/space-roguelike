@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 namespace Game
 {
     using Player;
-    using SaveData;
+    using Save;
     using Input;
 
     public class CameraController : MonoBehaviour
@@ -26,7 +26,7 @@ namespace Game
         private Transform myTransform;
         private float currentZoom;
 
-        private UISettingsData currentUISettingsData => SaveDataManager.Instance.CurrentUISettingsData;
+        private UISaveData currentUISettingsData => SaveManager.UISaveData;
 
         private void Start()
         {

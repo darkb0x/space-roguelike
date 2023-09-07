@@ -7,7 +7,7 @@ namespace Game.Lobby
     using Game.Lobby.Inventory;
     using Game.Lobby.Shop;
     using Game.MainMenu.MissionChoose;
-    using Game.SaveData;
+    using Game.Save;
     using Player;
 
     public class LobbyEntryPoint : MonoBehaviour, IEntryPoint
@@ -39,7 +39,7 @@ namespace Game.Lobby
         private void OnDisable()
         {
             UnregisterServices();
-            SaveDataManager.Instance.CurrentSessionData.Save();
+            SaveManager.SessionSaveData.Save();
         }
 
         public void InitializeComponents()

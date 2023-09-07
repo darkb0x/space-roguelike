@@ -8,7 +8,7 @@ namespace Game.Lobby.Shop
     using Container;
     using Inventory;
     using Game.Inventory;
-    using SaveData;
+    using Save;
 
     public class ShopManager : MonoBehaviour, IService, IEntryComponent<LobbyInventory>
     {
@@ -24,7 +24,7 @@ namespace Game.Lobby.Shop
         {
             _inventory = inventory;
 
-            List<ItemData> items = SaveDataManager.Instance.CurrentSessionData.LobbyInventory.GetItemList();
+            List<ItemData> items = SaveManager.SessionSaveData.LobbyInventory.GetItemList();
             Visual.Initialize(items);
 
             foreach (var container in BuyProductListContainers)

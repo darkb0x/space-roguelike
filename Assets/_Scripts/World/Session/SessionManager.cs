@@ -8,7 +8,7 @@ namespace Game.Session
     using Enemy;
     using MainMenu.MissionChoose.Planet;
     using MainMenu.Pause;
-    using SaveData;
+    using Save;
     using SceneLoading;
     using Audio;
 
@@ -46,6 +46,7 @@ namespace Game.Session
 
         public PlanetSO planetData { get; private set; }
 
+        private SessionSaveData _sessionSave => SaveManager.SessionSaveData;
         private EnemySpawner EnemySpawner;
         private PauseManager _pauseManager;
         public System.Action<SessionEvent> OnEventReached;
@@ -57,11 +58,12 @@ namespace Game.Session
 
             eventsCount = SessionTimings.EventsList.Count;
             currentEvent = 0;
-            planetData = SaveDataManager.Instance.CurrentSessionData.GetPlanet();
+            planetData = _sessionSave.GetPlanet();
 
             StartRocket.position = RocketPositions[Random.Range(0, RocketPositions.Length)].position;
 
             LogUtility.StartLogging("session");
+            Debug.Log($"Loaded mission:{planetData.MissionName}, on difficulty:{_sessionSave.CurrentDifficultFactor}");
 
             _pauseManager.OnGamePaused += OnGamePaused;
             
@@ -135,12 +137,10 @@ namespace Game.Session
             EndCutscene.Play();
 
             float difficultAddition = 0.05f;
-            SaveDataManager.Instance.CurrentSessionData.CurrentDifficultFactor += difficultAddition;
+            _sessionSave.CurrentDifficultFactor += difficultAddition;
         }
         public void EnableLobbyScene()
         {
-            SaveDataManager.Instance.CurrentSessionData.Save();
-
             LoadSceneUtility.EnableLoadedAsyncScene();
         }
 

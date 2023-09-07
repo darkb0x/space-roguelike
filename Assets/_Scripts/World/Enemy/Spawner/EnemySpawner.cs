@@ -6,7 +6,7 @@ using NaughtyAttributes;
 namespace Game.Enemy
 {
     using Session;
-    using SaveData;
+    using Save;
 
     public class EnemySpawner : MonoBehaviour, IService, IEntryComponent<SessionManager>
     {
@@ -48,7 +48,7 @@ namespace Game.Enemy
         {
             SessionManager = sessionManager;
 
-            DifficultFactor = SaveDataManager.Instance.CurrentSessionData.CurrentDifficultFactor;
+            DifficultFactor = SaveManager.SessionSaveData.CurrentDifficultFactor;
             SpawnScore = Mathf.RoundToInt(MaxSpawnScore * DifficultFactor);
         }
 

@@ -125,7 +125,7 @@ namespace Game.CraftSystem.Research.Visual.Node
         }
         private void InitializeFields()
         {
-            ResearchButton.Initialize($"Research ({currentCraft.CraftCost})", Research);
+            ResearchButton.Initialize($"Research ({currentCraft.CraftCost}$)", Research);
             UpgradeButton.Initialize($"Upgrade ({_researchTreeCraft.GetNextCraft().CraftCost}$)", Upgrade);
             FullyUpgradedField.Initialize("Upgraded!", null);
             NonAvailableField.Initialize("Non Avaialable", null);

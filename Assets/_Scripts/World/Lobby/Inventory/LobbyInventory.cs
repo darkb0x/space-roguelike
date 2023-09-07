@@ -118,6 +118,7 @@ namespace Game.Lobby.Inventory
             }
 
             ItemsForSession[item] += value;
+            Visual.UpdateFreeSpaceText();
 
 #if UNITY_EDITOR
             UpdateEditorDebugValues();

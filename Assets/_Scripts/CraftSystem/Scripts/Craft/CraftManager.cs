@@ -6,7 +6,7 @@ namespace Game.CraftSystem.Craft
 {
     using global::CraftSystem.ScriptableObjects;
     using Visual;
-    using SaveData;
+    using Save;
     using Inventory;
     using Player;
     using Notifications;
@@ -18,7 +18,7 @@ namespace Game.CraftSystem.Craft
 
         private PlayerInventory PlayerInventory;
         private PlayerController Player;
-        private SessionData _currentSessionData => SaveDataManager.Instance.CurrentSessionData;
+        private SessionSaveData _currentSessionData => SaveManager.SessionSaveData;
         private List<CraftSO> _allUnlockedCrafts;
 
         private CraftTable _currentCraftTable;
@@ -46,6 +46,7 @@ namespace Game.CraftSystem.Craft
                 }
 
                 Visual.Close();
+                _currentCraftTable = null;
 
                 NotificationManager.NewNotification(
                     craft.CraftIcon,

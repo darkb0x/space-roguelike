@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.Session
 {
-    using SaveData;
+    using Save;
 
     public class SessionTimingsVisual : MonoBehaviour
     {
@@ -29,7 +29,7 @@ namespace Game.Session
         [SerializeField] private Image VidgetVisual;
 
         private SessionManager SessionManager;
-        private UISettingsData currentUISettingsData => SaveDataManager.Instance.CurrentUISettingsData;
+        private UISaveData currentUISettingsData => SaveManager.UISaveData;
 
         private List<MarkData> markList;
 

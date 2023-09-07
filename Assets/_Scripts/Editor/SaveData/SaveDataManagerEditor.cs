@@ -1,16 +1,17 @@
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 
-namespace Game.SaveData
+namespace Game.Save
 {
-    [CustomEditor(typeof(SaveDataManager))]
+    [CustomEditor(typeof(SaveManager))]
     public class SaveDataManagerEditor : Editor
     {
-        SaveDataManager dataManager;
+        SaveManager dataManager;
 
         private void OnEnable()
         {
-            dataManager = (SaveDataManager)target;
+            dataManager = (SaveManager)target;
         }
 
         public override void OnInspectorGUI()
@@ -22,26 +23,31 @@ namespace Game.SaveData
 
             if (GUILayout.Button("Reset Session Data"))
             {
-                dataManager.CurrentSessionData.Reset();
+                ResetSaveData(SaveManager.SessionSaveData);
             }
             if (GUILayout.Button("Reset Settings Data"))
             {
-                dataManager.CurrentSettingsData.Reset();
+                ResetSaveData(SaveManager.SettingsSaveData);
             }
-            if (GUILayout.Button("Reset UI Settings Data"))
+            if (GUILayout.Button("Reset UI Save Data"))
             {
-                dataManager.CurrentUISettingsData.Reset();
+                ResetSaveData(SaveManager.UISaveData);
             }
             EditorGUILayout.Space();
 
             if(GUILayout.Button("Save All Data"))
             {
-                dataManager.CurrentSessionData.Save(dataManager.savePath, SaveDataManager.SESSION_DATA_FILENAME);
-                dataManager.CurrentSettingsData.Save(dataManager.savePath, SaveDataManager.SETTINGS_DATA_FILENAME);
-                dataManager.CurrentUISettingsData.Save(dataManager.savePath, SaveDataManager.UI_SETTINGS_DATA_FILENAME);
+                SaveManager.SessionSaveData.Save();
+                SaveManager.SettingsSaveData.Save();
+                SaveManager.UISaveData.Save();
             }
 
             GUI.enabled = true;
+        }
+
+        private void ResetSaveData(SaveData saveData)
+        {
+            saveData.Reset();
         }
     }
 }

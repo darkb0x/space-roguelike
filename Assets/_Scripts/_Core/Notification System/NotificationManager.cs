@@ -14,7 +14,7 @@ namespace Game.Notifications
         public static string GreenColor = "#6FB372";
         public static string RedColor = "#B01C48";
 
-        public bool NotificationsEnabled => SaveData.SaveDataManager.Instance.CurrentUISettingsData.EnableNotifications;
+        public bool NotificationsEnabled => Save.SaveManager.UISaveData.EnableNotifications;
 
         private void Awake()
         {

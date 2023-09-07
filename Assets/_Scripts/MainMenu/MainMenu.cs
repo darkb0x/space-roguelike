@@ -35,7 +35,7 @@ namespace Game.MainMenu
         {
             LogUtility.StartLogging("session");
 
-            SaveData.SaveDataManager.Instance.CurrentSessionData.Reset();
+            Save.SaveManager.SessionSaveData.Reset();
 
             LoadSceneUtility.LoadSceneAsyncVisualize(LobbySceneId);
         }

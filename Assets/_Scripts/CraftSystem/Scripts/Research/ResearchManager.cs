@@ -7,7 +7,7 @@ namespace Game.CraftSystem.Research
     using Visual;
     using Visual.Node;
     using Game.Inventory;
-    using SaveData;
+    using Save;
     using global::CraftSystem.ScriptableObjects;
     using System.Linq;
     using Notifications;
@@ -19,7 +19,7 @@ namespace Game.CraftSystem.Research
         [Space]
         public List<ResearchTree> Trees = new List<ResearchTree>();
 
-        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
+        private SessionSaveData currentSessionData => SaveManager.SessionSaveData;
         private IInventory PlayerInventory;
         private List<CraftSO> crafts;
 
@@ -48,7 +48,6 @@ namespace Game.CraftSystem.Research
                 nodeVisual.SetState(VisualNodeState.Purchased);
 
                 currentSessionData.InjectCrafts(crafts);
-                currentSessionData.Save();
 
                 NotificationManager.NewNotification(
                     currentCraft.CraftIcon,
@@ -71,7 +70,6 @@ namespace Game.CraftSystem.Research
             {
                 crafts.Add(currentCraft);
                 currentSessionData.InjectCrafts(crafts);
-                currentSessionData.Save();
             }
         }
         public void Research(CraftSO craft)
@@ -80,7 +78,6 @@ namespace Game.CraftSystem.Research
             {
                 crafts.Add(craft);
                 currentSessionData.InjectCrafts(crafts);
-                currentSessionData.Save();
             }
         }
         public void Upgrade(ResearchTreeCraft craft, CraftTreeNodeVisual nodeVisual)
@@ -105,7 +102,6 @@ namespace Game.CraftSystem.Research
                 }
 
                 currentSessionData.InjectCrafts(crafts);
-                currentSessionData.Save();
             }
             else
             {

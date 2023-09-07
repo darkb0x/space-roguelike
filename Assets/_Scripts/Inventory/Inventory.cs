@@ -1,4 +1,4 @@
-﻿using Game.SaveData;
+﻿using Game.Save;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace Game.Inventory
         public Action<ItemData> OnItemAdded;
         public Action<ItemData> OnItemTaken;
 
-        protected SessionData _currentSessionData => SaveDataManager.Instance.CurrentSessionData;
+        protected SessionSaveData _currentSessionData => SaveManager.SessionSaveData;
 
         protected abstract void Load();
 
@@ -130,7 +130,7 @@ namespace Game.Inventory
 
         public virtual bool TakeItem(List<ItemData> items, bool showNotify = true)
         {
-            if (items.Any(x => CanTakeItem(x)))
+            if (items.Any(x => !CanTakeItem(x))) // if can't take some kind of item
                 return false;
 
             foreach (var item in items)

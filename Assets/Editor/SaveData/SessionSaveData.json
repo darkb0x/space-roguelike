@@ -1,0 +1,50 @@
+{
+    "_filePath": "C:/Unity/space-roguelike/Assets/Editor/SaveData/",
+    "_fileName": "SessionSaveData",
+    "_encrypt": false,
+    "UnlockedCraftPaths": [
+        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Lasergun/Crafts/1",
+        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Minigun/Crafts/1"
+    ],
+    "MainInventory": {
+        "Items": []
+    },
+    "LobbyInventory": {
+        "Items": [
+            {
+                "Name": "Selbit Ore",
+                "Path": "Items/Ore/Selbit Ore",
+                "Amount": 5
+            },
+            {
+                "Name": "Zuldun Ore",
+                "Path": "Items/Ore/Zuldun Ore",
+                "Amount": 5
+            },
+            {
+                "Name": "Zuldun Ingot",
+                "Path": "Items/Ingot/Zuldun Ingot",
+                "Amount": 1
+            },
+            {
+                "Name": "Oil Liquid",
+                "Path": "Items/Liquids/Oil Liquid",
+                "Amount": 3
+            },
+            {
+                "Name": "Kopoloh",
+                "Path": "Items/Ore/Kopoloh Ore",
+                "Amount": 1
+            },
+            {
+                "Name": "Selbit Ingot",
+                "Path": "Items/Ingot/Selbit Ingot",
+                "Amount": 1
+            }
+        ]
+    },
+    "Money": 0,
+    "ResourceAutomatCurrentInteract": 4,
+    "PlanetPath": "Missions/Planets/Newbie Desert",
+    "CurrentDifficultFactor": 1.0499999523162842
+}

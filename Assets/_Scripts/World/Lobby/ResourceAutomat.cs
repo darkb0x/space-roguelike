@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Lobby
 {
-    using SaveData;
+    using Save;
     using Game.Inventory;
 
     public class ResourceAutomat : MonoBehaviour
@@ -26,7 +26,7 @@ namespace Game.Lobby
         [SerializeField] private TMPro.TMP_Text AvaiableInteractionsText;
 
         private IInventory _inventory;
-        private SessionData currentSessionData => SaveDataManager.Instance.CurrentSessionData;
+        private SessionSaveData currentSessionData => SaveManager.SessionSaveData;
         private InventoryItem finalItem;
         private int avaiableInteractionCount
         {

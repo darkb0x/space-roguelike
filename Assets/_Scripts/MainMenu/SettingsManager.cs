@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Game.MainMenu.Settings
 {
-    using SaveData;
+    using Save;
 
     public class SettingsManager : MonoBehaviour
     {
@@ -35,7 +35,7 @@ namespace Game.MainMenu.Settings
         [Header("Logging Toggle")]
         [SerializeField] private Toggle EnableLoggingToggle;
 
-        private SettingsData settingsData => SaveDataManager.Instance.CurrentSettingsData;
+        private SettingsSaveData settingsData => SaveManager.SettingsSaveData;
 
         private void Start()
         {

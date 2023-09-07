@@ -74,6 +74,9 @@ namespace Game.Lobby.Inventory.Visual
 
         public void AddTakenItemsAmount(int value)
         {
+            if (ItemData.Amount == 0 && value < 0)
+                return;
+
             if(_inventory.TryPickItemIntoSession(ItemData.Item, value))
             {
                 ItemData.Amount = Mathf.Clamp(ItemData.Amount + value, 0, _maxTakenItemAmount);

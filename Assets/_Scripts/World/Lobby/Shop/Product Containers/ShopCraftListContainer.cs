@@ -6,7 +6,7 @@ namespace Game.Lobby.Shop.Container
 {
     using Game.CraftSystem.Research;
     using global::CraftSystem.ScriptableObjects;
-    using SaveData;
+    using Save;
 
     
     [System.Serializable]
@@ -29,7 +29,7 @@ namespace Game.Lobby.Shop.Container
                 if (products.Contains(craft))
                     continue;
 
-                if(!SaveDataManager.Instance.CurrentSessionData.ContainsCraft(craft.Craft)) 
+                if(!SaveManager.SessionSaveData.ContainsCraft(craft.Craft)) 
                 {
                     products.Add(craft);
                 }

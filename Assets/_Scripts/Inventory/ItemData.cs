@@ -14,7 +14,9 @@ namespace Game.Inventory
 
         public override string ToString()
         {
-            return $"{Item.ItemName} ({Amount})";
+            if(Item != null)
+                return $"{Item.ItemName} ({Amount})";
+            return $"NONE ({Amount})";
         }
     }
 }
