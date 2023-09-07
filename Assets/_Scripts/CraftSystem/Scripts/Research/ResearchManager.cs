@@ -67,9 +67,18 @@ namespace Game.CraftSystem.Research
         {
             var currentCraft = craft.GetCurrentCraft();
 
-            if (!crafts.Any(item => craft.crafts.Contains(item)))
+            if (!crafts.Any(x => craft.crafts.Contains(x))) 
             {
                 crafts.Add(currentCraft);
+                currentSessionData.InjectCrafts(crafts);
+                currentSessionData.Save();
+            }
+        }
+        public void Research(CraftSO craft)
+        {
+            if (!crafts.Contains(craft))
+            {
+                crafts.Add(craft);
                 currentSessionData.InjectCrafts(crafts);
                 currentSessionData.Save();
             }

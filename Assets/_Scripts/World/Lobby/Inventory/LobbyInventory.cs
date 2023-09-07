@@ -78,8 +78,23 @@ namespace Game.Lobby.Inventory
             Items = new SerializedDictionary<InventoryItem, int>();
             foreach (var item in _currentSessionData.LobbyInventory.GetItemList())
             {
-                Items.Add(item.Item, item.Amount);
+                AddItem(item, false);
             }
+        }
+
+        public override void AddItem(ItemData item, bool showNotify = true)
+        {
+            base.AddItem(item, showNotify);
+            _currentSessionData.LobbyInventory.SetItem(item);
+        }
+        public override bool TakeItem(ItemData item, bool showNotify = true)
+        {
+            if(base.TakeItem(item, showNotify))
+            {
+                _currentSessionData.LobbyInventory.SetItem(item);
+                return true;
+            }
+            return false;
         }
 
         public bool TryPickItemIntoSession(InventoryItem item, int value)
@@ -115,7 +130,7 @@ namespace Game.Lobby.Inventory
                 item =>
                 {
                     if (ItemsForSession[item] > 0)
-                        _currentSessionData.MainInventory.AddItem(new ItemData(item, ItemsForSession[item]));
+                        _currentSessionData.MainInventory.SetItem(new ItemData(item, ItemsForSession[item]));
                 }
             );
         }

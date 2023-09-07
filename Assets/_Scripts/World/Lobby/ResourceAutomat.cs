@@ -6,7 +6,6 @@ namespace Game.Lobby
 {
     using SaveData;
     using Game.Inventory;
-    using Notifications;
 
     public class ResourceAutomat : MonoBehaviour
     {
@@ -62,7 +61,7 @@ namespace Game.Lobby
                 return;
 
             int currentInteract = currentSessionData.ResourceAutomatCurrentInteract;
-            InventoryItem selectedItem = null;
+            InventoryItem selectedItem;
             if (currentInteract < 2)
             {
                 selectedItem = NecessaryItems[currentInteract];
@@ -83,10 +82,8 @@ namespace Game.Lobby
             Anim.SetTrigger(Anim_interactTrigger);
 
             _inventory.AddItem(new ItemData(selectedItem, ItemAmount));
-            NotificationManager.NewNotification(selectedItem.LowSizeIcon, $"{selectedItem.ItemName} <color={NotificationManager.GreenColor}>+{ItemAmount}</color>", true, selectedItem.ItemTextColor, NotificationStyle.Positive);
 
             currentSessionData.ResourceAutomatCurrentInteract++;
-            currentSessionData.Save();
 
             AvaiableInteractionsText.text = avaiableInteractionCount.ToString();
         }

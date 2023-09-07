@@ -30,5 +30,20 @@ namespace Game.Inventory
                 AddItem(item, false);
             }
         }
+
+        public override void AddItem(ItemData item, bool showNotify = true)
+        {
+            base.AddItem(item, showNotify);
+            _currentSessionData.MainInventory.SetItem(item);
+        }
+        public override bool TakeItem(ItemData item, bool showNotify = true)
+        {
+            if(base.TakeItem(item, showNotify))
+            {
+                _currentSessionData.MainInventory.SetItem(item);
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Game.SaveData
     using Utilities;
     using MainMenu.MissionChoose.Planet;
     using global::CraftSystem.ScriptableObjects;
+    using System.Linq;
 
     [Serializable]
     public class SessionData : Data
@@ -16,8 +17,8 @@ namespace Game.SaveData
         public List<string> UnlockedCraftPaths;
 
         // Inventory
-        public Inventory MainInventory;
-        public Inventory LobbyInventory;
+        public InventorySaveData MainInventory;
+        public InventorySaveData LobbyInventory;
         public int Money;
 
         // Resource Automat Uses Amount
@@ -33,8 +34,8 @@ namespace Game.SaveData
         {
             UnlockedCraftPaths = new List<string>();
 
-            MainInventory = new Inventory();
-            LobbyInventory = new Inventory();
+            MainInventory = new InventorySaveData();
+            LobbyInventory = new InventorySaveData();
 
             dataSavePath = savePath;
             dataFileName = fileName;
@@ -80,7 +81,7 @@ namespace Game.SaveData
         }
         public bool ContainsCraft(CraftSO craft)
         {
-            return GetCraft(craft.AssetPath) != null;
+            return ContainsCraft(craft.AssetPath);
         }
         #endregion
 
@@ -132,35 +133,29 @@ namespace Game.SaveData
         }
 
         [Serializable]
-        public class Inventory
+        public class InventorySaveData
         {
             public List<Item> Items;
 
-            public Inventory()
+            public InventorySaveData()
             {
                 Items = new List<Item>();
             }
 
-            public void AddItem(ItemData data)
+            private void AddItem(ItemData data)
             {
-                foreach (var item in Items)
-                {
-                    if (item.Path == data.Item.AssetPath)
-                        return;
-                }
                 Items.Add(new Item() { Path = data.Item.AssetPath, Amount = data.Amount });
             }
             public void SetItem(ItemData data)
             {
-                foreach (var item in Items)
+                var item = Items.FirstOrDefault(x => x.Path == data.Item.AssetPath);
+                if(item != null)
                 {
-                    if (item.Path == data.Item.AssetPath)
-                    {
-                        item.Amount = data.Amount;
-                        return;
-                    }
+                    item.Amount = data.Amount;
+                    return;
                 }
-                Items.Add(new Item() { Path = data.Item.AssetPath, Amount = data.Amount });
+
+                AddItem(data);
             }
             public ItemData GetItem(string path)
             {
@@ -181,9 +176,7 @@ namespace Game.SaveData
                 List<ItemData> itemDatas = new List<ItemData>();
                 foreach (var item in Items)
                 {
-                    InventoryItem inventoryItem = Resources.Load<InventoryItem>(item.Path);
-                    ItemData data = new ItemData(inventoryItem, item.Amount);
-                    itemDatas.Add(data);
+                    itemDatas.Add(GetItem(item.Path));
                 }
                 return itemDatas;
             }

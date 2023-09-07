@@ -36,7 +36,7 @@ namespace Game.SaveData
         }
         public override void Reset()
         {
-            EnableLogs = true;
+            EnableLogs = false;
 
             MasterVolume = 0.5f;
             MusicVolume = 1f;

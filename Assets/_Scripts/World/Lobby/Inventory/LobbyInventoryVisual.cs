@@ -79,6 +79,7 @@ namespace Game.Lobby.Inventory.Visual
                 var takenItemVisual = Instantiate(TakenItemVisualPrefab, TakenItemVisualsParent);
                 takenItemVisual.Initialize(item);
                 takenItemVisual.ItemSlider.onValueChanged.AddListener(_ => UpdateFreeSpaceText());
+                _takenItemVisuals.Add(item, takenItemVisual);
             }
         }
         private void UpdateFreeSpaceText()

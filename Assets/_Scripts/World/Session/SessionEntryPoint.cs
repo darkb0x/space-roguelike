@@ -9,6 +9,7 @@ namespace Game
     using Game.Session;
     using Game.MainMenu.Pause;
     using Game.CraftSystem.Craft;
+    using Game.SaveData;
 
     public class SessionEntryPoint : MonoBehaviour, IEntryPoint
     {
@@ -34,6 +35,7 @@ namespace Game
         private void OnDisable()
         {
             UnregisterServices();
+            SaveDataManager.Instance.CurrentSessionData.Save();
         }
 
         public void InitializeComponents()

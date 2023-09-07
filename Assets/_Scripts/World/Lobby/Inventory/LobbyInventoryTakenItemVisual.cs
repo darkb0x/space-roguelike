@@ -6,7 +6,6 @@ namespace Game.Lobby.Inventory.Visual
 {
     using Game.Inventory;
 
-    // TO DO
     public class LobbyInventoryTakenItemVisual : MonoBehaviour
     {
         public Image ItemIconImage;
@@ -50,6 +49,11 @@ namespace Game.Lobby.Inventory.Visual
 
         public void UpdateData()
         {
+            if (_itemAmount == 0)
+                gameObject.SetActive(false);
+            else
+                gameObject.SetActive(true);
+
             if(ItemData.Amount <= 0)
             {
                 ItemAmountText.text = _itemAmount.ToString();

@@ -14,14 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CategoryName: Turrets
   CategoryIcon: {fileID: 21300000, guid: 33c5fdff70ab98046a20853f1a59c5bd, type: 3}
-  Crafts:
-  - Name: Firegun Turret
-    Description: Fire is hot
-    Icon: {fileID: -745282310284442268, guid: ea8f40e4bf66c49408f5edeb33e8c80a, type: 3}
-    Cost: 100
-    Craft: {fileID: 11400000, guid: 7dd1643306a4bd641a706223f36f6e35, type: 2}
-  - Name: Rocket Turret
-    Description: Rocket are flying?!
-    Icon: {fileID: 7096331438215173900, guid: 37c37e63d59e54643a4285214d14ec5d, type: 3}
-    Cost: 100
-    Craft: {fileID: 11400000, guid: 7b1d5798bfdcfd04e9706b38f49526ad, type: 2}
+  Crafts: []

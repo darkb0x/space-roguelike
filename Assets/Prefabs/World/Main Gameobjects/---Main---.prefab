@@ -34,7 +34,6 @@ Transform:
   - {fileID: 973950431650127927}
   - {fileID: 8779144328709606868}
   - {fileID: 6709116323395940776}
-  - {fileID: 4389373989018900434}
   - {fileID: 2483677705205861328}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1802,76 +1801,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &5708861595961547674
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4389373989018900434}
-  - component: {fileID: 7295520195962688068}
-  m_Layer: 0
-  m_Name: GameData
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4389373989018900434
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5708861595961547674}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 973950430228214895}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7295520195962688068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5708861595961547674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7f8d42c537cfd6449208dd711101238, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  savePath: 
-  <CurrentSessionData>k__BackingField:
-    dataSavePath: 
-    dataFileName: 
-    UnlockedCraftPaths: []
-    MainInventory:
-      Items: []
-    LobbyInventory:
-      Items: []
-    Money: 0
-    ResourceAutomatCurrentInteract: 0
-    PlanetPath: 
-    CurrentDifficultFactor: 0
-  <CurrentSettingsData>k__BackingField:
-    dataSavePath: 
-    dataFileName: 
-    EnableLogs: 0
-    MasterVolume: 0
-    MusicVolume: 0
-    EffectsVolume: 0
-  <CurrentUISettingsData>k__BackingField:
-    dataSavePath: 
-    dataFileName: 
-    CameraZoom: 0
-    EnableTimeline: 0
-    EnableNotifications: 0
 --- !u!1 &5810238852577566089
 GameObject:
   m_ObjectHideFlags: 0

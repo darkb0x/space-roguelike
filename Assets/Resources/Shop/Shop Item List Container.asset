@@ -18,15 +18,15 @@ MonoBehaviour:
   - Name: Selbit ore
     Description: Basic of builds.
     Icon: {fileID: -203749126781165649, guid: 5edd100e702dabc4b9a4fe8a8385fb25, type: 3}
-    Cost: 10
+    Cost: 3
     Item: {fileID: 11400000, guid: 2adca8601b4bd364d982600f292f41ab, type: 2}
   - Name: Zuldun ore
     Description: Very important in electric.
     Icon: {fileID: 1106232271658436647, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
-    Cost: 10
+    Cost: 3
     Item: {fileID: 11400000, guid: 159b9184e5193b44bb26c1735b03128a, type: 2}
   - Name: Marbet ore
     Description: Boom.
     Icon: {fileID: -31291522549906435, guid: 03df70f658e8e9a4d858e496a44091d8, type: 3}
-    Cost: 5
+    Cost: 2
     Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}

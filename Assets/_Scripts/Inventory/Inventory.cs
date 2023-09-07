@@ -103,8 +103,7 @@ namespace Game.Inventory
         {
             ItemDataErrorCheck(item);
 
-            if (Items.ContainsKey(item.Item) &&
-                Items[item.Item] >= item.Amount)
+            if (CanTakeItem(item))
             {
                 Items[item.Item] -= item.Amount;
 

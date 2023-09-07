@@ -11,5 +11,10 @@ namespace Game.Inventory
             Item = item;
             Amount = amount;
         }
+
+        public override string ToString()
+        {
+            return $"{Item.ItemName} ({Amount})";
+        }
     }
 }
