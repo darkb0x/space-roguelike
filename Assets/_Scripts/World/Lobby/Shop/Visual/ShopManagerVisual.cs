@@ -41,8 +41,6 @@ namespace Game.Lobby.Shop.Visual
         {
             UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
 
-            manager = GetComponent<ShopManager>();
-
             _input.CloseEvent += ClosePanel;
             UIPanelManager.Attach(this);
         }
@@ -51,8 +49,10 @@ namespace Game.Lobby.Shop.Visual
             _input.CloseEvent -= ClosePanel;
         }
 
-        public void Initialize(List<ItemData> items)
+        public void Initialize(List<ItemData> items, ShopManager manager)
         {
+            this.manager = manager;
+
             foreach (var itemData in items)
             {
                 AddSellProductVisual(itemData);

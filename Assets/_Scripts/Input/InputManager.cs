@@ -19,7 +19,7 @@ namespace Game.Input
 
         private Camera _camera;
 
-        private void Awake()
+        public void Awake()
         {
             if(Instance == null)
             {
@@ -28,6 +28,7 @@ namespace Game.Input
             }
             else
             {
+                Destroy(gameObject);
                 return;
             }
 
@@ -40,14 +41,6 @@ namespace Game.Input
 
             PlayerInputHandler.PauseEvent += Pause;
             UIInputHandler.PauseEvent += Pause;
-        }
-        private void OnDisable()
-        {
-            PlayerInputHandler.PauseEvent -= Pause;
-            UIInputHandler.PauseEvent -= Pause;
-
-            PlayerInputHandler.Dispose();
-            UIInputHandler.Dispose();
         }
 
         #region Mouse

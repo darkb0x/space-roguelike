@@ -15,6 +15,8 @@ namespace Game.Inventory
 
         protected override void UpdateField(int value)
         {
+            base.UpdateField(value);
+
             int difference = value - _currentMoney;
             _currentMoney = value;
 
@@ -25,8 +27,6 @@ namespace Game.Inventory
 
             DifferenceText.text = difference.ToString();
             Anim.SetTrigger(_animMoneyChangedTrigger);
-
-            base.UpdateField(value);
         }
     }
 }

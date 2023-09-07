@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using Game.Save;
 
 namespace Game.Inventory
 {
@@ -12,12 +13,17 @@ namespace Game.Inventory
         private void Start()
         {
             _inventory = ServiceLocator.GetService<Inventory>();
-            _inventory.OnMoneyChanged += UpdateField;
-            UpdateField(_inventory.Money);
+            UpdateField(SaveManager.SessionSaveData.Money);
+        }
+        private void OnEnable()
+        {
+            if(_inventory)
+                _inventory.OnMoneyChanged += UpdateField;
         }
         private void OnDisable()
         {
-            _inventory.OnMoneyChanged -= UpdateField;
+            if(_inventory)
+                _inventory.OnMoneyChanged -= UpdateField;
         }
 
         protected virtual void UpdateField(int value)

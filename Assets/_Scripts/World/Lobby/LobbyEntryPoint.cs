@@ -4,6 +4,7 @@ namespace Game.Lobby
 {
     using Game.Audio;
     using Game.CraftSystem.Research;
+    using Game.Input;
     using Game.Lobby.Inventory;
     using Game.Lobby.Shop;
     using Game.MainMenu.MissionChoose;
@@ -32,7 +33,6 @@ namespace Game.Lobby
         private void Start()
         {
             InitializeComponents();
-
             Player.Oxygen.Disable();
             MusicManager.Instance.SetMusic(Music, true);
         }

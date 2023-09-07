@@ -30,6 +30,7 @@ namespace Game.Inventory
                 throw new ArgumentOutOfRangeException(nameof(amount));
 
             Money += amount;
+            _currentSessionData.Money = Money;
 
             OnMoneyChanged?.Invoke(Money);
         }
@@ -42,6 +43,7 @@ namespace Game.Inventory
             if (Money >= amount)
             {
                 Money -= amount;
+                _currentSessionData.Money = Money;
 
                 OnMoneyChanged?.Invoke(Money);
                 return true;

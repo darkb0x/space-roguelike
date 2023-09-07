@@ -85,13 +85,13 @@ namespace Game.Lobby.Inventory
         public override void AddItem(ItemData item, bool showNotify = true)
         {
             base.AddItem(item, showNotify);
-            _currentSessionData.LobbyInventory.SetItem(item);
+            _currentSessionData.LobbyInventory.UpdateItemData(GetItem(item.Item));
         }
         public override bool TakeItem(ItemData item, bool showNotify = true)
         {
             if(base.TakeItem(item, showNotify))
             {
-                _currentSessionData.LobbyInventory.SetItem(item);
+                _currentSessionData.LobbyInventory.UpdateItemData(GetItem(item.Item));
                 return true;
             }
             return false;
@@ -131,7 +131,7 @@ namespace Game.Lobby.Inventory
                 item =>
                 {
                     if (ItemsForSession[item] > 0)
-                        _currentSessionData.MainInventory.SetItem(new ItemData(item, ItemsForSession[item]));
+                        _currentSessionData.MainInventory.UpdateItemData(new ItemData(item, ItemsForSession[item]));
                 }
             );
         }

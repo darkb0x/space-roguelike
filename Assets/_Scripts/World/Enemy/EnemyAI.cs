@@ -192,8 +192,6 @@ namespace Game.Enemy
 
             rb.AddForce(force);
 
-            //rb.MovePosition(rb.position + direction * Speed * Time.fixedDeltaTime);
-
             if(EnemyVisual)
                 EnemyVisual.FlipSprite(rb.velocity.x < 0.2f);
             else

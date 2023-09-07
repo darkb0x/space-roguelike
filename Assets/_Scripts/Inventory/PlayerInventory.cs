@@ -34,13 +34,13 @@ namespace Game.Inventory
         public override void AddItem(ItemData item, bool showNotify = true)
         {
             base.AddItem(item, showNotify);
-            _currentSessionData.MainInventory.SetItem(item);
+            _currentSessionData.MainInventory.UpdateItemData(GetItem(item.Item));
         }
         public override bool TakeItem(ItemData item, bool showNotify = true)
         {
             if(base.TakeItem(item, showNotify))
             {
-                _currentSessionData.MainInventory.SetItem(item);
+                _currentSessionData.MainInventory.UpdateItemData(GetItem(item.Item));
                 return true;
             }
             return false;

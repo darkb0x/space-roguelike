@@ -15,7 +15,7 @@ namespace Game.Audio
 
         private AudioClip currentMusic;
 
-        private void Awake()
+        public void Awake()
         {
             if(Instance == null)
             {

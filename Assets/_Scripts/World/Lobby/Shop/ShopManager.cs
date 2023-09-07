@@ -25,7 +25,7 @@ namespace Game.Lobby.Shop
             _inventory = inventory;
 
             List<ItemData> items = SaveManager.SessionSaveData.LobbyInventory.GetItemList();
-            Visual.Initialize(items);
+            Visual.Initialize(items, this);
 
             foreach (var container in BuyProductListContainers)
             {

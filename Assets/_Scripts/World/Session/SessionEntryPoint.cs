@@ -1,12 +1,11 @@
 using UnityEngine;
 
-namespace Game
+namespace Game.Session
 {
     using Player;
     using CraftSystem.Oven.Manager;
     using Game.Inventory;
     using Game.Enemy;
-    using Game.Session;
     using Game.MainMenu.Pause;
     using Game.CraftSystem.Craft;
     using Game.Save;

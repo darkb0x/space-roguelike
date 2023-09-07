@@ -103,7 +103,7 @@ namespace Game.Save
                 Items = new List<ItemSaveData>();
             }
 
-            public void SetItem(ItemData data)
+            public void UpdateItemData(ItemData data)
             {
                 var item = Items.FirstOrDefault(x => x.Path == data.Item.AssetPath);
                 if(item != null)

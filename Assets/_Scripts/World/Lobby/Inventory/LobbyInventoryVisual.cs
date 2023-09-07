@@ -60,8 +60,11 @@ namespace Game.Lobby.Inventory.Visual
         }
         private void OnItemTaken(ItemData itemData)
         {
-            UpdateTakenItemVisual(_takenItemVisuals[itemData.Item]);
-            UpdateFreeSpaceText();
+            if (_takenItemVisuals.ContainsKey(itemData.Item))
+            {
+                UpdateTakenItemVisual(_takenItemVisuals[itemData.Item]);
+                UpdateFreeSpaceText();
+            }
         }
 
         private void AddTakenItemVisual(ItemData itemData)

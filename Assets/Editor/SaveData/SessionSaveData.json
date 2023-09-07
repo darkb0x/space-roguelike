@@ -14,12 +14,12 @@
             {
                 "Name": "Selbit Ore",
                 "Path": "Items/Ore/Selbit Ore",
-                "Amount": 5
+                "Amount": 11
             },
             {
                 "Name": "Zuldun Ore",
                 "Path": "Items/Ore/Zuldun Ore",
-                "Amount": 5
+                "Amount": 13
             },
             {
                 "Name": "Zuldun Ingot",
@@ -34,7 +34,7 @@
             {
                 "Name": "Kopoloh",
                 "Path": "Items/Ore/Kopoloh Ore",
-                "Amount": 1
+                "Amount": 16
             },
             {
                 "Name": "Selbit Ingot",
@@ -43,8 +43,8 @@
             }
         ]
     },
-    "Money": 0,
+    "Money": 2,
     "ResourceAutomatCurrentInteract": 4,
-    "PlanetPath": "Missions/Planets/Newbie Desert",
+    "PlanetPath": "Missions/Planets/Middle Winter",
     "CurrentDifficultFactor": 1.0499999523162842
 }

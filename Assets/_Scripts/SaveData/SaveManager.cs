@@ -27,7 +27,7 @@ namespace Game.Save
         [SerializeField] private SettingsSaveData m_SettingsSaveData;
         [SerializeField] private UISaveData m_UISaveData;
 
-        private void Awake()
+        public void Awake()
         {
             if(Instance == null)
             {

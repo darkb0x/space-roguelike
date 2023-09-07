@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 8860242243788035047}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0494184, y: -0.40642136, z: -0.044223346}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savePath: 
-  <CurrentSessionData>k__BackingField:
-    dataSavePath: 
-    dataFileName: 
+  m_SessionSaveData:
+    _filePath: 
+    _fileName: 
+    _encrypt: 0
     UnlockedCraftPaths: []
     MainInventory:
       Items: []
@@ -57,16 +58,18 @@ MonoBehaviour:
     ResourceAutomatCurrentInteract: 0
     PlanetPath: 
     CurrentDifficultFactor: 0
-  <CurrentSettingsData>k__BackingField:
-    dataSavePath: 
-    dataFileName: 
+  m_SettingsSaveData:
+    _filePath: 
+    _fileName: 
+    _encrypt: 0
     EnableLogs: 0
     MasterVolume: 0
     MusicVolume: 0
     EffectsVolume: 0
-  <CurrentUISettingsData>k__BackingField:
-    dataSavePath: 
-    dataFileName: 
+  m_UISaveData:
+    _filePath: 
+    _fileName: 
+    _encrypt: 0
     CameraZoom: 0
     EnableTimeline: 0
     EnableNotifications: 0
