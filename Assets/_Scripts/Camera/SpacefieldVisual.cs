@@ -15,8 +15,6 @@ namespace Game
         {
             material = Instantiate(m_Material);
             SpriteRender.material = material;
-
-            UpdateScale(Camera.main);
         }
 
         public void UpdateScale(Camera targetCamera)
