@@ -3,16 +3,20 @@ using UnityEngine;
 namespace Game.Session
 {
     using Player;
-    using CraftSystem.Oven.Manager;
-    using Game.Inventory;
+    using CraftSystem.Oven;
+    using UI;
+    using UI.HUD;
     using Game.Enemy;
-    using Game.MainMenu.Pause;
+    using Game.Menu.Pause;
     using Game.CraftSystem.Craft;
     using Game.Save;
+    using Game.Notifications;
 
     public class SessionEntryPoint : MonoBehaviour, IEntryPoint
     {
-        [SerializeField] private UIPanelManager UIPanelManager;
+        [SerializeField] private HUDConfig HUDConfig;
+
+        [Header("Components")]
         [SerializeField] private PlayerInventory PlayerInventory;
         [SerializeField] private PauseManager PauseManager;
         [Space]
@@ -23,8 +27,15 @@ namespace Game.Session
         [Space]
         [SerializeField] private PlayerController Player;
 
+        private UIWindowService _uiWindowService;
+        private HUDService _hudService;
+        private NotificationService _notificationService;
+
         private void Awake()
         {
+            _uiWindowService = new UIWindowService();
+            _hudService = new HUDService(HUDConfig);
+            _notificationService = new NotificationService();
             RegisterServices();
         }
         private void Start()
@@ -39,21 +50,25 @@ namespace Game.Session
 
         public void InitializeComponents()
         {
-            PlayerInventory.Initialize();
-            PauseManager.Initialize(UIPanelManager);
+            _uiWindowService.Initialize();
+            PlayerInventory.Initialize(_uiWindowService);
+            PauseManager.Initialize(_uiWindowService);
 
             SessionManager.Initialize(EnemySpawner, PauseManager);
             EnemySpawner.Initialize(SessionManager);
-            OvenManager.Initialize(UIPanelManager, PlayerInventory);
-            CraftManager.Initialize(PlayerInventory, Player);
+            OvenManager.Initialize(_uiWindowService, PlayerInventory);
+            CraftManager.Initialize(PlayerInventory, Player, _uiWindowService);
 
             Player.Initialize();
+
+            _hudService.Initialize(_uiWindowService);
+            _notificationService.Initialize(_hudService);
         }
 
         public void RegisterServices()
         {
+            ServiceLocator.Register(_uiWindowService);
             ServiceLocator.Register(PlayerInventory);
-            ServiceLocator.Register(UIPanelManager);
             ServiceLocator.Register(PauseManager);
 
             ServiceLocator.Register(OvenManager);
@@ -62,6 +77,7 @@ namespace Game.Session
             ServiceLocator.Register(CraftManager);
 
             ServiceLocator.Register(Player);
+            ServiceLocator.Register(_hudService);
         }
 
         public void UnregisterServices()

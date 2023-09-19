@@ -32,10 +32,10 @@ namespace Game.Player
 
         // Components
         public Action<PlayerComponent> OnComponentChangedEnabled;
-        public HealthController Health;
-        public OxygenController Oxygen;
-        public MovementController Movement;
-        public BuildController Build;
+        public HealthController Health { get; private set; }
+        public OxygenController Oxygen { get; private set; }
+        public MovementController Movement { get; private set; }
+        public BuildController Build { get; private set; }
 
         private List<IRequireUpdate> _updatableComponents;
         private List<IRequireFixedUpdate> _fixedUpdatableComponents;

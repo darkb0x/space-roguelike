@@ -2,32 +2,26 @@ using UnityEngine;
 
 namespace Game.Inventory
 {
-    using Input;
+    using UI;
 
-    public class InventoryWindow : MonoBehaviour
+    public class InventoryWindow : Window
     {
-        [SerializeField] private GameObject WindowVisual;
+        [SerializeField] private InventoryVisual InventoryVisual;
 
-        public bool Active
+        public override WindowID ID => WindowID.Inventory;
+
+        public override void Initialize(UIWindowService service)
         {
-            get
-            {
-                return WindowVisual.activeSelf;
-            }
-            set
-            {
-                WindowVisual.SetActive(value);
-            }
+            base.Initialize(service);
+            InventoryVisual.Initialize();
         }
 
-        private void Start()
+        public void OpenClose()
         {
-            Active = false;
-        }
-
-        public void Open()
-        {
-            Active = !Active;
+            if (IsOpened)
+                _uiWindowService.Close(ID);
+            else
+                _uiWindowService.TryOpenWindow(ID);
         }
     }
 }

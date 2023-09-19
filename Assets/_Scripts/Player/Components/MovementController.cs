@@ -3,12 +3,14 @@ using UnityEngine;
 
 namespace Game.Player.Components
 {
+    using UI;
+
     public class MovementController : PlayerComponent, IRequireUpdate, IRequireFixedUpdate
     {
         public readonly float Speed;
 
         private Rigidbody2D _rigidbody;
-        private UIPanelManager _uiPanelManager;
+        private UIWindowService _uiWindowService;
 
         private Vector2 _moveInput;
         private Vector2 _lookDirection;
@@ -22,7 +24,7 @@ namespace Game.Player.Components
 
             _rigidbody = _player.GetComponent<Rigidbody2D>();
 
-            _uiPanelManager = ServiceLocator.GetService<UIPanelManager>();
+            _uiWindowService = ServiceLocator.GetService<UIWindowService>();
         }
 
         public void Update()
@@ -43,7 +45,7 @@ namespace Game.Player.Components
                 _visual.PlayerIdleAnimation();
             }
 
-            if(!_uiPanelManager.SomethinkIsOpened())
+            if(!_uiWindowService.IsAnyWindowOpened())
                 _visual.PlayerLookDirection(_lookDirection);
         }
 

@@ -10,11 +10,10 @@ namespace Game.Lobby.Shop.Visual
     using Container.Visual;
     using Input;
     using System.Linq;
+    using UI;
 
-    public class ShopManagerVisual : MonoBehaviour, IUIPanelManagerObserver
+    public class ShopManagerVisual : Window
     {
-        [SerializeField] private GameObject MainPanel;
-
         [Header("Sell")]
         [SerializeField] private ShopSellProductVisual SellProductVisual;
         [SerializeField] private Transform SellProductParent;
@@ -27,6 +26,8 @@ namespace Game.Lobby.Shop.Visual
         [SerializeField] private GameObject CategoryButtonPrefab;
         [SerializeField] private Transform CategoryButtons;
 
+        public override WindowID ID => ShopManager.SHOP_WINDOW_ID; 
+
         public bool isOpened { get; private set; }
         private ShopManager manager;
 
@@ -34,19 +35,18 @@ namespace Game.Lobby.Shop.Visual
         private List<ShopProductListContainerVisual> productContainerVisuals = new List<ShopProductListContainerVisual>();
         private List<Image> categoryButtonVisuals = new List<Image>();
 
-        private UIPanelManager UIPanelManager;
         private UIInputHandler _input => InputManager.UIInputHandler;
 
-        private void Start()
+        protected override void SubscribeToEvents()
         {
-            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
-
-            _input.CloseEvent += ClosePanel;
-            UIPanelManager.Attach(this);
+            base.SubscribeToEvents();
+            _input.CloseEvent += () => Close();
         }
-        private void OnDisable()
+
+        protected override void UnsubscribeFromEvents()
         {
-            _input.CloseEvent -= ClosePanel;
+            base.UnsubscribeFromEvents();
+            _input.CloseEvent -= () => Close(); 
         }
 
         public void Initialize(List<ItemData> items, ShopManager manager)
@@ -70,6 +70,7 @@ namespace Game.Lobby.Shop.Visual
 
             ShopSellProductVisual visual = Instantiate(SellProductVisual.gameObject, SellProductParent).GetComponent<ShopSellProductVisual>();
             visual.Initialize(itemData, manager);
+            visual.OnChanged += UpdateProductsVisual;
 
             sellProductVisuals.Add(visual);
         }
@@ -119,34 +120,12 @@ namespace Game.Lobby.Shop.Visual
             }
         }
 
-        public void OpenPanel()
+        public override void Open(bool notify = true)
         {
             UpdateProductsVisual();
 
             OpenProductContainer(productContainerVisuals[0], categoryButtonVisuals[0]);
-
-            UIPanelManager.OpenPanel(MainPanel);
-            isOpened = true;
-        }
-
-        public void ClosePanel()
-        {
-            if (!isOpened)
-                return;
-
-            UIPanelManager.ClosePanel(MainPanel);
-            isOpened = false;
-        }
-
-        public void PanelStateIsChanged(GameObject panel)
-        {
-            if(panel != MainPanel)
-            {
-                if(isOpened)
-                {
-                    isOpened = false;
-                }
-            }
+            base.Open(notify);
         }
     }
 }

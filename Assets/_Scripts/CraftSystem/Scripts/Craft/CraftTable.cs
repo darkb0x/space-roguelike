@@ -1,20 +1,21 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.CraftSystem.Craft
 {
+    using UI;
+
     public class CraftTable : MonoBehaviour
     {
-        private CraftManager CraftManager;
+        private UIWindowService _uiWindowService;
 
         private void Start()
         {
-            CraftManager = ServiceLocator.GetService<CraftManager>();
+            _uiWindowService = ServiceLocator.GetService<UIWindowService>();
         }
 
         public void OpenCraftPanel()
         {
-            CraftManager.Open(this);
+            _uiWindowService.TryOpenWindow(CraftManager.CRAFT_WINDOW_ID);
         }
     }
 }

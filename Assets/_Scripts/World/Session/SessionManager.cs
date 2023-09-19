@@ -6,11 +6,12 @@ using NaughtyAttributes;
 namespace Game.Session
 {
     using Enemy;
-    using MainMenu.MissionChoose.Planet;
-    using MainMenu.Pause;
+    using Lobby.Missions;
+    using Menu.Pause;
     using Save;
     using SceneLoading;
     using Audio;
+    using Drill.SpecialDrill;
 
     public enum SessionEventType
     {
@@ -25,6 +26,8 @@ namespace Game.Session
         [SerializeField] private Transform[] RocketPositions;
 
         [Header("Session")]
+        public ArtefactDrill ArtefactDrill;
+        [Space]
         [Expandable] public SessionTimingsSO SessionTimings;
         [SerializeField] private PlayableDirector EndCutscene;
 
@@ -66,7 +69,9 @@ namespace Game.Session
             Debug.Log($"Loaded mission:{planetData.MissionName}, on difficulty:{_sessionSave.CurrentDifficultFactor}");
 
             _pauseManager.OnGamePaused += OnGamePaused;
-            
+
+            ArtefactDrill.Initialize();
+
             #if !UNITY_EDITOR
             DebugText.gameObject.SetActive(false);
             #endif

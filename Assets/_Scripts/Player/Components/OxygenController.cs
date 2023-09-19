@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game.Player.Components
 {
@@ -8,6 +9,7 @@ namespace Game.Player.Components
         public readonly float LowOxygenValue;
         public readonly float OxygenUseSpeed;
 
+        public Action<float> OnOxygenChanged;
         public float Oxygen { get { return _oxygen; } }
 
         private float _oxygen;
@@ -15,21 +17,19 @@ namespace Game.Player.Components
         public OxygenController(ComponentConfig componentConfig, OxygenConfig config) : base(componentConfig)
         { 
             if (config.MaxOxygen <= 0)
-                throw new System.ArgumentOutOfRangeException(nameof(config.MaxOxygen));
+                throw new ArgumentOutOfRangeException(nameof(config.MaxOxygen));
             if (config.StartOxygenValue <= 0)
-                throw new System.ArgumentOutOfRangeException(nameof(config.StartOxygenValue));
+                throw new ArgumentOutOfRangeException(nameof(config.StartOxygenValue));
             if (config.LowOxygenValue <= 0)
-                throw new System.ArgumentOutOfRangeException(nameof(config.LowOxygenValue));
+                throw new ArgumentOutOfRangeException(nameof(config.LowOxygenValue));
             if (config.OxygenUseSpeed <= 0)
-                throw new System.ArgumentOutOfRangeException(nameof(config.OxygenUseSpeed));
+                throw new ArgumentOutOfRangeException(nameof(config.OxygenUseSpeed));
 
             MaxOxygen = config.MaxOxygen;
             LowOxygenValue = config.LowOxygenValue;
             OxygenUseSpeed = config.OxygenUseSpeed;
 
             _oxygen = config.StartOxygenValue;
-            
-            _visual.EnableOxygenVisual(true);
         }
 
         public override void Disable()
@@ -59,7 +59,8 @@ namespace Game.Player.Components
             _visual.PlayerLowOxygen(isLowOxygen, _oxygen, LowOxygenValue);
 
             _oxygen = Mathf.Clamp(_oxygen - (Time.deltaTime * OxygenUseSpeed), 0, MaxOxygen);  
-            _visual.UpdateOxygenVisual(_oxygen, MaxOxygen);
+
+            OnOxygenChanged?.Invoke(_oxygen); ;
         }
 
         public bool AddOxygen(float value)
@@ -68,7 +69,6 @@ namespace Game.Player.Components
                 return false;
 
             _oxygen = Mathf.Clamp(_oxygen + value, 0, MaxOxygen);
-            _visual.UpdateOxygenVisual(_oxygen, MaxOxygen);
 
             return true;
         }

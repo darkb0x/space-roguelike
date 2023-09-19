@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
 
-namespace Game.MainMenu
+namespace Game.Menu
 {
     using SceneLoading;
     using Audio;

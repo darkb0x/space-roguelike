@@ -8,10 +8,13 @@ namespace Game.Lobby.Inventory
     using Visual;
     using Game.Inventory;
     using System.Linq;
+    using UI;
 
-    public class LobbyInventory : Inventory, IService, IEntryComponent
+    public class LobbyInventory : Inventory, IService, IEntryComponent<UIWindowService>
     {
-        [SerializeField] public LobbyInventoryVisual Visual;
+        public const WindowID LOBBY_INVENTORY_WINDOW_ID = WindowID.LobbyInventory;
+
+        [SerializeField] private LobbyInventoryChest Chest;
         [Space]
         [SerializeField, Min(1)] private int m_MaxTakenItemsAmount;
         [Space]
@@ -43,6 +46,8 @@ namespace Game.Lobby.Inventory
             }
         }
 
+        private LobbyInventoryVisual _visual;
+
 #if UNITY_EDITOR
         private void UpdateEditorDebugValues()
         {
@@ -52,11 +57,13 @@ namespace Game.Lobby.Inventory
         }
 #endif
 
-        public void Initialize()
+        public void Initialize(UIWindowService windowService)
         {
             Load();
 
             ItemsForSession = new SerializedDictionary<InventoryItem, int>();
+
+            _visual = windowService.RegisterWindow<LobbyInventoryVisual>(LOBBY_INVENTORY_WINDOW_ID);
 
             var itemsInInventory = _currentSessionData.MainInventory.GetItemList();
             if(itemsInInventory.Count > 0)
@@ -65,7 +72,8 @@ namespace Game.Lobby.Inventory
                 _currentSessionData.MainInventory.Clear();
             }
             
-            Visual.Initialize(this, new Dictionary<InventoryItem, int>(Items));
+            _visual.Initialize(this, new Dictionary<InventoryItem, int>(Items));
+            Chest.Initialize(windowService, _visual);
 
 #if UNITY_EDITOR
             UpdateEditorDebugValues();
@@ -118,7 +126,7 @@ namespace Game.Lobby.Inventory
             }
 
             ItemsForSession[item] += value;
-            Visual.UpdateFreeSpaceText();
+            _visual.UpdateFreeSpaceText();
 
 #if UNITY_EDITOR
             UpdateEditorDebugValues();

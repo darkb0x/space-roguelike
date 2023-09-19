@@ -2,18 +2,20 @@
 
 namespace Game.CraftSystem.Research
 {
+    using UI;
+
     public class ResearchTable : MonoBehaviour
     {
-        private ResearchManager ResearchManager;
+        private UIWindowService _uiWindowService;
 
         private void Start()
         {
-            ResearchManager = ServiceLocator.GetService<ResearchManager>();
+            _uiWindowService = ServiceLocator.GetService<UIWindowService>();
         }
 
         public void OpenResearchManager()
         {
-            ResearchManager.Open();
+            _uiWindowService.TryOpenWindow(ResearchManager.CRAFT_RESEARCH_WINDOW_ID);
         }
     }
 }

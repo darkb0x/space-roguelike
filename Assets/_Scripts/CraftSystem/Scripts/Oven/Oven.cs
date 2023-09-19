@@ -6,12 +6,11 @@ namespace Game.CraftSystem.Oven
 {
     using Player;
     using Game.Inventory;
-    using Manager;
 
     [RequireComponent(typeof(PlayerInteractObject))]
     public class Oven : MonoBehaviour
     {
-        OvenManager manager;
+        OvenManager _manager;
 
         [Header("UI")]
         [SerializeField] private GameObject progressBarObject;
@@ -33,18 +32,19 @@ namespace Game.CraftSystem.Oven
         [ReadOnly, SerializeField] private float StartRateOverTime = 5f;
         [SerializeField] private float SmokeEnabledSpeed = 0.2f;
 
-        OvenConfig.craft currentItem;
-        float currentTime;
-        bool canTakeItem = false;
+        private OvenConfig.craft _currentItem;
+        private float _currentTime;
+        private bool _canTakeItem = false;
 
-        private IInventory PlayerInventory;
+        private Inventory _inventory;
 
         private void Start()
         {
-            PlayerInventory = ServiceLocator.GetService<IInventory>();
+            _inventory = ServiceLocator.GetService<Inventory>();
+            _manager = ServiceLocator.GetService<OvenManager>();
 
-            manager = FindObjectOfType<OvenManager>();
-
+            _currentTime = remeltingTime;
+            _currentItem = null;
             SmokeParticle.gameObject.SetActive(false);
             StartRateOverTime = SmokeParticle.emission.rateOverTime.constantMax;
 
@@ -55,29 +55,33 @@ namespace Game.CraftSystem.Oven
         {
             float targetEmmision = 0;
             ParticleSystem.EmissionModule emmision = SmokeParticle.emission;
-            if(currentItem != null)
+            if (_currentItem != null)
             {
                 targetEmmision = StartRateOverTime;
-                if(canTakeItem)
+                if (_canTakeItem)
                 {
                     targetEmmision = 0;
                 }
+                
+                HandleRemelting();
             }
             emmision.rateOverTime = Mathf.Lerp(emmision.rateOverTime.constantMax, targetEmmision, SmokeEnabledSpeed * Time.deltaTime);
+        }
 
-            if (currentItem == null)
-                return;
-
-            if(currentTime <= 0)
+        private void HandleRemelting()
+        {
+            if (_currentTime <= 0)
             {
                 Anim.SetBool(Anim_FireBool, false);
 
-                canTakeItem = true;
+                _canTakeItem = true;
             }
             else
             {
-                currentTime -= Time.deltaTime;
+                _currentTime -= Time.deltaTime;
                 UpdateProgressBar();
+
+                _canTakeItem = false;
             }
         }
 
@@ -88,25 +92,25 @@ namespace Game.CraftSystem.Oven
 
             SmokeParticle.gameObject.SetActive(true);
 
-            currentItem = craft;
-            currentTime = remeltingTime;
+            _currentItem = craft;
+            _currentTime = remeltingTime;
 
             EnableProgressBar();
         }
 
         public void OpenOvenMenu()
         {
-            if(currentItem == null)
+            if(_currentItem == null)
             {
-                manager.OpenPanel(this);
+                _manager.Open(this);
             }
             else
             {
-                if(canTakeItem)
+                if(_canTakeItem)
                 {
-                    PlayerInventory.AddItem(currentItem.finalItem);
-                    currentItem = null;
-                    canTakeItem = false;
+                    _inventory.AddItem(_currentItem.finalItem);
+                    _currentItem = null;
+                    _canTakeItem = false;
 
                     DisableProgressBar();
                 }
@@ -115,14 +119,14 @@ namespace Game.CraftSystem.Oven
 
         private void UpdateProgressBar()
         {
-            float progress = Mathf.Abs((currentTime / remeltingTime) - 1);
+            float progress = Mathf.Abs((_currentTime / remeltingTime) - 1);
 
             progressRender.fillAmount = progress;
             progressRender.color = progressColor.Evaluate(progress);
         }
         private void EnableProgressBar()
         {
-            itemImage.sprite = currentItem.finalItem.Item.LowSizeIcon;
+            itemImage.sprite = _currentItem.finalItem.Item.LowSizeIcon;
             progressRender.fillAmount = 0;
             progressRender.color = progressColor.Evaluate(0);
 

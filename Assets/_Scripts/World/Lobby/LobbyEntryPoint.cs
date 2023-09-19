@@ -4,17 +4,22 @@ namespace Game.Lobby
 {
     using Game.Audio;
     using Game.CraftSystem.Research;
-    using Game.Input;
     using Game.Lobby.Inventory;
     using Game.Lobby.Shop;
-    using Game.MainMenu.MissionChoose;
+    using Lobby.Missions;
+    using Game.Menu.Pause;
+    using Game.Notifications;
     using Game.Save;
+    using Game.UI;
     using Player;
+    using UI.HUD;
 
     public class LobbyEntryPoint : MonoBehaviour, IEntryPoint
     {
+        [SerializeField] private HUDConfig HUDConfig;
+
         [Header("Components")]
-        [SerializeField] private UIPanelManager UIPanelManager;
+        [SerializeField] private PauseManager PauseManager;
         [SerializeField] private LobbyInventory LobbyInventory;
         [Space]
         [SerializeField] private ResearchManager ResearchManager;
@@ -26,8 +31,15 @@ namespace Game.Lobby
         [Header("Other...")]
         [SerializeField] private AudioClip Music;
 
+        private UIWindowService _uiWindowService;
+        private HUDService _hudService;
+        private NotificationService _notificationService;
+
         private void Awake()
         {
+            _uiWindowService = new UIWindowService();
+            _hudService = new HUDService(HUDConfig);
+            _notificationService = new NotificationService();
             RegisterServices();
         }
         private void Start()
@@ -44,18 +56,24 @@ namespace Game.Lobby
 
         public void InitializeComponents()
         {
-            LobbyInventory.Initialize();
+            _uiWindowService.Initialize();
+            PauseManager.Initialize(_uiWindowService);
+            LobbyInventory.Initialize(_uiWindowService);
 
-            ResearchManager.Initialize(LobbyInventory);
-            ShopManager.Initialize(LobbyInventory);
-            MissionChooseManager.Initialize();
+            ResearchManager.Initialize(LobbyInventory, _uiWindowService);
+            ShopManager.Initialize(LobbyInventory, _uiWindowService);
+            MissionChooseManager.Initialize(_uiWindowService);
 
             Player.Initialize();
+
+            _hudService.Initialize(_uiWindowService);
+            _notificationService.Initialize(_hudService);
         }
 
         public void RegisterServices()
         {
-            ServiceLocator.Register(UIPanelManager);
+            ServiceLocator.Register(_uiWindowService);
+            ServiceLocator.Register(PauseManager);
             ServiceLocator.Register(LobbyInventory);
 
             ServiceLocator.Register(ResearchManager);
@@ -63,6 +81,8 @@ namespace Game.Lobby
             ServiceLocator.Register(MissionChooseManager);
 
             ServiceLocator.Register(Player);
+
+            ServiceLocator.Register(_hudService);
         }
 
         public void UnregisterServices()

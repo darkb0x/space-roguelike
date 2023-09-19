@@ -5,7 +5,7 @@ using NaughtyAttributes;
 namespace Game.World.Generation.Ore
 {
     using Save;
-    using MainMenu.MissionChoose.Planet;
+    using Lobby.Missions;
 
     public class OreGenerator : MonoBehaviour
     {

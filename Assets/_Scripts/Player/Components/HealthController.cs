@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Game.Player.Components
@@ -8,6 +9,7 @@ namespace Game.Player.Components
         public readonly float MaxHealth;
         public readonly float InvulnerabilityTime;
 
+        public Action<int> OnHealthChanged;
         public float Health { get { return _health; } }
 
         private float _health;
@@ -22,8 +24,6 @@ namespace Game.Player.Components
             MaxHealth = config.MaxHealth;
             InvulnerabilityTime = config.InvulnerabilityTime;
             _health = MaxHealth;
-
-            _visual.InitializeHealthVisual();
         }
 
         public void TakeDamage(float value)
@@ -32,7 +32,7 @@ namespace Game.Player.Components
                 return;
 
             if (value < 0)
-                throw new System.ArgumentOutOfRangeException(nameof(value));
+                throw new ArgumentOutOfRangeException(nameof(value));
 
             _health = Mathf.Clamp(_health - value, 0, MaxHealth);
             Debug.Log($"Player got damage({value}), {_health}/{MaxHealth}");
@@ -47,7 +47,7 @@ namespace Game.Player.Components
                 _player.StartCoroutine(InvulnerabilityCoroutine());
             }
 
-            _visual.UpdateHealthVisual((int)_health);
+            OnHealthChanged?.Invoke((int)_health);
         }
         public void Die()
         {

@@ -12,16 +12,25 @@ namespace Game.Inventory
         private List<InventoryVisualItem> itemVisuals = new List<InventoryVisualItem>();
 
         private Inventory _inventory;
+        private bool _initialized = false;
 
-        private void Start()
+        public void Initialize()
         {
             _inventory = ServiceLocator.GetService<Inventory>();
 
             SubscribeToEvents();
+
+            _initialized = true;
+        }
+        private void Start()
+        {
+            if(!_initialized)
+                Initialize();
         }
         private void OnDisable()
         {
-            UnsubscribeFromEvents();
+            if(_initialized)
+                UnsubscribeFromEvents();
         }
 
         private void SubscribeToEvents()

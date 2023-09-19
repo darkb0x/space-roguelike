@@ -6,6 +6,7 @@ namespace Game.Lobby.Shop.Visual
 {
     using Lobby.Inventory;
     using Game.Inventory;
+    using System;
 
     public class ShopSellProductVisual : MonoBehaviour
     {
@@ -24,18 +25,18 @@ namespace Game.Lobby.Shop.Visual
         [Space]
         [SerializeField] private ButtonData[] Buttons = new ButtonData[2];
 
+        public Action OnChanged;
         public InventoryItem Item { get; private set; }
-        private ShopManager shopManager;
-        private ShopManagerVisual managerVisual;
-        private LobbyInventory LobbyInventory;
+
+        private ShopManager _shopManager;
+        private LobbyInventory _lobbyInventory;
 
         public void Initialize(ItemData itemData, ShopManager manager)
         {
-            LobbyInventory = ServiceLocator.GetService<LobbyInventory>();
+            _lobbyInventory = ServiceLocator.GetService<LobbyInventory>();
 
             Item = itemData.Item;
-            shopManager = manager;
-            managerVisual = manager.Visual;
+            _shopManager = manager;
 
             ItemIconImage.sprite = Item.Icon;
             ItemCostText.text = Item.Cost+"$";
@@ -53,7 +54,7 @@ namespace Game.Lobby.Shop.Visual
 
         public void UpdateVisual()
         {
-            ItemData data = LobbyInventory.GetItem(Item);
+            ItemData data = _lobbyInventory.GetItem(Item);
 
             ItemAmountText.text = data.Amount.ToString();
 
@@ -70,9 +71,9 @@ namespace Game.Lobby.Shop.Visual
 
         public void Sell(int amount)
         {
-            shopManager.SellItem(Item, amount);
+            _shopManager.SellItem(Item, amount);
 
-            managerVisual.UpdateProductsVisual();
+            OnChanged?.Invoke();
         }
     }
 }

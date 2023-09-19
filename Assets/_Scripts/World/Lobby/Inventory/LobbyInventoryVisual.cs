@@ -1,34 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using AYellowpaper.SerializedCollections;
 
 namespace Game.Lobby.Inventory.Visual
 {
     using Game.Inventory;
     using Input;
-    using System.Data.Common;
+    using UI;
 
     // TO DO
-    public class LobbyInventoryVisual : MonoBehaviour, IUIPanelManagerObserver
+    public class LobbyInventoryVisual : Window
     {
-        [SerializeField] private GameObject MainPanel;
-        [Space]
         [SerializeField] private TextMeshProUGUI FreeSpaceText;
         [Space]
         [SerializeField] private LobbyInventoryTakenItemVisual TakenItemVisualPrefab;
         [SerializeField] private Transform TakenItemVisualsParent;
 
+        public override WindowID ID => LobbyInventory.LOBBY_INVENTORY_WINDOW_ID;
+
         private LobbyInventory _inventory;
-        private UIPanelManager _uiPanelManager;
         private UIInputHandler _input => InputManager.UIInputHandler;
         private Dictionary<InventoryItem, LobbyInventoryTakenItemVisual> _takenItemVisuals;
 
-        private LobbyInventoryChest _chest;
-
         public void Initialize(LobbyInventory inventory, Dictionary<InventoryItem, int> items)
         {
-            _uiPanelManager = ServiceLocator.GetService<UIPanelManager>();
             _inventory = inventory;
             _takenItemVisuals = new Dictionary<InventoryItem, LobbyInventoryTakenItemVisual>();
 
@@ -40,17 +35,23 @@ namespace Game.Lobby.Inventory.Visual
 
             _inventory.OnItemAdded += OnItemAdded;
             _inventory.OnItemTaken += OnItemTaken;
-
-            _uiPanelManager.Attach(this);
-
-            _input.CloseEvent += Close;
         }
-        private void OnDisable()
+
+        protected override void SubscribeToEvents()
         {
+            base.SubscribeToEvents();
+
+            _input.CloseEvent += () => Close();
+        }
+
+        protected override void UnsubscribeFromEvents()
+        {
+            base.UnsubscribeFromEvents();
+
             _inventory.OnItemAdded -= OnItemAdded;
             _inventory.OnItemTaken -= OnItemTaken;
 
-            _input.CloseEvent -= Close;
+            _input.CloseEvent -= () => Close();
         }
 
         private void OnItemAdded(ItemData itemData)
@@ -101,31 +102,17 @@ namespace Game.Lobby.Inventory.Visual
             visual.UpdateData();
         }
 
-        public void Open(LobbyInventoryChest chest)
+        public override void Open(bool notify = true)
         {
-            _chest = chest;
-
             UpdateTakenItemVisual();
-
-            _uiPanelManager.OpenPanel(MainPanel);
-
-            _chest.SetVisualOpened(true);
+            base.Open(notify);
         }
-        private void Close()
+
+        public override void Close(bool notify = true)
         {
-            if (!MainPanel.activeSelf)
-                return;
-
-            _uiPanelManager.ClosePanel(MainPanel);
-            _inventory.ApplyItemsToMainInventory();
-
-            _chest.SetVisualOpened(false);
-        } 
-
-        public void PanelStateIsChanged(GameObject panel)
-        {
-            if (panel != MainPanel && MainPanel.activeSelf)
-                MainPanel.SetActive(false);
+            base.Close(notify);
+            _inventory?.ApplyItemsToMainInventory();
         }
+
     }
 }

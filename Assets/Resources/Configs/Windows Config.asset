@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba2a6238df910f4fa150e43f3b201c3, type: 3}
+  m_Name: Windows Config
+  m_EditorClassIdentifier: 
+  Windows:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 4043143150958592463, guid: ba6d54180dea9364ba925fdff3394be3, type: 3}
+    - Key: 1
+      Value: {fileID: 4006049755006551071, guid: 320f8b0a92e33194f80b18402f50969c, type: 3}
+    - Key: 2
+      Value: {fileID: 284737655005688761, guid: 76f201ef4c23fa84fbe9d3f733734660, type: 3}
+    - Key: 3
+      Value: {fileID: 0}
+    - Key: 4
+      Value: {fileID: 3692904822218814835, guid: 42b3728c9ddb50942b34314608b3bda3, type: 3}
+    - Key: 5
+      Value: {fileID: 7464995307834126550, guid: 01cd0a63d43b42d4cb8bdd65eca8da32, type: 3}
+    - Key: 6
+      Value: {fileID: 545347541737693987, guid: 4b444afa17d71624db391cf3b27010ad, type: 3}
+    - Key: 7
+      Value: {fileID: 6738700336419863575, guid: bd135175a6036a44f9d0d5707c3b0753, type: 3}
+    - Key: 8
+      Value: {fileID: 890351824103009984, guid: 5669f5f4b0defa94f9a7d88ce185c579, type: 3}
+    - Key: 9
+      Value: {fileID: 7988214764522024037, guid: 464706bb3b1dea64bbf93adcfa9890aa, type: 3}
+    - Key: 11
+      Value: {fileID: 7823941234079244046, guid: 912d7faad1a48ea458955560755f4b87, type: 3}

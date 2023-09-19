@@ -36,7 +36,7 @@ namespace Game.Lobby.Shop.Container
 
         public virtual void Buy(Product product, ShopBuyProductVisual productVisual)
         {
-            ServiceLocator.GetService<PlayerInventory>().TakeMoney(product.Cost);
+            ServiceLocator.GetService<Inventory>().TakeMoney(product.Cost);
         }
     }
 }

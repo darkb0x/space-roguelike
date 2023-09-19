@@ -14,37 +14,27 @@
             {
                 "Name": "Selbit Ore",
                 "Path": "Items/Ore/Selbit Ore",
-                "Amount": 11
+                "Amount": 6
             },
             {
                 "Name": "Zuldun Ore",
                 "Path": "Items/Ore/Zuldun Ore",
-                "Amount": 13
+                "Amount": 6
             },
             {
-                "Name": "Zuldun Ingot",
-                "Path": "Items/Ingot/Zuldun Ingot",
-                "Amount": 1
+                "Name": "Marbet Ore",
+                "Path": "Items/Ore/Marbet Ore",
+                "Amount": 6
             },
             {
                 "Name": "Oil Liquid",
                 "Path": "Items/Liquids/Oil Liquid",
                 "Amount": 3
-            },
-            {
-                "Name": "Kopoloh",
-                "Path": "Items/Ore/Kopoloh Ore",
-                "Amount": 16
-            },
-            {
-                "Name": "Selbit Ingot",
-                "Path": "Items/Ingot/Selbit Ingot",
-                "Amount": 1
             }
         ]
     },
-    "Money": 2,
+    "Money": 0,
     "ResourceAutomatCurrentInteract": 4,
     "PlanetPath": "Missions/Planets/Newbie Desert",
-    "CurrentDifficultFactor": 1.0499999523162842
+    "CurrentDifficultFactor": 1.0
 }

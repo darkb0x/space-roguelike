@@ -7,48 +7,55 @@ namespace Game.CraftSystem.Craft
     using global::CraftSystem.ScriptableObjects;
     using Visual;
     using Save;
-    using Inventory;
+    using UI;
     using Player;
+    using Inventory;
     using Notifications;
 
-    public class CraftManager : MonoBehaviour, IService, IEntryComponent<PlayerInventory, PlayerController>
+    public class CraftManager : MonoBehaviour, IService, IEntryComponent<PlayerInventory, PlayerController, UIWindowService>
     {
+        public const WindowID CRAFT_WINDOW_ID = WindowID.Craft;
+
         [SerializeField] private bool ShowVisual = true;
-        [SerializeField, NaughtyAttributes.ShowIf("ShowVisual")] private CraftVisual Visual;
 
-        private PlayerInventory PlayerInventory;
-        private PlayerController Player;
         private SessionSaveData _currentSessionData => SaveManager.SessionSaveData;
-        private List<CraftSO> _allUnlockedCrafts;
+        private UIWindowService _uiWindowService;
 
+        private Inventory _inventory;
+        private PlayerController _player;
+
+        private List<CraftSO> _allUnlockedCrafts;
         private CraftTable _currentCraftTable;
 
-        public void Initialize(PlayerInventory playerInventory, PlayerController player)
+        public void Initialize(PlayerInventory playerInventory, PlayerController player, UIWindowService windowService)
         {
-            PlayerInventory = playerInventory;
-            Player = player;
+            _inventory = playerInventory;
+            _player = player;
+            _uiWindowService = windowService;
+
             _allUnlockedCrafts = _currentSessionData.GetCraftList();
 
-            if(ShowVisual && Visual != null)
+            if(ShowVisual)
             {
-                Visual.Initialize(this, _allUnlockedCrafts);
+                _uiWindowService.RegisterWindow<CraftVisual>(CRAFT_WINDOW_ID)
+                    .Initialize(this, _allUnlockedCrafts);
             }
         }
 
         public void Craft(CraftSO craft)
         {
-            if(PlayerInventory.TakeItem(craft.ItemsInCraft))
+            if(_inventory.TakeItem(craft.ItemsInCraft))
             {
-                GameObject craftedObj = Instantiate(craft.CraftPrefab, Player.transform.position, Quaternion.identity);
+                GameObject craftedObj = Instantiate(craft.CraftPrefab, _player.transform.position, Quaternion.identity);
                 if(craftedObj.TryGetComponent(out ICraftableBuild build))
                 {
-                    build.Initialize(Player);
+                    build.Initialize(_player);
                 }
 
-                Visual.Close();
+                _uiWindowService.Close(CRAFT_WINDOW_ID);
                 _currentCraftTable = null;
 
-                NotificationManager.NewNotification(
+                NotificationService.NewNotification(
                     craft.CraftIcon,
                     "Crafted",
                     true,
@@ -65,9 +72,9 @@ namespace Game.CraftSystem.Craft
         {
             _currentCraftTable = craftTable;
 
-            if(ShowVisual && Visual != null)
+            if(ShowVisual)
             {
-                Visual.Open();
+                _uiWindowService.Open(CRAFT_WINDOW_ID);
             }
         }
     }

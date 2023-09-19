@@ -4,9 +4,9 @@ using NaughtyAttributes;
 
 namespace Game.Player
 {
-    using Pick;
     using Input;
     using Game.Player.Components;
+    using Game.UI;
 
     public delegate void CollisionEnter(Collider2D coll);
 
@@ -36,7 +36,7 @@ namespace Game.Player
         public CollisionEnter OnPlayerExit;
 
         private BuildController playerBuildController;
-        private UIPanelManager UIPanelManager;
+        private UIWindowService _uiWindowService;
 
         private void OnRenderTypeChanged()
         {
@@ -48,7 +48,7 @@ namespace Game.Player
 
         private void Start()
         {
-            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
+            _uiWindowService = ServiceLocator.GetService<UIWindowService>();
 
             if(ObjRender != null)
                 DefaultMaterial = ObjRender.material;
@@ -64,7 +64,7 @@ namespace Game.Player
         {
             if (!playerInZone)
                 return;
-            if (UIPanelManager.SomethinkIsOpened())
+            if (_uiWindowService.IsAnyWindowOpened())
                 return;
             if (playerBuildController.HaveBuild)
                 return;

@@ -88,9 +88,9 @@ namespace Game.Inventory
             {
                 var invItem = item.Item; // invItem = inventory item
 
-                NotificationManager.NewNotification(
+                NotificationService.NewNotification(
                     invItem.Icon,
-                    $"{invItem.ItemName} <color={NotificationManager.GreenColor}>+{item.Amount}</color>",
+                    $"{invItem.ItemName} <color={NotificationService.GREEN_COLOR}>+{item.Amount}</color>",
                     itemIsNew,
                     invItem.ItemTextColor,
                     NotificationStyle.Positive
@@ -113,9 +113,9 @@ namespace Game.Inventory
                 {
                     var invItem = item.Item; // invItem = inventory item
 
-                    NotificationManager.NewNotification(
+                    NotificationService.NewNotification(
                         invItem.LowSizeIcon, 
-                        $"{invItem.ItemName} <color={NotificationManager.RedColor}>-{item.Amount}</color>",
+                        $"{invItem.ItemName} <color={NotificationService.RED_COLOR}>-{item.Amount}</color>",
                         false, 
                         invItem.ItemTextColor, 
                         NotificationStyle.Negative

@@ -6,6 +6,7 @@ namespace Game.Lobby.Shop.Container.Visual
 {
     using Game.Inventory;
     using Shop.Visual;
+    using System;
 
     public class ShopBuyProductVisual : MonoBehaviour
     {
@@ -18,9 +19,10 @@ namespace Game.Lobby.Shop.Container.Visual
         [SerializeField] private CanvasGroup CanvasGroup;
         [SerializeField] private GameObject PurchasedText;
 
+        public Action OnChanged;
+
         private Inventory _inventory;
-        private ShopProductListContainer container;
-        private ShopManagerVisual managerVisual;
+        private ShopProductListContainer _container;
 
         private bool m_interactable;
         public bool Interactable
@@ -42,13 +44,12 @@ namespace Game.Lobby.Shop.Container.Visual
         private Color defaulrCostTextColor;
 
 
-        public void Initialize(Product product, ShopProductListContainer productListContainer, ShopManagerVisual shopManagerVisual)
+        public void Initialize(Product product, ShopProductListContainer productListContainer)
         {
             _inventory = ServiceLocator.GetService<Inventory>();
 
             Product = product;
-            container = productListContainer;
-            managerVisual = shopManagerVisual;
+            _container = productListContainer;
 
             defaulrCostTextColor = ProductCostText.color;
 
@@ -80,9 +81,9 @@ namespace Game.Lobby.Shop.Container.Visual
 
         public void Buy()
         {
-            container.Buy(Product, this);
+            _container.Buy(Product, this);
 
-            managerVisual.UpdateProductsVisual();
+            OnChanged?.Invoke();
         }
     }
 }

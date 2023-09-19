@@ -9,30 +9,12 @@ namespace Game.Drill.SpecialDrill
         [Header("Drill")]
         [SerializeField] private ArtefactDrill Drill;
 
-        [Header("UI Mining progress")]
-        [SerializeField] private BossProgressBar MiningProgress;
-
         [Header("Animation")]
         [SerializeField] private Animator Anim;
         [SerializeField, AnimatorParam("Anim")] private string Anim_miningTrigger;
 
         [Header("Particles")]
         [SerializeField] private ParticleSystem MiningParticles;
-
-        private void Start()
-        {
-            MiningProgress.Visual.SetActive(false);
-        }
-
-        public void EnableMiningProgressVisual(bool enabled)
-        {
-            MiningProgress.EnableProgressBar(enabled);
-        }
-
-        public void UpdateMiningProgress(float current, float max)
-        {
-            MiningProgress.UpdateProgressBar(current, max);
-        }
 
         public void MiningAnimation()
         {

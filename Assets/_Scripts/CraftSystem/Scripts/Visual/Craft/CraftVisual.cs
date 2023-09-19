@@ -10,8 +10,9 @@ namespace Game.CraftSystem.Craft.Visual
 {
     using Game.CraftSystem.Visual.Category;
     using Input;
+    using UI;
 
-    public class CraftVisual : MonoBehaviour, IUIPanelManagerObserver
+    public class CraftVisual : Window
     {
         [Header("Containers")]
         [SerializeField] private List<TreeCraftContainer> Containers = new List<TreeCraftContainer>();
@@ -28,25 +29,29 @@ namespace Game.CraftSystem.Craft.Visual
         [Space]
         [SerializeField] private CraftNodeVisual NodeVisualPrefab;
 
-        private UIPanelManager UIPanelManager;
+        public override WindowID ID => CraftManager.CRAFT_WINDOW_ID;
+
         private UIInputHandler _input => InputManager.UIInputHandler;
         private CraftManager _manager;
 
         public void Initialize(CraftManager manager, List<CraftSO> saveData)
         {
             _manager = manager;
-            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
-
+ 
             LoadSaveData(saveData);
             InstantiatePanels();
             InstantiateNodes();
             InitializeCategoryController();
-
-            _input.CloseEvent += Close;
         }
-        private void OnDisable()
+        protected override void SubscribeToEvents()
         {
-            _input.CloseEvent -= Close;
+            base.SubscribeToEvents();
+            _input.CloseEvent += () => _uiWindowService.Close(CraftManager.CRAFT_WINDOW_ID);
+        }
+        protected override void UnsubscribeFromEvents()
+        {
+            base.UnsubscribeFromEvents();
+            _input.CloseEvent -= () => _uiWindowService.Close(CraftManager.CRAFT_WINDOW_ID);
         }
 
         public void SelectContainer(CraftContainer container)
@@ -132,29 +137,5 @@ namespace Game.CraftSystem.Craft.Visual
             categories.Add(UniqueCraftContainer, () => SelectContainer(UniqueCraftContainer));
             CategoryController.Initialize(categories);
         }
-
-        #region Window
-        public void Open()
-        {
-            SelectContainer(Containers.First(x => x.Enabled));
-
-            UIPanelManager.OpenPanel(MainPanel);
-        }
-        public void Close()
-        {
-            UIPanelManager.ClosePanel(MainPanel);
-        }
-        public void Close(InputAction.CallbackContext callbackContext)
-        {
-            Close();
-        }
-        public void PanelStateIsChanged(GameObject panel)
-        {
-            if(panel != MainPanel)
-            {
-                MainPanel.SetActive(false);
-            }
-        }
-        #endregion
     }
 }

@@ -9,6 +9,8 @@ namespace Game.Input
     {
         public static InputManager Instance;
 
+        [SerializeField] private ActionMap m_ActionMap;
+
         public static PlayerInputHandler PlayerInputHandler { get; private set; }
         public static UIInputHandler UIInputHandler { get; private set; }
 
@@ -107,6 +109,8 @@ namespace Game.Input
                 default:
                     goto case ActionMap.Player;
             }
+
+            m_ActionMap = actionMap;
 
             void Enable(InputHandler inputHandler)
             {

@@ -1,10 +1,11 @@
 using UnityEngine;
+using System;
 
 namespace Game.Drill.SpecialDrill
 {
     using Game.Inventory;
 
-    public class ArtefactDrill : MonoBehaviour
+    public class ArtefactDrill : MonoBehaviour, IEntryComponent
     {
         [Header("Visual")]
         [SerializeField] private ArtefactDrillVisual Visual;
@@ -17,38 +18,42 @@ namespace Game.Drill.SpecialDrill
         [SerializeField] private float Damage;
         [SerializeField] private float m_TimeBtwAttacks;
 
-        private float artefactHealth;
-        private float timeBtwAttacks;
-        private bool isMining = false;
+        public Action OnMiningStarted;
+        public Action OnMiningEnded;
+        public Action<float, float> OnMiningUpdate;
 
-        private void Start()
+        private float _artefactHealth;
+        private float _timeBtwAttacks;
+        private bool _isMining = false;
+
+        public void Initialize()
         {
-            artefactHealth = m_ArtefactHealth;
-            timeBtwAttacks = m_TimeBtwAttacks;
+            _artefactHealth = m_ArtefactHealth;
+            _timeBtwAttacks = m_TimeBtwAttacks;
         }
 
         private void Update()
         {
-            if(isMining)
+            if(_isMining)
             {
-                if(timeBtwAttacks <= 0)
+                if(_timeBtwAttacks <= 0)
                 {
                     Visual.MiningAnimation();
-                    timeBtwAttacks = m_TimeBtwAttacks;
+                    _timeBtwAttacks = m_TimeBtwAttacks;
                 }
                 else
                 {
-                    timeBtwAttacks -= Time.deltaTime;
+                    _timeBtwAttacks -= Time.deltaTime;
                 }
             }
         }
 
         public void Mining()
         {
-            if (artefactHealth > 0)
+            if (_artefactHealth > 0)
             {
-                artefactHealth -= Damage;
-                Visual.UpdateMiningProgress(artefactHealth, m_ArtefactHealth);
+                _artefactHealth -= Damage;
+                OnMiningUpdate?.Invoke(_artefactHealth, m_ArtefactHealth);
             }
             else
             {
@@ -58,17 +63,15 @@ namespace Game.Drill.SpecialDrill
 
         public void StartMining()
         {
-            Visual.EnableMiningProgressVisual(true);
-            Visual.UpdateMiningProgress(artefactHealth, m_ArtefactHealth);
-            isMining = true;
+            OnMiningStarted?.Invoke();
+            _isMining = true;
         }
 
         public void EndMining()
         {
             ServiceLocator.GetService<IInventory>().AddItem(Artefact);
-            Visual.UpdateMiningProgress(artefactHealth, m_ArtefactHealth);
-            Visual.EnableMiningProgressVisual(false);
-            isMining = false;
+            OnMiningEnded?.Invoke();
+            _isMining = false;
         }
     }
 }

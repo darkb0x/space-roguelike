@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Game.Save
 {
     using Inventory;
-    using MainMenu.MissionChoose.Planet;
+    using Lobby.Missions;
     using global::CraftSystem.ScriptableObjects;
     using System.Linq;
     using NaughtyAttributes;

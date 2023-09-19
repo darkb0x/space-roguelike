@@ -9,13 +9,11 @@ namespace Game.CraftSystem.Research.Visual
     using CraftSystem.Visual.Category;
     using global::CraftSystem.ScriptableObjects;
     using Node;
+    using UI;
     using Input;
 
-    public class ResearchVisual : MonoBehaviour, IUIPanelManagerObserver
+    public class ResearchVisual : Window
     {
-        [SerializeField] private Canvas MainCanvas;
-        [Space]
-        [SerializeField] private GameObject MainPanel;
         [SerializeField] private Transform Content;
         [SerializeField] private ScrollRect MainScrollRect;
         [SerializeField] private CraftCategoryController CategoryController;
@@ -24,7 +22,8 @@ namespace Game.CraftSystem.Research.Visual
         [SerializeField] private CraftTreeNodeVisual NodeVisualPrefab;
         [SerializeField] private CraftTreeConnectionVisual ConnectionVisualPrefab;
 
-        private UIPanelManager UIPanelManager;
+        public override WindowID ID => ResearchManager.CRAFT_RESEARCH_WINDOW_ID;
+
         private UIInputHandler _input => InputManager.UIInputHandler;
         private ResearchManager _manager;
 
@@ -33,7 +32,6 @@ namespace Game.CraftSystem.Research.Visual
 
         private ResearchTree _currentResearchTree;
         private float _currentScale;
-        private bool _isOpened;
 
         public void Initalize(List<ResearchTree> trees, ResearchManager manager)
         {
@@ -41,7 +39,6 @@ namespace Game.CraftSystem.Research.Visual
             _trees = trees;
             _manager = manager;
             _nodes = new Dictionary<ResearchTree, Dictionary<ResearchTreeCraft, CraftTreeNodeVisual>>();
-            UIPanelManager = ServiceLocator.GetService<UIPanelManager>();
 
             // Create visual
             CreateNodes();
@@ -59,13 +56,17 @@ namespace Game.CraftSystem.Research.Visual
             // Choosing research tree
             SelectTree(trees.First(result => result.Enabled));
             Close();
-
-            // Subscribing to events
-            _input.CloseEvent += Close;
         }
-        private void OnDisable()
+        protected override void SubscribeToEvents()
         {
-            _input.CloseEvent -= Close;
+            base.SubscribeToEvents();
+            _input.CloseEvent += () => _uiWindowService.Close(ID);
+        }
+
+        protected override void UnsubscribeFromEvents()
+        {
+            base.UnsubscribeFromEvents();
+            _input.CloseEvent -= () => _uiWindowService.Close(ID);
         }
 
         private void Update()
@@ -230,7 +231,7 @@ namespace Game.CraftSystem.Research.Visual
                         foreach (var subsequentNode in subsequents)
                         {
                             var connectionVisual = Instantiate(ConnectionVisualPrefab, researchTree.ConnectionsVisualParent);
-                            connectionVisual.SetPosition(currentNode.transform.position, subsequentNode.transform.position, MainCanvas.scaleFactor);
+                            connectionVisual.SetPosition(currentNode.transform.position, subsequentNode.transform.position, _uiWindowService.RootCanvas.scaleFactor);
                         }
 
                         nextCraftList.AddRange(connectedCraftTrees);
@@ -272,30 +273,5 @@ namespace Game.CraftSystem.Research.Visual
         }
         #endregion
 
-        #region Window
-        public void Open()
-        {
-            UIPanelManager.OpenPanel(MainPanel);
-
-            _isOpened = true;
-        }
-        public void Close()
-        {
-            if (!_isOpened)
-                return;
-
-            UIPanelManager.ClosePanel(MainPanel);
-
-            _isOpened = false;
-        }
-
-        public void PanelStateIsChanged(GameObject panel)
-        {
-            if(panel != MainPanel)
-            {
-                _isOpened = false;
-            }
-        }
-        #endregion
     }
 }

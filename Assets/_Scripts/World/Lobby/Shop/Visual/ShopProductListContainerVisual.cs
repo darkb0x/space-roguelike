@@ -19,7 +19,8 @@ namespace Game.Lobby.Shop.Container.Visual
             foreach (var product in productContainer.products)
             {
                 ShopBuyProductVisual visual = Instantiate(ProductVisual.gameObject, ProductVisualParent).GetComponent<ShopBuyProductVisual>();
-                visual.Initialize(product, container, managerVisual);
+                visual.Initialize(product, container);
+                visual.OnChanged += managerVisual.UpdateProductsVisual;
 
                 productVisuals.Add(visual);
             }

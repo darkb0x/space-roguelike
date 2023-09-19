@@ -5,8 +5,9 @@ using UnityEngine.UI;
 namespace Game.Session
 {
     using Save;
+    using UI.HUD;
 
-    public class SessionTimingsVisual : MonoBehaviour
+    public class SessionTimingsVisual : HUDElement
     {
         private struct MarkData
         {
@@ -28,33 +29,45 @@ namespace Game.Session
         [SerializeField] private Button VidgetButton;
         [SerializeField] private Image VidgetVisual;
 
+        public override HUDElementID ID => HUDElementID.SessionWaveTimings;
+
         private SessionManager SessionManager;
         private UISaveData currentUISettingsData => SaveManager.UISaveData;
 
         private List<MarkData> markList;
 
-        private void Start()
+        public override void Initialize()
         {
-            if (!VidgetButton.interactable)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-            Enable(currentUISettingsData.EnableTimeline);
+            if (currentUISettingsData.EnableNotifications)
+                Show();
+            else
+                Hide();
 
             SessionManager = ServiceLocator.GetService<SessionManager>();
 
             m_Slider.minValue = 0;
             m_Slider.maxValue = SessionManager.SessionTimings.Music.length;
 
-            SessionManager.OnEventReached += EventReached;
-
             InitializeMarks();
+
+            base.Initialize();
+        }
+
+        protected override void SubscribeToEvents()
+        {
+            base.SubscribeToEvents();
+            SessionManager.OnEventReached += EventReached;
+        }
+        protected override void UnsubscribeFromEvents()
+        {
+            base.UnsubscribeFromEvents();
+            SessionManager.OnEventReached -= EventReached;
         }
 
         private void Update()
         {
-            m_Slider.value = Mathf.Clamp(SessionManager.currentTime, m_Slider.minValue, m_Slider.maxValue);
+            if(View.gameObject.activeSelf)
+                m_Slider.value = Mathf.Clamp(SessionManager.currentTime, m_Slider.minValue, m_Slider.maxValue);
         }
 
         private void InitializeMarks()
@@ -95,16 +108,27 @@ namespace Game.Session
             }
         }
 
-        public void Enable(bool enabled)
+        public override void Show()
         {
-            gameObject.SetActive(enabled);
-
-            currentUISettingsData.EnableTimeline = enabled;
+            base.Show();
+            currentUISettingsData.EnableNotifications = true;
             currentUISettingsData.Save();
         }
-        public void Enable()
+
+        public override void Hide()
         {
-            Enable(!gameObject.activeSelf);
+            base.Hide();
+            currentUISettingsData.EnableNotifications = false;
+            currentUISettingsData.Save();
+        }
+
+        public void ChangeEnabled()
+        {
+            currentUISettingsData.EnableNotifications = !currentUISettingsData.EnableNotifications;
+            if (currentUISettingsData.EnableNotifications)
+                Show();
+            else
+                Hide();
         }
     }
 }
