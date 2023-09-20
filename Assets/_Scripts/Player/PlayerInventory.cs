@@ -1,34 +1,14 @@
 using AYellowpaper.SerializedCollections;
-using UnityEngine;
 
 namespace Game.Player
 {
     using Inventory;
-    using Input;
-    using Game.UI;
-    using UnityEngine.UI;
 
-    public class PlayerInventory : Inventory, IService, IEntryComponent<UIWindowService>
+    public class PlayerInventory : Inventory, IService, IEntryComponent
     {
-        private PlayerInputHandler _input => InputManager.PlayerInputHandler;
-
-        private InventoryWindow _window;
-        private bool _initialized;
-
-        public virtual void Initialize(UIWindowService windowService)
+        public virtual void Initialize()
         {
-            _window = windowService.RegisterWindow<InventoryWindow>(WindowID.Inventory);
-
             Load();
-
-            _input.InventoryEvent += OpenClose;
-
-            _initialized = true;
-        }
-        private void OnDestroy()
-        {
-            if(_initialized)
-                _input.InventoryEvent -= OpenClose;
         }
         protected override void Load()
         {
@@ -54,11 +34,6 @@ namespace Game.Player
                 return true;
             }
             return false;
-        }
-
-        public void OpenClose()
-        {
-            _window.OpenClose();
         }
     }
 }

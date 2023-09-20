@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Game.Menu.Pause.Exit
 {
@@ -27,6 +28,9 @@ namespace Game.Menu.Pause.Exit
             ReturnButton.onClick.AddListener(() => Close());
             MenuButton.onClick.AddListener(_exit.OpenMenu);
             ExitFromGameButton.onClick.AddListener(_exit.Exit);
+
+            if (SceneManager.GetActiveScene().buildIndex == _exit.MenuSceneID)
+                MenuButton.interactable = false;
         }
     }
 }

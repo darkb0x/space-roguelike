@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 namespace Game.Inventory
 {
-    using Game.Player;
     using UI.HUD;
 
     public class InventoryButtonHUD : HUDElement
@@ -16,8 +15,8 @@ namespace Game.Inventory
         {
             base.SubscribeToEvents();
 
-            var playerInventory = ServiceLocator.GetService<PlayerInventory>();
-            Button.onClick.AddListener(playerInventory.OpenClose);
+            var inventoryHUD = GetHudElement<InventoryHUD>(HUDElementID.Inventory);
+            Button.onClick.AddListener(inventoryHUD.OpenClose);
         }
     }
 }

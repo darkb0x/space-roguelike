@@ -26,6 +26,7 @@ namespace Game.Session
         [SerializeField] private OvenManager OvenManager;
         [Space]
         [SerializeField] private PlayerController Player;
+        [SerializeField] private CameraController Camera;
 
         private UIWindowService _uiWindowService;
         private HUDService _hudService;
@@ -51,7 +52,7 @@ namespace Game.Session
         public void InitializeComponents()
         {
             _uiWindowService.Initialize();
-            PlayerInventory.Initialize(_uiWindowService);
+            PlayerInventory.Initialize();
             PauseManager.Initialize(_uiWindowService);
 
             SessionManager.Initialize(EnemySpawner, PauseManager);
@@ -60,6 +61,7 @@ namespace Game.Session
             CraftManager.Initialize(PlayerInventory, Player, _uiWindowService);
 
             Player.Initialize();
+            Camera.Initialize(Player);
 
             _hudService.Initialize(_uiWindowService);
             _notificationService.Initialize(_hudService);
@@ -77,6 +79,8 @@ namespace Game.Session
             ServiceLocator.Register(CraftManager);
 
             ServiceLocator.Register(Player);
+            ServiceLocator.Register(Camera);
+
             ServiceLocator.Register(_hudService);
         }
 

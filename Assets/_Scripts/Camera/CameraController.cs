@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 namespace Game
 {
@@ -8,8 +9,11 @@ namespace Game
     using Save;
     using Input;
 
-    public class CameraController : MonoBehaviour
+    public class CameraController : MonoBehaviour, IService, IEntryComponent<PlayerController>
     {
+        [SerializeField] private Volume _MapVolume;
+        [SerializeField] private Volume _MainVolume;
+
         [Header("Camera View")]
         [SerializeField] private float maxCamViewScale = 15;
         [SerializeField] private float minCamViewScale = 5;
@@ -17,8 +21,10 @@ namespace Game
         [SerializeField] private float scrollSensivity = 1.2f;
         [SerializeField] private float scaleSpeed = 2.2f;
 
+        public Volume MapVolume => _MapVolume;
+        public Volume MainVolume => _MainVolume;
+
         private Camera cam;
-        private PlayerController player;
         private Transform target;
         private Transform myTransform;
         private float currentZoom;
@@ -27,11 +33,10 @@ namespace Game
 
         private UISaveData currentUISettingsData => SaveManager.UISaveData;
 
-        private void Start()
+        public void Initialize(PlayerController player)
         {
             myTransform = GetComponent<Transform>();
             cam = GetComponent<Camera>();
-            player = FindObjectOfType<PlayerController>();
 
             target = player.transform;
             currentZoom = currentUISettingsData.CameraZoom;

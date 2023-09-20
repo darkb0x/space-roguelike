@@ -7,34 +7,24 @@
         "CraftSystem/CraftTreeGraphs/Turrets/Groups/Minigun/Crafts/1"
     ],
     "MainInventory": {
-        "Items": []
-    },
-    "LobbyInventory": {
         "Items": [
             {
                 "Name": "Selbit Ore",
                 "Path": "Items/Ore/Selbit Ore",
-                "Amount": 6
+                "Amount": 1
             },
             {
                 "Name": "Zuldun Ore",
                 "Path": "Items/Ore/Zuldun Ore",
-                "Amount": 6
-            },
-            {
-                "Name": "Marbet Ore",
-                "Path": "Items/Ore/Marbet Ore",
-                "Amount": 6
-            },
-            {
-                "Name": "Oil Liquid",
-                "Path": "Items/Liquids/Oil Liquid",
-                "Amount": 3
+                "Amount": 2
             }
         ]
     },
+    "LobbyInventory": {
+        "Items": []
+    },
     "Money": 0,
-    "ResourceAutomatCurrentInteract": 4,
+    "ResourceAutomatCurrentInteract": 0,
     "PlanetPath": "Missions/Planets/Newbie Desert",
     "CurrentDifficultFactor": 1.0
 }

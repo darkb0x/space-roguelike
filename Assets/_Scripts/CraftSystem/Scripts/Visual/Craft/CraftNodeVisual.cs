@@ -23,7 +23,7 @@ namespace Game.CraftSystem.Craft.Visual
         [SerializeField] private Transform ItemsVisualParent;
         [SerializeField] private NodeCraftItemField ItemVisualPrefab;
 
-        private Inventory PlayerInventory;
+        private Inventory _inventory;
         private CraftManager _manager;
 
         private CraftSO craft;
@@ -46,9 +46,9 @@ namespace Game.CraftSystem.Craft.Visual
         private bool _cursorOnCraft;
         private bool _isPressed;
 
-        public void Initialize(CraftSO craft, CraftManager manager)
+        public void Initialize(CraftSO craft, CraftManager manager, CraftVisual visual)
         {
-            PlayerInventory = ServiceLocator.GetService<Inventory>();
+            _inventory = ServiceLocator.GetService<Inventory>();
             this.craft = craft;
             _manager = manager;
 
@@ -67,6 +67,8 @@ namespace Game.CraftSystem.Craft.Visual
             {
                 InitializeAsCraft();
             }
+
+            visual.OnOpened += _ => UpdateVisual();
         }
         private void InitializeAsCraft()
         {
@@ -94,9 +96,7 @@ namespace Game.CraftSystem.Craft.Visual
             if(_pressProgress == 1)
             {
                 _manager.Craft(craft);
-
-                if(gameObject.activeInHierarchy)
-                    _cancelPressProgressCoroutine = StartCoroutine(CancelPressProgress(1.3f));
+                _cancelPressProgressCoroutine = _manager.StartCoroutine(CancelPressProgress(1.3f));
             }
         }
 
@@ -109,7 +109,7 @@ namespace Game.CraftSystem.Craft.Visual
             for (int i = 0; i < craft.ItemsInCraft.Count; i++)
             {
                 ItemData curCraft = craft.ItemsInCraft[i];
-                ItemData inventoryItem = PlayerInventory.GetItem(curCraft.Item);
+                ItemData inventoryItem = _inventory.GetItem(curCraft.Item);
                 if (inventoryItem != null)
                 {
                     if(inventoryItem.Amount >= curCraft.Amount)

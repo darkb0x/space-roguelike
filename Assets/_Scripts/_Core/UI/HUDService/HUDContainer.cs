@@ -3,13 +3,15 @@ using UnityEngine;
 
 namespace Game.UI.HUD
 {
-    public class HUDContainer : MonoBehaviour
+    public class HUDContainer : HUDElement
     {
         [SerializeField] private List<HUDElement> HUDElements = new List<HUDElement>();
 
+        public override HUDElementID ID => HUDElementID.Container;
+
         private List<HUDElement> _initializedHudElements;
 
-        public void Initialize(HUDConfig config)
+        public void Initialize(HUDConfig config, HUDService service)
         {
             _initializedHudElements = new List<HUDElement>();
 
@@ -21,9 +23,17 @@ namespace Game.UI.HUD
                     continue;
                 }
 
-                hudElement.Enable();
-                hudElement.Initialize();
+                hudElement.Enable(service, this);
                 _initializedHudElements.Add(hudElement);
+            }
+            foreach (var element in _initializedHudElements)
+            {
+                element.Initialize();
+
+                if(element is HUDContainer container)
+                {
+                    container.Initialize(config, service);
+                }
             }
         }
 

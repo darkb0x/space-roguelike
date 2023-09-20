@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using NaughtyAttributes;
 
@@ -12,10 +9,6 @@ namespace Game.Player
 
     public class PlayerVisual : MonoBehaviour
     {
-        [SerializeField] private Volume MainVolume;
-
-        [Space]
-        [SerializeField] private PlayerController Player;
         [SerializeField] private SpriteRenderer SpriteVisual;
 
         [Header("Health")]
@@ -36,11 +29,12 @@ namespace Game.Player
         private float lowOxygenSpeed = 0.3f;
         private float lowOxygenTargetIdensity;
 
-        private void Start()
+        public void Initialize()
         {
             //DeathPanel.SetActive(false);
 
-            if(MainVolume.profile.TryGet<Vignette>(out Vignette vignette))
+            var camera = ServiceLocator.GetService<CameraController>();
+            if(camera.MainVolume.profile.TryGet(out Vignette vignette))
             {
                 vignettePostProcessing = vignette;
             }

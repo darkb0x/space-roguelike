@@ -3,7 +3,6 @@
     public enum WindowID
     {
         Unknown,
-        Inventory,
         LobbyInventory,
         DeathScreen,
         MissionSelect,

@@ -8,6 +8,9 @@ namespace Game.UI.HUD
 
         public abstract HUDElementID ID { get; }
 
+        protected HUDService _hudService;
+        protected HUDContainer _globalHudContainer;
+        protected HUDContainer _parentHudContainer;
         protected bool _initialized;
 
         public virtual void Initialize()
@@ -36,13 +39,28 @@ namespace Game.UI.HUD
         }
 
 
-        public void Enable()
+        public void Enable(HUDService service, HUDContainer container)
         {
+            _hudService = service;
+            _globalHudContainer = _hudService.HUDContainer;
+            _parentHudContainer = container;
+
             gameObject.SetActive(true);
         }
         public void Disable()
         {
             gameObject.SetActive(false);
+        }
+
+        public T GetHudElement<T>(HUDElementID id) where T : HUDElement
+        {
+            var hudElement = _hudService.GetHudElement<T>(id, _parentHudContainer);
+            if(hudElement == null)
+            {
+                hudElement = _hudService.GetHudElement<T>(id);
+            }
+
+            return hudElement;
         }
     }
 }

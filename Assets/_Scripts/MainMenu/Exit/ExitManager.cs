@@ -10,11 +10,16 @@ namespace Game.Menu.Pause.Exit
     {
         public const WindowID EXIT_WINDOW_ID = WindowID.ExitFromGame;
 
-        [SerializeField, NaughtyAttributes.Scene] private int MenuSceneID;
+        [NaughtyAttributes.Scene] public int MenuSceneID;
+
+        private UIWindowService _uiWindowService;
 
         public void Initialize(UIWindowService uiWindowService)
         {
-            uiWindowService.RegisterWindow<ExitWindow>(EXIT_WINDOW_ID);
+            _uiWindowService = uiWindowService;
+
+            _uiWindowService.RegisterWindow<ExitWindow>(EXIT_WINDOW_ID)
+                .Initialize(this);
         }
 
         public void OpenMenu()

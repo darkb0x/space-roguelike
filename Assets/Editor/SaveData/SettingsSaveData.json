@@ -3,7 +3,7 @@
     "_fileName": "SettingsSaveData",
     "_encrypt": false,
     "EnableLogs": false,
-    "MasterVolume": 0.00009999999747378752,
-    "MusicVolume": 0.00009999999747378752,
-    "EffectsVolume": 0.00009999999747378752
+    "MasterVolume": 1.0,
+    "MusicVolume": 1.0,
+    "EffectsVolume": 1.0
 }

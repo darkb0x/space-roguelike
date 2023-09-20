@@ -120,7 +120,7 @@ namespace Game.CraftSystem.Craft.Visual
             CraftNodeVisual InstantiateNode(CraftSO craft, CraftContainer container)
             {
                 CraftNodeVisual nodeVisual = Instantiate(NodeVisualPrefab, container.VisualParent);
-                nodeVisual.Initialize(craft, _manager);
+                nodeVisual.Initialize(craft, _manager, this);
 
                 container.AddCraftVisual(nodeVisual);
 

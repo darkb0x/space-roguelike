@@ -19,8 +19,9 @@ namespace Game.Inventory
             _inventory = ServiceLocator.GetService<Inventory>();
 
             SubscribeToEvents();
-
             _initialized = true;
+
+            UpdateData();
         }
         private void Start()
         {

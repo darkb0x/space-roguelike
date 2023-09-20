@@ -58,7 +58,8 @@ namespace Game.Player
         {
             InitializeComponents();
             InitializeStates();
-            
+
+            Visual.Initialize();
             EnemyTarget.Initialize(this, this);
         }
 

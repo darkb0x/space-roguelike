@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HUDElementEnabled:
     _serializedList:
-    - Key: 6
+    - Key: 7
       Value: 0
-    - Key: 2
+    - Key: 8
+      Value: 0
+    - Key: 3
       Value: 0

@@ -2,6 +2,7 @@
 {
     public enum HUDElementID
     {
+        Container,
         Oxygen,
         Health,
         AnimatedHealthBar,
@@ -9,6 +10,7 @@
         SessionWaveTimings,
         Notifications,
         Vidgets,
+        Inventory,
         InventoryButton
     }
 }

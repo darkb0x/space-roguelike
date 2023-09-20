@@ -27,6 +27,7 @@ namespace Game.Lobby
         [SerializeField] private MissionChooseManager MissionChooseManager;
         [Space]
         [SerializeField] private PlayerController Player;
+        [SerializeField] private CameraController Camera;
 
         [Header("Other...")]
         [SerializeField] private AudioClip Music;
@@ -65,6 +66,7 @@ namespace Game.Lobby
             MissionChooseManager.Initialize(_uiWindowService);
 
             Player.Initialize();
+            Camera.Initialize(Player);
 
             _hudService.Initialize(_uiWindowService);
             _notificationService.Initialize(_hudService);
@@ -81,6 +83,7 @@ namespace Game.Lobby
             ServiceLocator.Register(MissionChooseManager);
 
             ServiceLocator.Register(Player);
+            ServiceLocator.Register(Camera);
 
             ServiceLocator.Register(_hudService);
         }

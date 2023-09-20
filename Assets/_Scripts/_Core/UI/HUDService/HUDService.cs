@@ -33,12 +33,22 @@ namespace Game.UI.HUD
         private void InitHudContainer()
         {
             _hudContainer = _rootCanvas.GetComponent<HUDContainer>();
-            _hudContainer.Initialize(_config);
+            _hudContainer.Initialize(_config, this);
         }
 
         public THud GetHudElement<THud>(HUDElementID id) where THud : HUDElement
         {
             foreach (var hudElemenet in _hudContainer.GetHudElements())
+            {
+                if (hudElemenet.ID == id)
+                    return hudElemenet as THud;
+            }
+
+            return null;
+        }
+        public THud GetHudElement<THud>(HUDElementID id, HUDContainer container) where THud : HUDElement
+        {
+            foreach (var hudElemenet in container.GetHudElements())
             {
                 if (hudElemenet.ID == id)
                     return hudElemenet as THud;

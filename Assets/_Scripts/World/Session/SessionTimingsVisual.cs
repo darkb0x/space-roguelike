@@ -80,7 +80,7 @@ namespace Game.Session
 
             foreach (var timing in SessionManager.SessionTimings.EventsList)
             {
-                RectTransform markRect = Instantiate(MarkPrefab, transform).GetComponent<RectTransform>();
+                RectTransform markRect = Instantiate(MarkPrefab, View.transform).GetComponent<RectTransform>();
 
                 float normalizedValue = (timing.StartTime - minValue) / (maxValue - minValue);
                 float markPosX = (sliderWidth * normalizedValue) - (sliderWidth / 2f) + markRect.rect.width / 2;

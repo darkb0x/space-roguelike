@@ -1322,6 +1322,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &356495166 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2157460714837146072, guid: 984b0a0b1c1707a478aaa8f07a4764b1, type: 3}
+  m_PrefabInstance: {fileID: 356495163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0779280863b92f43857d5b1cd245b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &371203051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2742,17 +2753,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 569635f1304eb9c4484f81ab7f24e4c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &711477340 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2192756267114011472, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
-  m_PrefabInstance: {fileID: 711477338}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 687226ee548062246ab29b7dbc50a994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &711477341 stripped
@@ -10052,13 +10052,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HUDConfig: {fileID: 11400000, guid: 2ac3e836aec277e49a9bc266a3a7e195, type: 2}
-  UIPanelManager: {fileID: 711477340}
   PauseManager: {fileID: 711477339}
   LobbyInventory: {fileID: 464613719}
   ResearchManager: {fileID: 711477341}
   ShopManager: {fileID: 583156825}
   MissionChooseManager: {fileID: 1947506308}
   Player: {fileID: 1009544911}
+  Camera: {fileID: 356495166}
   Music: {fileID: 8300000, guid: d14531e8b836a1843a4746b67ee81414, type: 3}
 --- !u!1001 &7875845474096373554
 PrefabInstance:
