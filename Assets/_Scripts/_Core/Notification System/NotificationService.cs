@@ -30,13 +30,13 @@ namespace Game.Notifications
             _notificationsVisualParent = hudService.GetHudElement<NotificationsHUD>(HUDElementID.Notifications).GetChildParentTransform();
         }
 
-        public static void NewNotification(Sprite icon, string title, bool highlight, Color textColor, NotificationStyle style = NotificationStyle.Default)
+        public static void NewNotification(Sprite icon, string title, Color textColor, NotificationStyle style = NotificationStyle.Default)
         {
             if (!Instance.NotificationsEnabled)
                 return;
 
             NotificationVisual visual = Object.Instantiate(_notificationVisual, Instance._notificationsVisualParent);
-            visual.Initialize(icon, $"<color=#{ColorUtility.ToHtmlStringRGB(textColor)}>{title}</color>", highlight, NOTIFICATION_DESTROY_TIME, style);
+            visual.Initialize(icon, $"<color=#{ColorUtility.ToHtmlStringRGB(textColor)}>{title}</color>", NOTIFICATION_DESTROY_TIME, style);
         }
     }
 }

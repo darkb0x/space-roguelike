@@ -60,7 +60,6 @@ namespace Game.CraftSystem.Research
                 NotificationService.NewNotification(
                     currentCraft.CraftIcon,
                     "Researched!",
-                    true,
                     Color.white,
                     NotificationStyle.NewCraft
                     );

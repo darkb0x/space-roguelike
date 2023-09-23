@@ -24,12 +24,12 @@
             {
                 "Name": "Kopoloh",
                 "Path": "Items/Ore/Kopoloh Ore",
-                "Amount": 27
+                "Amount": 30
             },
             {
                 "Name": "Zuldun Ingot",
                 "Path": "Items/Ingot/Zuldun Ingot",
-                "Amount": 13
+                "Amount": 16
             },
             {
                 "Name": "Selbit Ingot",
@@ -44,7 +44,7 @@
         ]
     },
     "Money": 0,
-    "ResourceAutomatCurrentInteract": 2,
+    "ResourceAutomatCurrentInteract": 4,
     "PlanetPath": "Missions/Planets/Newbie Desert",
     "CurrentDifficultFactor": 1.0499999523162842
 }

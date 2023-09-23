@@ -24,8 +24,6 @@ namespace Game.Notifications
         [Space]
         [SerializeField] private Animator Anim;
         [SerializeField, NaughtyAttributes.AnimatorParam("Anim")] private string Anim_disappearTrigger = "Disappear";
-        [SerializeField] private Material OutlineMaterialIcon;
-        [SerializeField] private Material OutlineMaterialTextHighlighted;
         [SerializeField] private Material OutlineMaterialTextDefault;
 
         [Space]
@@ -33,23 +31,14 @@ namespace Game.Notifications
 
         private UIWindowService _uiWindowService;
 
-        public void Initialize(Sprite icon, string title, bool isHighlighting, float destroyTime, NotificationStyle style)
+        public void Initialize(Sprite icon, string title, float destroyTime, NotificationStyle style)
         {
             ItemIconImage.sprite = icon;
             NotificationText.text = title;
 
             SetStyle(style);
 
-            if (isHighlighting)
-            {
-                ItemIconImage.material = OutlineMaterialIcon;
-                NotificationText.fontMaterial = OutlineMaterialTextHighlighted;
-            }
-            else
-            {
-                ItemIconImage.material = null;
-                NotificationText.fontMaterial = OutlineMaterialTextDefault;
-            }
+            NotificationText.fontMaterial = OutlineMaterialTextDefault;
 
             Invoke("StartHidingNotification", destroyTime);
 

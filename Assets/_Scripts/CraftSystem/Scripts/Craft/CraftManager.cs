@@ -58,7 +58,6 @@ namespace Game.CraftSystem.Craft
                 NotificationService.NewNotification(
                     craft.CraftIcon,
                     "Crafted",
-                    true,
                     Color.white
                     );
             }

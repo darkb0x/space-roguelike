@@ -72,12 +72,10 @@ namespace Game.Inventory
         public virtual void AddItem(ItemData item, bool showNotify = true)
         {
             ItemDataErrorCheck(item);
-            bool itemIsNew = false;
 
             if (Items.ContainsKey(item.Item))
             {
                 Items[item.Item] += item.Amount;
-                itemIsNew = true;
             }
             else
             {
@@ -91,7 +89,6 @@ namespace Game.Inventory
                 NotificationService.NewNotification(
                     invItem.Icon,
                     $"{invItem.ItemName} <color={NotificationService.GREEN_COLOR}>+{item.Amount}</color>",
-                    itemIsNew,
                     invItem.ItemTextColor,
                     NotificationStyle.Positive
                     );
@@ -116,7 +113,6 @@ namespace Game.Inventory
                     NotificationService.NewNotification(
                         invItem.LowSizeIcon, 
                         $"{invItem.ItemName} <color={NotificationService.RED_COLOR}>-{item.Amount}</color>",
-                        false, 
                         invItem.ItemTextColor, 
                         NotificationStyle.Negative
                         );
