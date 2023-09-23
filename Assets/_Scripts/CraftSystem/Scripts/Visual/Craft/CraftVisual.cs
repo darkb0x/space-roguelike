@@ -46,12 +46,12 @@ namespace Game.CraftSystem.Craft.Visual
         protected override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
-            _input.CloseEvent += () => _uiWindowService.Close(CraftManager.CRAFT_WINDOW_ID);
+            _input.CloseEvent += _closeAction;
         }
         protected override void UnsubscribeFromEvents()
         {
             base.UnsubscribeFromEvents();
-            _input.CloseEvent -= () => _uiWindowService.Close(CraftManager.CRAFT_WINDOW_ID);
+            _input.CloseEvent -= _closeAction;
         }
 
         public void SelectContainer(CraftContainer container)

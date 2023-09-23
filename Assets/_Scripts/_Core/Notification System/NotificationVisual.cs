@@ -1,8 +1,8 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using AYellowpaper.SerializedCollections;
+using Game.UI;
 
 namespace Game.Notifications
 {
@@ -29,7 +29,9 @@ namespace Game.Notifications
         [SerializeField] private Material OutlineMaterialTextDefault;
 
         [Space]
-        [SerializedDictionary("Style enum", "Data"), SerializeField] private SerializedDictionary<NotificationStyle, StyleData> Styles = new SerializedDictionary<NotificationStyle, StyleData>(); 
+        [SerializedDictionary("Style enum", "Data"), SerializeField] private SerializedDictionary<NotificationStyle, StyleData> Styles = new SerializedDictionary<NotificationStyle, StyleData>();
+
+        private UIWindowService _uiWindowService;
 
         public void Initialize(Sprite icon, string title, bool isHighlighting, float destroyTime, NotificationStyle style)
         {
@@ -50,6 +52,13 @@ namespace Game.Notifications
             }
 
             Invoke("StartHidingNotification", destroyTime);
+
+            _uiWindowService = ServiceLocator.GetService<UIWindowService>();
+            _uiWindowService.OnWindowOpened += OnOpened;
+        }
+        private void OnDestroy()
+        { 
+            _uiWindowService.OnWindowOpened -= OnOpened;
         }
 
         private void SetStyle(NotificationStyle target)
@@ -68,6 +77,11 @@ namespace Game.Notifications
         private void Anim_DestroyObj()
         {
             Destroy(gameObject);
+        }
+
+        private void OnOpened(WindowID window)
+        {
+            Anim_DestroyObj();
         }
     }
 }

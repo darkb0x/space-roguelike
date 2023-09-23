@@ -40,13 +40,13 @@ namespace Game.Lobby.Shop.Visual
         protected override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
-            _input.CloseEvent += () => Close();
+            _input.CloseEvent += _closeAction;
         }
 
         protected override void UnsubscribeFromEvents()
         {
             base.UnsubscribeFromEvents();
-            _input.CloseEvent -= () => Close(); 
+            _input.CloseEvent -= _closeAction; 
         }
 
         public void Initialize(List<ItemData> items, ShopManager manager)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 namespace Game.Lobby.Inventory.Visual
 {
@@ -8,7 +9,6 @@ namespace Game.Lobby.Inventory.Visual
     using Input;
     using UI;
 
-    // TO DO
     public class LobbyInventoryVisual : Window
     {
         [SerializeField] private TextMeshProUGUI FreeSpaceText;
@@ -41,7 +41,7 @@ namespace Game.Lobby.Inventory.Visual
         {
             base.SubscribeToEvents();
 
-            _input.CloseEvent += () => Close();
+            _input.CloseEvent += _closeAction;
         }
 
         protected override void UnsubscribeFromEvents()
@@ -51,7 +51,7 @@ namespace Game.Lobby.Inventory.Visual
             _inventory.OnItemAdded -= OnItemAdded;
             _inventory.OnItemTaken -= OnItemTaken;
 
-            _input.CloseEvent -= () => Close();
+            _input.CloseEvent -= _closeAction;
         }
 
         private void OnItemAdded(ItemData itemData)
@@ -110,9 +110,8 @@ namespace Game.Lobby.Inventory.Visual
 
         public override void Close(bool notify = true)
         {
-            base.Close(notify);
             _inventory?.ApplyItemsToMainInventory();
+            base.Close(notify);
         }
-
     }
 }

@@ -9,6 +9,7 @@ namespace Game.UI.HUD
         public abstract HUDElementID ID { get; }
 
         protected HUDService _hudService;
+        protected UIWindowService _uiWindowService;
         protected HUDContainer _globalHudContainer;
         protected HUDContainer _parentHudContainer;
         protected bool _initialized;
@@ -39,9 +40,10 @@ namespace Game.UI.HUD
         }
 
 
-        public void Enable(HUDService service, HUDContainer container)
+        public void Enable(HUDService service, UIWindowService windowService, HUDContainer container)
         {
             _hudService = service;
+            _uiWindowService = windowService;
             _globalHudContainer = _hudService.HUDContainer;
             _parentHudContainer = container;
 

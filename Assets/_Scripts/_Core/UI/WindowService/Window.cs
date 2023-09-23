@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Game.Input;
 
 namespace Game.UI
 {
     public abstract class Window : MonoBehaviour, IWindow
     {
         [Header("Window")]
-        [SerializeField] private Canvas WindowObj;
+        [SerializeField] protected Canvas WindowObj;
 
         public abstract WindowID ID { get; }
         public bool IsOpened => _isOpened;
@@ -21,12 +22,16 @@ namespace Game.UI
         protected Dictionary<WindowID, Window> _subWindows;
         protected bool _isOpened;
 
+        protected InputEmptyCallbackDelegate _closeAction;
+
         #region Window Base
         // Life-cycle
         public virtual void Initialize(UIWindowService service)
         {
             _uiWindowService = service;
             _subWindows = new Dictionary<WindowID, Window>();
+
+            _closeAction = () => _uiWindowService.Close(ID);
 
             SubscribeToEvents();
 
@@ -49,8 +54,8 @@ namespace Game.UI
         public virtual void Open(bool notify = true)
         {
             CloseAllSubWindows(false);
-
             WindowObj.gameObject.SetActive(true);
+
             _isOpened = true;
 
             if(notify)
@@ -59,6 +64,7 @@ namespace Game.UI
         public virtual void Close(bool notify = true)
         {
             WindowObj.gameObject.SetActive(false);
+
             _isOpened = false;
 
             if(notify)

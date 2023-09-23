@@ -11,7 +11,7 @@ namespace Game.Session
     using Save;
     using SceneLoading;
     using Audio;
-    using Drill.SpecialDrill;
+    using Artefact;
 
     public enum SessionEventType
     {

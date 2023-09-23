@@ -19,6 +19,7 @@ namespace Game.Lobby.Inventory
         {
             _uiWindowService = windowService;
             _lobbyInventoryWindow = inventoryWindow;
+
             _lobbyInventoryWindow.OnOpened += _ => SetVisualEnabled(true);
             _lobbyInventoryWindow.OnClosed += _ => SetVisualEnabled(false);
         }

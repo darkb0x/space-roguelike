@@ -20,7 +20,8 @@ namespace Game.Notifications
 
         public NotificationService()
         {
-            _notificationVisual = Resources.Load<NotificationVisual>(NOTIFICATION_VISUAL_PATH);
+            if(_notificationVisual == null)
+                _notificationVisual = Resources.Load<NotificationVisual>(NOTIFICATION_VISUAL_PATH);
         }
 
         public void Initialize(HUDService hudService)

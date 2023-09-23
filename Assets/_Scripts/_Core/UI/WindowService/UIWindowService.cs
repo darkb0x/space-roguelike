@@ -47,6 +47,10 @@ namespace Game.UI
             _hudCanvas = hud;
         }
 
+        public void RegisterWindow(WindowID windowID)
+        {
+            RegisterWindow<Window>(windowID);
+        }
         public TWindow RegisterWindow<TWindow>(WindowID windowID) where TWindow : Window
         {
             if (_windows.ContainsKey(windowID))

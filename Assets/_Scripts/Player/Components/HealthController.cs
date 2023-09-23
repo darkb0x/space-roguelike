@@ -4,15 +4,21 @@ using UnityEngine;
 
 namespace Game.Player.Components
 {
+    using UI;
+
     public class HealthController : PlayerComponent
     {
+        public const WindowID DEATH_WINDOW_ID = WindowID.DeathScreen;
+
         public readonly float MaxHealth;
         public readonly float InvulnerabilityTime;
 
         public Action<int> OnHealthChanged;
         public float Health { get { return _health; } }
 
+        private UIWindowService _uiWindowService;
         private float _health;
+
 
         public HealthController(ComponentConfig componentConfig, HealthConfig config) : base(componentConfig)
         {
@@ -24,6 +30,9 @@ namespace Game.Player.Components
             MaxHealth = config.MaxHealth;
             InvulnerabilityTime = config.InvulnerabilityTime;
             _health = MaxHealth;
+
+            _uiWindowService = ServiceLocator.GetService<UIWindowService>();
+            _uiWindowService.RegisterWindow(DEATH_WINDOW_ID);
         }
 
         public void TakeDamage(float value)
@@ -56,6 +65,7 @@ namespace Game.Player.Components
 
             _player.SetState(_player.DeadState);
             _visual.PlayerDead();
+            _uiWindowService.Open(DEATH_WINDOW_ID);
 
             Debug.Log("Player died");
         }

@@ -21,19 +21,19 @@ namespace Game.UI.HUD
         public void Initialize(UIWindowService windowService)
         {
             InitRootCanvas();
-            InitHudContainer();
-
-            windowService.SetHud(_rootCanvas);
+            InitHudContainer(windowService);
         }
 
         private void InitRootCanvas()
         {
             _rootCanvas = Object.Instantiate(Resources.Load<GameObject>(ROOT_HUD_CANVAS_PATH)).GetComponent<Canvas>();
         }
-        private void InitHudContainer()
+        private void InitHudContainer(UIWindowService windowService)
         {
             _hudContainer = _rootCanvas.GetComponent<HUDContainer>();
-            _hudContainer.Initialize(_config, this);
+            _hudContainer.Initialize(_config, this, windowService);
+
+            windowService.SetHud(_rootCanvas);
         }
 
         public THud GetHudElement<THud>(HUDElementID id) where THud : HUDElement

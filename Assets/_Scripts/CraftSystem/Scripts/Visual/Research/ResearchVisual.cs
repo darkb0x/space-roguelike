@@ -60,13 +60,13 @@ namespace Game.CraftSystem.Research.Visual
         protected override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
-            _input.CloseEvent += () => _uiWindowService.Close(ID);
+            _input.CloseEvent += _closeAction;
         }
 
         protected override void UnsubscribeFromEvents()
         {
             base.UnsubscribeFromEvents();
-            _input.CloseEvent -= () => _uiWindowService.Close(ID);
+            _input.CloseEvent -= _closeAction;
         }
 
         private void Update()

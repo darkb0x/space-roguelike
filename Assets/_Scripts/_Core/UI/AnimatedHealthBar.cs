@@ -6,7 +6,7 @@ using NaughtyAttributes;
 
 namespace Game
 {
-    using Game.Drill.SpecialDrill;
+    using Session.Artefact;
     using Session;
     using UI.HUD;
 
@@ -18,9 +18,6 @@ namespace Game
         [Space]
         [SerializeField] private Image FillImage;
         [SerializeField] private Image ImpactFillImage;
-        [Space]
-        [SerializeField, OnValueChanged("OnColorInInspectorChanged")] private Color FillColor = Color.white;
-        [SerializeField, OnValueChanged("OnColorInInspectorChanged")] private Color ImpactFillColor = Color.white;
         [Space]
         [SerializeField] private bool ShowHealthInPercent = true;
         [SerializeField] private TextMeshProUGUI ProgressText;
@@ -38,17 +35,6 @@ namespace Game
 
         #region Inspector Events
 #if UNITY_EDITOR
-        private void OnColorInInspectorChanged()
-        {
-            if(FillImage != null)
-            {
-                FillImage.color = FillColor;
-            } 
-            if(ImpactFillImage != null)
-            {
-                ImpactFillImage.color = ImpactFillColor;
-            }
-        }
         private void OnDebugProgressChanged()
         {
             if (FillImage == null | ImpactFillImage == null)
@@ -63,22 +49,31 @@ namespace Game
         {
             _artefactDrill = ServiceLocator.GetService<SessionManager>().ArtefactDrill;
 
+            FillImage.fillAmount = 1f;
+            ImpactFillImage.fillAmount = 1f;
+
             base.Initialize();
         }
         protected override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
+
             _artefactDrill.OnMiningStarted += Show;
             _artefactDrill.OnMiningEnded += Hide;
             _artefactDrill.OnMiningUpdate += UpdateHealthBar;
+
+            _uiWindowService.OnWindowOpened += _ => CancelImpactVisual();
         }
 
         protected override void UnsubscribeFromEvents()
         {
             base.UnsubscribeFromEvents();
+
             _artefactDrill.OnMiningStarted -= Show;
             _artefactDrill.OnMiningEnded -= Hide;
             _artefactDrill.OnMiningUpdate -= UpdateHealthBar;
+
+            _uiWindowService.OnWindowOpened += _ => CancelImpactVisual();
         }
         private void OnEnable()
         {
@@ -135,5 +130,10 @@ namespace Game
             ImpactFillImage.fillAmount = FillImage.fillAmount;
         }
 
+        private void CancelImpactVisual()
+        {
+            StopAllCoroutines();
+            ImpactFillImage.fillAmount = FillImage.fillAmount;
+        }
     }
 }

@@ -62,14 +62,14 @@ namespace Game.Lobby.Missions
         {
             base.SubscribeToEvents();
 
-            _input.CloseEvent += () => Close();
+            _input.CloseEvent += _closeAction;
         }
 
         protected override void UnsubscribeFromEvents()
         {
             base.UnsubscribeFromEvents();
 
-            _input.CloseEvent -= () => Close();
+            _input.CloseEvent -= _closeAction;
         }
 
         private void Update()

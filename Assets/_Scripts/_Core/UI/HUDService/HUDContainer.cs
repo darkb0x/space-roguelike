@@ -11,7 +11,7 @@ namespace Game.UI.HUD
 
         private List<HUDElement> _initializedHudElements;
 
-        public void Initialize(HUDConfig config, HUDService service)
+        public void Initialize(HUDConfig config, HUDService service, UIWindowService windowService)
         {
             _initializedHudElements = new List<HUDElement>();
 
@@ -23,7 +23,7 @@ namespace Game.UI.HUD
                     continue;
                 }
 
-                hudElement.Enable(service, this);
+                hudElement.Enable(service, windowService, this);
                 _initializedHudElements.Add(hudElement);
             }
             foreach (var element in _initializedHudElements)
@@ -32,7 +32,7 @@ namespace Game.UI.HUD
 
                 if(element is HUDContainer container)
                 {
-                    container.Initialize(config, service);
+                    container.Initialize(config, service, windowService);
                 }
             }
         }

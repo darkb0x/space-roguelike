@@ -34,13 +34,13 @@ namespace Game.CraftSystem.Oven
         protected override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
-            _input.CloseEvent += () => _uiWindowService.Close(ID);
+            _input.CloseEvent += _closeAction;
         }
 
         protected override void UnsubscribeFromEvents()
         {
             base.UnsubscribeFromEvents();
-            _input.CloseEvent -= () => _uiWindowService.Close(ID);
+            _input.CloseEvent -= _closeAction;
         }
 
         public override void Open(bool notify = true)
