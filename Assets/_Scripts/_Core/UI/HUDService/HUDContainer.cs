@@ -13,6 +13,7 @@ namespace Game.UI.HUD
 
         public void Initialize(HUDConfig config, HUDService service, UIWindowService windowService)
         {
+            var coroutineRunner = ServiceLocator.GetService<CoroutineRunner>();
             _initializedHudElements = new List<HUDElement>();
 
             foreach (var hudElement in HUDElements)
@@ -23,7 +24,7 @@ namespace Game.UI.HUD
                     continue;
                 }
 
-                hudElement.Enable(service, windowService, this);
+                hudElement.Enable(service, windowService, this, coroutineRunner);
                 _initializedHudElements.Add(hudElement);
             }
             foreach (var element in _initializedHudElements)

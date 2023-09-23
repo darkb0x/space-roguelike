@@ -100,7 +100,7 @@ namespace Game
             float value = current / max;
 
             FillImage.fillAmount = value;
-            StartCoroutine(UpdateImpactVisual());
+            RunCoroutine(UpdateImpactVisual());
 
             if(ShowHealthInPercent)
             {
@@ -132,7 +132,7 @@ namespace Game
 
         private void CancelImpactVisual()
         {
-            StopAllCoroutines();
+            CancelAllCoroutines();
             ImpactFillImage.fillAmount = FillImage.fillAmount;
         }
     }

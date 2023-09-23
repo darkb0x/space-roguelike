@@ -13,10 +13,12 @@ namespace Game.Menu
         [SerializeField] private ExitManager ExitManager;
 
         private UIWindowService _uiWindowService;
+        private CoroutineRunner _coroutineRunner;
 
         private void Awake()
         {
             _uiWindowService = new UIWindowService();
+            _coroutineRunner = Instantiate(Resources.Load<CoroutineRunner>(AssetPathConstants.COROUTINE_RUNNER));
             RegisterServices();
         }
         private void Start()
@@ -40,6 +42,7 @@ namespace Game.Menu
 
         public void RegisterServices()
         {
+            ServiceLocator.Register(_coroutineRunner);
             ServiceLocator.Register(_uiWindowService);
 
             ServiceLocator.Register(MainMenuManager);

@@ -31,12 +31,14 @@ namespace Game.Session
         private UIWindowService _uiWindowService;
         private HUDService _hudService;
         private NotificationService _notificationService;
+        private CoroutineRunner _coroutineRunner;
 
         private void Awake()
         {
             _uiWindowService = new UIWindowService();
             _hudService = new HUDService(HUDConfig);
             _notificationService = new NotificationService();
+            _coroutineRunner = Instantiate(Resources.Load<CoroutineRunner>(AssetPathConstants.COROUTINE_RUNNER));
             RegisterServices();
         }
         private void Start()
@@ -69,6 +71,7 @@ namespace Game.Session
 
         public void RegisterServices()
         {
+            ServiceLocator.Register(_coroutineRunner);
             ServiceLocator.Register(_uiWindowService);
             ServiceLocator.Register(PlayerInventory);
             ServiceLocator.Register(PauseManager);

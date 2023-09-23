@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Game.UI.HUD
 {
-    public abstract class HUDElement : MonoBehaviour, IHUDElement
+    public abstract class HUDElement : MonoBehaviour, IHUDElement, ICoroutineRunner
     {
         [SerializeField] protected Canvas View;
 
@@ -13,6 +14,8 @@ namespace Game.UI.HUD
         protected HUDContainer _globalHudContainer;
         protected HUDContainer _parentHudContainer;
         protected bool _initialized;
+
+        private ICoroutineRunner _coroutineRunner;
 
         public virtual void Initialize()
         {
@@ -40,12 +43,13 @@ namespace Game.UI.HUD
         }
 
 
-        public void Enable(HUDService service, UIWindowService windowService, HUDContainer container)
+        public void Enable(HUDService service, UIWindowService windowService, HUDContainer container, ICoroutineRunner coroutineRunner)
         {
             _hudService = service;
             _uiWindowService = windowService;
             _globalHudContainer = _hudService.HUDContainer;
             _parentHudContainer = container;
+            _coroutineRunner = coroutineRunner;
 
             gameObject.SetActive(true);
         }
@@ -64,5 +68,21 @@ namespace Game.UI.HUD
 
             return hudElement;
         }
+
+        #region ICoroutineRunner
+        public Coroutine RunCoroutine(IEnumerator coroutine)
+        {
+            return _coroutineRunner.RunCoroutine(coroutine);
+        }
+
+        public void CancelCoroutine(Coroutine coroutine)
+        {
+            _coroutineRunner.CancelCoroutine(coroutine);
+        }
+        public void CancelAllCoroutines()
+        {
+            _coroutineRunner.CancelAllCoroutines();
+        }
+        #endregion
     }
 }

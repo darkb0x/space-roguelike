@@ -14,17 +14,17 @@
             {
                 "Name": "Selbit Ore",
                 "Path": "Items/Ore/Selbit Ore",
-                "Amount": 54
+                "Amount": 81
             },
             {
                 "Name": "Zuldun Ore",
                 "Path": "Items/Ore/Zuldun Ore",
-                "Amount": 35
+                "Amount": 47
             },
             {
                 "Name": "Kopoloh",
                 "Path": "Items/Ore/Kopoloh Ore",
-                "Amount": 16
+                "Amount": 27
             },
             {
                 "Name": "Zuldun Ingot",
@@ -39,12 +39,12 @@
             {
                 "Name": "Artefact",
                 "Path": "Items/Artefacts/Artefact",
-                "Amount": 3
+                "Amount": 4
             }
         ]
     },
     "Money": 0,
-    "ResourceAutomatCurrentInteract": 4,
+    "ResourceAutomatCurrentInteract": 2,
     "PlanetPath": "Missions/Planets/Newbie Desert",
-    "CurrentDifficultFactor": 1.0
+    "CurrentDifficultFactor": 1.0499999523162842
 }
