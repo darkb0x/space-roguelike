@@ -62,7 +62,6 @@ namespace Game.Session.Artefact
             }
         }
 
-        [NaughtyAttributes.Button]
         public void StartMining()
         {
             OnMiningStarted?.Invoke();

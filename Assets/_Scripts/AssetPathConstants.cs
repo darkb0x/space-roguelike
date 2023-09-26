@@ -2,6 +2,6 @@
 {
     public class AssetPathConstants
     {
-        public const string COROUTINE_RUNNER = "Prefabs/CoroutineRunner";
+        public const string COROUTINE_RUNNER = "Prefabs/Services/CoroutineRunner";
     }
 }

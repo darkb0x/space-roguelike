@@ -792,6 +792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 159302277}
+  - component: {fileID: 159302279}
   - component: {fileID: 159302278}
   m_Layer: 0
   m_Name: CutsceneManager
@@ -836,8 +837,8 @@ MonoBehaviour:
     m_Events:
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1009544911}
-          m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        - m_Target: {fileID: 159302279}
+          m_TargetAssemblyTypeName: Game.CutsceneManager, Assembly-CSharp
           m_MethodName: LockPlayerPosition
           m_Mode: 2
           m_Arguments:
@@ -862,6 +863,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &159302279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159302276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea41d99fcb5065d468cfe4dd7a23435c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &210473765
 GameObject:
   m_ObjectHideFlags: 0
@@ -10052,6 +10065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HUDConfig: {fileID: 11400000, guid: 2ac3e836aec277e49a9bc266a3a7e195, type: 2}
+  CutsceneManager: {fileID: 159302279}
   PauseManager: {fileID: 711477339}
   LobbyInventory: {fileID: 464613719}
   ResearchManager: {fileID: 711477341}
@@ -10236,9 +10250,9 @@ SceneRoots:
   - {fileID: 8766475454170596822}
   - {fileID: 4129774868586295307}
   - {fileID: 711477338}
-  - {fileID: 356495163}
   - {fileID: 1274171990}
   - {fileID: 1757352114}
   - {fileID: 1009544904}
-  - {fileID: 210473768}
+  - {fileID: 356495163}
   - {fileID: 793794635}
+  - {fileID: 210473768}

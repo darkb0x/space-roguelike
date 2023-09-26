@@ -35,7 +35,6 @@ namespace Game.Session
         [SerializeField] private AudioClip Music;
 
         [Header("Debug")]
-        [SerializeField] private TextMeshProUGUI DebugText;
         [ReadOnly] public float currentTime;
         [SerializeField] private float speed = 1;
 
@@ -89,9 +88,6 @@ namespace Game.Session
             if (!isPlaying)
                 return;
             currentTime += Time.deltaTime * speed;
-
-            DebugText.text = $"Time: {currentTime}\n" +
-                             $"Event: {currentEvent}";
 
             if (currentEvent >= eventsCount)
                 return;
@@ -151,7 +147,7 @@ namespace Game.Session
 
         public void SetPlayerIntoRocket(Transform parent)
         {
-            FindObjectOfType<Player.PlayerController>().LockPlayerPosition(parent);
+            ServiceLocator.GetService<CutsceneManager>().LockPlayerPosition(parent);
         }
 
         private void OnDisable()

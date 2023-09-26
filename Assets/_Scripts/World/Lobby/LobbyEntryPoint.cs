@@ -17,6 +17,7 @@ namespace Game.Lobby
     public class LobbyEntryPoint : MonoBehaviour, IEntryPoint
     {
         [SerializeField] private HUDConfig HUDConfig;
+        [SerializeField] private CutsceneManager CutsceneManager;
 
         [Header("Components")]
         [SerializeField] private PauseManager PauseManager;
@@ -63,12 +64,14 @@ namespace Game.Lobby
             PauseManager.Initialize(_uiWindowService);
             LobbyInventory.Initialize(_uiWindowService);
 
+            Player.Initialize();
+            Camera.Initialize(Player);
+
+            CutsceneManager.Initialize(Player);
+
             ResearchManager.Initialize(LobbyInventory, _uiWindowService);
             ShopManager.Initialize(LobbyInventory, _uiWindowService);
             MissionChooseManager.Initialize(_uiWindowService);
-
-            Player.Initialize();
-            Camera.Initialize(Player);
 
             _hudService.Initialize(_uiWindowService);
             _notificationService.Initialize(_hudService);
@@ -81,12 +84,14 @@ namespace Game.Lobby
             ServiceLocator.Register(PauseManager);
             ServiceLocator.Register(LobbyInventory);
 
+            ServiceLocator.Register(Player);
+            ServiceLocator.Register(Camera);
+
+            ServiceLocator.Register(CutsceneManager);
+
             ServiceLocator.Register(ResearchManager);
             ServiceLocator.Register(ShopManager);
             ServiceLocator.Register(MissionChooseManager);
-
-            ServiceLocator.Register(Player);
-            ServiceLocator.Register(Camera);
 
             ServiceLocator.Register(_hudService);
         }

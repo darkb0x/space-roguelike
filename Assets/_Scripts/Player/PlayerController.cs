@@ -184,36 +184,7 @@ namespace Game.Player
         }
         #endregion
 
-        #region Animation Control
-        public void StopPlayerMove(Transform posTransform)
-        {
-            StopPlayerMove();
-            transform.position = posTransform.position;
-        }
-        public void StopPlayerMove()
-        {
-            SetState(StandingState);
-        }
-        public void ContinuePlayerMove()
-        {
-            SetState(DefaultState);
-        }
-
-        public void LockPlayerPosition(Transform posPosition)
-        {
-            SetState(StandingState);
-            transform.SetParent(posPosition);
-            transform.localPosition = Vector2.zero;
-            MainCollider.enabled = false;
-            SetComponentEnabled(Health, false);
-        }
-        public void UnlockPlayerPosition()
-        {
-            transform.SetParent(null);
-            SetState(DefaultState);
-            MainCollider.enabled = true;
-            SetComponentEnabled(Health, true);
-        }
-        #endregion
+        public Collider2D GetCollider()
+            => MainCollider;
     }
 }

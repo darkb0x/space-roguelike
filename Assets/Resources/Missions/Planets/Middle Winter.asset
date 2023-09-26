@@ -15,7 +15,7 @@ MonoBehaviour:
   MissionName: Middle Winter
   MissionIcon: {fileID: 21300000, guid: 6e7e68bd4aa75e04eb1f97704c56270a, type: 3}
   PlanetSprite: {fileID: 21300000, guid: 6e7e68bd4aa75e04eb1f97704c56270a, type: 3}
-  SceneId: 3
+  SceneId: 2
   DefaultItems:
   - Item: {fileID: 11400000, guid: d08bc8343d9251345af8f2dd006a79c7, type: 2}
     PercentInWorld: 22
@@ -27,4 +27,4 @@ MonoBehaviour:
     PercentInWorld: 21
   UniqueItems: []
   ItemsAmount: 100
-  AssetPath: Missions/Planets/MiddleWinter
+  AssetPath: Missions/Planets/Middle Winter

@@ -15,6 +15,7 @@ namespace Game.Session
     public class SessionEntryPoint : MonoBehaviour, IEntryPoint
     {
         [SerializeField] private HUDConfig HUDConfig;
+        [SerializeField] private CutsceneManager CutsceneManager;
 
         [Header("Components")]
         [SerializeField] private PlayerInventory PlayerInventory;
@@ -57,13 +58,15 @@ namespace Game.Session
             PlayerInventory.Initialize();
             PauseManager.Initialize(_uiWindowService);
 
+            Player.Initialize();
+            Camera.Initialize(Player);
+
+            CutsceneManager.Initialize(Player);
+
             SessionManager.Initialize(EnemySpawner, PauseManager);
             EnemySpawner.Initialize(SessionManager);
             OvenManager.Initialize(_uiWindowService, PlayerInventory);
             CraftManager.Initialize(PlayerInventory, Player, _uiWindowService);
-
-            Player.Initialize();
-            Camera.Initialize(Player);
 
             _hudService.Initialize(_uiWindowService);
             _notificationService.Initialize(_hudService);
@@ -75,6 +78,8 @@ namespace Game.Session
             ServiceLocator.Register(_uiWindowService);
             ServiceLocator.Register(PlayerInventory);
             ServiceLocator.Register(PauseManager);
+
+            ServiceLocator.Register(CutsceneManager);
 
             ServiceLocator.Register(OvenManager);
             ServiceLocator.Register(SessionManager);
