@@ -4,10 +4,12 @@ namespace Game.Menu
 {
     using Game.Menu.Pause.Exit;
     using Game.Menu.Settings;
+    using SceneLoading;
     using UI;
 
     public class MainMenuEntryPoint : MonoBehaviour, IEntryPoint
     {
+        [SerializeField] private LoadSceneUtility LoadSceneUtility;
         [SerializeField] private MainMenu MainMenuManager;
         [SerializeField] private SettingsManager SettingsManager;
         [SerializeField] private ExitManager ExitManager;
@@ -33,6 +35,8 @@ namespace Game.Menu
 
         public void InitializeComponents()
         {
+            LoadSceneUtility.Initialize();
+
             _uiWindowService.Initialize();
 
             MainMenuManager.Initialize(_uiWindowService);

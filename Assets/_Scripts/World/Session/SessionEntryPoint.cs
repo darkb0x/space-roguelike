@@ -11,10 +11,12 @@ namespace Game.Session
     using Game.CraftSystem.Craft;
     using Game.Save;
     using Game.Notifications;
+    using SceneLoading;
 
     public class SessionEntryPoint : MonoBehaviour, IEntryPoint
     {
         [SerializeField] private HUDConfig HUDConfig;
+        [SerializeField] private LoadSceneUtility LoadSceneUtility;
         [SerializeField] private CutsceneManager CutsceneManager;
 
         [Header("Components")]
@@ -54,14 +56,14 @@ namespace Game.Session
 
         public void InitializeComponents()
         {
+            LoadSceneUtility.Initialize();
+
             _uiWindowService.Initialize();
             PlayerInventory.Initialize();
             PauseManager.Initialize(_uiWindowService);
 
             Player.Initialize();
             Camera.Initialize(Player);
-
-            CutsceneManager.Initialize(Player);
 
             SessionManager.Initialize(EnemySpawner, PauseManager);
             EnemySpawner.Initialize(SessionManager);
@@ -70,6 +72,8 @@ namespace Game.Session
 
             _hudService.Initialize(_uiWindowService);
             _notificationService.Initialize(_hudService);
+
+            CutsceneManager.Initialize(Player, Camera, _hudService);
         }
 
         public void RegisterServices()

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Game.SceneLoading
 {
-    public class LoadSceneUtility : MonoBehaviour
+    public class LoadSceneUtility : MonoBehaviour, IEntryComponent
     {
         [SerializeField] private LoadingScreenVisual Visual;
 
@@ -12,30 +12,9 @@ namespace Game.SceneLoading
 
         private AsyncOperation asyncScene;
 
-        private void Awake()
+        public void Initialize()
         {
             Instance = this;
-        }
-
-        private void Start()
-        {
-            bool loadingScreenHasbeenUsed = PlayerPrefs.GetInt("LoadingSceen_used") == 1 ? false : true;
-
-            Visual.SetEnabled(loadingScreenHasbeenUsed);
-
-            if(loadingScreenHasbeenUsed)
-            {
-                Visual.UpdateProgress(1f);
-            }
-        }
-
-        public static void LoadScene(int index)
-        {
-            SceneManager.LoadScene(index);
-        }
-        public static void LoadScene(string name)
-        {
-            SceneManager.LoadScene(name);
         }
 
         #region Async
@@ -77,7 +56,7 @@ namespace Game.SceneLoading
         }
         private static IEnumerator LoadSceneAsyncVisualizeCoroutine(int index)
         {
-            Instance.Visual.SetEnabled(true);
+            Instance.Visual.PlayAnimation();
 
             yield return new WaitForSecondsRealtime(0.3f);
 
@@ -90,6 +69,7 @@ namespace Game.SceneLoading
                 Instance.Visual.UpdateProgress(Instance.asyncScene.progress);
                 yield return null;
             }
+            Instance.Visual.UpdateProgress(1f);
         }
 
         public void UnloadSceneAsync(int index)

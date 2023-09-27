@@ -343,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90df6d9bb09cd248ae3d721df504242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadSceneUtility: {fileID: 1352928741}
   MainMenuManager: {fileID: 438144212}
   SettingsManager: {fileID: 2083917348}
   ExitManager: {fileID: 1285496939}
@@ -808,8 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a98c5549b4bce842a7e20fbd3668955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteRender: {fileID: 684145185}
-  m_Material: {fileID: 2100000, guid: 191f85031e690e649baef3f4249d1d6e, type: 2}
+  SpriteRenderer: {fileID: 0}
 --- !u!1 &687265164
 GameObject:
   m_ObjectHideFlags: 0

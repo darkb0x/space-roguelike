@@ -10,41 +10,10 @@
         "Items": []
     },
     "LobbyInventory": {
-        "Items": [
-            {
-                "Name": "Selbit Ore",
-                "Path": "Items/Ore/Selbit Ore",
-                "Amount": 81
-            },
-            {
-                "Name": "Zuldun Ore",
-                "Path": "Items/Ore/Zuldun Ore",
-                "Amount": 47
-            },
-            {
-                "Name": "Kopoloh",
-                "Path": "Items/Ore/Kopoloh Ore",
-                "Amount": 30
-            },
-            {
-                "Name": "Zuldun Ingot",
-                "Path": "Items/Ingot/Zuldun Ingot",
-                "Amount": 16
-            },
-            {
-                "Name": "Selbit Ingot",
-                "Path": "Items/Ingot/Selbit Ingot",
-                "Amount": 11
-            },
-            {
-                "Name": "Artefact",
-                "Path": "Items/Artefacts/Artefact",
-                "Amount": 4
-            }
-        ]
+        "Items": []
     },
     "Money": 0,
-    "ResourceAutomatCurrentInteract": 4,
-    "PlanetPath": "Missions/Planets/Newbie Desert",
-    "CurrentDifficultFactor": 1.0499999523162842
+    "ResourceAutomatCurrentInteract": 0,
+    "PlanetPath": "Missions/Planets/Middle Winter",
+    "CurrentDifficultFactor": 1.0
 }

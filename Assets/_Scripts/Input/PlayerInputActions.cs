@@ -93,7 +93,7 @@ namespace Game.Input.ActionsMap
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CheatPanel"",
+                    ""name"": ""Console"",
                     ""type"": ""Button"",
                     ""id"": ""3e99decf-179c-47e4-86f6-3cd50742e4ea"",
                     ""expectedControlType"": ""Button"",
@@ -308,7 +308,7 @@ namespace Game.Input.ActionsMap
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""CheatPanel"",
+                    ""action"": ""Console"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -346,7 +346,7 @@ namespace Game.Input.ActionsMap
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CheatPanel"",
+                    ""name"": ""Console"",
                     ""type"": ""Button"",
                     ""id"": ""7c81d74d-fbc4-47f1-8ad6-127d699d3a05"",
                     ""expectedControlType"": ""Button"",
@@ -418,7 +418,7 @@ namespace Game.Input.ActionsMap
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""CheatPanel"",
+                    ""action"": ""Console"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -442,13 +442,13 @@ namespace Game.Input.ActionsMap
             m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
             m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
             m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
-            m_Player_CheatPanel = m_Player.FindAction("CheatPanel", throwIfNotFound: true);
+            m_Player_Console = m_Player.FindAction("Console", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_CloseWindow = m_UI.FindAction("CloseWindow", throwIfNotFound: true);
             m_UI_Zoom = m_UI.FindAction("Zoom", throwIfNotFound: true);
             m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
-            m_UI_CheatPanel = m_UI.FindAction("CheatPanel", throwIfNotFound: true);
+            m_UI_Console = m_UI.FindAction("Console", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -517,7 +517,7 @@ namespace Game.Input.ActionsMap
         private readonly InputAction m_Player_Pause;
         private readonly InputAction m_Player_Zoom;
         private readonly InputAction m_Player_Inventory;
-        private readonly InputAction m_Player_CheatPanel;
+        private readonly InputAction m_Player_Console;
         public struct PlayerActions
         {
             private @InputActionsMap m_Wrapper;
@@ -529,7 +529,7 @@ namespace Game.Input.ActionsMap
             public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
             public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
-            public InputAction @CheatPanel => m_Wrapper.m_Player_CheatPanel;
+            public InputAction @Console => m_Wrapper.m_Player_Console;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -560,9 +560,9 @@ namespace Game.Input.ActionsMap
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
-                @CheatPanel.started += instance.OnCheatPanel;
-                @CheatPanel.performed += instance.OnCheatPanel;
-                @CheatPanel.canceled += instance.OnCheatPanel;
+                @Console.started += instance.OnConsole;
+                @Console.performed += instance.OnConsole;
+                @Console.canceled += instance.OnConsole;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -588,9 +588,9 @@ namespace Game.Input.ActionsMap
                 @Inventory.started -= instance.OnInventory;
                 @Inventory.performed -= instance.OnInventory;
                 @Inventory.canceled -= instance.OnInventory;
-                @CheatPanel.started -= instance.OnCheatPanel;
-                @CheatPanel.performed -= instance.OnCheatPanel;
-                @CheatPanel.canceled -= instance.OnCheatPanel;
+                @Console.started -= instance.OnConsole;
+                @Console.performed -= instance.OnConsole;
+                @Console.canceled -= instance.OnConsole;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -615,7 +615,7 @@ namespace Game.Input.ActionsMap
         private readonly InputAction m_UI_CloseWindow;
         private readonly InputAction m_UI_Zoom;
         private readonly InputAction m_UI_Pause;
-        private readonly InputAction m_UI_CheatPanel;
+        private readonly InputAction m_UI_Console;
         public struct UIActions
         {
             private @InputActionsMap m_Wrapper;
@@ -623,7 +623,7 @@ namespace Game.Input.ActionsMap
             public InputAction @CloseWindow => m_Wrapper.m_UI_CloseWindow;
             public InputAction @Zoom => m_Wrapper.m_UI_Zoom;
             public InputAction @Pause => m_Wrapper.m_UI_Pause;
-            public InputAction @CheatPanel => m_Wrapper.m_UI_CheatPanel;
+            public InputAction @Console => m_Wrapper.m_UI_Console;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -642,9 +642,9 @@ namespace Game.Input.ActionsMap
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
-                @CheatPanel.started += instance.OnCheatPanel;
-                @CheatPanel.performed += instance.OnCheatPanel;
-                @CheatPanel.canceled += instance.OnCheatPanel;
+                @Console.started += instance.OnConsole;
+                @Console.performed += instance.OnConsole;
+                @Console.canceled += instance.OnConsole;
             }
 
             private void UnregisterCallbacks(IUIActions instance)
@@ -658,9 +658,9 @@ namespace Game.Input.ActionsMap
                 @Pause.started -= instance.OnPause;
                 @Pause.performed -= instance.OnPause;
                 @Pause.canceled -= instance.OnPause;
-                @CheatPanel.started -= instance.OnCheatPanel;
-                @CheatPanel.performed -= instance.OnCheatPanel;
-                @CheatPanel.canceled -= instance.OnCheatPanel;
+                @Console.started -= instance.OnConsole;
+                @Console.performed -= instance.OnConsole;
+                @Console.canceled -= instance.OnConsole;
             }
 
             public void RemoveCallbacks(IUIActions instance)
@@ -696,14 +696,14 @@ namespace Game.Input.ActionsMap
             void OnPause(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
             void OnInventory(InputAction.CallbackContext context);
-            void OnCheatPanel(InputAction.CallbackContext context);
+            void OnConsole(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
             void OnCloseWindow(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
-            void OnCheatPanel(InputAction.CallbackContext context);
+            void OnConsole(InputAction.CallbackContext context);
         }
     }
 }

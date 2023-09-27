@@ -13,23 +13,12 @@ namespace Game.SceneLoading
         [SerializeField] private TextMeshProUGUI LoadingProgress;
         [Space]
         [SerializeField] private CanvasGroup CanvasGroup;
-        [SerializeField] private Animator Anim;
-        [SerializeField, NaughtyAttributes.AnimatorParam("Anim")] string Anim_enabledBool;
 
-        public void SetEnabled(bool enabled)
+        public void PlayAnimation()
         {
-            CanvasGroup.alpha = enabled ? 1 : 0;
-
-            currentFrame = PlayerPrefs.GetInt("LoadingSceen_currentFrame");
-
+            CanvasGroup.alpha = 1;
             StartCoroutine(AnimateLoadingIcon());
-
-            Anim.SetBool(Anim_enabledBool, enabled);
-
-            if(enabled)
-            {
-                UpdateProgress(0);
-            }
+            UpdateProgress(0);
         }
 
         public void UpdateProgress(float progress)
@@ -50,8 +39,6 @@ namespace Game.SceneLoading
                 }
 
                 LoadingIcon.sprite = LoadingIconFrames[currentFrame];
-
-                PlayerPrefs.SetInt("LoadingSceen_currentFrame", currentFrame);
 
                 yield return new WaitForSecondsRealtime(frameTime);
             }

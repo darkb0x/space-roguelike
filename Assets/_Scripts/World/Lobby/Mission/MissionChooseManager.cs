@@ -84,7 +84,7 @@ namespace Game.Lobby.Missions
 
             Cutscene.Play();
             currentSessionData.SetPlanet(selectedMission);
-            LoadSceneUtility.LoadSceneAsync(selectedMission.SceneId, 20);
+            LoadSceneUtility.LoadSceneAsync(selectedMission.SceneId);
         }
         public void StartMission()
         {

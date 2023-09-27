@@ -34,9 +34,6 @@ namespace Game.Menu
 
             InitButtons();
 
-            PlayerPrefs.SetInt("LoadingSceen_used", 1);
-            PlayerPrefs.SetInt("LoadingSceen_currentFrame", 0);
-
             Time.timeScale = 1f;
 
             LogUtility.StopLogging();

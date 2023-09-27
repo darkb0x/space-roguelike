@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CheatPanel",
+                    "name": "Console",
                     "type": "Button",
                     "id": "3e99decf-179c-47e4-86f6-3cd50742e4ea",
                     "expectedControlType": "Button",
@@ -284,7 +284,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "CheatPanel",
+                    "action": "Console",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -322,7 +322,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CheatPanel",
+                    "name": "Console",
                     "type": "Button",
                     "id": "7c81d74d-fbc4-47f1-8ad6-127d699d3a05",
                     "expectedControlType": "Button",
@@ -394,7 +394,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "CheatPanel",
+                    "action": "Console",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
