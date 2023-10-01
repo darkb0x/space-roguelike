@@ -38,5 +38,11 @@ namespace Game
 
             return service;
         }
+        public static T TryGetService<T>() where T : class, IService
+        {
+            var service = (T)_services.FirstOrDefault(x => x is T);
+
+            return service;
+        }
     }
 }

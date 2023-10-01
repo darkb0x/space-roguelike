@@ -22,7 +22,7 @@ namespace Game.UI
         protected Dictionary<WindowID, Window> _subWindows;
         protected bool _isOpened;
 
-        protected InputEmptyCallbackDelegate _closeAction;
+        protected InputCallbackDelegate _closeAction;
 
         #region Window Base
         // Life-cycle

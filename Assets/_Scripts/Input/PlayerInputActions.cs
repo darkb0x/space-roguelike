@@ -344,15 +344,6 @@ namespace Game.Input.ActionsMap
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Console"",
-                    ""type"": ""Button"",
-                    ""id"": ""7c81d74d-fbc4-47f1-8ad6-127d699d3a05"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -410,15 +401,105 @@ namespace Game.Input.ActionsMap
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Console"",
+            ""id"": ""d1ddef98-7526-4e32-bbba-9223ae7dbc80"",
+            ""actions"": [
+                {
+                    ""name"": ""Close"",
+                    ""type"": ""Button"",
+                    ""id"": ""5abc4db2-e06f-4c2b-a63f-7d70c2787ddf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Select"",
+                    ""type"": ""Value"",
+                    ""id"": ""fa6b945a-fbd8-4c5f-9397-8689b7c4c07f"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ConfirmSelected"",
+                    ""type"": ""Button"",
+                    ""id"": ""525afaf8-d46a-4cbc-b909-403ec3c8a23b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
                     ""name"": """",
-                    ""id"": ""4dedc6c8-0ba4-4fd1-ad71-505425752c1d"",
-                    ""path"": ""<Keyboard>/slash"",
+                    ""id"": ""cf51b2d4-c523-4025-87f2-183c2e52e738"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Console"",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b626fb33-98c5-464e-aab0-0014dcb5c137"",
+                    ""path"": ""<Keyboard>/slash"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Arrows"",
+                    ""id"": ""578085b5-74e4-412d-afe8-89641be272c9"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""39d9c685-0283-447e-9e09-e86ace8a7daf"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""18872b19-59df-4378-855d-980552f737ff"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""405f9fb2-c619-4dbe-af65-ab40bac91f23"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConfirmSelected"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -448,7 +529,11 @@ namespace Game.Input.ActionsMap
             m_UI_CloseWindow = m_UI.FindAction("CloseWindow", throwIfNotFound: true);
             m_UI_Zoom = m_UI.FindAction("Zoom", throwIfNotFound: true);
             m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
-            m_UI_Console = m_UI.FindAction("Console", throwIfNotFound: true);
+            // Console
+            m_Console = asset.FindActionMap("Console", throwIfNotFound: true);
+            m_Console_Close = m_Console.FindAction("Close", throwIfNotFound: true);
+            m_Console_Select = m_Console.FindAction("Select", throwIfNotFound: true);
+            m_Console_ConfirmSelected = m_Console.FindAction("ConfirmSelected", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -615,7 +700,6 @@ namespace Game.Input.ActionsMap
         private readonly InputAction m_UI_CloseWindow;
         private readonly InputAction m_UI_Zoom;
         private readonly InputAction m_UI_Pause;
-        private readonly InputAction m_UI_Console;
         public struct UIActions
         {
             private @InputActionsMap m_Wrapper;
@@ -623,7 +707,6 @@ namespace Game.Input.ActionsMap
             public InputAction @CloseWindow => m_Wrapper.m_UI_CloseWindow;
             public InputAction @Zoom => m_Wrapper.m_UI_Zoom;
             public InputAction @Pause => m_Wrapper.m_UI_Pause;
-            public InputAction @Console => m_Wrapper.m_UI_Console;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -642,9 +725,6 @@ namespace Game.Input.ActionsMap
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
-                @Console.started += instance.OnConsole;
-                @Console.performed += instance.OnConsole;
-                @Console.canceled += instance.OnConsole;
             }
 
             private void UnregisterCallbacks(IUIActions instance)
@@ -658,9 +738,6 @@ namespace Game.Input.ActionsMap
                 @Pause.started -= instance.OnPause;
                 @Pause.performed -= instance.OnPause;
                 @Pause.canceled -= instance.OnPause;
-                @Console.started -= instance.OnConsole;
-                @Console.performed -= instance.OnConsole;
-                @Console.canceled -= instance.OnConsole;
             }
 
             public void RemoveCallbacks(IUIActions instance)
@@ -678,6 +755,68 @@ namespace Game.Input.ActionsMap
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Console
+        private readonly InputActionMap m_Console;
+        private List<IConsoleActions> m_ConsoleActionsCallbackInterfaces = new List<IConsoleActions>();
+        private readonly InputAction m_Console_Close;
+        private readonly InputAction m_Console_Select;
+        private readonly InputAction m_Console_ConfirmSelected;
+        public struct ConsoleActions
+        {
+            private @InputActionsMap m_Wrapper;
+            public ConsoleActions(@InputActionsMap wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Close => m_Wrapper.m_Console_Close;
+            public InputAction @Select => m_Wrapper.m_Console_Select;
+            public InputAction @ConfirmSelected => m_Wrapper.m_Console_ConfirmSelected;
+            public InputActionMap Get() { return m_Wrapper.m_Console; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(ConsoleActions set) { return set.Get(); }
+            public void AddCallbacks(IConsoleActions instance)
+            {
+                if (instance == null || m_Wrapper.m_ConsoleActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_ConsoleActionsCallbackInterfaces.Add(instance);
+                @Close.started += instance.OnClose;
+                @Close.performed += instance.OnClose;
+                @Close.canceled += instance.OnClose;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
+                @ConfirmSelected.started += instance.OnConfirmSelected;
+                @ConfirmSelected.performed += instance.OnConfirmSelected;
+                @ConfirmSelected.canceled += instance.OnConfirmSelected;
+            }
+
+            private void UnregisterCallbacks(IConsoleActions instance)
+            {
+                @Close.started -= instance.OnClose;
+                @Close.performed -= instance.OnClose;
+                @Close.canceled -= instance.OnClose;
+                @Select.started -= instance.OnSelect;
+                @Select.performed -= instance.OnSelect;
+                @Select.canceled -= instance.OnSelect;
+                @ConfirmSelected.started -= instance.OnConfirmSelected;
+                @ConfirmSelected.performed -= instance.OnConfirmSelected;
+                @ConfirmSelected.canceled -= instance.OnConfirmSelected;
+            }
+
+            public void RemoveCallbacks(IConsoleActions instance)
+            {
+                if (m_Wrapper.m_ConsoleActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IConsoleActions instance)
+            {
+                foreach (var item in m_Wrapper.m_ConsoleActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_ConsoleActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public ConsoleActions @Console => new ConsoleActions(this);
         private int m_KeyboardSchemeIndex = -1;
         public InputControlScheme KeyboardScheme
         {
@@ -703,7 +842,12 @@ namespace Game.Input.ActionsMap
             void OnCloseWindow(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
-            void OnConsole(InputAction.CallbackContext context);
+        }
+        public interface IConsoleActions
+        {
+            void OnClose(InputAction.CallbackContext context);
+            void OnSelect(InputAction.CallbackContext context);
+            void OnConfirmSelected(InputAction.CallbackContext context);
         }
     }
 }

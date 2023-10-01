@@ -4,8 +4,8 @@ namespace Game.Input
 {
     public class InputCallback
     {
-        public InputEmptyCallbackDelegate Performed;
-        public InputEmptyCallbackDelegate Canceled;
+        public InputCallbackDelegate Performed;
+        public InputCallbackDelegate Canceled;
 
         private InputAction _action;
 

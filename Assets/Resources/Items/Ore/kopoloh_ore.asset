@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
-  m_Name: Kopoloh Ore
+  m_Name: kopoloh_ore
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: -1054330026, guid: 0e2b068d51399f543b9fe623093a97ef, type: 3}
   <LowSizeIcon>k__BackingField: {fileID: -81004577, guid: 0e2b068d51399f543b9fe623093a97ef, type: 3}

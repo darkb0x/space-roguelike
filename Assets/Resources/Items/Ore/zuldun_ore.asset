@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
-  m_Name: Zuldun Ore
+  m_Name: zuldun_ore
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: 1106232271658436647, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
   <LowSizeIcon>k__BackingField: {fileID: -567961629, guid: 16b43b71d4b468843a60d781c41c63ed, type: 3}
-  m_ItemName: 
+  m_ItemName: Zuldun Ore
   <ItemTextColor>k__BackingField: {r: 0.5372549, g: 0.24313727, b: 0.59607846, a: 1}
   <Cost>k__BackingField: 1
   <CanTakeInMission>k__BackingField: 1
@@ -23,5 +23,5 @@ MonoBehaviour:
   - {fileID: -1706949282, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
   - {fileID: -309373149, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
   - {fileID: 770929105, guid: a7c23aeb5bd8a0d43981a4504ff4a86d, type: 3}
-  <AssetPath>k__BackingField: Items/Ore/Zuldun Ore
-  AssetName: Zuldun Ore (default)
+  <AssetPath>k__BackingField: Items/Ore/zuldun_ore
+  AssetName: Zuldun Ore (custom)

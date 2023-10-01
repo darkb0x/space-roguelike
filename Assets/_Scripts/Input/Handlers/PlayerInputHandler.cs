@@ -7,9 +7,10 @@ namespace Game.Input
 
     public class PlayerInputHandler : InputHandler, IScrollHandler
     {
-        public event InputEmptyCallbackDelegate PauseEvent;
-        public event InputEmptyCallbackDelegate BuildEvent;
-        public event InputEmptyCallbackDelegate InventoryEvent;
+        public event InputCallbackDelegate PauseEvent;
+        public event InputCallbackDelegate BuildEvent;
+        public event InputCallbackDelegate InventoryEvent;
+        public event InputCallbackDelegate ConsoleEvent;
 
         public InputCallback InteractEvent;
         public InputCallback BreakEvent;
@@ -19,6 +20,7 @@ namespace Game.Input
             _inputActions.Player.Pause.performed += OnPause;
             _inputActions.Player.Build.performed += OnBuild;
             _inputActions.Player.Inventory.performed += OnInventory;
+            _inputActions.Player.Console.performed += OnConsole;
 
             InteractEvent = new InputCallback(_inputActions.Player.Interact);
             BreakEvent = new InputCallback(_inputActions.Player.Break);
@@ -29,6 +31,7 @@ namespace Game.Input
             _inputActions.Player.Pause.performed -= OnPause;
             _inputActions.Player.Build.performed -= OnBuild;
             _inputActions.Player.Inventory.performed -= OnInventory;
+            _inputActions.Player.Console.performed -= OnConsole;
 
             InteractEvent.Dispose();
             BreakEvent.Dispose();
@@ -57,16 +60,17 @@ namespace Game.Input
         {
             BuildEvent?.Invoke();
         }
-
-
         private void OnPause(InputAction.CallbackContext context)
         {
             PauseEvent?.Invoke();
         }
-
         private void OnInventory(InputAction.CallbackContext context)
         {
             InventoryEvent?.Invoke();
+        }
+        private void OnConsole(InputAction.CallbackContext _)
+        {
+            ConsoleEvent?.Invoke();
         }
     }
 }

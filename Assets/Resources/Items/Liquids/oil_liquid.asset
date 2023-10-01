@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35a06ab252f3d994e8947a07fb78efef, type: 3}
-  m_Name: Acid Liquid
+  m_Name: oil_liquid
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 1497946694, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
-  <LowSizeIcon>k__BackingField: {fileID: 2126256010, guid: 31741ee2dc0a21c4d95be6202a5a97e1, type: 3}
-  m_ItemName: 
-  <ItemTextColor>k__BackingField: {r: 0.32941177, g: 0.7960785, b: 0.16862746, a: 1}
+  <Icon>k__BackingField: {fileID: -249963922, guid: d61ef88880779684283f1b3b346c3643, type: 3}
+  <LowSizeIcon>k__BackingField: {fileID: 1373220078, guid: d61ef88880779684283f1b3b346c3643, type: 3}
+  m_ItemName: Oil Liquid
+  <ItemTextColor>k__BackingField: {r: 0.18039216, g: 0.16862746, b: 0.2901961, a: 1}
   <Cost>k__BackingField: 3
   <CanTakeInMission>k__BackingField: 1
   <IsOre>k__BackingField: 0
   OreSprites: []
-  <AssetPath>k__BackingField: Items/Liquids/Acid Liquid
-  AssetName: Acid Liquid (default)
+  <AssetPath>k__BackingField: Items/Liquids/oil_liquid
+  AssetName: Oil Liquid (custom)

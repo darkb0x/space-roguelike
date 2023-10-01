@@ -978,6 +978,7 @@ MonoBehaviour:
   HUDConfig: {fileID: 11400000, guid: 25132e7d353640c498c1d8d945028196, type: 2}
   LoadSceneUtility: {fileID: 151675383606968295}
   CutsceneManager: {fileID: 2283715957454881927}
+  ConsoleController: {fileID: 5207233729771909181}
   PlayerInventory: {fileID: 0}
   PauseManager: {fileID: 2723972520030135265}
   SessionManager: {fileID: 2105866963446694609}
@@ -1488,6 +1489,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 635b5182b17497941a1a6578b6dc8dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5207233729771909181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2706841193248847077, guid: 8841394412b640a47a2bb1f84a6956aa, type: 3}
+  m_PrefabInstance: {fileID: 7913790765820626136}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f7d29ea0695654c8785e740e06f638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6392878887606670062 stripped

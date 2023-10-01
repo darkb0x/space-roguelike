@@ -3,16 +3,34 @@
     "_fileName": "SessionSaveData",
     "_encrypt": false,
     "UnlockedCraftPaths": [
-        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Lasergun/Crafts/1",
-        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Minigun/Crafts/1"
+        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Minigun/Crafts/3",
+        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Lasergun/Crafts/3",
+        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Grenade/Crafts/2",
+        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Rocket/Crafts/3"
     ],
     "MainInventory": {
         "Items": []
     },
     "LobbyInventory": {
-        "Items": []
+        "Items": [
+            {
+                "Name": "scrap",
+                "Path": "Items/scrap",
+                "Amount": 10
+            },
+            {
+                "Name": "Zuldun Ore",
+                "Path": "Items/Ore/zuldun_ore",
+                "Amount": 1
+            },
+            {
+                "Name": "Marbet Ore",
+                "Path": "Items/Ore/marbet_ore",
+                "Amount": 150
+            }
+        ]
     },
-    "Money": 0,
+    "Money": 500,
     "ResourceAutomatCurrentInteract": 0,
     "PlanetPath": "Missions/Planets/Middle Winter",
     "CurrentDifficultFactor": 1.0

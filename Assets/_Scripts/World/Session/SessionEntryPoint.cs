@@ -12,12 +12,14 @@ namespace Game.Session
     using Game.Save;
     using Game.Notifications;
     using SceneLoading;
+    using Game.Console;
 
     public class SessionEntryPoint : MonoBehaviour, IEntryPoint
     {
         [SerializeField] private HUDConfig HUDConfig;
         [SerializeField] private LoadSceneUtility LoadSceneUtility;
         [SerializeField] private CutsceneManager CutsceneManager;
+        [SerializeField] private ConsoleController ConsoleController;
 
         [Header("Components")]
         [SerializeField] private PlayerInventory PlayerInventory;
@@ -74,6 +76,8 @@ namespace Game.Session
             _notificationService.Initialize(_hudService);
 
             CutsceneManager.Initialize(Player, Camera, _hudService);
+
+            ConsoleController.Initialize(_uiWindowService);
         }
 
         public void RegisterServices()
@@ -94,6 +98,8 @@ namespace Game.Session
             ServiceLocator.Register(Camera);
 
             ServiceLocator.Register(_hudService);
+
+            ServiceLocator.Register(ConsoleController);
         }
 
         public void UnregisterServices()

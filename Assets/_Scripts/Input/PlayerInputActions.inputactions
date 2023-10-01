@@ -320,15 +320,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Console",
-                    "type": "Button",
-                    "id": "7c81d74d-fbc4-47f1-8ad6-127d699d3a05",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -386,15 +377,105 @@
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Console",
+            "id": "d1ddef98-7526-4e32-bbba-9223ae7dbc80",
+            "actions": [
+                {
+                    "name": "Close",
+                    "type": "Button",
+                    "id": "5abc4db2-e06f-4c2b-a63f-7d70c2787ddf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
+                    "name": "Select",
+                    "type": "Value",
+                    "id": "fa6b945a-fbd8-4c5f-9397-8689b7c4c07f",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ConfirmSelected",
+                    "type": "Button",
+                    "id": "525afaf8-d46a-4cbc-b909-403ec3c8a23b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
                     "name": "",
-                    "id": "4dedc6c8-0ba4-4fd1-ad71-505425752c1d",
-                    "path": "<Keyboard>/slash",
+                    "id": "cf51b2d4-c523-4025-87f2-183c2e52e738",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Console",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b626fb33-98c5-464e-aab0-0014dcb5c137",
+                    "path": "<Keyboard>/slash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Arrows",
+                    "id": "578085b5-74e4-412d-afe8-89641be272c9",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "39d9c685-0283-447e-9e09-e86ace8a7daf",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "18872b19-59df-4378-855d-980552f737ff",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "405f9fb2-c619-4dbe-af65-ab40bac91f23",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConfirmSelected",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

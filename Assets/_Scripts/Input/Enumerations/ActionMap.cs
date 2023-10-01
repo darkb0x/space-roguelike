@@ -3,6 +3,7 @@
     public enum ActionMap
     {
         Player,
-        UI
+        UI,
+        Console
     }
 }

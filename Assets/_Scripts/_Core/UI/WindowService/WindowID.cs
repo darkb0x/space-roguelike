@@ -12,6 +12,7 @@
         ExitFromGame,
         CraftResearch,
         Craft,
-        Oven
+        Oven,
+        Console
     }
 }

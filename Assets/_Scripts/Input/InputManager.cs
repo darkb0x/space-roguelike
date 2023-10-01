@@ -13,11 +13,12 @@ namespace Game.Input
 
         public static PlayerInputHandler PlayerInputHandler { get; private set; }
         public static UIInputHandler UIInputHandler { get; private set; }
+        public static ConsoleInputHandler ConsoleInputHandler { get; private set; }
 
         private InputActionsMap _inputActions;
         private InputHandler _selectedInputHandler;
 
-        public InputEmptyCallbackDelegate PauseEvent;
+        public InputCallbackDelegate PauseEvent;
 
         private Camera _camera;
 
@@ -38,6 +39,7 @@ namespace Game.Input
 
             PlayerInputHandler = new PlayerInputHandler(_inputActions);
             UIInputHandler = new UIInputHandler(_inputActions);
+            ConsoleInputHandler = new ConsoleInputHandler(_inputActions);
 
             SetDefaultActionMap();
 
@@ -106,6 +108,9 @@ namespace Game.Input
                 case ActionMap.UI:
                     Enable(UIInputHandler);
                     break;
+                case ActionMap.Console:
+                    Enable(ConsoleInputHandler);
+                    break;
                 default:
                     goto case ActionMap.Player;
             }
@@ -116,6 +121,7 @@ namespace Game.Input
             {
                 PlayerInputHandler.SetActive(false);
                 UIInputHandler.SetActive(false);
+                ConsoleInputHandler.SetActive(false);
 
                 inputHandler.SetActive(true);
                 _selectedInputHandler = inputHandler;

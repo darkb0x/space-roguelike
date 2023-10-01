@@ -6,8 +6,8 @@ namespace Game.Input
 
     public class UIInputHandler : InputHandler
     {
-        public event InputEmptyCallbackDelegate PauseEvent;
-        public event InputEmptyCallbackDelegate CloseEvent;
+        public event InputCallbackDelegate PauseEvent;
+        public event InputCallbackDelegate CloseEvent;
 
         public UIInputHandler(InputActionsMap inputActions) : base(inputActions)
         {

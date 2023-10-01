@@ -14,12 +14,14 @@ namespace Game.Lobby
     using Player;
     using UI.HUD;
     using SceneLoading;
+    using Game.Console;
 
     public class LobbyEntryPoint : MonoBehaviour, IEntryPoint
     {
         [SerializeField] private HUDConfig HUDConfig;
         [SerializeField] private LoadSceneUtility LoadSceneUtility;
         [SerializeField] private CutsceneManager CutsceneManager;
+        [SerializeField] private ConsoleController ConsoleController;
 
         [Header("Components")]
         [SerializeField] private PauseManager PauseManager;
@@ -79,6 +81,8 @@ namespace Game.Lobby
             _notificationService.Initialize(_hudService);
 
             CutsceneManager.Initialize(Player, Camera, _hudService);
+
+            ConsoleController.Initialize(_uiWindowService);
         }
 
         public void RegisterServices()
@@ -91,13 +95,15 @@ namespace Game.Lobby
             ServiceLocator.Register(Player);
             ServiceLocator.Register(Camera);
 
-            ServiceLocator.Register(CutsceneManager);
-
             ServiceLocator.Register(ResearchManager);
             ServiceLocator.Register(ShopManager);
             ServiceLocator.Register(MissionChooseManager);
 
             ServiceLocator.Register(_hudService);
+
+            ServiceLocator.Register(CutsceneManager);
+
+            ServiceLocator.Register(ConsoleController);
         }
 
         public void UnregisterServices()
