@@ -13,14 +13,12 @@ namespace Game.Inventory
         private void Start()
         {
             _inventory = ServiceLocator.GetService<Inventory>();
+
             UpdateField(SaveManager.SessionSaveData.Money);
+
+            _inventory.OnMoneyChanged += UpdateField;
         }
-        private void OnEnable()
-        {
-            if(_inventory)
-                _inventory.OnMoneyChanged += UpdateField;
-        }
-        private void OnDisable()
+        private void OnDestroy()
         {
             if(_inventory)
                 _inventory.OnMoneyChanged -= UpdateField;

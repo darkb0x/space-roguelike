@@ -9,14 +9,16 @@ namespace Game.Console
 
     public class CommandPromptVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
+        private readonly Color _helpTextColor = new Color(1, 1, 1, 1);
+        private readonly Color _descriptionTextColor = new Color(1, 1, 1, .5f); 
+
         private enum VisualStyleEnum
         {
             Selected,
             Deselected
         }
 
-        [SerializeField] private TextMeshProUGUI CommandText;
-        [SerializeField] private TextMeshProUGUI CommandDescription;
+        [SerializeField] private TextMeshProUGUI Title;
         [Space]
         [SerializeField] private Image BGImage;
         [SerializeField] private Color SelectedColor;
@@ -32,8 +34,7 @@ namespace Game.Console
             _command = command;
             _consoleWindow = consoleWindow;
 
-            CommandText.text = command.Help;
-            CommandDescription.text = command.Description;
+            Title.text = $"<color=#{ColorUtility.ToHtmlStringRGBA(_helpTextColor)}>{command.Help}</color> <color=#{ColorUtility.ToHtmlStringRGBA(_descriptionTextColor)}>{command.Description}</color>";
         }
 
         public void Select()
@@ -43,6 +44,13 @@ namespace Game.Console
         public void Deselect()
         {
             SetStyle(VisualStyleEnum.Deselected);
+        }
+
+        public void ResetFields()
+        {
+            _command = null;
+
+            Title.text = string.Empty;
         }
 
         public void OnPointerEnter(PointerEventData eventData)

@@ -137,6 +137,7 @@ namespace Game.Console
             {
                 var visual = _commandPromtVisualObjectPool.Get();
                 visual.Initialize(cmd, this);
+                visual.gameObject.SetActive(true);
                 _loadedCommandPromtVisuals.Add(visual);
             }
         }
@@ -196,11 +197,12 @@ namespace Game.Console
         }
         private void GetCommandPromtVisual(CommandPromptVisual commandPromptVisual)
         {
-            commandPromptVisual.gameObject.SetActive(true);
+            return;
         }
         private void ReturnCommandPromtVisual(CommandPromptVisual commandPromptVisual)
         {
             commandPromptVisual.gameObject.SetActive(false);
+            commandPromptVisual.ResetFields();
         }
         #endregion
 

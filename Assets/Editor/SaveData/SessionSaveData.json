@@ -5,8 +5,8 @@
     "UnlockedCraftPaths": [
         "CraftSystem/CraftTreeGraphs/Turrets/Groups/Minigun/Crafts/3",
         "CraftSystem/CraftTreeGraphs/Turrets/Groups/Lasergun/Crafts/3",
-        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Grenade/Crafts/2",
-        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Rocket/Crafts/3"
+        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Rocket/Crafts/3",
+        "CraftSystem/CraftTreeGraphs/Turrets/Groups/Grenade/Crafts/3"
     ],
     "MainInventory": {
         "Items": []
@@ -30,7 +30,7 @@
             }
         ]
     },
-    "Money": 500,
+    "Money": 370,
     "ResourceAutomatCurrentInteract": 0,
     "PlanetPath": "Missions/Planets/Middle Winter",
     "CurrentDifficultFactor": 1.0
