@@ -9,7 +9,28 @@
         "CraftSystem/CraftTreeGraphs/Turrets/Groups/Grenade/Crafts/3"
     ],
     "MainInventory": {
-        "Items": []
+        "Items": [
+            {
+                "Name": "Zuldun Ore",
+                "Path": "Items/Ore/zuldun_ore",
+                "Amount": 4
+            },
+            {
+                "Name": "Marbet Ore",
+                "Path": "Items/Ore/marbet_ore",
+                "Amount": 4
+            },
+            {
+                "Name": "Selbit Ore",
+                "Path": "Items/Ore/selbit_ore",
+                "Amount": 3
+            },
+            {
+                "Name": "Kopoloh",
+                "Path": "Items/Ore/kopoloh_ore",
+                "Amount": 3
+            }
+        ]
     },
     "LobbyInventory": {
         "Items": [
@@ -21,17 +42,32 @@
             {
                 "Name": "Zuldun Ore",
                 "Path": "Items/Ore/zuldun_ore",
-                "Amount": 1
+                "Amount": 4
             },
             {
                 "Name": "Marbet Ore",
                 "Path": "Items/Ore/marbet_ore",
-                "Amount": 150
+                "Amount": 250
+            },
+            {
+                "Name": "Selbit Ore",
+                "Path": "Items/Ore/selbit_ore",
+                "Amount": 3
+            },
+            {
+                "Name": "Kopoloh",
+                "Path": "Items/Ore/kopoloh_ore",
+                "Amount": 3
+            },
+            {
+                "Name": "Zuldun Ingot",
+                "Path": "Items/Ingot/zuldun_ingot",
+                "Amount": 3
             }
         ]
     },
-    "Money": 370,
-    "ResourceAutomatCurrentInteract": 0,
+    "Money": 1370,
+    "ResourceAutomatCurrentInteract": 4,
     "PlanetPath": "Missions/Planets/Middle Winter",
     "CurrentDifficultFactor": 1.0
 }
